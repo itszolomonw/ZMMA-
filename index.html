@@ -2,3544 +2,2573 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#08090d">
-<meta name="description" content="ZMMA — MMA dünyasının haberleri, dövüşçüleri, etkinlikleri, sıralamaları ve tarihi.">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#08090c">
+<meta name="description" content="ZMMA — MMA haberleri, UFC, ONE, PFL, etkinlikler, dövüşçüler, sıralamalar ve MMA tarihi.">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>ZMMA — MMA Hub</title>
 
 <style>
 :root{
-    --bg:#07080b;
-    --bg2:#0c0e13;
-    --panel:#11141a;
-    --panel2:#151922;
-    --panel3:#1a1e28;
-    --text:#f5f7fa;
-    --muted:#9299a8;
-    --muted2:#6f7685;
-    --line:rgba(255,255,255,.075);
-    --accent:#e63946;
-    --accent2:#ff5b66;
-    --green:#35d07f;
-    --yellow:#f5c451;
-    --blue:#4d9fff;
-    --purple:#9c7cff;
-    --shadow:0 18px 55px rgba(0,0,0,.35);
-    --radius:18px;
-    --radius2:12px;
-    --max:1320px;
+  --bg:#07080b;
+  --bg2:#0c0e13;
+  --card:#11141a;
+  --card2:#151922;
+  --line:#242936;
+  --text:#f5f7fa;
+  --muted:#969daa;
+  --red:#e11d2e;
+  --red2:#ff3446;
+  --green:#35d07f;
+  --yellow:#f4c542;
+  --blue:#4d8dff;
+  --shadow:0 18px 50px rgba(0,0,0,.35);
+  --radius:18px;
 }
 
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html{
-    scroll-behavior:smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-    background:
-        radial-gradient(circle at 85% -10%,rgba(230,57,70,.12),transparent 30%),
-        radial-gradient(circle at -10% 20%,rgba(77,159,255,.07),transparent 25%),
-        var(--bg);
-    color:var(--text);
-    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
+  background:
+    radial-gradient(circle at 90% -10%,rgba(225,29,46,.14),transparent 30%),
+    radial-gradient(circle at -10% 30%,rgba(77,141,255,.08),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100vh;
 }
 
 button,
 input,
 select{
-    font:inherit;
+  font:inherit;
 }
 
 button{
-    border:0;
-    cursor:pointer;
+  cursor:pointer;
 }
 
 a{
-    color:inherit;
-    text-decoration:none;
+  color:inherit;
+  text-decoration:none;
 }
 
 img{
-    max-width:100%;
-    display:block;
+  display:block;
+  max-width:100%;
 }
 
-::-webkit-scrollbar{
-    width:8px;
+.hidden{
+  display:none!important;
 }
 
-::-webkit-scrollbar-track{
-    background:var(--bg);
-}
+/* =========================
+   HEADER
+========================= */
 
-::-webkit-scrollbar-thumb{
-    background:#292e39;
-    border-radius:99px;
-}
-
-.container{
-    width:min(var(--max),calc(100% - 32px));
-    margin:auto;
-}
-
-/* HEADER */
-
-.header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    background:rgba(7,8,11,.84);
-    backdrop-filter:blur(20px);
-    border-bottom:1px solid var(--line);
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  height:68px;
+  background:rgba(7,8,11,.82);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);
 }
 
 .header-inner{
-    height:72px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
+  max-width:1200px;
+  height:100%;
+  margin:auto;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:11px;
-    flex-shrink:0;
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  letter-spacing:-1px;
+  font-size:23px;
 }
 
-.brand-mark{
-    width:42px;
-    height:42px;
-    border-radius:13px;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(145deg,var(--accent),#991f2a);
-    box-shadow:0 8px 25px rgba(230,57,70,.25);
-    font-size:20px;
-    font-weight:950;
-    letter-spacing:-2px;
+.logo-mark{
+  width:36px;
+  height:36px;
+  border-radius:11px;
+  background:linear-gradient(145deg,#ff394c,#b80f20);
+  display:grid;
+  place-items:center;
+  box-shadow:0 8px 25px rgba(225,29,46,.25);
+  font-size:17px;
 }
 
-.brand-text{
-    font-weight:950;
-    letter-spacing:-.8px;
-    font-size:21px;
+.logo span{
+  color:#fff;
 }
 
-.brand-sub{
-    color:var(--muted);
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:1.2px;
-    text-transform:uppercase;
-}
-
-.desktop-nav{
-    display:flex;
-    align-items:center;
-    gap:3px;
-}
-
-.nav-btn{
-    padding:9px 12px;
-    color:var(--muted);
-    background:transparent;
-    border-radius:10px;
-    font-size:13px;
-    font-weight:750;
-    transition:.2s;
-}
-
-.nav-btn:hover,
-.nav-btn.active{
-    color:#fff;
-    background:rgba(255,255,255,.065);
+.logo small{
+  color:var(--red2);
+  font-size:9px;
+  display:block;
+  letter-spacing:2px;
+  margin-top:-2px;
 }
 
 .header-actions{
-    display:flex;
-    align-items:center;
-    gap:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 .icon-btn{
-    width:40px;
-    height:40px;
-    border-radius:11px;
-    background:var(--panel);
-    color:#fff;
-    border:1px solid var(--line);
-    display:grid;
-    place-items:center;
-    font-size:16px;
+  width:40px;
+  height:40px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#101218;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  transition:.2s;
+}
+
+.icon-btn:hover{
+  border-color:#444b59;
+  transform:translateY(-1px);
 }
 
 .lang-btn{
-    height:40px;
-    padding:0 12px;
-    border-radius:11px;
-    background:var(--panel);
-    color:#fff;
-    border:1px solid var(--line);
-    font-size:12px;
-    font-weight:850;
+  height:40px;
+  padding:0 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#101218;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
 }
 
-.mobile-menu{
-    display:none;
+/* =========================
+   NAV
+========================= */
+
+nav{
+  max-width:1200px;
+  margin:auto;
+  padding:12px 18px 4px;
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  scrollbar-width:none;
 }
 
-/* SEARCH */
-
-.search-overlay{
-    position:fixed;
-    inset:0;
-    z-index:300;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(12px);
-    display:none;
-    padding:80px 16px 30px;
+nav::-webkit-scrollbar{
+  display:none;
 }
 
-.search-overlay.open{
-    display:block;
+.nav-item{
+  flex:0 0 auto;
+  padding:10px 14px;
+  border:1px solid transparent;
+  border-radius:11px;
+  color:var(--muted);
+  background:transparent;
+  font-size:13px;
+  font-weight:750;
+  transition:.2s;
 }
 
-.search-box{
-    width:min(760px,100%);
-    margin:auto;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
+.nav-item:hover,
+.nav-item.active{
+  background:#14171e;
+  color:#fff;
+  border-color:#252a34;
 }
 
-.search-top{
-    display:flex;
-    align-items:center;
-    padding:16px;
-    gap:10px;
-    border-bottom:1px solid var(--line);
-}
+/* =========================
+   MAIN
+========================= */
 
-.search-input{
-    flex:1;
-    background:transparent;
-    border:0;
-    outline:0;
-    color:#fff;
-    font-size:18px;
+main{
+  max-width:1200px;
+  margin:auto;
+  padding:16px 18px 80px;
 }
-
-.search-input::placeholder{
-    color:var(--muted2);
-}
-
-.search-results{
-    max-height:65vh;
-    overflow:auto;
-}
-
-.search-result{
-    padding:15px 17px;
-    display:flex;
-    align-items:center;
-    gap:13px;
-    border-bottom:1px solid var(--line);
-    cursor:pointer;
-}
-
-.search-result:hover{
-    background:rgba(255,255,255,.04);
-}
-
-.search-result img{
-    width:52px;
-    height:52px;
-    border-radius:11px;
-    object-fit:cover;
-}
-
-.search-result-info{
-    min-width:0;
-}
-
-.search-result-info strong{
-    display:block;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.search-result-info span{
-    display:block;
-    margin-top:3px;
-    color:var(--muted);
-    font-size:12px;
-}
-
-/* PAGES */
 
 .page{
-    display:none;
-    padding:35px 0 110px;
-    animation:pageIn .25s ease;
+  display:none;
 }
 
 .page.active{
-    display:block;
+  display:block;
 }
 
-@keyframes pageIn{
-    from{
-        opacity:0;
-        transform:translateY(7px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
-    min-height:500px;
-    border-radius:28px;
-    overflow:hidden;
-    position:relative;
-    display:flex;
-    align-items:flex-end;
-    background:
-        linear-gradient(90deg,rgba(0,0,0,.9),rgba(0,0,0,.45),rgba(0,0,0,.05)),
-        url("https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1800&q=85")
-        center/cover;
-    box-shadow:var(--shadow);
-}
-
-.hero::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(0deg,rgba(0,0,0,.8),transparent 65%);
-    pointer-events:none;
+  margin-top:8px;
+  min-height:420px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.92),rgba(0,0,0,.42),rgba(0,0,0,.12)),
+    linear-gradient(0deg,rgba(0,0,0,.7),transparent 60%),
+    url("https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1600&q=85")
+    center/cover;
+  box-shadow:var(--shadow);
 }
 
 .hero-content{
-    position:relative;
-    z-index:2;
-    width:min(680px,100%);
-    padding:52px;
+  padding:30px;
+  max-width:720px;
 }
 
-.eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    color:#fff;
-    background:rgba(230,57,70,.92);
-    border-radius:999px;
-    padding:7px 11px;
-    font-size:10px;
-    font-weight:900;
-    letter-spacing:1px;
-    text-transform:uppercase;
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(225,29,46,.15);
+  border:1px solid rgba(225,29,46,.4);
+  color:#ff6472;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 
 .hero h1{
-    font-size:clamp(38px,6vw,76px);
-    line-height:.93;
-    letter-spacing:-4px;
-    margin:18px 0;
+  font-size:clamp(32px,6vw,68px);
+  line-height:.98;
+  letter-spacing:-3px;
+  margin:14px 0;
 }
 
 .hero p{
-    color:#c5cad3;
-    line-height:1.65;
-    max-width:590px;
-    font-size:15px;
+  color:#d1d5db;
+  line-height:1.65;
+  max-width:650px;
 }
 
 .hero-buttons{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-top:25px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:20px;
 }
 
 .primary-btn,
 .secondary-btn{
-    min-height:44px;
-    border-radius:12px;
-    padding:0 17px;
-    font-size:13px;
-    font-weight:850;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
+  border-radius:12px;
+  padding:12px 17px;
+  font-size:13px;
+  font-weight:850;
+  border:1px solid var(--line);
 }
 
 .primary-btn{
-    color:#fff;
-    background:var(--accent);
-    box-shadow:0 8px 25px rgba(230,57,70,.25);
+  background:var(--red);
+  color:#fff;
+  border-color:var(--red);
 }
 
 .secondary-btn{
-    color:#fff;
-    background:rgba(255,255,255,.09);
-    border:1px solid rgba(255,255,255,.1);
-    backdrop-filter:blur(10px);
+  background:rgba(255,255,255,.06);
+  color:#fff;
 }
 
-/* SECTION */
+/* =========================
+   SECTION
+========================= */
 
 .section{
-    margin-top:42px;
+  margin-top:28px;
 }
 
 .section-head{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:15px;
-    margin-bottom:17px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:14px;
 }
 
 .section-title{
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:-1px;
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:-.8px;
 }
 
-.section-desc{
-    color:var(--muted);
-    margin-top:5px;
-    font-size:13px;
+.section-sub{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
 }
 
 .text-btn{
-    color:#ff6a73;
-    background:transparent;
-    font-size:12px;
-    font-weight:850;
-}
-
-/* NEWS */
-
-.news-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-}
-
-.news-card{
-    background:linear-gradient(145deg,var(--panel),#0d1015);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-    transition:.25s;
-    cursor:pointer;
-}
-
-.news-card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(255,255,255,.13);
-}
-
-.news-image{
-    height:190px;
-    position:relative;
-    overflow:hidden;
-}
-
-.news-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.45s;
-}
-
-.news-card:hover .news-image img{
-    transform:scale(1.045);
-}
-
-.news-tag{
-    position:absolute;
-    left:12px;
-    top:12px;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(10px);
-    border:1px solid rgba(255,255,255,.1);
-    padding:6px 9px;
-    border-radius:8px;
-    font-size:9px;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:.8px;
-}
-
-.news-body{
-    padding:16px;
-}
-
-.news-body h3{
-    font-size:16px;
-    line-height:1.25;
-    letter-spacing:-.3px;
-}
-
-.news-body p{
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.55;
-    margin-top:9px;
-}
-
-.news-meta{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    color:var(--muted2);
-    font-size:10px;
-    margin-top:15px;
-}
-
-/* TRENDING */
-
-.trending-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-}
-
-.trend-card{
-    min-height:140px;
-    border-radius:16px;
-    overflow:hidden;
-    position:relative;
-    border:1px solid var(--line);
-    cursor:pointer;
-}
-
-.trend-card img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.trend-card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(0deg,rgba(0,0,0,.88),transparent 70%);
-}
-
-.trend-info{
-    position:absolute;
-    z-index:2;
-    left:13px;
-    right:13px;
-    bottom:12px;
-}
-
-.trend-info span{
-    color:#aeb5c2;
-    font-size:9px;
-    font-weight:800;
-    text-transform:uppercase;
-}
-
-.trend-info strong{
-    display:block;
-    font-size:14px;
-    margin-top:3px;
-}
-
-/* FIGHTERS */
-
-.fighter-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-}
-
-.fighter-card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:17px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:.22s;
-    position:relative;
-}
-
-.fighter-card:hover{
-    transform:translateY(-3px);
-    border-color:rgba(255,255,255,.14);
-}
-
-.fighter-photo{
-    height:235px;
-    position:relative;
-    background:#151820;
-    overflow:hidden;
-}
-
-.fighter-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.fighter-rank{
-    position:absolute;
-    top:11px;
-    left:11px;
-    background:rgba(0,0,0,.72);
-    padding:6px 9px;
-    border-radius:8px;
-    font-size:10px;
-    font-weight:900;
-}
-
-.fighter-fav{
-    position:absolute;
-    right:10px;
-    top:10px;
-    width:32px;
-    height:32px;
-    border-radius:9px;
-    background:rgba(0,0,0,.62);
-    color:#fff;
-    display:grid;
-    place-items:center;
-}
-
-.fighter-info{
-    padding:14px;
-}
-
-.fighter-name{
-    font-size:17px;
-    font-weight:900;
-}
-
-.fighter-nickname{
-    color:var(--accent2);
-    font-size:11px;
-    margin-top:3px;
-}
-
-.fighter-meta{
-    display:flex;
-    justify-content:space-between;
-    color:var(--muted);
-    font-size:10px;
-    margin-top:12px;
-}
-
-.record{
-    color:#fff;
-    font-weight:850;
-}
-
-/* FILTER */
-
-.filter-row{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding-bottom:5px;
-    margin-bottom:20px;
-}
-
-.filter{
-    flex-shrink:0;
-    padding:9px 13px;
-    border-radius:10px;
-    background:var(--panel);
-    border:1px solid var(--line);
-    color:var(--muted);
-    font-size:11px;
-    font-weight:800;
-}
-
-.filter.active{
-    background:var(--accent);
-    color:#fff;
-    border-color:transparent;
-}
-
-/* EVENTS */
-
-.event-list{
-    display:grid;
-    gap:12px;
-}
-
-.event-card{
-    display:grid;
-    grid-template-columns:95px 1fr auto;
-    align-items:center;
-    gap:16px;
-    padding:15px;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:16px;
-}
-
-.event-date{
-    height:75px;
-    border-radius:12px;
-    background:var(--panel3);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-
-.event-date strong{
-    font-size:24px;
-    line-height:1;
-}
-
-.event-date span{
-    margin-top:5px;
-    font-size:9px;
-    color:var(--muted);
-    text-transform:uppercase;
-}
-
-.event-org{
-    color:var(--accent2);
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:1px;
-    text-transform:uppercase;
-}
-
-.event-name{
-    font-size:17px;
-    font-weight:900;
-    margin-top:4px;
-}
-
-.event-location{
-    color:var(--muted);
-    font-size:11px;
-    margin-top:5px;
-}
-
-.event-main-fight{
-    color:#cbd0d9;
-    font-size:12px;
-    margin-top:8px;
-}
-
-.event-action{
-    min-width:75px;
-}
-
-/* RANKINGS */
-
-.rank-table{
-    width:100%;
-    border-collapse:collapse;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:16px;
-    overflow:hidden;
-}
-
-.rank-table th,
-.rank-table td{
-    padding:14px 13px;
-    border-bottom:1px solid var(--line);
-    text-align:left;
-}
-
-.rank-table th{
-    color:var(--muted2);
-    font-size:9px;
-    letter-spacing:.8px;
-    text-transform:uppercase;
-}
-
-.rank-table td{
-    font-size:12px;
-}
-
-.rank-table tr:last-child td{
-    border-bottom:0;
-}
-
-.rank-number{
-    color:var(--muted);
-    font-weight:900;
-    width:45px;
-}
-
-.rank-fighter{
-    display:flex;
-    align-items:center;
-    gap:11px;
-}
-
-.rank-fighter img{
-    width:39px;
-    height:39px;
-    border-radius:50%;
-    object-fit:cover;
-}
-
-.rank-fighter strong{
-    font-size:13px;
-}
-
-.rank-fighter span{
-    display:block;
-    color:var(--muted);
-    font-size:9px;
-    margin-top:2px;
-}
-
-.streak{
-    color:var(--green);
-    font-weight:900;
-}
-
-/* CHAMPIONS */
-
-.champion-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-}
-
-.champion-card{
-    position:relative;
-    min-height:285px;
-    border-radius:20px;
-    overflow:hidden;
-    border:1px solid var(--line);
-    background:#12151c;
-}
-
-.champion-card img{
-    width:100%;
-    height:100%;
-    position:absolute;
-    inset:0;
-    object-fit:cover;
-}
-
-.champion-card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(0deg,rgba(0,0,0,.93),rgba(0,0,0,.05));
-}
-
-.champion-content{
-    position:absolute;
-    z-index:2;
-    left:18px;
-    right:18px;
-    bottom:17px;
-}
-
-.champion-content small{
-    color:#f1c453;
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:1px;
-    text-transform:uppercase;
-}
-
-.champion-content h3{
-    font-size:23px;
-    margin-top:4px;
-}
-
-.champion-content p{
-    color:#b8bec9;
-    font-size:11px;
-    margin-top:4px;
-}
-
-/* GOAT */
-
-.goat-box{
-    background:
-        radial-gradient(circle at 80% 10%,rgba(156,124,255,.16),transparent 35%),
-        linear-gradient(145deg,#14151d,#0e1016);
-    border:1px solid var(--line);
-    border-radius:24px;
-    padding:30px;
-}
-
-.goat-intro{
-    max-width:700px;
-}
-
-.goat-intro h2{
-    font-size:36px;
-    letter-spacing:-1.5px;
-}
-
-.goat-intro p{
-    color:var(--muted);
-    line-height:1.65;
-    font-size:13px;
-    margin-top:10px;
-}
-
-.criteria{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin-top:25px;
-}
-
-.criteria-card{
-    padding:16px;
-    border:1px solid var(--line);
-    border-radius:14px;
-    background:rgba(255,255,255,.025);
-}
-
-.criteria-card strong{
-    display:block;
-    font-size:22px;
-}
-
-.criteria-card span{
-    color:var(--muted);
-    display:block;
-    margin-top:5px;
-    font-size:10px;
-}
-
-.goat-list{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:13px;
-    margin-top:20px;
-}
-
-.goat-fighter{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:15px;
-    padding:14px;
-    display:flex;
-    align-items:center;
-    gap:13px;
-}
-
-.goat-fighter img{
-    width:58px;
-    height:58px;
-    border-radius:13px;
-    object-fit:cover;
-}
-
-.goat-fighter h4{
-    font-size:14px;
-}
-
-.goat-fighter p{
-    color:var(--muted);
-    font-size:10px;
-    margin-top:4px;
-}
-
-/* MOMENTS */
-
-.moment-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.moment{
-    min-height:260px;
-    position:relative;
-    border-radius:18px;
-    overflow:hidden;
-    border:1px solid var(--line);
-}
-
-.moment img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.moment::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(0deg,rgba(0,0,0,.92),transparent 65%);
-}
-
-.moment-content{
-    position:absolute;
-    z-index:2;
-    bottom:15px;
-    left:15px;
-    right:15px;
-}
-
-.moment-year{
-    color:var(--accent2);
-    font-size:10px;
-    font-weight:900;
-}
-
-.moment h3{
-    margin-top:4px;
-    font-size:17px;
-}
-
-.moment p{
-    color:#b9bec8;
-    font-size:10px;
-    margin-top:4px;
-    line-height:1.5;
-}
-
-/* COMPARE */
-
-.compare{
-    display:grid;
-    grid-template-columns:1fr 90px 1fr;
-    gap:14px;
-    align-items:stretch;
-}
-
-.compare-side{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:20px;
-    text-align:center;
-}
-
-.compare-side img{
-    width:145px;
-    height:145px;
-    border-radius:50%;
-    object-fit:cover;
-    margin:0 auto 14px;
-    border:3px solid #242936;
-}
-
-.compare-side h3{
-    font-size:20px;
-}
-
-.compare-side p{
-    color:var(--accent2);
-    font-size:11px;
-    margin-top:3px;
-}
-
-.compare-vs{
-    display:grid;
-    place-items:center;
-    font-size:22px;
-    font-weight:950;
-    color:var(--muted);
-}
-
-.compare-stat{
-    margin-top:18px;
-}
-
-.compare-stat-row{
-    display:grid;
-    grid-template-columns:1fr 70px 1fr;
-    align-items:center;
-    gap:10px;
-    margin-top:10px;
-}
-
-.stat-bar{
-    height:7px;
-    background:#242936;
-    border-radius:99px;
-    overflow:hidden;
-}
-
-.stat-fill{
-    height:100%;
-    background:var(--accent);
-    border-radius:99px;
-}
-
-.stat-fill.right{
-    margin-left:auto;
-}
-
-.stat-name{
-    text-align:center;
-    color:var(--muted);
-    font-size:9px;
-    font-weight:850;
-}
-
-.compare-selector{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-bottom:15px;
-}
-
-.select-box{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:13px;
-    padding:4px;
-}
-
-.select-box select{
-    width:100%;
-    border:0;
-    outline:0;
-    color:#fff;
-    background:transparent;
-    padding:12px;
-}
-
-/* ORGS */
-
-.org-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.org-card{
-    min-height:180px;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:20px;
-    position:relative;
-    overflow:hidden;
-}
-
-.org-card::before{
-    content:"";
-    position:absolute;
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    background:rgba(230,57,70,.08);
-    right:-40px;
-    top:-40px;
-}
-
-.org-logo{
-    width:50px;
-    height:50px;
-    border-radius:14px;
-    background:var(--panel3);
-    display:grid;
-    place-items:center;
-    font-size:17px;
-    font-weight:950;
-}
-
-.org-card h3{
-    margin-top:18px;
-    font-size:20px;
-}
-
-.org-card p{
-    color:var(--muted);
-    font-size:11px;
-    margin-top:5px;
-}
-
-/* STAT CARDS */
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
+  background:none;
+  border:0;
+  color:#ff5a68;
+  font-weight:800;
+  font-size:12px;
+}
+
+/* =========================
+   LIVE STRIP
+========================= */
+
+.live-strip{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
 }
 
 .stat-card{
-    padding:18px;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:16px;
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,#11141a,#0d0f14);
+  border-radius:16px;
+  padding:16px;
 }
 
-.stat-card .stat-icon{
-    width:35px;
-    height:35px;
-    display:grid;
-    place-items:center;
-    border-radius:10px;
-    background:rgba(230,57,70,.12);
-    color:var(--accent2);
+.stat-top{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.8px;
 }
 
-.stat-card strong{
-    display:block;
-    font-size:27px;
-    margin-top:14px;
+.stat-value{
+  margin-top:6px;
+  font-size:23px;
+  font-weight:950;
 }
 
-.stat-card span{
-    display:block;
-    color:var(--muted);
-    font-size:10px;
-    margin-top:2px;
+.stat-note{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
 }
 
-/* EMPTY */
+/* =========================
+   NEWS
+========================= */
 
-.empty{
-    text-align:center;
-    padding:60px 20px;
-    border:1px dashed rgba(255,255,255,.1);
-    border-radius:18px;
-    color:var(--muted);
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
 }
 
-.empty strong{
-    display:block;
-    color:#fff;
-    font-size:17px;
-    margin-bottom:7px;
+.news-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:17px;
+  overflow:hidden;
+  transition:.22s;
+  display:flex;
+  flex-direction:column;
 }
 
-/* MODAL */
-
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:250;
-    background:rgba(0,0,0,.78);
-    backdrop-filter:blur(14px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
+.news-card:hover{
+  transform:translateY(-3px);
+  border-color:#3a404c;
 }
 
-.modal.open{
-    display:flex;
+.news-image{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  background:#181b22;
 }
 
-.modal-card{
-    width:min(820px,100%);
-    max-height:90vh;
-    overflow:auto;
-    background:#101319;
-    border:1px solid var(--line);
-    border-radius:24px;
-    box-shadow:var(--shadow);
-    position:relative;
+.news-body{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
 }
 
-.modal-close{
-    position:absolute;
-    z-index:3;
-    right:14px;
-    top:14px;
-    width:38px;
-    height:38px;
-    border-radius:11px;
-    background:rgba(0,0,0,.6);
-    color:#fff;
-    border:1px solid rgba(255,255,255,.1);
+.news-meta{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:750;
 }
 
-.modal-hero{
-    height:290px;
-    position:relative;
+.news-title{
+  font-size:15px;
+  line-height:1.3;
+  font-weight:850;
+  margin:9px 0;
 }
 
-.modal-hero img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.news-description{
+  color:#aeb3bd;
+  font-size:12px;
+  line-height:1.5;
+  margin-bottom:13px;
 }
 
-.modal-hero::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(0deg,#101319,transparent 75%);
+.news-open{
+  margin-top:auto;
+  color:#ff5362;
+  font-size:11px;
+  font-weight:900;
 }
 
-.modal-title{
-    position:absolute;
-    z-index:2;
-    left:24px;
-    bottom:20px;
+/* =========================
+   EVENTS
+========================= */
+
+.event-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
-.modal-title small{
-    color:var(--accent2);
-    font-size:10px;
-    font-weight:900;
+.event-card{
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:linear-gradient(145deg,#12151b,#0d0f14);
+  padding:16px;
 }
 
-.modal-title h2{
-    font-size:32px;
-    margin-top:3px;
+.event-card.featured{
+  border-color:rgba(225,29,46,.45);
+  box-shadow:0 0 0 1px rgba(225,29,46,.06);
 }
 
-.modal-body{
-    padding:0 24px 25px;
+.event-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.modal-record{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-bottom:20px;
+.org{
+  color:#ff5a68;
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:1px;
 }
 
-.record-pill{
-    padding:9px 12px;
-    border-radius:10px;
-    background:var(--panel3);
-    color:#d8dce3;
-    font-size:10px;
+.event-date{
+  color:var(--muted);
+  font-size:11px;
 }
 
-.modal-stats{
-    display:grid;
+.event-name{
+  font-size:22px;
+  font-weight:950;
+  letter-spacing:-.8px;
+  margin-top:6px;
+}
+
+.event-location{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+.fight-list{
+  margin-top:14px;
+  border-top:1px solid var(--line);
+}
+
+.fight-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.fighter-side{
+  width:42%;
+  font-size:12px;
+  font-weight:800;
+}
+
+.fighter-side.right{
+  text-align:right;
+}
+
+.vs{
+  color:#6e7480;
+  font-size:10px;
+  font-weight:900;
+}
+
+.title-fight{
+  color:#f4c542;
+  font-size:9px;
+  font-weight:950;
+  text-transform:uppercase;
+  margin-bottom:2px;
+}
+
+/* =========================
+   FIGHTERS
+========================= */
+
+.fighter-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.fighter-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:17px;
+  overflow:hidden;
+}
+
+.fighter-img{
+  aspect-ratio:1/1;
+  width:100%;
+  object-fit:cover;
+  background:#171a20;
+}
+
+.fighter-body{
+  padding:13px;
+}
+
+.fighter-name{
+  font-weight:900;
+  font-size:15px;
+}
+
+.fighter-nick{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
+}
+
+.record{
+  display:flex;
+  gap:6px;
+  margin-top:9px;
+}
+
+.record span{
+  padding:4px 7px;
+  background:#191d25;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:850;
+}
+
+.record .win{
+  color:var(--green);
+}
+
+.record .loss{
+  color:#ff6673;
+}
+
+/* =========================
+   RANKINGS
+========================= */
+
+.rank-list{
+  border:1px solid var(--line);
+  border-radius:17px;
+  overflow:hidden;
+}
+
+.rank-row{
+  display:grid;
+  grid-template-columns:45px 1fr 80px;
+  align-items:center;
+  gap:10px;
+  padding:13px 15px;
+  border-bottom:1px solid rgba(255,255,255,.055);
+  background:#101319;
+}
+
+.rank-row:last-child{
+  border-bottom:0;
+}
+
+.rank-number{
+  color:#727985;
+  font-weight:950;
+  font-size:14px;
+}
+
+.rank-fighter{
+  font-size:13px;
+  font-weight:850;
+}
+
+.rank-record{
+  text-align:right;
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.search-box input{
+  flex:1;
+  min-width:0;
+  background:#101319;
+  color:#fff;
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:13px 15px;
+  outline:none;
+}
+
+.search-box input:focus{
+  border-color:#454b57;
+}
+
+.search-box button{
+  padding:0 17px;
+  border:0;
+  border-radius:13px;
+  background:var(--red);
+  color:#fff;
+  font-weight:900;
+}
+
+/* =========================
+   COMPARE
+========================= */
+
+.compare-wrap{
+  border:1px solid var(--line);
+  background:#101319;
+  border-radius:20px;
+  padding:18px;
+}
+
+.compare-selects{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.compare-selects select{
+  background:#181b22;
+  color:#fff;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:12px;
+  outline:none;
+}
+
+.compare-button{
+  margin-top:10px;
+  width:100%;
+  padding:12px;
+  border:0;
+  border-radius:11px;
+  background:var(--red);
+  color:#fff;
+  font-weight:900;
+}
+
+.compare-result{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:18px;
+}
+
+.compare-person{
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:15px;
+  text-align:center;
+}
+
+.compare-person img{
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  object-fit:cover;
+  margin:0 auto 10px;
+}
+
+.compare-person h3{
+  font-size:16px;
+}
+
+.compare-record{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.compare-stat{
+  display:grid;
+  grid-template-columns:1fr 60px 1fr;
+  gap:8px;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:11px;
+}
+
+.compare-stat div:nth-child(2){
+  text-align:center;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.compare-stat div:last-child{
+  text-align:right;
+}
+
+/* =========================
+   GOAT
+========================= */
+
+.goat-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.goat-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  background:linear-gradient(145deg,#13161c,#0e1015);
+}
+
+.goat-card h3{
+  font-size:18px;
+}
+
+.goat-card p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.55;
+  margin-top:8px;
+}
+
+.goat-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:12px;
+}
+
+.goat-tags span{
+  padding:5px 8px;
+  background:#1b1e26;
+  border-radius:7px;
+  font-size:9px;
+  font-weight:800;
+  color:#c8ccd4;
+}
+
+/* =========================
+   HISTORY
+========================= */
+
+.history-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.history-card{
+  min-height:200px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  background:#12151a;
+}
+
+.history-card img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.45;
+}
+
+.history-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(0deg,rgba(0,0,0,.92),rgba(0,0,0,.1));
+}
+
+.history-content{
+  position:absolute;
+  bottom:0;
+  padding:17px;
+}
+
+.history-year{
+  color:#ff5968;
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:1px;
+}
+
+.history-content h3{
+  margin-top:4px;
+  font-size:19px;
+}
+
+.history-content p{
+  margin-top:5px;
+  color:#c2c6ce;
+  font-size:11px;
+  line-height:1.4;
+}
+
+/* =========================
+   EMPTY / LOADING
+========================= */
+
+.loading{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:25px;
+  text-align:center;
+  color:var(--muted);
+  background:#101319;
+}
+
+.error-box{
+  border:1px solid rgba(225,29,46,.3);
+  background:rgba(225,29,46,.07);
+  color:#ff8691;
+  border-radius:14px;
+  padding:13px;
+  font-size:12px;
+}
+
+.refresh{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  max-width:1200px;
+  margin:auto;
+  padding:30px 18px 45px;
+  border-top:1px solid var(--line);
+  color:#6f7580;
+  font-size:11px;
+  text-align:center;
+}
+
+footer strong{
+  color:#d8dbe1;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+  .news-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .fighter-grid{
     grid-template-columns:repeat(3,1fr);
-    gap:10px;
+  }
+
+  .goat-grid{
+    grid-template-columns:1fr;
+  }
 }
 
-.modal-stat{
-    padding:13px;
-    border-radius:12px;
-    background:var(--panel);
-    border:1px solid var(--line);
-}
+@media(max-width:620px){
+  header{
+    height:62px;
+  }
 
-.modal-stat span{
-    color:var(--muted);
-    font-size:9px;
-}
+  .header-inner{
+    padding:0 12px;
+  }
 
-.modal-stat strong{
-    display:block;
-    margin-top:5px;
-    font-size:17px;
-}
+  .logo{
+    font-size:20px;
+  }
 
-/* TOAST */
+  .logo-mark{
+    width:33px;
+    height:33px;
+  }
 
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:85px;
-    transform:translate(-50%,20px);
-    opacity:0;
-    pointer-events:none;
-    z-index:500;
-    background:#fff;
-    color:#08090d;
-    padding:11px 16px;
-    border-radius:11px;
-    font-size:12px;
-    font-weight:800;
-    transition:.25s;
-}
+  nav{
+    padding:9px 12px 3px;
+  }
 
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
+  main{
+    padding:10px 12px 60px;
+  }
 
-/* BOTTOM NAV */
+  .hero{
+    min-height:470px;
+    border-radius:19px;
+  }
 
-.bottom-nav{
-    display:none;
-}
+  .hero-content{
+    padding:21px;
+  }
 
-/* NEWS DETAIL */
-
-.article{
-    max-width:850px;
-    margin:auto;
-}
-
-.article-cover{
-    width:100%;
-    height:420px;
-    object-fit:cover;
-    border-radius:22px;
-}
-
-.article-meta{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-top:20px;
-    color:var(--muted);
-    font-size:11px;
-}
-
-.article h1{
-    font-size:clamp(30px,5vw,54px);
-    line-height:1;
+  .hero h1{
     letter-spacing:-2px;
-    margin-top:13px;
-}
-
-.article-lead{
-    color:#c4c9d2;
-    font-size:16px;
-    line-height:1.65;
-    margin-top:18px;
-}
-
-.article-content{
-    color:#b8bec8;
-    font-size:14px;
-    line-height:1.85;
-    margin-top:25px;
-}
-
-.article-content p{
-    margin-bottom:18px;
-}
-
-/* FOOTER */
-
-.footer{
-    margin-top:50px;
-    border-top:1px solid var(--line);
-    padding:30px 0 50px;
-    color:var(--muted2);
-    font-size:10px;
-    text-align:center;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1050px){
-    .desktop-nav{
-        display:none;
-    }
-
-    .mobile-menu{
-        display:grid;
-    }
-
-    .fighter-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .news-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .trending-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .stats-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .criteria{
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-@media(max-width:700px){
-    .container{
-        width:min(100% - 22px,var(--max));
-    }
-
-    .header-inner{
-        height:62px;
-    }
-
-    .brand-mark{
-        width:37px;
-        height:37px;
-        border-radius:11px;
-    }
-
-    .brand-text{
-        font-size:18px;
-    }
-
-    .brand-sub{
-        display:none;
-    }
-
-    .lang-btn{
-        padding:0 9px;
-    }
-
-    .page{
-        padding-top:20px;
-        padding-bottom:100px;
-    }
-
-    .hero{
-        min-height:530px;
-        border-radius:20px;
-    }
-
-    .hero-content{
-        padding:25px;
-    }
-
-    .hero h1{
-        font-size:47px;
-        letter-spacing:-3px;
-    }
-
-    .hero p{
-        font-size:13px;
-    }
-
-    .section{
-        margin-top:31px;
-    }
-
-    .section-title{
-        font-size:21px;
-    }
-
-    .news-grid{
-        grid-template-columns:1fr;
-    }
-
-    .news-image{
-        height:205px;
-    }
-
-    .trending-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .fighter-grid{
-        grid-template-columns:1fr 1fr;
-        gap:9px;
-    }
-
-    .fighter-photo{
-        height:185px;
-    }
-
-    .fighter-info{
-        padding:11px;
-    }
-
-    .fighter-name{
-        font-size:14px;
-    }
-
-    .fighter-meta{
-        font-size:9px;
-    }
-
-    .champion-grid,
-    .moment-grid,
-    .org-grid,
-    .goat-list{
-        grid-template-columns:1fr;
-    }
-
-    .event-card{
-        grid-template-columns:65px 1fr;
-    }
-
-    .event-action{
-        display:none;
-    }
-
-    .event-date{
-        height:65px;
-    }
-
-    .event-date strong{
-        font-size:20px;
-    }
-
-    .rank-table{
-        font-size:11px;
-    }
-
-    .rank-table th:nth-child(4),
-    .rank-table td:nth-child(4){
-        display:none;
-    }
-
-    .compare{
-        grid-template-columns:1fr;
-    }
-
-    .compare-vs{
-        height:35px;
-    }
-
-    .compare-selector{
-        grid-template-columns:1fr;
-    }
-
-    .compare-side img{
-        width:115px;
-        height:115px;
-    }
-
-    .stats-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .stat-card{
-        padding:14px;
-    }
-
-    .stat-card strong{
-        font-size:22px;
-    }
-
-    .goat-box{
-        padding:20px;
-    }
-
-    .goat-intro h2{
-        font-size:29px;
-    }
-
-    .criteria{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .modal{
-        padding:0;
-        align-items:flex-end;
-    }
-
-    .modal-card{
-        max-height:94vh;
-        border-radius:23px 23px 0 0;
-    }
-
-    .modal-hero{
-        height:245px;
-    }
-
-    .modal-body{
-        padding:0 17px 25px;
-    }
-
-    .modal-title{
-        left:17px;
-    }
-
-    .modal-title h2{
-        font-size:27px;
-    }
-
-    .modal-stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .article-cover{
-        height:260px;
-        border-radius:16px;
-    }
-
-    .article h1{
-        font-size:34px;
-    }
-
-    .article-lead{
-        font-size:14px;
-    }
-
-    .bottom-nav{
-        position:fixed;
-        z-index:150;
-        display:grid;
-        grid-template-columns:repeat(5,1fr);
-        left:8px;
-        right:8px;
-        bottom:8px;
-        height:62px;
-        background:rgba(17,20,26,.94);
-        backdrop-filter:blur(18px);
-        border:1px solid var(--line);
-        border-radius:18px;
-        box-shadow:0 15px 50px rgba(0,0,0,.5);
-        padding:4px;
-    }
-
-    .bottom-btn{
-        background:transparent;
-        color:var(--muted);
-        border-radius:13px;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        gap:3px;
-        font-size:9px;
-        font-weight:800;
-    }
-
-    .bottom-btn span:first-child{
-        font-size:17px;
-    }
-
-    .bottom-btn.active{
-        color:#fff;
-        background:rgba(255,255,255,.065);
-    }
-}
-
-@media(max-width:420px){
-    .hero h1{
-        font-size:41px;
-    }
-
-    .fighter-photo{
-        height:160px;
-    }
-
-    .trending-grid{
-        gap:8px;
-    }
-
-    .trend-card{
-        min-height:125px;
-    }
-
-    .stats-grid{
-        gap:8px;
-    }
+  }
+
+  .live-strip{
+    grid-template-columns:1fr;
+  }
+
+  .news-grid{
+    grid-template-columns:1fr;
+  }
+
+  .event-grid{
+    grid-template-columns:1fr;
+  }
+
+  .fighter-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .history-grid{
+    grid-template-columns:1fr;
+  }
+
+  .compare-selects{
+    grid-template-columns:1fr;
+  }
+
+  .compare-result{
+    grid-template-columns:1fr;
+  }
+
+  .section-title{
+    font-size:20px;
+  }
+
+  .header-actions .icon-btn{
+    display:none;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-    <div class="container header-inner">
+<header>
+  <div class="header-inner">
 
-        <a href="#" class="brand" onclick="showPage('home');return false;">
-            <div class="brand-mark">Z</div>
-            <div>
-                <div class="brand-text">ZMMA</div>
-                <div class="brand-sub" data-i18n="brandSub">MMA HUB</div>
-            </div>
-        </a>
+    <a href="#" class="logo" onclick="showPage('home');return false;">
+      <div class="logo-mark">Z</div>
+      <div>
+        <span>ZMMA</span>
+        <small>MMA HUB</small>
+      </div>
+    </a>
 
-        <nav class="desktop-nav">
-            <button class="nav-btn active" data-page="home" onclick="showPage('home')" data-i18n="navHome">Ana Sayfa</button>
-            <button class="nav-btn" data-page="news" onclick="showPage('news')" data-i18n="navNews">Haberler</button>
-            <button class="nav-btn" data-page="fighters" onclick="showPage('fighters')" data-i18n="navFighters">Dövüşçüler</button>
-            <button class="nav-btn" data-page="events" onclick="showPage('events')" data-i18n="navEvents">Etkinlikler</button>
-            <button class="nav-btn" data-page="rankings" onclick="showPage('rankings')" data-i18n="navRankings">Sıralamalar</button>
-            <button class="nav-btn" data-page="compare" onclick="showPage('compare')" data-i18n="navCompare">Compare</button>
-            <button class="nav-btn" data-page="history" onclick="showPage('history')" data-i18n="navHistory">Tarih</button>
-        </nav>
-
-        <div class="header-actions">
-            <button class="icon-btn" onclick="openSearch()" aria-label="Search">⌕</button>
-            <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
-            <button class="icon-btn mobile-menu" onclick="toggleMobileMenu()">☰</button>
-        </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="showPage('search')" aria-label="Search">⌕</button>
+      <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">TR / EN</button>
     </div>
+
+  </div>
 </header>
+
+<nav id="mainNav">
+
+  <button class="nav-item active" data-page="home" onclick="showPage('home')" data-tr="Ana Sayfa" data-en="Home">
+    Ana Sayfa
+  </button>
+
+  <button class="nav-item" data-page="news" onclick="showPage('news')" data-tr="Haberler" data-en="News">
+    Haberler
+  </button>
+
+  <button class="nav-item" data-page="events" onclick="showPage('events')" data-tr="Etkinlikler" data-en="Events">
+    Etkinlikler
+  </button>
+
+  <button class="nav-item" data-page="fighters" onclick="showPage('fighters')" data-tr="Dövüşçüler" data-en="Fighters">
+    Dövüşçüler
+  </button>
+
+  <button class="nav-item" data-page="rankings" onclick="showPage('rankings')" data-tr="Sıralamalar" data-en="Rankings">
+    Sıralamalar
+  </button>
+
+  <button class="nav-item" data-page="compare" onclick="showPage('compare')" data-tr="Karşılaştır" data-en="Compare">
+    Karşılaştır
+  </button>
+
+  <button class="nav-item" data-page="goat" onclick="showPage('goat')" data-tr="GOAT" data-en="GOAT">
+    GOAT
+  </button>
+
+  <button class="nav-item" data-page="history" onclick="showPage('history')" data-tr="Tarih" data-en="History">
+    Tarih
+  </button>
+
+</nav>
 
 <main>
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 
 <section class="page active" id="page-home">
-<div class="container">
 
-    <div class="hero">
-        <div class="hero-content">
-            <span class="eyebrow">🥊 ZMMA • MMA HUB</span>
+  <div class="hero">
+    <div class="hero-content">
 
-            <h1 data-i18n="heroTitle">
-                Dövüşün<br>ötesinde.
-            </h1>
+      <span class="badge">● LIVE MMA DATA</span>
 
-            <p data-i18n="heroText">
-                MMA dünyasının haberleri, dövüşçüleri, etkinlikleri,
-                istatistikleri ve tarihi tek yerde.
-            </p>
+      <h1 id="heroTitle">
+        MMA'nın<br>merkezi.
+      </h1>
 
-            <div class="hero-buttons">
-                <button class="primary-btn" onclick="showPage('news')">
-                    📰 <span data-i18n="latestNews">Son Haberler</span>
-                </button>
+      <p id="heroText">
+        UFC, ONE ve PFL etkinlikleri, güncel MMA haberleri,
+        dövüşçüler, istatistikler, sıralamalar ve unutulmaz anlar.
+      </p>
 
-                <button class="secondary-btn" onclick="showPage('fighters')">
-                    🥊 <span data-i18n="exploreFighters">Dövüşçüleri Keşfet</span>
-                </button>
-            </div>
+      <div class="hero-buttons">
+        <button class="primary-btn" onclick="showPage('news')">
+          Güncel Haberler →
+        </button>
+
+        <button class="secondary-btn" onclick="showPage('events')">
+          UFC 332 →
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-head">
+
+      <div>
+        <div class="section-title" data-tr="Şu an MMA" data-en="MMA right now">
+          Şu an MMA
         </div>
+
+        <div class="section-sub" id="lastUpdated">
+          Veriler hazırlanıyor...
+        </div>
+      </div>
+
+      <button class="text-btn refresh" onclick="refreshAll()">
+        ↻ Yenile
+      </button>
+
     </div>
 
-    <div class="section">
-        <div class="section-head">
-            <div>
-                <div class="section-title" data-i18n="quickStats">MMA Şu Anda</div>
-                <div class="section-desc" data-i18n="quickStatsDesc">
-                    ZMMA veri merkezinden hızlı görünüm
-                </div>
-            </div>
-        </div>
+    <div class="live-strip">
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">🥊</div>
-                <strong>3</strong>
-                <span data-i18n="organizations">Büyük organizasyon</span>
-            </div>
+      <div class="stat-card">
+        <div class="stat-top">NEXT UFC</div>
+        <div class="stat-value">UFC 332</div>
+        <div class="stat-note">Silva vs Wang</div>
+      </div>
 
-            <div class="stat-card">
-                <div class="stat-icon">👊</div>
-                <strong>50+</strong>
-                <span data-i18n="fighters">Dövüşçü profili</span>
-            </div>
+      <div class="stat-card">
+        <div class="stat-top">DATE</div>
+        <div class="stat-value">03 OCT</div>
+        <div class="stat-note">Salt Lake City</div>
+      </div>
 
-            <div class="stat-card">
-                <div class="stat-icon">📅</div>
-                <strong>12</strong>
-                <span data-i18n="events">Yaklaşan etkinlik</span>
-            </div>
+      <div class="stat-card">
+        <div class="stat-top">STATUS</div>
+        <div class="stat-value" id="statusValue">LIVE DATA</div>
+        <div class="stat-note">ZMMA automatic refresh</div>
+      </div>
 
-            <div class="stat-card">
-                <div class="stat-icon">🔥</div>
-                <strong>24/7</strong>
-                <span data-i18n="coverage">MMA kapsamı</span>
-            </div>
-        </div>
     </div>
 
-    <div class="section">
-        <div class="section-head">
-            <div>
-                <div class="section-title" data-i18n="trending">Trend</div>
-                <div class="section-desc" data-i18n="trendingDesc">
-                    MMA dünyasında konuşulanlar
-                </div>
-            </div>
-            <button class="text-btn" onclick="showPage('news')" data-i18n="seeAll">Tümünü gör →</button>
-        </div>
+  </div>
 
-        <div class="trending-grid" id="trendingGrid"></div>
+
+  <div class="section">
+
+    <div class="section-head">
+
+      <div>
+        <div class="section-title" data-tr="Son Haberler" data-en="Latest News">
+          Son Haberler
+        </div>
+        <div class="section-sub">
+          UFC ve MMA kaynaklarından otomatik haber akışı
+        </div>
+      </div>
+
+      <button class="text-btn" onclick="showPage('news')">
+        Tümü →
+      </button>
+
     </div>
 
-    <div class="section">
-        <div class="section-head">
-            <div>
-                <div class="section-title" data-i18n="featuredNews">Öne Çıkan Haberler</div>
-                <div class="section-desc" data-i18n="featuredDesc">
-                    Günün MMA gündeminden seçmeler
-                </div>
-            </div>
-            <button class="text-btn" onclick="showPage('news')" data-i18n="allNews">Tüm haberler →</button>
-        </div>
-
-        <div class="news-grid" id="homeNews"></div>
+    <div id="homeNews" class="news-grid">
+      <div class="loading">Haberler yükleniyor...</div>
     </div>
 
-    <div class="section">
-        <div class="section-head">
-            <div>
-                <div class="section-title" data-i18n="champions">Şampiyonlar</div>
-                <div class="section-desc" data-i18n="championsDesc">
-                    Güncel şampiyon profilleri
-                </div>
-            </div>
-        </div>
+  </div>
 
-        <div class="champion-grid" id="homeChampions"></div>
+
+  <div class="section">
+
+    <div class="section-head">
+      <div>
+        <div class="section-title">UFC 332</div>
+        <div class="section-sub">Silva vs Wang — October 3, 2026</div>
+      </div>
+      <button class="text-btn" onclick="showPage('events')">Kartı gör →</button>
     </div>
 
-</div>
+    <div id="featuredEvent"></div>
+
+  </div>
+
 </section>
 
 
-<!-- NEWS -->
+<!-- ================= NEWS ================= -->
 
 <section class="page" id="page-news">
-<div class="container">
 
-    <div class="section-head">
-        <div>
-            <div class="section-title" data-i18n="newsCenter">Haber Merkezi</div>
-            <div class="section-desc" data-i18n="newsCenterDesc">
-                MMA dünyasından son gelişmeler
-            </div>
-        </div>
-
-        <button class="secondary-btn" onclick="refreshNews()">↻ <span data-i18n="refresh">Yenile</span></button>
+  <div class="section-head">
+    <div>
+      <div class="section-title" data-tr="MMA Haberleri" data-en="MMA News">
+        MMA Haberleri
+      </div>
+      <div class="section-sub">
+        Canlı RSS + güncel UFC fallback
+      </div>
     </div>
 
-    <div class="filter-row">
-        <button class="filter active" onclick="filterNews('all',this)" data-i18n="all">Tümü</button>
-        <button class="filter" onclick="filterNews('UFC',this)">UFC</button>
-        <button class="filter" onclick="filterNews('ONE',this)">ONE</button>
-        <button class="filter" onclick="filterNews('PFL',this)">PFL</button>
-        <button class="filter" onclick="filterNews('Fighter',this)" data-i18n="fighters">Dövüşçüler</button>
-        <button class="filter" onclick="filterNews('Event',this)" data-i18n="events">Etkinlikler</button>
-    </div>
+    <button class="text-btn" onclick="loadNews(true)">
+      ↻ Yenile
+    </button>
+  </div>
 
-    <div class="news-grid" id="newsGrid"></div>
+  <div id="newsGrid" class="news-grid">
+    <div class="loading">Haberler yükleniyor...</div>
+  </div>
 
-</div>
 </section>
 
 
-<!-- FIGHTERS -->
-
-<section class="page" id="page-fighters">
-<div class="container">
-
-    <div class="section-head">
-        <div>
-            <div class="section-title" data-i18n="fighterDatabase">Dövüşçü Veritabanı</div>
-            <div class="section-desc" data-i18n="fighterDatabaseDesc">
-                MMA'nın tanınmış isimlerini keşfet
-            </div>
-        </div>
-    </div>
-
-    <div class="filter-row">
-        <button class="filter active" onclick="filterFighters('all',this)">ALL</button>
-        <button class="filter" onclick="filterFighters('UFC')">UFC</button>
-        <button class="filter" onclick="filterFighters('ONE')">ONE</button>
-        <button class="filter" onclick="filterFighters('PFL')">PFL</button>
-        <button class="filter" onclick="filterFighters('Champion',this)" data-i18n="champions">Şampiyonlar</button>
-    </div>
-
-    <div class="fighter-grid" id="fighterGrid"></div>
-
-</div>
-</section>
-
-
-<!-- EVENTS -->
+<!-- ================= EVENTS ================= -->
 
 <section class="page" id="page-events">
-<div class="container">
 
-    <div class="section-head">
-        <div>
-            <div class="section-title" data-i18n="eventsTitle">Etkinlikler</div>
-            <div class="section-desc" data-i18n="eventsDesc">
-                Yaklaşan MMA etkinlikleri ve ana maçlar
-            </div>
-        </div>
+  <div class="section-head">
+    <div>
+      <div class="section-title" data-tr="Etkinlik Takvimi" data-en="Event Schedule">
+        Etkinlik Takvimi
+      </div>
+      <div class="section-sub">
+        UFC 332 ve 2026'nın sonraki etkinlikleri
+      </div>
     </div>
+  </div>
 
-    <div class="filter-row">
-        <button class="filter active" onclick="filterEvents('all',this)">ALL</button>
-        <button class="filter" onclick="filterEvents('UFC',this)">UFC</button>
-        <button class="filter" onclick="filterEvents('ONE',this)">ONE</button>
-        <button class="filter" onclick="filterEvents('PFL',this)">PFL</button>
-    </div>
+  <div id="eventGrid" class="event-grid"></div>
 
-    <div class="event-list" id="eventList"></div>
-
-</div>
 </section>
 
 
-<!-- RANKINGS -->
+<!-- ================= FIGHTERS ================= -->
+
+<section class="page" id="page-fighters">
+
+  <div class="section-head">
+    <div>
+      <div class="section-title" data-tr="Dövüşçüler" data-en="Fighters">
+        Dövüşçüler
+      </div>
+      <div class="section-sub">
+        Öne çıkan aktif MMA dövüşçüleri
+      </div>
+    </div>
+  </div>
+
+  <div class="search-box">
+    <input
+      id="fighterSearch"
+      placeholder="Dövüşçü ara..."
+      oninput="filterFighters()"
+    >
+    <button onclick="filterFighters()">Ara</button>
+  </div>
+
+  <div id="fighterGrid" class="fighter-grid"></div>
+
+</section>
+
+
+<!-- ================= RANKINGS ================= -->
 
 <section class="page" id="page-rankings">
-<div class="container">
 
-    <div class="section-head">
-        <div>
-            <div class="section-title" data-i18n="rankingsTitle">Sıralamalar</div>
-            <div class="section-desc" data-i18n="rankingsDesc">
-                ZMMA karma pound-for-pound listesi
-            </div>
-        </div>
+  <div class="section-head">
+
+    <div>
+      <div class="section-title" data-tr="UFC Sıralamaları" data-en="UFC Rankings">
+        UFC Sıralamaları
+      </div>
+
+      <div class="section-sub">
+        ZMMA'nın veri görünümü — sıralamalar değiştikçe güncellenebilir.
+      </div>
     </div>
 
-    <div class="filter-row">
-        <button class="filter active" onclick="setRanking('p4p',this)">P4P</button>
-        <button class="filter" onclick="setRanking('lightweight',this)" data-i18n="lightweight">Lightweight</button>
-        <button class="filter" onclick="setRanking('welterweight',this)" data-i18n="welterweight">Welterweight</button>
-        <button class="filter" onclick="setRanking('middleweight',this)" data-i18n="middleweight">Middleweight</button>
-    </div>
+  </div>
 
-    <div style="overflow-x:auto">
-        <table class="rank-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th data-i18n="fighter">Dövüşçü</th>
-                    <th data-i18n="record">Karnesi</th>
-                    <th data-i18n="streak">Seri</th>
-                </tr>
-            </thead>
-            <tbody id="rankingBody"></tbody>
-        </table>
-    </div>
+  <div id="rankingTabs" style="display:flex;gap:7px;overflow:auto;margin-bottom:12px"></div>
 
-</div>
+  <div id="rankingList" class="rank-list"></div>
+
 </section>
 
 
-<!-- COMPARE -->
+<!-- ================= COMPARE ================= -->
 
 <section class="page" id="page-compare">
-<div class="container">
 
-    <div class="section-head">
-        <div>
-            <div class="section-title" data-i18n="compareTitle">Fighter Compare</div>
-            <div class="section-desc" data-i18n="compareDesc">
-                İki dövüşçünün istatistiklerini karşılaştır
-            </div>
-        </div>
+  <div class="section-head">
+    <div>
+      <div class="section-title" data-tr="Fighter Compare" data-en="Fighter Compare">
+        Fighter Compare
+      </div>
+      <div class="section-sub">
+        İki dövüşçünün temel istatistiklerini karşılaştır.
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-wrap">
+
+    <div class="compare-selects">
+
+      <select id="compareA"></select>
+      <select id="compareB"></select>
+
     </div>
 
-    <div class="compare-selector">
-        <div class="select-box">
-            <select id="fighterA" onchange="renderCompare()"></select>
-        </div>
+    <button class="compare-button" onclick="compareFighters()">
+      KARŞILAŞTIR
+    </button>
 
-        <div class="select-box">
-            <select id="fighterB" onchange="renderCompare()"></select>
-        </div>
-    </div>
+    <div id="compareResult"></div>
 
-    <div class="compare" id="compareBox"></div>
+  </div>
 
-</div>
 </section>
 
 
-<!-- HISTORY -->
+<!-- ================= GOAT ================= -->
+
+<section class="page" id="page-goat">
+
+  <div class="section-head">
+    <div>
+      <div class="section-title">GOAT Tartışması 🐐</div>
+      <div class="section-sub">
+        ZMMA tek bir "doğru" GOAT ilan etmez. Kriterlere bak.
+      </div>
+    </div>
+  </div>
+
+  <div class="goat-grid">
+
+    <div class="goat-card">
+      <h3>Jon Jones</h3>
+      <p>
+        Uzun süreli UFC kariyeri, iki farklı sıklette şampiyonluk
+        ve çok sayıda üst düzey rakiple mücadele.
+      </p>
+      <div class="goat-tags">
+        <span>ELITE LONGEVITY</span>
+        <span>CHAMPIONSHIPS</span>
+        <span>OPPONENTS</span>
+      </div>
+    </div>
+
+    <div class="goat-card">
+      <h3>Georges St-Pierre</h3>
+      <p>
+        Welterweight dominasyonu, iki dönem şampiyonluk ve kariyerinin
+        farklı dönemlerinde üst düzey rakiplere karşı başarı.
+      </p>
+      <div class="goat-tags">
+        <span>WELTERWEIGHT</span>
+        <span>CHAMPION</span>
+        <span>LEGACY</span>
+      </div>
+    </div>
+
+    <div class="goat-card">
+      <h3>Demetrious Johnson</h3>
+      <p>
+        Flyweight döneminin en uzun süreli UFC şampiyonlarından biri;
+        teknik çeşitliliği ve uzun şampiyonluk serisiyle bilinir.
+      </p>
+      <div class="goat-tags">
+        <span>FLYWEIGHT</span>
+        <span>TECHNICAL</span>
+        <span>LONG REIGN</span>
+      </div>
+    </div>
+
+    <div class="goat-card">
+      <h3>Anderson Silva</h3>
+      <p>
+        UFC middleweight tarihinin en ikonik şampiyonluk dönemlerinden
+        birine sahip olan Silva, özellikle uzun galibiyet serisiyle öne çıktı.
+      </p>
+      <div class="goat-tags">
+        <span>MIDDLEWEIGHT</span>
+        <span>STRIKING</span>
+        <span>LEGACY</span>
+      </div>
+    </div>
+
+    <div class="goat-card">
+      <h3>Fedor Emelianenko</h3>
+      <p>
+        Pride döneminin en önemli ağır sıklet isimlerinden biri.
+        MMA tarihindeki uzun yenilmezlik dönemi GOAT tartışmalarında sıkça anılır.
+      </p>
+      <div class="goat-tags">
+        <span>HEAVYWEIGHT</span>
+        <span>PRIDE</span>
+        <span>ERA</span>
+      </div>
+    </div>
+
+    <div class="goat-card">
+      <h3>Alexander Volkanovski</h3>
+      <p>
+        Featherweight döneminin en başarılı şampiyonlarından biri.
+        Uzun süreli üst düzey performansı modern MMA mirasının önemli parçalarından.
+      </p>
+      <div class="goat-tags">
+        <span>FEATHERWEIGHT</span>
+        <span>ELITE</span>
+        <span>MODERN ERA</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= HISTORY ================= -->
 
 <section class="page" id="page-history">
-<div class="container">
 
-    <div class="section-head">
-        <div>
-            <div class="section-title" data-i18n="historyTitle">MMA Tarihi</div>
-            <div class="section-desc" data-i18n="historyDesc">
-                Sporun unutulmaz anları
-            </div>
-        </div>
+  <div class="section-head">
+    <div>
+      <div class="section-title" data-tr="MMA Tarihi" data-en="MMA History">
+        MMA Tarihi
+      </div>
+      <div class="section-sub">
+        Sporun unutulmaz dönemleri ve anları
+      </div>
+    </div>
+  </div>
+
+  <div class="history-grid">
+
+    <div class="history-card">
+      <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1000&q=80">
+      <div class="history-overlay"></div>
+      <div class="history-content">
+        <div class="history-year">1993</div>
+        <h3>UFC'nin doğuşu</h3>
+        <p>
+          Farklı dövüş disiplinlerini karşılaştırma fikrinden doğan
+          organizasyon, modern MMA'nın gelişiminde önemli bir rol oynadı.
+        </p>
+      </div>
     </div>
 
-    <div class="moment-grid" id="momentGrid"></div>
-
-    <div class="section">
-        <div class="goat-box">
-            <div class="goat-intro">
-                <h2 data-i18n="goatTitle">🐐 GOAT Debate</h2>
-                <p data-i18n="goatText">
-                    GOAT tek bir sayıdan ibaret değil. Şampiyonluklar,
-                    rakip kalitesi, uzun ömür, dominantlık ve farklı dönemlerdeki başarılar
-                    birlikte değerlendirilebilir.
-                </p>
-            </div>
-
-            <div class="criteria">
-                <div class="criteria-card">
-                    <strong>25%</strong>
-                    <span data-i18n="criterion1">Şampiyonluk</span>
-                </div>
-
-                <div class="criteria-card">
-                    <strong>25%</strong>
-                    <span data-i18n="criterion2">Rakip Kalitesi</span>
-                </div>
-
-                <div class="criteria-card">
-                    <strong>25%</strong>
-                    <span data-i18n="criterion3">Dominantlık</span>
-                </div>
-
-                <div class="criteria-card">
-                    <strong>25%</strong>
-                    <span data-i18n="criterion4">Uzun Ömür</span>
-                </div>
-            </div>
-
-            <div class="goat-list" id="goatList"></div>
-        </div>
+    <div class="history-card">
+      <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1000&q=80">
+      <div class="history-overlay"></div>
+      <div class="history-content">
+        <div class="history-year">PRIDE ERA</div>
+        <h3>Japon MMA dönemi</h3>
+        <p>
+          PRIDE, Fedor, Wanderlei Silva, Mirko Cro Cop ve birçok yıldızla
+          MMA tarihinin en ikonik dönemlerinden birini oluşturdu.
+        </p>
+      </div>
     </div>
 
-</div>
+    <div class="history-card">
+      <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1000&q=80">
+      <div class="history-overlay"></div>
+      <div class="history-content">
+        <div class="history-year">MODERN MMA</div>
+        <h3>Global spor haline geliş</h3>
+        <p>
+          UFC, ONE, PFL ve diğer organizasyonların büyümesiyle MMA
+          küresel bir spor ekosistemine dönüştü.
+        </p>
+      </div>
+    </div>
+
+    <div class="history-card">
+      <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=1000&q=80">
+      <div class="history-overlay"></div>
+      <div class="history-content">
+        <div class="history-year">LEGACY</div>
+        <h3>Şampiyonluk dönemleri</h3>
+        <p>
+          Farklı sıkletlerde uzun şampiyonluk serileri ve nesiller boyunca
+          aktarılan rekabetler MMA kültürünün temel parçalarından oldu.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
 </section>
 
 
-<!-- ORGANIZATIONS -->
+<!-- ================= SEARCH ================= -->
 
-<section class="page" id="page-organizations">
-<div class="container">
+<section class="page" id="page-search">
 
-    <div class="section-head">
-        <div>
-            <div class="section-title" data-i18n="orgTitle">Organizasyonlar</div>
-            <div class="section-desc" data-i18n="orgDesc">
-                MMA dünyasının büyük sahneleri
-            </div>
-        </div>
+  <div class="section-head">
+    <div>
+      <div class="section-title">Arama</div>
+      <div class="section-sub">
+        ZMMA içindeki dövüşçüleri ve etkinlikleri ara.
+      </div>
     </div>
+  </div>
 
-    <div class="org-grid">
-        <div class="org-card">
-            <div class="org-logo">UFC</div>
-            <h3>UFC</h3>
-            <p data-i18n="ufcDesc">Ultimate Fighting Championship</p>
-        </div>
+  <div class="search-box">
 
-        <div class="org-card">
-            <div class="org-logo">ONE</div>
-            <h3>ONE Championship</h3>
-            <p data-i18n="oneDesc">MMA, Muay Thai ve kickboks</p>
-        </div>
+    <input
+      id="globalSearch"
+      placeholder="Örn. Merab, Volkanovski, UFC 332..."
+      oninput="globalSearch()"
+    >
 
-        <div class="org-card">
-            <div class="org-logo">PFL</div>
-            <h3>PFL</h3>
-            <p data-i18n="pflDesc">Sezon formatlı MMA organizasyonu</p>
-        </div>
-    </div>
+  </div>
 
-</div>
-</section>
+  <div id="searchResults"></div>
 
-
-<!-- ARTICLE -->
-
-<section class="page" id="page-article">
-<div class="container">
-    <article class="article" id="articleContainer"></article>
-</div>
 </section>
 
 </main>
 
 
-<footer class="footer">
-    <div class="container">
-        <strong>ZMMA</strong> — MMA Hub
-        <br><br>
-        <span data-i18n="footerText">
-            Bağımsız MMA bilgi ve içerik platformu.
-        </span>
-    </div>
+<footer>
+  <strong>ZMMA</strong> — MMA Hub
+  <br><br>
+  UFC, ONE Championship ve PFL gibi organizasyonlardan bahseden bağımsız
+  bir hayran projesidir. ZMMA, bu organizasyonların resmi sitesi değildir.
 </footer>
 
 
-<!-- BOTTOM NAV -->
-
-<nav class="bottom-nav">
-    <button class="bottom-btn active" data-page="home" onclick="showPage('home')">
-        <span>⌂</span>
-        <span data-i18n="navHome">Ana Sayfa</span>
-    </button>
-
-    <button class="bottom-btn" data-page="news" onclick="showPage('news')">
-        <span>▤</span>
-        <span data-i18n="navNews">Haberler</span>
-    </button>
-
-    <button class="bottom-btn" data-page="fighters" onclick="showPage('fighters')">
-        <span>♟</span>
-        <span data-i18n="navFighters">Dövüşçüler</span>
-    </button>
-
-    <button class="bottom-btn" data-page="events" onclick="showPage('events')">
-        <span>◷</span>
-        <span data-i18n="navEvents">Etkinlik</span>
-    </button>
-
-    <button class="bottom-btn" data-page="rankings" onclick="showPage('rankings')">
-        <span>↕</span>
-        <span data-i18n="navRankings">Sıralama</span>
-    </button>
-</nav>
-
-
-<!-- SEARCH -->
-
-<div class="search-overlay" id="searchOverlay" onclick="closeSearchOutside(event)">
-    <div class="search-box">
-        <div class="search-top">
-            <span>⌕</span>
-            <input
-                id="searchInput"
-                class="search-input"
-                placeholder="Dövüşçü, haber veya etkinlik ara..."
-                oninput="runSearch()"
-            >
-            <button class="icon-btn" onclick="closeSearch()">×</button>
-        </div>
-
-        <div class="search-results" id="searchResults">
-            <div class="empty">
-                <strong>ZMMA Search</strong>
-                Aramaya başla.
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- MODAL -->
-
-<div class="modal" id="fighterModal" onclick="closeModalOutside(event)">
-    <div class="modal-card" id="fighterModalContent"></div>
-</div>
-
-
-<div class="toast" id="toast"></div>
-
-
 <script>
+
 /* =========================================================
-   ZMMA DATA
+   ZMMA CORE
+   Updated: October 3, 2026
 ========================================================= */
 
-const images = {
-    conor:
-    "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=900&q=80",
+const ZMMA = {
 
-    fighter:
-    "https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&w=900&q=80",
+  language: "tr",
 
-    fight:
-    "https://images.unsplash.com/photo-1583473848882-9d3017c7d6a4?auto=format&fit=crop&w=900&q=80",
+  currentPage: "home",
 
-    training:
-    "https://images.unsplash.com/photo-1517963879433-6ad2b056d5e1?auto=format&fit=crop&w=900&q=80",
+  lastNewsUpdate: null,
 
-    octagon:
-    "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1200&q=80"
+  refreshTimer: null
+
 };
 
 
-const fighters = [
-    {
-        id:"jon-jones",
-        name:"Jon Jones",
-        nickname:"Bones",
-        org:"UFC",
-        division:"Heavyweight",
-        record:"28-1-0",
-        wins:28,
-        losses:1,
-        draws:0,
-        rank:1,
-        champion:true,
-        country:"USA",
-        height:"193 cm",
-        reach:"215 cm",
-        style:"Wrestling / MMA",
-        winsKO:12,
-        winsSub:7,
-        winsDec:9,
-        streak:"16",
-        image:images.fighter,
-        bio:"Çok yönlü grappling, mesafe kontrolü ve yaratıcı striking'iyle tanınan eski ve güncel dönemin önemli MMA isimlerinden biri."
-    },
+/* =========================================================
+   CURRENT EVENTS
+   October 2026
+========================================================= */
 
-    {
-        id:"islam-makhachev",
-        name:"Islam Makhachev",
-        nickname:"The Eagle's Successor",
-        org:"UFC",
-        division:"Welterweight",
-        record:"28-1-0",
-        wins:28,
-        losses:1,
-        draws:0,
-        rank:2,
-        champion:true,
-        country:"Russia",
-        height:"178 cm",
-        reach:"178 cm",
-        style:"Sambo / Wrestling",
-        winsKO:5,
-        winsSub:13,
-        winsDec:10,
-        streak:"15",
-        image:images.training,
-        bio:"Sambo temelli grappling sistemi, kontrolü ve submission tehditleriyle öne çıkan elit bir dövüşçü."
-    },
+const EVENTS = [
 
-    {
-        id:"alex-volkanovski",
-        name:"Alexander Volkanovski",
-        nickname:"The Great",
-        org:"UFC",
-        division:"Featherweight",
-        record:"27-4-0",
-        wins:27,
-        losses:4,
-        draws:0,
-        rank:3,
-        champion:false,
-        country:"Australia",
-        height:"168 cm",
-        reach:"180 cm",
-        style:"Wrestling / Striking",
-        winsKO:13,
-        winsSub:3,
-        winsDec:11,
-        streak:"2",
-        image:images.conor,
-        bio:"Hızlı ayak çalışması, pressure ve fight IQ kombinasyonuyla tanınan eski featherweight şampiyonu."
-    },
+  {
+    org:"UFC",
+    date:"2026-10-03",
+    displayDate:"3 Ekim 2026",
+    name:"UFC 332: Silva vs Wang",
+    location:"Delta Center — Salt Lake City, Utah",
+    featured:true,
 
-    {
-        id:"ilia-topuria",
-        name:"Ilia Topuria",
-        nickname:"El Matador",
-        org:"UFC",
-        division:"Lightweight",
-        record:"17-0-0",
-        wins:17,
-        losses:0,
-        draws:0,
-        rank:4,
-        champion:true,
-        country:"Georgia / Spain",
-        height:"170 cm",
-        reach:"175 cm",
-        style:"Boxing / BJJ",
-        winsKO:7,
-        winsSub:8,
-        winsDec:2,
-        streak:"17",
-        image:images.fight,
-        bio:"Boxing temelli striking ve yüksek seviyeli grappling kombinasyonuyla namağlup kariyerini sürdüren dövüşçü."
-    },
+    fights:[
 
-    {
-        id:"tom-aspinall",
-        name:"Tom Aspinall",
-        nickname:"The Honey Badger",
-        org:"UFC",
-        division:"Heavyweight",
-        record:"15-3-0",
-        wins:15,
-        losses:3,
-        draws:0,
-        rank:5,
-        champion:false,
-        country:"England",
-        height:"196 cm",
-        reach:"198 cm",
-        style:"Boxing / BJJ",
-        winsKO:12,
-        winsSub:3,
-        winsDec:0,
-        streak:"2",
-        image:images.octagon,
-        bio:"Heavyweight kategorisinde yüksek hız, atletizm ve hızlı bitirişleriyle öne çıkan İngiliz dövüşçü."
-    },
+      {
+        a:"Natalia Silva",
+        b:"Wang Cong",
+        title:true
+      },
 
-    {
-        id:"merab-dvalishvili",
-        name:"Merab Dvalishvili",
-        nickname:"The Machine",
-        org:"UFC",
-        division:"Bantamweight",
-        record:"20-4-0",
-        wins:20,
-        losses:4,
-        draws:0,
-        rank:6,
-        champion:true,
-        country:"Georgia",
-        height:"168 cm",
-        reach:"173 cm",
-        style:"Wrestling",
-        winsKO:3,
-        winsSub:1,
-        winsDec:16,
-        streak:"13",
-        image:images.training,
-        bio:"Sürekli pressure, yüksek tempolu wrestling ve olağanüstü cardio kapasitesiyle tanınır."
-    },
+      {
+        a:"Deiveson Figueiredo",
+        b:"Payton Talbott"
+      },
 
-    {
-        id:"max-holloway",
-        name:"Max Holloway",
-        nickname:"Blessed",
-        org:"UFC",
-        division:"Lightweight",
-        record:"26-8-0",
-        wins:26,
-        losses:8,
-        draws:0,
-        rank:7,
-        champion:false,
-        country:"USA",
-        height:"180 cm",
-        reach:"175 cm",
-        style:"Boxing",
-        winsKO:13,
-        winsSub:2,
-        winsDec:11,
-        streak:"1",
-        image:images.fight,
-        bio:"Volume striking, kombinasyonlar ve dayanıklılığıyla MMA tarihinin önemli strikerlarından."
-    },
+      {
+        a:"King Green",
+        b:"Esteban Ribovics"
+      },
 
-    {
-        id:"alex-pereira",
-        name:"Alex Pereira",
-        nickname:"Poatan",
-        org:"UFC",
-        division:"Light Heavyweight",
-        record:"13-3-0",
-        wins:13,
-        losses:3,
-        draws:0,
-        rank:8,
-        champion:true,
-        country:"Brazil",
-        height:"193 cm",
-        reach:"201 cm",
-        style:"Kickboxing",
-        winsKO:11,
-        winsSub:0,
-        winsDec:2,
-        streak:"1",
-        image:images.conor,
-        bio:"Elite kickboxing geçmişi ve sol kroşesiyle tanınan eski UFC orta sıklet ve hafif ağır sıklet şampiyonu."
-    },
+      {
+        a:"Roberto Soldic",
+        b:"Khaos Williams"
+      },
 
-    {
-        id:"dustin-poirier",
-        name:"Dustin Poirier",
-        nickname:"The Diamond",
-        org:"UFC",
-        division:"Lightweight",
-        record:"30-9-0",
-        wins:30,
-        losses:9,
-        draws:0,
-        rank:9,
-        champion:false,
-        country:"USA",
-        height:"175 cm",
-        reach:"175 cm",
-        style:"Boxing",
-        winsKO:16,
-        winsSub:7,
-        winsDec:7,
-        streak:"1",
-        image:images.fighter,
-        bio:"Uzun yıllardır UFC lightweight sahnesinin önde gelen isimlerinden olan tecrübeli striker."
-    },
+      {
+        a:"Ateba Gautier",
+        b:"Roman Kopylov"
+      },
 
-    {
-        id:"khamzat-chimaev",
-        name:"Khamzat Chimaev",
-        nickname:"Borz",
-        org:"UFC",
-        division:"Middleweight",
-        record:"15-0-0",
-        wins:15,
-        losses:0,
-        draws:0,
-        rank:10,
-        champion:true,
-        country:"Chechnya / UAE",
-        height:"188 cm",
-        reach:"191 cm",
-        style:"Wrestling",
-        winsKO:7,
-        winsSub:6,
-        winsDec:2,
-        streak:"15",
-        image:images.training,
-        bio:"Patlayıcı girişleri, güçlü clinch'i ve üst düzey wrestling'iyle tanınan namağlup dövüşçü."
-    },
+      {
+        a:"Imanol Rodriguez",
+        b:"Alden Coria"
+      },
 
-    {
-        id:"demetrious-johnson",
-        name:"Demetrious Johnson",
-        nickname:"Mighty Mouse",
-        org:"ONE",
-        division:"Flyweight",
-        record:"25-4-1",
-        wins:25,
-        losses:4,
-        draws:1,
-        rank:11,
-        champion:false,
-        country:"USA",
-        height:"160 cm",
-        reach:"163 cm",
-        style:"MMA",
-        winsKO:5,
-        winsSub:6,
-        winsDec:14,
-        streak:"4",
-        image:images.octagon,
-        bio:"Hız, teknik çeşitlilik ve geçiş oyunlarıyla MMA tarihinin en teknik isimlerinden biri."
-    },
+      {
+        a:"Damian Pinas",
+        b:"Andrey Pulyaev"
+      },
 
-    {
-        id:"georges-st-pierre",
-        name:"Georges St-Pierre",
-        nickname:"GSP",
-        org:"UFC",
-        division:"Welterweight",
-        record:"26-2-0",
-        wins:26,
-        losses:2,
-        draws:0,
-        rank:12,
-        champion:false,
-        country:"Canada",
-        height:"178 cm",
-        reach:"193 cm",
-        style:"Wrestling / Karate",
-        winsKO:8,
-        winsSub:6,
-        winsDec:12,
-        streak:"13",
-        image:images.fighter,
-        bio:"Wrestling, karate ve fight IQ kombinasyonuyla UFC welterweight tarihinin en etkili isimlerinden."
-    }
-];
+      {
+        a:"Marcus McGhee",
+        b:"Anthony Romero"
+      },
 
+      {
+        a:"Anthony Wint",
+        b:"Lucas Armand"
+      },
 
-const news = [
-    {
-        id:1,
-        category:"UFC",
-        titleTR:"UFC gündeminde yeni büyük maçlar konuşuluyor",
-        titleEN:"New major fights dominate the UFC conversation",
-        descTR:"MMA dünyasında yaklaşan eşleşmeler ve şampiyonluk yarışları gündemin merkezinde.",
-        descEN:"Upcoming matchups and title races remain at the center of the MMA conversation.",
-        source:"ZMMA Editorial",
-        time:"2 saat önce",
-        image:images.octagon
-    },
+      {
+        a:"Johnny Walker",
+        b:"Mick Parkin"
+      },
 
-    {
-        id:2,
-        category:"Fighter",
-        titleTR:"Yeni nesil yıldızlar sıralamalarda yükseliyor",
-        titleEN:"The next generation of stars is climbing the rankings",
-        descTR:"Genç dövüşçüler üst sıralardaki isimlere meydan okumaya devam ediyor.",
-        descEN:"A new generation of fighters continues to challenge the established contenders.",
-        source:"ZMMA",
-        time:"4 saat önce",
-        image:images.fighter
-    },
+      {
+        a:"Rafael dos Anjos",
+        b:"Alexander Hernandez"
+      },
 
-    {
-        id:3,
-        category:"ONE",
-        titleTR:"ONE Championship kartında heyecan artıyor",
-        titleEN:"Excitement builds around the ONE Championship card",
-        descTR:"MMA ve striking dünyasının önemli isimleri yeni etkinlik için hazırlanıyor.",
-        descEN:"Major names from MMA and striking prepare for the upcoming event.",
-        source:"ZMMA",
-        time:"6 saat önce",
-        image:images.training
-    },
+      {
+        a:"Marvin Vettori",
+        b:"Ismail Naurdiev"
+      },
 
-    {
-        id:4,
-        category:"PFL",
-        titleTR:"PFL sezon yarışında yeni senaryo",
-        titleEN:"A new storyline emerges in the PFL season race",
-        descTR:"Sezon formatı nedeniyle her maçın sıralamadaki etkisi büyüyor.",
-        descEN:"The season format makes every fight increasingly important to the standings.",
-        source:"ZMMA",
-        time:"8 saat önce",
-        image:images.fight
-    },
+      {
+        a:"Jacobe Smith",
+        b:"Bruce Whitehead"
+      },
 
-    {
-        id:5,
-        category:"Fighter",
-        titleTR:"Merab'ın yüksek tempolu wrestling stili yine gündemde",
-        titleEN:"Merab's relentless wrestling style is back in the spotlight",
-        descTR:"Bantamweight bölümündeki mücadeleler ve wrestling temposu konuşuluyor.",
-        descEN:"The bantamweight picture and relentless wrestling pace are being discussed.",
-        source:"ZMMA",
-        time:"10 saat önce",
-        image:images.training
-    },
+      {
+        a:"Court McGee",
+        b:"Eric Nolan"
+      }
 
-    {
-        id:6,
-        category:"UFC",
-        titleTR:"UFC şampiyonluk yarışında gözler contenderlarda",
-        titleEN:"All eyes are on the contenders in the UFC title picture",
-        descTR:"Bölümlerdeki sıralamalar yeni maçlarla değişmeye devam ediyor.",
-        descEN:"Divisional rankings continue to shift as new fights are announced.",
-        source:"ZMMA",
-        time:"12 saat önce",
-        image:images.conor
-    }
-];
-
-
-const events = [
-    {
-        date:"18",
-        month:"OCT",
-        org:"UFC",
-        name:"UFC Fight Night",
-        location:"Las Vegas, USA",
-        main:"Main Card — Lightweight / Welterweight",
-    },
-
-    {
-        date:"25",
-        month:"OCT",
-        org:"ONE",
-        name:"ONE Championship",
-        location:"Bangkok, Thailand",
-        main:"MMA + Muay Thai Card",
-    },
-
-    {
-        date:"01",
-        month:"NOV",
-        org:"PFL",
-        name:"PFL Playoffs",
-        location:"Riyadh, Saudi Arabia",
-        main:"Season Playoff Card",
-    },
-
-    {
-        date:"08",
-        month:"NOV",
-        org:"UFC",
-        name:"UFC Fight Night",
-        location:"New York, USA",
-        main:"Main Event — Bantamweight",
-    },
-
-    {
-        date:"15",
-        month:"NOV",
-        org:"ONE",
-        name:"ONE Fight Night",
-        location:"Singapore",
-        main:"MMA Championship Card",
-    }
-];
-
-
-const moments = [
-    {
-        year:"1993",
-        titleTR:"UFC'nin doğuşu",
-        titleEN:"The birth of the UFC",
-        descTR:"Farklı dövüş disiplinlerini aynı platformda buluşturan yeni bir dönem başladı.",
-        descEN:"A new era began by bringing different combat disciplines onto one platform.",
-        image:images.octagon
-    },
-
-    {
-        year:"2007",
-        titleTR:"Modern MMA'nın yükselişi",
-        titleEN:"The rise of modern MMA",
-        descTR:"Sporun taktiksel ve teknik yapısı hızla gelişmeye başladı.",
-        descEN:"The tactical and technical side of the sport rapidly evolved.",
-        image:images.training
-    },
-
-    {
-        year:"2011",
-        titleTR:"Pound-for-pound dönemi",
-        titleEN:"The pound-for-pound era",
-        descTR:"Farklı sıkletlerdeki elit dövüşçüler küresel ölçekte karşılaştırılmaya başladı.",
-        descEN:"Elite fighters across divisions became global subjects of comparison.",
-        image:images.fighter
-    },
-
-    {
-        year:"2015",
-        titleTR:"Kadın MMA'nın büyük yükselişi",
-        titleEN:"The major rise of women's MMA",
-        descTR:"Kadın dövüşçüler MMA'nın ana sahnesinde kalıcı yer edindi.",
-        descEN:"Women's MMA established a permanent place on the sport's biggest stages.",
-        image:images.fight
-    },
-
-    {
-        year:"2020",
-        titleTR:"Pandemi dönemi ve Fight Island",
-        titleEN:"The pandemic era and Fight Island",
-        descTR:"MMA organizasyonları yeni koşullara uyum sağlamak zorunda kaldı.",
-        descEN:"MMA organizations adapted to an unprecedented competitive environment.",
-        image:images.conor
-    },
-
-    {
-        year:"2024",
-        titleTR:"Yeni jenerasyonun yükselişi",
-        titleEN:"The rise of a new generation",
-        descTR:"Yeni nesil şampiyonlar ve contenderlar MMA sahnesini değiştirmeye başladı.",
-        descEN:"A new generation of champions and contenders began reshaping MMA.",
-        image:images.training
-    }
-];
-
-
-const rankings = {
-    p4p:[
-        "jon-jones",
-        "islam-makhachev",
-        "alex-volkanovski",
-        "ilia-topuria",
-        "tom-aspinall",
-        "merab-dvalishvili",
-        "max-holloway",
-        "alex-pereira",
-        "dustin-poirier",
-        "khamzat-chimaev"
-    ],
-
-    lightweight:[
-        "ilia-topuria",
-        "islam-makhachev",
-        "dustin-poirier",
-        "max-holloway",
-        "alex-volkanovski"
-    ],
-
-    welterweight:[
-        "georges-st-pierre",
-        "islam-makhachev",
-        "dustin-poirier",
-        "khamzat-chimaev"
-    ],
-
-    middleweight:[
-        "khamzat-chimaev",
-        "alex-pereira",
-        "jon-jones"
     ]
-};
-
-
-/* =========================================================
-   LANGUAGE
-========================================================= */
-
-let lang = localStorage.getItem("zmma-lang") || "tr";
-
-
-const translations = {
-
-    tr:{
-        brandSub:"MMA HUB",
-        navHome:"Ana Sayfa",
-        navNews:"Haberler",
-        navFighters:"Dövüşçüler",
-        navEvents:"Etkinlikler",
-        navRankings:"Sıralamalar",
-        navCompare:"Compare",
-        navHistory:"Tarih",
-
-        heroTitle:"Dövüşün<br>ötesinde.",
-        heroText:"MMA dünyasının haberleri, dövüşçüleri, etkinlikleri, istatistikleri ve tarihi tek yerde.",
-
-        latestNews:"Son Haberler",
-        exploreFighters:"Dövüşçüleri Keşfet",
-
-        quickStats:"MMA Şu Anda",
-        quickStatsDesc:"ZMMA veri merkezinden hızlı görünüm",
-
-        organizations:"Büyük organizasyon",
-        fighters:"Dövüşçüler",
-        events:"Yaklaşan etkinlik",
-        coverage:"MMA kapsamı",
-
-        trending:"Trend",
-        trendingDesc:"MMA dünyasında konuşulanlar",
-        seeAll:"Tümünü gör →",
-
-        featuredNews:"Öne Çıkan Haberler",
-        featuredDesc:"Günün MMA gündeminden seçmeler",
-        allNews:"Tüm haberler →",
-
-        champions:"Şampiyonlar",
-        championsDesc:"Güncel şampiyon profilleri",
-
-        newsCenter:"Haber Merkezi",
-        newsCenterDesc:"MMA dünyasından son gelişmeler",
-        refresh:"Yenile",
-
-        all:"Tümü",
-
-        fighterDatabase:"Dövüşçü Veritabanı",
-        fighterDatabaseDesc:"MMA'nın tanınmış isimlerini keşfet",
-
-        eventsTitle:"Etkinlikler",
-        eventsDesc:"Yaklaşan MMA etkinlikleri ve ana maçlar",
-
-        rankingsTitle:"Sıralamalar",
-        rankingsDesc:"ZMMA karma pound-for-pound listesi",
-        lightweight:"Lightweight",
-        welterweight:"Welterweight",
-        middleweight:"Middleweight",
-        fighter:"Dövüşçü",
-        record:"Karnesi",
-        streak:"Seri",
-
-        compareTitle:"Fighter Compare",
-        compareDesc:"İki dövüşçünün istatistiklerini karşılaştır",
-
-        historyTitle:"MMA Tarihi",
-        historyDesc:"Sporun unutulmaz anları",
-
-        goatTitle:"🐐 GOAT Debate",
-        goatText:"GOAT tek bir sayıdan ibaret değil. Şampiyonluklar, rakip kalitesi, uzun ömür, dominantlık ve farklı dönemlerdeki başarılar birlikte değerlendirilebilir.",
-
-        criterion1:"Şampiyonluk",
-        criterion2:"Rakip Kalitesi",
-        criterion3:"Dominantlık",
-        criterion4:"Uzun Ömür",
-
-        orgTitle:"Organizasyonlar",
-        orgDesc:"MMA dünyasının büyük sahneleri",
-
-        ufcDesc:"Ultimate Fighting Championship",
-        oneDesc:"MMA, Muay Thai ve kickboks",
-        pflDesc:"Sezon formatlı MMA organizasyonu",
-
-        footerText:"Bağımsız MMA bilgi ve içerik platformu."
-    },
-
-    en:{
-        brandSub:"MMA HUB",
-        navHome:"Home",
-        navNews:"News",
-        navFighters:"Fighters",
-        navEvents:"Events",
-        navRankings:"Rankings",
-        navCompare:"Compare",
-        navHistory:"History",
-
-        heroTitle:"Beyond<br>the fight.",
-        heroText:"MMA news, fighters, events, statistics and history — all in one place.",
-
-        latestNews:"Latest News",
-        exploreFighters:"Explore Fighters",
-
-        quickStats:"MMA Right Now",
-        quickStatsDesc:"A quick view from the ZMMA data center",
-
-        organizations:"Major organizations",
-        fighters:"Fighter profiles",
-        events:"Upcoming events",
-        coverage:"MMA coverage",
-
-        trending:"Trending",
-        trendingDesc:"What's being discussed in MMA",
-        seeAll:"See all →",
-
-        featuredNews:"Featured News",
-        featuredDesc:"Today's MMA highlights",
-        allNews:"All news →",
-
-        champions:"Champions",
-        championsDesc:"Current champion profiles",
-
-        newsCenter:"News Center",
-        newsCenterDesc:"The latest from the MMA world",
-        refresh:"Refresh",
-
-        all:"All",
-
-        fighterDatabase:"Fighter Database",
-        fighterDatabaseDesc:"Explore notable MMA fighters",
-
-        eventsTitle:"Events",
-        eventsDesc:"Upcoming MMA events and main fights",
-
-        rankingsTitle:"Rankings",
-        rankingsDesc:"ZMMA combined pound-for-pound list",
-        lightweight:"Lightweight",
-        welterweight:"Welterweight",
-        middleweight:"Middleweight",
-        fighter:"Fighter",
-        record:"Record",
-        streak:"Streak",
-
-        compareTitle:"Fighter Compare",
-        compareDesc:"Compare the statistics of two fighters",
-
-        historyTitle:"MMA History",
-        historyDesc:"The sport's iconic moments",
-
-        goatTitle:"🐐 GOAT Debate",
-        goatText:"Being the GOAT is not just one number. Championships, opponent quality, longevity, dominance and success across eras can all be considered.",
-
-        criterion1:"Championships",
-        criterion2:"Opponent Quality",
-        criterion3:"Dominance",
-        criterion4:"Longevity",
-
-        orgTitle:"Organizations",
-        orgDesc:"The major stages of MMA",
-
-        ufcDesc:"Ultimate Fighting Championship",
-        oneDesc:"MMA, Muay Thai and kickboxing",
-        pflDesc:"Season-based MMA organization",
-
-        footerText:"Independent MMA information and content platform."
-    }
-};
-
-
-function applyLanguage(){
-
-    document.documentElement.lang=lang;
-
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-
-        const key=el.dataset.i18n;
-
-        if(translations[lang][key]){
-            el.innerHTML=translations[lang][key];
-        }
-
-    });
-
-    document.getElementById("langBtn").textContent =
-        lang==="tr" ? "EN" : "TR";
-
-    renderAll();
-}
-
-
-function toggleLanguage(){
-
-    lang=lang==="tr" ? "en" : "tr";
-
-    localStorage.setItem("zmma-lang",lang);
-
-    applyLanguage();
-
-    showToast(lang==="tr" ? "Türkçe aktif 🇹🇷" : "English enabled 🇬🇧");
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function showPage(page){
-
-    document.querySelectorAll(".page").forEach(p=>{
-        p.classList.remove("active");
-    });
-
-    const target=document.getElementById("page-"+page);
-
-    if(!target){
-        return;
-    }
-
-    target.classList.add("active");
-
-    document.querySelectorAll(".nav-btn,.bottom-btn").forEach(btn=>{
-        btn.classList.toggle(
-            "active",
-            btn.dataset.page===page
-        );
-    });
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-}
-
-
-function toggleMobileMenu(){
-
-    const pages=[
-        ["home","⌂ Ana Sayfa"],
-        ["news","📰 Haberler"],
-        ["fighters","🥊 Dövüşçüler"],
-        ["events","📅 Etkinlikler"],
-        ["rankings","🏆 Sıralamalar"],
-        ["compare","⚔️ Compare"],
-        ["history","🎞️ Tarih"],
-        ["organizations","🏢 Organizasyonlar"]
-    ];
-
-    const menu=pages
-        .map(x=>`${x[1]}`)
-        .join("\n");
-
-    const choice=prompt(
-        lang==="tr"
-        ? "ZMMA Menü:\n\n"+menu+"\n\nSayfa adını yaz:"
-        : "ZMMA Menu:\n\n"+pages.map(x=>x[1]).join("\n")+"\n\nType page:"
-    );
-
-    if(!choice)return;
-
-    const normalized=choice.toLowerCase();
-
-    if(normalized.includes("haber")||normalized.includes("news")){
-        showPage("news");
-    }else if(normalized.includes("dövüş")||normalized.includes("fighter")){
-        showPage("fighters");
-    }else if(normalized.includes("etkin")||normalized.includes("event")){
-        showPage("events");
-    }else if(normalized.includes("sıra")||normalized.includes("rank")){
-        showPage("rankings");
-    }else if(normalized.includes("compare")){
-        showPage("compare");
-    }else if(normalized.includes("tarih")||normalized.includes("history")){
-        showPage("history");
-    }else if(normalized.includes("organiz")){
-        showPage("organizations");
-    }else{
-        showPage("home");
-    }
-}
-
-
-/* =========================================================
-   HOME
-========================================================= */
-
-function renderTrending(){
-
-    const data=[
-        {
-            title:"UFC Rankings",
-            category:"RANKINGS",
-            image:images.octagon
-        },
-        {
-            title:"Ilia Topuria",
-            category:"FIGHTER",
-            image:images.fight
-        },
-        {
-            title:"Merab Dvalishvili",
-            category:"BANTAMWEIGHT",
-            image:images.training
-        },
-        {
-            title:"GOAT Debate",
-            category:"HISTORY",
-            image:images.fighter
-        }
-    ];
-
-    document.getElementById("trendingGrid").innerHTML=
-        data.map(item=>`
-            <div class="trend-card" onclick="showPage('${item.category==="HISTORY"?"history":"fighters"}')">
-                <img src="${item.image}" alt="">
-                <div class="trend-info">
-                    <span>${item.category}</span>
-                    <strong>${item.title}</strong>
-                </div>
-            </div>
-        `).join("");
-}
-
-
-function renderHomeNews(){
-
-    document.getElementById("homeNews").innerHTML=
-        news.slice(0,3).map(createNewsCard).join("");
-}
-
-
-function renderHomeChampions(){
-
-    const champs=fighters.filter(f=>f.champion).slice(0,3);
-
-    document.getElementById("homeChampions").innerHTML=
-        champs.map(f=>`
-            <div class="champion-card" onclick="openFighter('${f.id}')">
-                <img src="${f.image}" alt="${f.name}">
-                <div class="champion-content">
-                    <small>🏆 ${f.org} • ${f.division}</small>
-                    <h3>${f.name}</h3>
-                    <p>${f.nickname}</p>
-                </div>
-            </div>
-        `).join("");
-}
-
-
-/* =========================================================
-   NEWS
-========================================================= */
-
-let currentNewsFilter="all";
-
-
-function newsTitle(item){
-
-    return lang==="tr" ? item.titleTR : item.titleEN;
-}
-
-
-function newsDesc(item){
-
-    return lang==="tr" ? item.descTR : item.descEN;
-}
-
-
-function createNewsCard(item){
-
-    return `
-        <article class="news-card" onclick="openArticle(${item.id})">
-
-            <div class="news-image">
-                <img
-                    src="${item.image}"
-                    alt="${newsTitle(item)}"
-                    loading="lazy"
-                >
-
-                <span class="news-tag">${item.category}</span>
-            </div>
-
-            <div class="news-body">
-
-                <h3>${newsTitle(item)}</h3>
-
-                <p>${newsDesc(item)}</p>
-
-                <div class="news-meta">
-                    <span>${item.source}</span>
-                    <span>${item.time}</span>
-                </div>
-
-            </div>
-
-        </article>
-    `;
-}
-
-
-function renderNews(){
-
-    let data=[...news];
-
-    if(currentNewsFilter!=="all"){
-        data=data.filter(
-            n=>n.category===currentNewsFilter
-        );
-    }
-
-    document.getElementById("newsGrid").innerHTML=
-        data.map(createNewsCard).join("");
-}
-
-
-function filterNews(category,button){
-
-    currentNewsFilter=category;
-
-    document.querySelectorAll("#page-news .filter")
-        .forEach(x=>x.classList.remove("active"));
-
-    button.classList.add("active");
-
-    renderNews();
-}
-
-
-function refreshNews(){
-
-    showToast(
-        lang==="tr"
-        ? "Haber akışı yenileniyor..."
-        : "Refreshing news feed..."
-    );
-
-    setTimeout(()=>{
-        renderNews();
-
-        showToast(
-            lang==="tr"
-            ? "Haber akışı güncellendi ✓"
-            : "News feed updated ✓"
-        );
-    },700);
-}
-
-
-/* =========================================================
-   OPTIONAL LIVE NEWS API
-========================================================= */
-
-async function loadLiveNews(){
-
-    /*
-       Bu alan ileride gerçek API bağlamak için hazır.
-
-       GitHub Pages statik hosting olduğu için backend kodu
-       çalıştırılamaz. API'nin CORS desteği olması gerekir.
-
-       Örnek kullanım:
-
-       const response = await fetch("API_URL");
-       const data = await response.json();
-
-       Sonra data'yı news dizisine dönüştürebilirsin.
-
-       API başarısız olursa ZMMA demo haberleri kullanmaya devam eder.
-    */
-
-    return false;
-}
+  },
+
+
+  {
+    org:"UFC",
+    date:"2026-10-10",
+    displayDate:"10 Ekim 2026",
+    name:"UFC Vegas 122: Allen vs Duncan",
+    location:"Meta APEX — Las Vegas",
+
+    fights:[
+
+      {
+        a:"Brendan Allen",
+        b:"Christian Leroy Duncan"
+      },
+
+      {
+        a:"Francisco Prado",
+        b:"Ismael Bonfim"
+      },
+
+      {
+        a:"Loopy Godinez",
+        b:"Ketlen Souza"
+      },
+
+      {
+        a:"Matheus Camilo",
+        b:"Jai Herbert"
+      },
+
+      {
+        a:"Alice Pereira",
+        b:"Daria Zhelezniakova"
+      },
+
+      {
+        a:"Ernesta Kareckaite",
+        b:"Melissa Gatto"
+      },
+
+      {
+        a:"Andre Fili",
+        b:"Kai Kamaka III"
+      },
+
+      {
+        a:"Julius Walker",
+        b:"Gerald Meerschaert"
+      }
+
+    ]
+  },
+
+
+  {
+    org:"UFC",
+    date:"2026-10-17",
+    displayDate:"17 Ekim 2026",
+    name:"UFC Edmonton: Buckley vs Malott",
+    location:"Rogers Place — Edmonton, Canada",
+
+    fights:[
+
+      {
+        a:"Joaquin Buckley",
+        b:"Mike Malott"
+      },
+
+      {
+        a:"Erin Blanchfield",
+        b:"Jasmine Jasudavicius"
+      },
+
+      {
+        a:"Kyle Nelson",
+        b:"Cristian Perez"
+      },
+
+      {
+        a:"Marc-Andre Barriault",
+        b:"Kyle Daukaus"
+      },
+
+      {
+        a:"Louis Jourdain",
+        b:"Timmy Cuamba"
+      },
+
+      {
+        a:"Mandel Nallo",
+        b:"Nate Landwehr"
+      }
+
+    ]
+  },
+
+
+  {
+    org:"UFC",
+    date:"2026-10-24",
+    displayDate:"24 Ekim 2026",
+    name:"UFC 333: Volkanovski vs Evloev",
+    location:"Etihad Arena — Abu Dhabi",
+
+    fights:[
+
+      {
+        a:"Alexander Volkanovski",
+        b:"Movsar Evloev",
+        title:true
+      },
+
+      {
+        a:"Petr Yan",
+        b:"Merab Dvalishvili",
+        title:true
+      },
+
+      {
+        a:"Lone'er Kavanagh",
+        b:"Ramazan Temirov"
+      },
+
+      {
+        a:"Alexander Volkov",
+        b:"Rizvan Kuniev"
+      },
+
+      {
+        a:"Losene Keita",
+        b:"Aaron Pico"
+      },
+
+      {
+        a:"Dominick Reyes",
+        b:"Azamat Murzakanov"
+      },
+
+      {
+        a:"Nikita Krylov",
+        b:"Abdul Rakhman Yakhyaev"
+      },
+
+      {
+        a:"Abus Magomedov",
+        b:"Cam Rowston"
+      },
+
+      {
+        a:"Grant Dawson",
+        b:"Nurullo Aliev"
+      }
+
+    ]
+  },
+
+
+  {
+    org:"UFC",
+    date:"2026-10-31",
+    displayDate:"31 Ekim 2026",
+    name:"UFC Vegas 123: Moicano vs Nolan",
+    location:"Meta APEX — Las Vegas",
+
+    fights:[
+
+      {
+        a:"Renato Moicano",
+        b:"Tom Nolan"
+      },
+
+      {
+        a:"Lucia Szabova",
+        b:"Tainara Lisboa"
+      },
+
+      {
+        a:"Nick Klein",
+        b:"Joseph Kropschot"
+      }
+
+    ]
+  },
+
+
+  {
+    org:"UFC",
+    date:"2026-11-07",
+    displayDate:"7 Kasım 2026",
+    name:"UFC Vegas 124: Bonfim vs Brady",
+    location:"Meta APEX — Las Vegas",
+
+    fights:[
+
+      {
+        a:"Gabriel Bonfim",
+        b:"Sean Brady"
+      },
+
+      {
+        a:"Tatiana Suarez",
+        b:"Virna Jandiroba"
+      },
+
+      {
+        a:"Austin Bashi",
+        b:"Lucas Brennan"
+      },
+
+      {
+        a:"Karine Silva",
+        b:"Gabriella Fernandes"
+      }
+
+    ]
+  },
+
+
+  {
+    org:"UFC",
+    date:"2026-11-14",
+    displayDate:"14 Kasım 2026",
+    name:"UFC 334: Gane vs Hokit",
+    location:"Madison Square Garden — New York",
+
+    fights:[
+
+      {
+        a:"Ciryl Gane",
+        b:"Josh Hokit",
+        title:true
+      },
+
+      {
+        a:"Kayla Harrison",
+        b:"Amanda Nunes",
+        title:true
+      },
+
+      {
+        a:"Caio Borralho",
+        b:"Yousri Belgaroui"
+      },
+
+      {
+        a:"Uros Medic",
+        b:"Kevin Holland"
+      },
+
+      {
+        a:"Bilal Hasan",
+        b:"Luis Gurule"
+      },
+
+      {
+        a:"Stephen Thompson",
+        b:"Charles Radtke"
+      }
+
+    ]
+  }
+
+];
 
 
 /* =========================================================
    FIGHTERS
 ========================================================= */
 
-let currentFighterFilter="all";
+const FIGHTERS = [
 
-
-function renderFighters(){
-
-    let data=[...fighters];
-
-    if(currentFighterFilter==="Champion"){
-        data=data.filter(f=>f.champion);
-    }else if(
-        currentFighterFilter!=="all"
-    ){
-        data=data.filter(
-            f=>f.org===currentFighterFilter
-        );
+  {
+    name:"Merab Dvalishvili",
+    nick:"The Machine",
+    record:"20-5-0",
+    wins:20,
+    losses:5,
+    draws:0,
+    division:"Bantamweight",
+    image:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:84,
+      wrestling:99,
+      cardio:99,
+      power:78
     }
+  },
 
-    document.getElementById("fighterGrid").innerHTML=
-        data.map(f=>`
-            <article class="fighter-card" onclick="openFighter('${f.id}')">
+  {
+    name:"Petr Yan",
+    nick:"No Mercy",
+    record:"19-5-0",
+    wins:19,
+    losses:5,
+    draws:0,
+    division:"Bantamweight",
+    image:"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:96,
+      wrestling:84,
+      cardio:91,
+      power:87
+    }
+  },
 
-                <div class="fighter-photo">
+  {
+    name:"Alexander Volkanovski",
+    nick:"The Great",
+    record:"27-3-0",
+    wins:27,
+    losses:3,
+    draws:0,
+    division:"Featherweight",
+    image:"https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:96,
+      wrestling:94,
+      cardio:99,
+      power:84
+    }
+  },
 
-                    <img
-                        src="${f.image}"
-                        alt="${f.name}"
-                        loading="lazy"
-                    >
+  {
+    name:"Islam Makhachev",
+    nick:"The Eagle",
+    record:"27-1-0",
+    wins:27,
+    losses:1,
+    draws:0,
+    division:"Welterweight",
+    image:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:89,
+      wrestling:99,
+      cardio:96,
+      power:84
+    }
+  },
 
-                    <span class="fighter-rank">
-                        #${f.rank}
-                    </span>
+  {
+    name:"Jon Jones",
+    nick:"Bones",
+    record:"28-1-0",
+    wins:28,
+    losses:1,
+    draws:0,
+    division:"Heavyweight",
+    image:"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:96,
+      wrestling:96,
+      cardio:91,
+      power:92
+    }
+  },
 
-                    <button
-                        class="fighter-fav"
-                        onclick="toggleFavorite(event,'${f.id}')"
-                        aria-label="Favorite"
-                    >
-                        ${isFavorite(f.id)?"★":"☆"}
-                    </button>
+  {
+    name:"Tom Aspinall",
+    nick:"The Asp",
+    record:"15-3-0",
+    wins:15,
+    losses:3,
+    draws:0,
+    division:"Heavyweight",
+    image:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:94,
+      wrestling:92,
+      cardio:87,
+      power:99
+    }
+  },
 
-                </div>
+  {
+    name:"Ilia Topuria",
+    nick:"El Matador",
+    record:"17-0-0",
+    wins:17,
+    losses:0,
+    draws:0,
+    division:"Lightweight",
+    image:"https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:98,
+      wrestling:91,
+      cardio:92,
+      power:99
+    }
+  },
 
-                <div class="fighter-info">
+  {
+    name:"Khabib Nurmagomedov",
+    nick:"The Eagle",
+    record:"29-0-0",
+    wins:29,
+    losses:0,
+    draws:0,
+    division:"Lightweight",
+    image:"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:83,
+      wrestling:100,
+      cardio:99,
+      power:82
+    }
+  },
 
-                    <div class="fighter-name">
-                        ${f.name}
-                    </div>
+  {
+    name:"Islam Makhachev",
+    nick:"The Eagle",
+    record:"27-1-0",
+    wins:27,
+    losses:1,
+    draws:0,
+    division:"Welterweight",
+    image:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:89,
+      wrestling:99,
+      cardio:96,
+      power:84
+    }
+  },
 
-                    <div class="fighter-nickname">
-                        "${f.nickname}"
-                    </div>
+  {
+    name:"Max Holloway",
+    nick:"Blessed",
+    record:"27-8-0",
+    wins:27,
+    losses:8,
+    draws:0,
+    division:"Lightweight",
+    image:"https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:98,
+      wrestling:82,
+      cardio:100,
+      power:84
+    }
+  },
 
-                    <div class="fighter-meta">
-                        <span>${f.division}</span>
-                        <span class="record">${f.record}</span>
-                    </div>
+  {
+    name:"Alex Pereira",
+    nick:"Poatan",
+    record:"13-3-0",
+    wins:13,
+    losses:3,
+    draws:0,
+    division:"Light Heavyweight",
+    image:"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:100,
+      wrestling:74,
+      cardio:85,
+      power:100
+    }
+  },
 
-                </div>
+  {
+    name:"Dricus Du Plessis",
+    nick:"Stillknocks",
+    record:"23-3-0",
+    wins:23,
+    losses:3,
+    draws:0,
+    division:"Middleweight",
+    image:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=700&q=80",
+    stats:{
+      striking:90,
+      wrestling:92,
+      cardio:95,
+      power:94
+    }
+  }
 
-            </article>
-        `).join("");
+];
+
+
+/* Remove duplicate fighter names */
+
+const UNIQUE_FIGHTERS = [];
+
+FIGHTERS.forEach(f => {
+
+  if(!UNIQUE_FIGHTERS.some(x => x.name === f.name)){
+    UNIQUE_FIGHTERS.push(f);
+  }
+
+});
+
+
+/* =========================================================
+   RANKINGS
+========================================================= */
+
+const RANKINGS = {
+
+  "Pound-for-Pound":[
+    ["Islam Makhachev","27-1"],
+    ["Jon Jones","28-1"],
+    ["Alexander Volkanovski","27-3"],
+    ["Ilia Topuria","17-0"],
+    ["Merab Dvalishvili","20-5"],
+    ["Alex Pereira","13-3"],
+    ["Dricus Du Plessis","23-3"],
+    ["Max Holloway","27-8"],
+    ["Petr Yan","19-5"],
+    ["Tom Aspinall","15-3"]
+  ],
+
+  "Bantamweight":[
+    ["Merab Dvalishvili","20-5"],
+    ["Petr Yan","19-5"],
+    ["Umar Nurmagomedov","20-1"],
+    ["Cory Sandhagen","18-6"],
+    ["Sean O'Malley","19-3"],
+    ["Deiveson Figueiredo","24-5-1"],
+    ["Marlon Vera","23-10-1"],
+    ["Song Yadong","22-8-2"]
+  ],
+
+  "Featherweight":[
+    ["Alexander Volkanovski","27-3"],
+    ["Movsar Evloev","20-0"],
+    ["Diego Lopes","26-7"],
+    ["Lerone Murphy","16-0"],
+    ["Yair Rodriguez","20-5"],
+    ["Arnold Allen","20-4"],
+    ["Brian Ortega","16-4"]
+  ],
+
+  "Lightweight":[
+    ["Ilia Topuria","17-0"],
+    ["Islam Makhachev","27-1"],
+    ["Arman Tsarukyan","23-3"],
+    ["Charles Oliveira","35-11"],
+    ["Max Holloway","27-8"],
+    ["Justin Gaethje","26-5"],
+    ["Dustin Poirier","30-10"]
+  ],
+
+  "Welterweight":[
+    ["Islam Makhachev","27-1"],
+    ["Jack Della Maddalena","17-3"],
+    ["Shavkat Rakhmonov","19-0"],
+    ["Ian Machado Garry","16-1"],
+    ["Belal Muhammad","24-5"],
+    ["Kamaru Usman","21-4"],
+    ["Joaquin Buckley","21-7"]
+  ],
+
+  "Middleweight":[
+    ["Dricus Du Plessis","23-3"],
+    ["Khamzat Chimaev","15-0"],
+    ["Israel Adesanya","24-5"],
+    ["Robert Whittaker","27-8"],
+    ["Nassourdine Imavov","16-4"],
+    ["Caio Borralho","17-1"]
+  ],
+
+  "Light Heavyweight":[
+    ["Alex Pereira","13-3"],
+    ["Magomed Ankalaev","21-2"],
+    ["Jiri Prochazka","32-6"],
+    ["Jamahal Hill","12-3"],
+    ["Carlos Ulberg","12-1"],
+    ["Jan Blachowicz","29-11"]
+  ],
+
+  "Heavyweight":[
+    ["Tom Aspinall","15-3"],
+    ["Jon Jones","28-1"],
+    ["Ciryl Gane","13-2"],
+    ["Alexander Volkov","38-11"],
+    ["Sergei Pavlovich","19-3"],
+    ["Curtis Blaydes","19-6"]
+  ]
+
+};
+
+
+/* =========================================================
+   NEWS FALLBACK
+========================================================= */
+
+const FALLBACK_NEWS = [
+
+  {
+    title:"UFC 332: Silva vs Wang sonuçları",
+    description:"UFC 332, Salt Lake City'deki Delta Center'da gerçekleşiyor. Ana maçta Natalia Silva ile Wang Cong karşı karşıya geliyor.",
+    source:"UFC",
+    date:"3 Ekim 2026",
+    image:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1200&q=85",
+    link:"https://www.ufc.com/news/ufc-332-silva-vs-wang-results"
+  },
+
+  {
+    title:"UFC 332 fight card: Silva vs Wang",
+    description:"UFC 332 kartında Natalia Silva vs Wang Cong ana maçının yanında Figueiredo vs Talbott ve King Green vs Ribovics gibi karşılaşmalar bulunuyor.",
+    source:"UFC",
+    date:"3 Ekim 2026",
+    image:"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1200&q=85",
+    link:"https://www.ufc.com/events"
+  },
+
+  {
+    title:"UFC 332 fight week devam ediyor",
+    description:"Salt Lake City'deki UFC 332 etkinliği 3 Ekim 2026 tarihinde düzenleniyor.",
+    source:"MMA Fighting",
+    date:"3 Ekim 2026",
+    image:"https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=1200&q=85",
+    link:"https://www.mmafighting.com/schedule"
+  },
+
+  {
+    title:"UFC'nin sonraki etkinlikleri",
+    description:"UFC 332'nin ardından Allen vs Duncan, Buckley vs Malott ve UFC 333: Volkanovski vs Evloev kartları geliyor.",
+    source:"UFC",
+    date:"Ekim 2026",
+    image:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1200&q=85",
+    link:"https://www.ufc.com/events"
+  },
+
+  {
+    title:"Volkanovski vs Evloev ve Yan vs Dvalishvili 3",
+    description:"24 Ekim 2026 UFC 333 kartında Alexander Volkanovski vs Movsar Evloev ve Petr Yan vs Merab Dvalishvili 3 yer alıyor.",
+    source:"MMA Fighting",
+    date:"24 Ekim 2026",
+    image:"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1200&q=85",
+    link:"https://www.mmafighting.com/schedule"
+  }
+
+];
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function toggleLanguage(){
+
+  ZMMA.language =
+    ZMMA.language === "tr"
+      ? "en"
+      : "tr";
+
+  applyLanguage();
+
 }
 
 
-function filterFighters(category,button){
+function applyLanguage(){
 
-    currentFighterFilter=category;
+  document.querySelectorAll("[data-tr]").forEach(el => {
 
-    document.querySelectorAll("#page-fighters .filter")
-        .forEach(x=>x.classList.remove("active"));
+    el.textContent =
+      ZMMA.language === "tr"
+        ? el.dataset.tr
+        : el.dataset.en;
 
-    button.classList.add("active");
+  });
 
-    renderFighters();
+  document.documentElement.lang = ZMMA.language;
+
 }
 
 
 /* =========================================================
-   FAVORITES
+   PAGE NAVIGATION
 ========================================================= */
 
-function getFavorites(){
+function showPage(page){
 
-    try{
-        return JSON.parse(
-            localStorage.getItem("zmma-favorites") || "[]"
-        );
-    }catch{
-        return [];
-    }
-}
+  ZMMA.currentPage = page;
 
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove("active");
+  });
 
-function isFavorite(id){
+  const target =
+    document.getElementById("page-" + page);
 
-    return getFavorites().includes(id);
-}
+  if(target){
+    target.classList.add("active");
+  }
 
+  document.querySelectorAll(".nav-item").forEach(btn => {
 
-function toggleFavorite(event,id){
-
-    event.stopPropagation();
-
-    let fav=getFavorites();
-
-    if(fav.includes(id)){
-        fav=fav.filter(x=>x!==id);
-
-        showToast(
-            lang==="tr"
-            ? "Favorilerden çıkarıldı"
-            : "Removed from favorites"
-        );
-
-    }else{
-        fav.push(id);
-
-        showToast(
-            lang==="tr"
-            ? "Favorilere eklendi ⭐"
-            : "Added to favorites ⭐"
-        );
-    }
-
-    localStorage.setItem(
-        "zmma-favorites",
-        JSON.stringify(fav)
+    btn.classList.toggle(
+      "active",
+      btn.dataset.page === page
     );
 
-    renderFighters();
+  });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
 }
 
 
 /* =========================================================
-   FIGHTER MODAL
+   NEWS RENDER
 ========================================================= */
 
-function openFighter(id){
+function renderNews(news, targetId="newsGrid"){
 
-    const f=fighters.find(x=>x.id===id);
+  const target =
+    document.getElementById(targetId);
 
-    if(!f)return;
+  if(!target) return;
 
-    const modal=document.getElementById("fighterModal");
+  if(!news.length){
 
-    document.getElementById("fighterModalContent").innerHTML=`
+    target.innerHTML =
+      `<div class="loading">Haber bulunamadı.</div>`;
 
-        <button
-            class="modal-close"
-            onclick="closeFighter()"
+    return;
+  }
+
+  target.innerHTML =
+    news.map((item,index) => `
+
+      <article class="news-card">
+
+        <img
+          class="news-image"
+          src="${escapeHTML(item.image || FALLBACK_NEWS[index % FALLBACK_NEWS.length].image)}"
+          alt=""
+          loading="lazy"
+          onerror="this.src='${FALLBACK_NEWS[index % FALLBACK_NEWS.length].image}'"
         >
-            ×
-        </button>
 
-        <div class="modal-hero">
+        <div class="news-body">
 
-            <img
-                src="${f.image}"
-                alt="${f.name}"
-            >
+          <div class="news-meta">
 
-            <div class="modal-title">
-                <small>${f.org} • ${f.division}</small>
-                <h2>${f.name}</h2>
-            </div>
+            <span>${escapeHTML(item.source || "MMA")}</span>
 
-        </div>
+            <span>${escapeHTML(item.date || "")}</span>
 
-        <div class="modal-body">
+          </div>
 
-            <div class="modal-record">
+          <div class="news-title">
+            ${escapeHTML(item.title)}
+          </div>
 
-                <span class="record-pill">
-                    Record: ${f.record}
-                </span>
+          <div class="news-description">
+            ${escapeHTML(item.description || "")}
+          </div>
 
-                <span class="record-pill">
-                    ${f.height}
-                </span>
-
-                <span class="record-pill">
-                    Reach ${f.reach}
-                </span>
-
-                <span class="record-pill">
-                    ${f.style}
-                </span>
-
-                ${
-                    f.champion
-                    ? `<span class="record-pill">🏆 Champion</span>`
-                    : ""
-                }
-
-            </div>
-
-            <p style="
-                color:#aeb5c0;
-                line-height:1.7;
-                font-size:13px;
-                margin-bottom:18px;
-            ">
-                ${f.bio}
-            </p>
-
-            <div class="modal-stats">
-
-                <div class="modal-stat">
-                    <span>Wins</span>
-                    <strong>${f.wins}</strong>
-                </div>
-
-                <div class="modal-stat">
-                    <span>Losses</span>
-                    <strong>${f.losses}</strong>
-                </div>
-
-                <div class="modal-stat">
-                    <span>KO/TKO</span>
-                    <strong>${f.winsKO}</strong>
-                </div>
-
-                <div class="modal-stat">
-                    <span>Submission</span>
-                    <strong>${f.winsSub}</strong>
-                </div>
-
-                <div class="modal-stat">
-                    <span>Decision</span>
-                    <strong>${f.winsDec}</strong>
-                </div>
-
-                <div class="modal-stat">
-                    <span>Win Streak</span>
-                    <strong>${f.streak}</strong>
-                </div>
-
-            </div>
-
-            <div style="
-                margin-top:20px;
-                display:flex;
-                gap:9px;
-                flex-wrap:wrap;
-            ">
-
-                <button
-                    class="primary-btn"
-                    onclick="selectForCompare('${f.id}')"
-                >
-                    ⚔️ Compare
-                </button>
-
-                <button
-                    class="secondary-btn"
-                    onclick="toggleFavorite(null,'${f.id}');openFighter('${f.id}')"
-                >
-                    ${isFavorite(f.id)?"★ Favorited":"☆ Favorite"}
-                </button>
-
-            </div>
+          <a
+            class="news-open"
+            href="${escapeHTML(item.link || "#")}"
+            target="_blank"
+            rel="noopener"
+          >
+            Haberi aç →
+          </a>
 
         </div>
-    `;
 
-    modal.classList.add("open");
-    document.body.style.overflow="hidden";
+      </article>
+
+    `).join("");
+
 }
 
 
-function closeFighter(){
+/* =========================================================
+   RSS NEWS
+========================================================= */
 
-    document.getElementById("fighterModal")
-        .classList.remove("open");
+async function fetchRSS(url){
 
-    document.body.style.overflow="";
+  const endpoint =
+    "https://api.rss2json.com/v1/api.json?rss_url="
+    + encodeURIComponent(url);
+
+  const response =
+    await fetch(endpoint, {
+      cache:"no-store"
+    });
+
+  if(!response.ok){
+    throw new Error("RSS error");
+  }
+
+  const data =
+    await response.json();
+
+  if(!data.items){
+    throw new Error("No RSS items");
+  }
+
+  return data.items;
+
 }
 
 
-function closeModalOutside(event){
+async function loadNews(force=false){
 
-    if(event.target.id==="fighterModal"){
-        closeFighter();
+  const targets = [
+    document.getElementById("newsGrid"),
+    document.getElementById("homeNews")
+  ];
+
+  targets.forEach(t => {
+
+    if(t && !t.children.length){
+      t.innerHTML =
+        `<div class="loading">Güncel haberler yükleniyor...</div>`;
     }
-}
+
+  });
 
 
-function selectForCompare(id){
+  const feeds = [
 
-    const selectA=document.getElementById("fighterA");
-    const selectB=document.getElementById("fighterB");
+    "https://www.ufc.com/rss/news",
+    "https://www.mmafighting.com/rss/index.xml"
 
-    if(selectA.value===id || !selectA.value){
-        selectA.value=id;
-    }else{
-        selectB.value=id;
+  ];
+
+
+  let collected = [];
+
+
+  for(const feed of feeds){
+
+    try{
+
+      const items =
+        await fetchRSS(feed);
+
+      items.slice(0,8).forEach(item => {
+
+        collected.push({
+
+          title:item.title || "MMA News",
+
+          description:
+            stripHTML(item.description || item.content || "")
+              .slice(0,180),
+
+          source:
+            item.author ||
+            (feed.includes("ufc") ? "UFC" : "MMA Fighting"),
+
+          date:
+            formatRSSDate(item.pubDate),
+
+          image:
+            item.thumbnail ||
+            item.enclosure?.link ||
+            FALLBACK_NEWS[collected.length % FALLBACK_NEWS.length].image,
+
+          link:
+            item.link || "#"
+
+        });
+
+      });
+
+    }catch(error){
+
+      console.warn(
+        "RSS feed unavailable:",
+        feed
+      );
+
     }
 
-    closeFighter();
+  }
 
-    showPage("compare");
 
-    renderCompare();
+  if(collected.length < 3){
+
+    collected =
+      [...FALLBACK_NEWS];
+
+    document.getElementById("statusValue").textContent =
+      "FALLBACK";
+
+  }else{
+
+    document.getElementById("statusValue").textContent =
+      "UPDATED";
+
+  }
+
+
+  const unique = [];
+
+  collected.forEach(item => {
+
+    if(
+      item.title &&
+      !unique.some(
+        x => x.title === item.title
+      )
+    ){
+      unique.push(item);
+    }
+
+  });
+
+
+  renderNews(
+    unique.slice(0,12),
+    "newsGrid"
+  );
+
+  renderNews(
+    unique.slice(0,3),
+    "homeNews"
+  );
+
+
+  ZMMA.lastNewsUpdate =
+    new Date();
+
+  document.getElementById("lastUpdated").textContent =
+    "Son yenileme: " +
+    ZMMA.lastNewsUpdate.toLocaleTimeString(
+      ZMMA.language === "tr" ? "tr-TR" : "en-US",
+      {
+        hour:"2-digit",
+        minute:"2-digit"
+      }
+    );
+
 }
 
 
@@ -3547,72 +2576,259 @@ function selectForCompare(id){
    EVENTS
 ========================================================= */
 
-let currentEventFilter="all";
-
-
 function renderEvents(){
 
-    let data=[...events];
+  const grid =
+    document.getElementById("eventGrid");
 
-    if(currentEventFilter!=="all"){
-        data=data.filter(e=>e.org===currentEventFilter);
-    }
+  if(!grid) return;
 
-    document.getElementById("eventList").innerHTML=
-        data.map(e=>`
 
-            <article class="event-card">
+  grid.innerHTML =
+    EVENTS.map(event => `
 
-                <div class="event-date">
-                    <strong>${e.date}</strong>
-                    <span>${e.month}</span>
-                </div>
+      <article class="event-card ${event.featured ? "featured" : ""}">
 
-                <div>
+        <div class="event-top">
 
-                    <div class="event-org">
-                        ${e.org}
-                    </div>
+          <div>
 
-                    <div class="event-name">
-                        ${e.name}
-                    </div>
+            <div class="org">
+              ${escapeHTML(event.org)}
+            </div>
 
-                    <div class="event-location">
-                        📍 ${e.location}
-                    </div>
+            <div class="event-name">
+              ${escapeHTML(event.name)}
+            </div>
 
-                    <div class="event-main-fight">
-                        ${e.main}
-                    </div>
+            <div class="event-location">
+              ${escapeHTML(event.location)}
+            </div>
 
-                </div>
+          </div>
 
-                <div class="event-action">
-                    <button
-                        class="secondary-btn"
-                        onclick="showToast('${lang==="tr"?"Etkinlik yakında":"Event coming soon"}')"
-                    >
-                        ${lang==="tr"?"Detay":"Details"}
-                    </button>
-                </div>
+          <div class="event-date">
+            ${escapeHTML(event.displayDate)}
+          </div>
 
-            </article>
+        </div>
 
-        `).join("");
+
+        <div class="fight-list">
+
+          ${event.fights.map(fight => `
+
+            <div class="fight-row">
+
+              <div class="fighter-side">
+
+                ${
+                  fight.title
+                    ? `<div class="title-fight">TITLE FIGHT</div>`
+                    : ""
+                }
+
+                ${escapeHTML(fight.a)}
+
+              </div>
+
+              <div class="vs">VS</div>
+
+              <div class="fighter-side right">
+
+                ${
+                  fight.title
+                    ? `<div class="title-fight">TITLE FIGHT</div>`
+                    : ""
+                }
+
+                ${escapeHTML(fight.b)}
+
+              </div>
+
+            </div>
+
+          `).join("")}
+
+        </div>
+
+      </article>
+
+    `).join("");
+
 }
 
 
-function filterEvents(category,button){
+function renderFeaturedEvent(){
 
-    currentEventFilter=category;
+  const target =
+    document.getElementById("featuredEvent");
 
-    document.querySelectorAll("#page-events .filter")
-        .forEach(x=>x.classList.remove("active"));
+  const event =
+    EVENTS.find(x => x.featured);
 
-    button.classList.add("active");
+  if(!target || !event) return;
 
-    renderEvents();
+
+  target.innerHTML = `
+
+    <article class="event-card featured">
+
+      <div class="event-top">
+
+        <div>
+
+          <div class="org">
+            UFC • OCTOBER 3, 2026
+          </div>
+
+          <div class="event-name">
+            ${event.name}
+          </div>
+
+          <div class="event-location">
+            ${event.location}
+          </div>
+
+        </div>
+
+        <div class="event-date">
+          ${event.displayDate}
+        </div>
+
+      </div>
+
+      <div class="fight-list">
+
+        ${event.fights.slice(0,5).map(fight => `
+
+          <div class="fight-row">
+
+            <div class="fighter-side">
+
+              ${
+                fight.title
+                  ? `<div class="title-fight">TITLE</div>`
+                  : ""
+              }
+
+              ${escapeHTML(fight.a)}
+
+            </div>
+
+            <div class="vs">VS</div>
+
+            <div class="fighter-side right">
+
+              ${
+                fight.title
+                  ? `<div class="title-fight">TITLE</div>`
+                  : ""
+              }
+
+              ${escapeHTML(fight.b)}
+
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================================
+   FIGHTERS
+========================================================= */
+
+function renderFighters(list=UNIQUE_FIGHTERS){
+
+  const grid =
+    document.getElementById("fighterGrid");
+
+  if(!grid) return;
+
+
+  grid.innerHTML =
+    list.map(fighter => `
+
+      <article class="fighter-card">
+
+        <img
+          class="fighter-img"
+          src="${escapeHTML(fighter.image)}"
+          alt="${escapeHTML(fighter.name)}"
+          loading="lazy"
+        >
+
+        <div class="fighter-body">
+
+          <div class="fighter-name">
+            ${escapeHTML(fighter.name)}
+          </div>
+
+          <div class="fighter-nick">
+            "${escapeHTML(fighter.nick)}"
+          </div>
+
+          <div style="color:#777e89;font-size:10px;margin-top:5px">
+            ${escapeHTML(fighter.division)}
+          </div>
+
+          <div class="record">
+
+            <span class="win">
+              ${fighter.wins} W
+            </span>
+
+            <span class="loss">
+              ${fighter.losses} L
+            </span>
+
+            <span>
+              ${fighter.draws} D
+            </span>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `).join("");
+
+}
+
+
+function filterFighters(){
+
+  const query =
+    document.getElementById("fighterSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const result =
+    UNIQUE_FIGHTERS.filter(f =>
+      (
+        f.name +
+        " " +
+        f.nick +
+        " " +
+        f.division
+      )
+      .toLowerCase()
+      .includes(query)
+    );
+
+  renderFighters(result);
+
 }
 
 
@@ -3620,69 +2836,77 @@ function filterEvents(category,button){
    RANKINGS
 ========================================================= */
 
-let currentRanking="p4p";
+let activeRanking = "Pound-for-Pound";
 
 
-function setRanking(category,button){
+function renderRankingTabs(){
 
-    currentRanking=category;
+  const target =
+    document.getElementById("rankingTabs");
 
-    document.querySelectorAll("#page-rankings .filter")
-        .forEach(x=>x.classList.remove("active"));
+  if(!target) return;
 
-    button.classList.add("active");
 
-    renderRankings();
+  target.innerHTML =
+    Object.keys(RANKINGS)
+      .map(category => `
+
+        <button
+          class="nav-item ${category === activeRanking ? "active" : ""}"
+          onclick="selectRanking('${escapeHTML(category)}')"
+        >
+          ${escapeHTML(category)}
+        </button>
+
+      `)
+      .join("");
+
+}
+
+
+function selectRanking(category){
+
+  activeRanking = category;
+
+  renderRankingTabs();
+  renderRankings();
+
 }
 
 
 function renderRankings(){
 
-    const ids=rankings[currentRanking] || rankings.p4p;
+  const target =
+    document.getElementById("rankingList");
 
-    document.getElementById("rankingBody").innerHTML=
-        ids.map((id,index)=>{
+  if(!target) return;
 
-            const f=fighters.find(x=>x.id===id);
 
-            if(!f)return"";
+  const data =
+    RANKINGS[activeRanking] || [];
 
-            return `
-                <tr onclick="openFighter('${f.id}')" style="cursor:pointer">
 
-                    <td class="rank-number">
-                        ${index+1}
-                    </td>
+  target.innerHTML =
+    data.map((fighter,index) => `
 
-                    <td>
+      <div class="rank-row">
 
-                        <div class="rank-fighter">
+        <div class="rank-number">
+          #${index + 1}
+        </div>
 
-                            <img
-                                src="${f.image}"
-                                alt="${f.name}"
-                            >
+        <div class="rank-fighter">
+          ${escapeHTML(fighter[0])}
+        </div>
 
-                            <div>
-                                <strong>${f.name}</strong>
-                                <span>${f.division}</span>
-                            </div>
+        <div class="rank-record">
+          ${escapeHTML(fighter[1])}
+        </div>
 
-                        </div>
+      </div>
 
-                    </td>
+    `).join("");
 
-                    <td>
-                        ${f.record}
-                    </td>
-
-                    <td class="streak">
-                        ${f.streak}
-                    </td>
-
-                </tr>
-            `;
-        }).join("");
 }
 
 
@@ -3690,545 +2914,447 @@ function renderRankings(){
    COMPARE
 ========================================================= */
 
-function setupCompare(){
+function populateCompare(){
 
-    const a=document.getElementById("fighterA");
-    const b=document.getElementById("fighterB");
+  const a =
+    document.getElementById("compareA");
 
-    const options=fighters.map(f=>
-        `<option value="${f.id}">${f.name}</option>`
+  const b =
+    document.getElementById("compareB");
+
+  if(!a || !b) return;
+
+
+  const options =
+    UNIQUE_FIGHTERS.map(f =>
+      `<option value="${escapeHTML(f.name)}">${escapeHTML(f.name)}</option>`
     ).join("");
 
-    a.innerHTML=options;
-    b.innerHTML=options;
 
-    a.value="jon-jones";
-    b.value="islam-makhachev";
+  a.innerHTML = options;
+  b.innerHTML = options;
 
-    renderCompare();
+
+  if(UNIQUE_FIGHTERS.length > 1){
+
+    a.value =
+      UNIQUE_FIGHTERS[0].name;
+
+    b.value =
+      UNIQUE_FIGHTERS[1].name;
+
+  }
+
 }
 
 
-function renderCompare(){
+function compareFighters(){
 
-    const a=fighters.find(
-        f=>f.id===document.getElementById("fighterA").value
+  const nameA =
+    document.getElementById("compareA").value;
+
+  const nameB =
+    document.getElementById("compareB").value;
+
+
+  const A =
+    UNIQUE_FIGHTERS.find(
+      f => f.name === nameA
     );
 
-    const b=fighters.find(
-        f=>f.id===document.getElementById("fighterB").value
+  const B =
+    UNIQUE_FIGHTERS.find(
+      f => f.name === nameB
     );
 
-    if(!a || !b)return;
 
-    const statRows=[
-        ["Wins",a.wins,b.wins,30],
-        ["KO/TKO",a.winsKO,b.winsKO,20],
-        ["Submission",a.winsSub,b.winsSub,15],
-        ["Decision",a.winsDec,b.winsDec,20],
-        ["Streak",Number(a.streak),Number(b.streak),20]
-    ];
+  if(!A || !B) return;
 
-    document.getElementById("compareBox").innerHTML=`
 
-        <div class="compare-side">
+  const stats =
+    ["striking","wrestling","cardio","power"];
 
-            <img src="${a.image}" alt="${a.name}">
 
-            <h3>${a.name}</h3>
+  document.getElementById("compareResult").innerHTML = `
 
-            <p>${a.nickname}</p>
+    <div class="compare-result">
 
-            <div class="compare-stat">
+      <div class="compare-person">
 
-                ${statRows.map(s=>{
+        <img src="${A.image}" alt="">
 
-                    const av=Math.min(100,(s[1]/s[3])*100);
-                    const bv=Math.min(100,(s[2]/s[3])*100);
+        <h3>${escapeHTML(A.name)}</h3>
 
-                    return `
-                        <div class="compare-stat-row">
+        <div class="compare-record">
+          ${escapeHTML(A.record)} • ${escapeHTML(A.division)}
+        </div>
 
-                            <div>
-                                <div style="
-                                    text-align:right;
-                                    font-size:10px;
-                                    margin-bottom:4px;
-                                ">
-                                    ${s[1]}
-                                </div>
+        ${stats.map(stat => `
 
-                                <div class="stat-bar">
-                                    <div
-                                        class="stat-fill"
-                                        style="width:${av}%"
-                                    ></div>
-                                </div>
-                            </div>
+          <div class="compare-stat">
 
-                            <div class="stat-name">
-                                ${s[0]}
-                            </div>
-
-                            <div>
-                                <div style="
-                                    font-size:10px;
-                                    margin-bottom:4px;
-                                ">
-                                    ${s[2]}
-                                </div>
-
-                                <div class="stat-bar">
-                                    <div
-                                        class="stat-fill"
-                                        style="
-                                            width:${bv}%;
-                                            margin-left:0;
-                                        "
-                                    ></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    `;
-
-                }).join("")}
-
+            <div>
+              ${A.stats[stat]}
             </div>
 
-        </div>
-
-        <div class="compare-vs">
-            VS
-        </div>
-
-        <div class="compare-side">
-
-            <img src="${b.image}" alt="${b.name}">
-
-            <h3>${b.name}</h3>
-
-            <p>${b.nickname}</p>
-
-            <div style="
-                margin-top:25px;
-                color:var(--muted);
-                font-size:11px;
-                line-height:1.7;
-            ">
-                ${b.style}
-                <br>
-                ${b.height} • Reach ${b.reach}
+            <div>
+              ${stat.toUpperCase()}
             </div>
 
+            <div>
+              ${B.stats[stat]}
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+
+      <div class="compare-person">
+
+        <img src="${B.image}" alt="">
+
+        <h3>${escapeHTML(B.name)}</h3>
+
+        <div class="compare-record">
+          ${escapeHTML(B.record)} • ${escapeHTML(B.division)}
         </div>
-    `;
+
+        ${stats.map(stat => `
+
+          <div class="compare-stat">
+
+            <div>
+              ${A.stats[stat]}
+            </div>
+
+            <div>
+              ${stat.toUpperCase()}
+            </div>
+
+            <div>
+              ${B.stats[stat]}
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+  `;
+
 }
 
 
 /* =========================================================
-   HISTORY
+   GLOBAL SEARCH
 ========================================================= */
 
-function renderHistory(){
+function globalSearch(){
 
-    document.getElementById("momentGrid").innerHTML=
-        moments.map(m=>`
+  const query =
+    document.getElementById("globalSearch")
+      .value
+      .toLowerCase()
+      .trim();
 
-            <article class="moment">
+  const result =
+    document.getElementById("searchResults");
 
-                <img src="${m.image}" alt="">
+  if(!query){
 
-                <div class="moment-content">
+    result.innerHTML = "";
 
-                    <div class="moment-year">
-                        ${m.year}
-                    </div>
-
-                    <h3>
-                        ${lang==="tr"?m.titleTR:m.titleEN}
-                    </h3>
-
-                    <p>
-                        ${lang==="tr"?m.descTR:m.descEN}
-                    </p>
-
-                </div>
-
-            </article>
-
-        `).join("");
-}
+    return;
+  }
 
 
-function renderGoat(){
-
-    const ids=[
-        "jon-jones",
-        "georges-st-pierre",
-        "demetrious-johnson"
-    ];
-
-    document.getElementById("goatList").innerHTML=
-        ids.map(id=>{
-
-            const f=fighters.find(x=>x.id===id);
-
-            return `
-                <div
-                    class="goat-fighter"
-                    onclick="openFighter('${f.id}')"
-                    style="cursor:pointer"
-                >
-
-                    <img src="${f.image}" alt="${f.name}">
-
-                    <div>
-                        <h4>${f.name}</h4>
-                        <p>
-                            ${f.record} • ${f.division}
-                        </p>
-                    </div>
-
-                </div>
-            `;
-        }).join("");
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function openSearch(){
-
-    document.getElementById("searchOverlay")
-        .classList.add("open");
-
-    document.body.style.overflow="hidden";
-
-    setTimeout(()=>{
-        document.getElementById("searchInput").focus();
-    },50);
-}
-
-
-function closeSearch(){
-
-    document.getElementById("searchOverlay")
-        .classList.remove("open");
-
-    document.body.style.overflow="";
-}
-
-
-function closeSearchOutside(event){
-
-    if(event.target.id==="searchOverlay"){
-        closeSearch();
-    }
-}
-
-
-function runSearch(){
-
-    const q=document.getElementById("searchInput")
-        .value
-        .trim()
-        .toLowerCase();
-
-    const container=document.getElementById("searchResults");
-
-    if(!q){
-
-        container.innerHTML=`
-            <div class="empty">
-                <strong>ZMMA Search</strong>
-                ${lang==="tr"?"Aramaya başla.":"Start searching."}
-            </div>
-        `;
-
-        return;
-    }
-
-    const fighterResults=fighters.filter(f=>
-        (
-            f.name+
-            " "+
-            f.nickname+
-            " "+
-            f.org+
-            " "+
-            f.division
-        ).toLowerCase().includes(q)
+  const fighters =
+    UNIQUE_FIGHTERS.filter(f =>
+      (
+        f.name +
+        " " +
+        f.nick +
+        " " +
+        f.division
+      )
+      .toLowerCase()
+      .includes(query)
     );
 
-    const newsResults=news.filter(n=>
-        (
-            n.titleTR+
-            " "+
-            n.titleEN+
-            " "+
-            n.category
-        ).toLowerCase().includes(q)
+
+  const events =
+    EVENTS.filter(e =>
+      (
+        e.name +
+        " " +
+        e.location
+      )
+      .toLowerCase()
+      .includes(query)
     );
 
-    const eventResults=events.filter(e=>
-        (
-            e.name+
-            " "+
-            e.org+
-            " "+
-            e.location
-        ).toLowerCase().includes(q)
-    );
 
-    const html=[
+  let html = "";
 
-        ...fighterResults.map(f=>`
-            <div
-                class="search-result"
-                onclick="closeSearch();openFighter('${f.id}')"
+
+  if(fighters.length){
+
+    html += `
+
+      <div class="section-title" style="margin:20px 0 10px">
+        Dövüşçüler
+      </div>
+
+      <div class="fighter-grid">
+
+        ${fighters.map(f => `
+
+          <article class="fighter-card">
+
+            <img
+              class="fighter-img"
+              src="${f.image}"
+              alt=""
             >
 
-                <img src="${f.image}" alt="${f.name}">
+            <div class="fighter-body">
 
-                <div class="search-result-info">
-                    <strong>${f.name}</strong>
-                    <span>
-                        🥊 ${f.org} • ${f.division} • ${f.record}
-                    </span>
-                </div>
+              <div class="fighter-name">
+                ${escapeHTML(f.name)}
+              </div>
 
-            </div>
-        `),
+              <div class="fighter-nick">
+                ${escapeHTML(f.nick)}
+              </div>
 
-        ...newsResults.map(n=>`
-            <div
-                class="search-result"
-                onclick="closeSearch();openArticle(${n.id})"
-            >
+              <div class="record">
 
-                <img src="${n.image}" alt="">
+                <span class="win">
+                  ${f.wins} W
+                </span>
 
-                <div class="search-result-info">
-                    <strong>${newsTitle(n)}</strong>
-                    <span>📰 ${n.category}</span>
-                </div>
+                <span class="loss">
+                  ${f.losses} L
+                </span>
+
+              </div>
 
             </div>
-        `),
 
-        ...eventResults.map(e=>`
-            <div
-                class="search-result"
-                onclick="closeSearch();showPage('events')"
-            >
+          </article>
 
-                <img src="${images.octagon}" alt="">
+        `).join("")}
 
-                <div class="search-result-info">
-                    <strong>${e.name}</strong>
-                    <span>📅 ${e.org} • ${e.location}</span>
-                </div>
+      </div>
 
-            </div>
-        `)
-
-    ].join("");
-
-    container.innerHTML=html || `
-        <div class="empty">
-            <strong>
-                ${lang==="tr"?"Sonuç bulunamadı":"No results found"}
-            </strong>
-
-            ${lang==="tr"
-                ?"Başka bir isim veya kelime dene."
-                :"Try another name or keyword."
-            }
-        </div>
-    `;
-}
-
-
-/* =========================================================
-   ARTICLES
-========================================================= */
-
-function openArticle(id){
-
-    const item=news.find(n=>n.id===id);
-
-    if(!item)return;
-
-    const title=newsTitle(item);
-    const desc=newsDesc(item);
-
-    document.getElementById("articleContainer").innerHTML=`
-
-        <img
-            class="article-cover"
-            src="${item.image}"
-            alt="${title}"
-        >
-
-        <div class="article-meta">
-            <span>${item.category}</span>
-            <span>•</span>
-            <span>${item.source}</span>
-            <span>•</span>
-            <span>${item.time}</span>
-        </div>
-
-        <h1>${title}</h1>
-
-        <div class="article-lead">
-            ${desc}
-        </div>
-
-        <div class="article-content">
-
-            <p>
-                ${lang==="tr"
-                    ? "MMA dünyasındaki gelişmeler ZMMA'nın gündeminde. Bu sayfa, ilgili haber başlığının özetini ve konu hakkında temel bilgileri tek yerde sunmak için hazırlanmıştır."
-                    : "The latest developments in the MMA world are on ZMMA's radar. This page provides a concise overview of the story and the surrounding context."
-                }
-            </p>
-
-            <p>
-                ${lang==="tr"
-                    ? "Dövüşçüler, organizasyonlar ve yaklaşan karşılaşmalar hakkında daha fazla bilgi için ZMMA'nın diğer bölümlerine göz atabilirsin."
-                    : "Explore the other sections of ZMMA for more information about fighters, organizations and upcoming matchups."
-                }
-            </p>
-
-            <div style="
-                margin-top:25px;
-                padding:18px;
-                background:var(--panel);
-                border:1px solid var(--line);
-                border-radius:15px;
-            ">
-                <strong>
-                    ${lang==="tr"?"ZMMA Notu":"ZMMA Note"}
-                </strong>
-
-                <p style="
-                    color:var(--muted);
-                    margin-top:7px;
-                    font-size:11px;
-                ">
-                    ${lang==="tr"
-                        ? "Bu demo sürümündeki haber içerikleri örnek veri olarak gösterilmektedir. Canlı yayın için bir haber API'si bağlanabilir."
-                        : "News content in this demo is sample data. A news API can be connected for a live feed."
-                    }
-                </p>
-            </div>
-
-        </div>
-
-        <div style="margin-top:25px">
-            <button
-                class="secondary-btn"
-                onclick="showPage('news')"
-            >
-                ← ${lang==="tr"?"Haberlere dön":"Back to news"}
-            </button>
-        </div>
     `;
 
-    showPage("article");
+  }
+
+
+  if(events.length){
+
+    html += `
+
+      <div class="section-title" style="margin:25px 0 10px">
+        Etkinlikler
+      </div>
+
+      <div class="event-grid">
+
+        ${events.map(e => `
+
+          <article class="event-card">
+
+            <div class="org">
+              ${escapeHTML(e.org)}
+            </div>
+
+            <div class="event-name">
+              ${escapeHTML(e.name)}
+            </div>
+
+            <div class="event-location">
+              ${escapeHTML(e.location)}
+            </div>
+
+          </article>
+
+        `).join("")}
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(!html){
+
+    html =
+      `<div class="loading">Sonuç bulunamadı.</div>`;
+
+  }
+
+
+  result.innerHTML = html;
+
 }
 
 
 /* =========================================================
-   TOAST
+   REFRESH
 ========================================================= */
 
-let toastTimer;
+async function refreshAll(){
+
+  const button =
+    document.querySelector(".refresh");
+
+  if(button){
+
+    button.innerHTML = "↻ Yenileniyor...";
+
+  }
 
 
-function showToast(message){
+  await loadNews(true);
 
-    const toast=document.getElementById("toast");
+  renderEvents();
+  renderFeaturedEvent();
+  renderFighters();
+  renderRankingTabs();
+  renderRankings();
 
-    toast.textContent=message;
 
-    toast.classList.add("show");
+  if(button){
 
-    clearTimeout(toastTimer);
+    button.innerHTML = "↻ Yenile";
 
-    toastTimer=setTimeout(()=>{
-        toast.classList.remove("show");
-    },2200);
+  }
+
 }
 
 
 /* =========================================================
-   RENDER ALL
+   UTILITIES
 ========================================================= */
 
-function renderAll(){
+function escapeHTML(value){
 
-    renderTrending();
-    renderHomeNews();
-    renderHomeChampions();
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-    renderNews();
-    renderFighters();
-    renderEvents();
-    renderRankings();
+}
 
-    renderHistory();
-    renderGoat();
 
-    setupCompare();
+function stripHTML(value){
 
-    if(
-        document.getElementById("searchInput") &&
-        document.getElementById("searchInput").value
-    ){
-        runSearch();
+  const div =
+    document.createElement("div");
+
+  div.innerHTML = value;
+
+  return div.textContent || div.innerText || "";
+
+}
+
+
+function formatRSSDate(date){
+
+  if(!date){
+    return "";
+  }
+
+  const parsed =
+    new Date(date);
+
+  if(Number.isNaN(parsed.getTime())){
+    return date;
+  }
+
+  return parsed.toLocaleDateString(
+    ZMMA.language === "tr"
+      ? "tr-TR"
+      : "en-US",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
     }
+  );
+
 }
 
 
 /* =========================================================
-   KEYBOARD
+   AUTO UPDATE
 ========================================================= */
 
-document.addEventListener("keydown",event=>{
+function startAutoRefresh(){
 
-    if(event.key==="Escape"){
+  if(ZMMA.refreshTimer){
+    clearInterval(ZMMA.refreshTimer);
+  }
 
-        closeSearch();
-        closeFighter();
+  /*
+    News is refreshed every 10 minutes.
+    This does not spam the API.
+  */
 
-    }
+  ZMMA.refreshTimer =
+    setInterval(() => {
 
-    if(
-        (event.ctrlKey || event.metaKey) &&
-        event.key.toLowerCase()==="k"
-    ){
+      loadNews(true);
 
-        event.preventDefault();
-        openSearch();
+    },10 * 60 * 1000);
 
-    }
-
-});
+}
 
 
 /* =========================================================
-   INIT
+   INITIALIZE
 ========================================================= */
 
-applyLanguage();
+function init(){
 
-loadLiveNews();
+  applyLanguage();
+
+  renderEvents();
+
+  renderFeaturedEvent();
+
+  renderFighters();
+
+  renderRankingTabs();
+
+  renderRankings();
+
+  populateCompare();
+
+  loadNews();
+
+  startAutoRefresh();
+
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  init
+);
 
 </script>
 
 </body>
-  </html>
+</html>
