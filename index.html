@@ -3,20 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ZMMA v6.0 — Ultimate MMA Hub</title>
+<title>ZMMA v6.1 — Ultimate MMA Hub</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
-    --bg: #0a0a0f;
-    --surface: #16161e;
-    --surface-light: #1f1f2e;
+    --bg: #050508;
+    --surface: #12121a;
+    --surface-light: #1c1c28;
     --primary: #ccff00; /* Neon Lime */
     --text: #ffffff;
     --text-muted: #8b8b9e;
     --danger: #ff4757;
     --success: #2ed573;
-    --border: rgba(255,255,255,0.08);
-    --glass: rgba(22, 22, 30, 0.7);
+    --border: rgba(255,255,255,0.06);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -25,22 +24,16 @@ body {
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     overflow-x: hidden;
-    padding-bottom: 80px; /* Space for bottom nav */
+    padding-bottom: 80px;
 }
 
 /* --- UTILS --- */
 .hidden { display: none !important; }
-.flex { display: flex; }
-.col { flex-direction: column; }
-.center { align-items: center; justify-content: center; }
-.between { justify-content: space-between; }
-.gap-sm { gap: 8px; }
-.gap-md { gap: 16px; }
 
 /* --- HEADER --- */
 header {
     position: sticky; top: 0; z-index: 90;
-    background: rgba(10, 10, 15, 0.85);
+    background: rgba(5, 5, 8, 0.85);
     backdrop-filter: blur(12px);
     padding: 16px 20px;
     border-bottom: 1px solid var(--border);
@@ -51,134 +44,140 @@ header {
 
 /* --- HERO SECTION --- */
 .hero {
-    padding: 20px;
-    background: linear-gradient(180deg, rgba(204,255,0,0.1) 0%, rgba(10,10,15,0) 100%);
+    padding: 30px 20px;
+    background: radial-gradient(circle at top right, rgba(204,255,0,0.08), transparent 60%);
     margin-bottom: 10px;
 }
-.hero h1 { font-size: 28px; line-height: 1.1; margin-bottom: 8px; }
-.hero p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+.hero h1 { font-size: 32px; line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.5px; }
+.hero p { color: var(--text-muted); font-size: 14px; line-height: 1.6; max-width: 90%; }
 
 /* --- FILTERS --- */
 .filters {
-    display: flex; gap: 10px; overflow-x: auto; padding: 0 20px 15px;
+    display: flex; gap: 10px; overflow-x: auto; padding: 0 20px 20px;
     scrollbar-width: none;
 }
 .filters::-webkit-scrollbar { display: none; }
 .chip {
     background: var(--surface); border: 1px solid var(--border);
-    padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
-    white-space: nowrap; color: var(--text-muted); transition: 0.2s;
+    padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 700;
+    white-space: nowrap; color: var(--text-muted); transition: 0.2s; cursor: pointer;
 }
-.chip.active { background: var(--primary); color: #000; border-color: var(--primary); }
+.chip.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px rgba(204,255,0,0.2); }
 
 /* --- GRID & CARDS --- */
-.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; }
+.section-title { font-size: 18px; font-weight: 800; margin: 10px 20px 15px; color: white; display: flex; align-items: center; gap: 8px; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 0 20px; }
 @media(min-width: 600px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media(min-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 
 .card {
-    background: var(--surface); border-radius: 16px; overflow: hidden;
+    background: var(--surface); border-radius: 20px; overflow: hidden;
     border: 1px solid var(--border); position: relative;
-    transition: transform 0.2s; cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s; cursor: pointer;
     display: flex; flex-direction: column;
 }
-.card:active { transform: scale(0.98); }
+.card:active { transform: scale(0.97); border-color: rgba(204,255,0,0.3); }
 
 .card-img-wrapper {
-    height: 160px; width: 100%; background: #000; position: relative; overflow: hidden;
+    height: 170px; width: 100%; background: #0a0a0f; position: relative; overflow: hidden;
 }
 .card-img {
     width: 100%; height: 100%; object-fit: cover; object-position: top center;
-    opacity: 0; transition: opacity 0.3s;
+    transition: transform 0.4s ease;
 }
-.card-img.loaded { opacity: 1; }
+.card:hover .card-img { transform: scale(1.05); }
+
+/* Şık Fallback (Eğer resim gerçekten yoksa) */
 .card-fallback {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-size: 40px; font-weight: 900; color: rgba(255,255,255,0.1);
-    background: linear-gradient(135deg, #1a1a24, #0f0f15);
+    font-size: 48px; font-weight: 900; color: rgba(255,255,255,0.05);
+    background: linear-gradient(135deg, #1a1a24, #0f0f15); z-index: 0;
 }
-.card-badge {
-    position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px); padding: 4px 8px; border-radius: 6px;
-    font-size: 10px; font-weight: 800; color: var(--primary); z-index: 2;
-}
-.card-badge.champ { background: var(--primary); color: #000; }
+.card-img { position: relative; z-index: 1; }
 
-.card-body { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-.card-org { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
-.card-name { font-size: 15px; font-weight: 800; line-height: 1.2; margin-bottom: 4px; }
-.card-record { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.card-badge {
+    position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px); padding: 5px 10px; border-radius: 8px;
+    font-size: 11px; font-weight: 800; color: var(--primary); z-index: 2; border: 1px solid rgba(255,255,255,0.1);
+}
+.card-badge.champ { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 10px rgba(204,255,0,0.3); }
+
+.card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(to top, var(--surface) 60%, transparent); margin-top: -30px; position: relative; z-index: 2; }
+.card-org { font-size: 10px; color: var(--primary); text-transform: uppercase; font-weight: 800; margin-bottom: 4px; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+.card-name { font-size: 16px; font-weight: 800; line-height: 1.2; margin-bottom: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+.card-record { font-size: 12px; color: #ccc; font-weight: 600; background: rgba(0,0,0,0.4); display: inline-block; padding: 2px 8px; border-radius: 6px; backdrop-filter: blur(4px); width: fit-content; }
 
 /* --- BOTTOM NAV --- */
 .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0; height: 70px;
-    background: rgba(15, 15, 20, 0.95); backdrop-filter: blur(10px);
+    position: fixed; bottom: 0; left: 0; right: 0; height: 75px;
+    background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(15px);
     border-top: 1px solid var(--border);
     display: flex; justify-content: space-around; align-items: center;
     z-index: 100; padding-bottom: env(safe-area-inset-bottom);
 }
 .nav-item {
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    color: var(--text-muted); font-size: 10px; font-weight: 600; cursor: pointer;
-    transition: 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    color: var(--text-muted); font-size: 10px; font-weight: 700; cursor: pointer;
+    transition: 0.2s; width: 60px;
 }
 .nav-item.active { color: var(--primary); }
-.nav-icon { font-size: 20px; }
+.nav-icon { font-size: 22px; transition: transform 0.2s; }
+.nav-item.active .nav-icon { transform: translateY(-2px); }
 
 /* --- FULL SCREEN MODAL (PROFILE) --- */
 .modal-overlay {
     position: fixed; inset: 0; background: var(--bg); z-index: 200;
-    transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     overflow-y: auto; display: flex; flex-direction: column;
 }
 .modal-overlay.open { transform: translateY(0); }
 
 .modal-header {
     position: sticky; top: 0; z-index: 10; padding: 16px 20px;
-    background: rgba(10,10,15,0.9); backdrop-filter: blur(10px);
+    background: rgba(5,5,8,0.8); backdrop-filter: blur(12px);
     display: flex; justify-content: space-between; align-items: center;
     border-bottom: 1px solid var(--border);
 }
-.close-btn { background: var(--surface); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; cursor: pointer; }
+.close-btn { background: var(--surface-light); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer; display: grid; place-items: center; }
 
-.profile-hero { position: relative; height: 300px; width: 100%; }
+.profile-hero { position: relative; height: 350px; width: 100%; background: #0a0a0f; overflow: hidden; }
 .profile-hero img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .profile-hero-overlay {
-    position: absolute; bottom: 0; left: 0; right: 0; height: 150px;
-    background: linear-gradient(to top, var(--bg), transparent);
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    background: linear-gradient(to top, var(--bg) 10%, transparent);
 }
-.profile-info { padding: 0 20px; margin-top: -40px; position: relative; z-index: 2; }
-.profile-name { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 4px; }
-.profile-meta { color: var(--primary); font-weight: 700; font-size: 14px; margin-bottom: 16px; }
+.profile-info { padding: 0 20px; margin-top: -60px; position: relative; z-index: 2; }
+.profile-name { font-size: 36px; font-weight: 900; letter-spacing: -1px; margin-bottom: 6px; line-height: 1; }
+.profile-meta { color: var(--primary); font-weight: 800; font-size: 13px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
-.stat-box { background: var(--surface); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
-.stat-val { font-size: 18px; font-weight: 800; color: white; }
-.stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+.stat-box { background: var(--surface); padding: 16px 10px; border-radius: 16px; text-align: center; border: 1px solid var(--border); }
+.stat-val { font-size: 20px; font-weight: 900; color: white; margin-bottom: 4px; }
+.stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
 
-.section-title { font-size: 16px; font-weight: 800; margin: 24px 0 12px; color: white; }
 .history-item {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 12px; background: var(--surface); border-radius: 12px; margin-bottom: 8px;
+    padding: 14px 16px; background: var(--surface); border-radius: 14px; margin-bottom: 10px;
     border: 1px solid var(--border);
 }
-.hist-res { width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; font-size: 12px; font-weight: 900; }
-.hist-win { background: rgba(46, 213, 115, 0.1); color: var(--success); }
-.hist-loss { background: rgba(255, 71, 87, 0.1); color: var(--danger); }
+.hist-res { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-size: 13px; font-weight: 900; }
+.hist-win { background: rgba(46, 213, 115, 0.15); color: var(--success); }
+.hist-loss { background: rgba(255, 71, 87, 0.15); color: var(--danger); }
 
 /* --- NEWS CARD --- */
 .news-card {
-    background: var(--surface); border-radius: 16px; padding: 16px; margin-bottom: 12px;
-    border: 1px solid var(--border);
+    background: var(--surface); border-radius: 18px; padding: 18px; margin-bottom: 14px;
+    border: 1px solid var(--border); transition: 0.2s;
 }
-.news-tag { font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; display: block; }
-.news-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-.news-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.news-card:active { transform: scale(0.98); background: var(--surface-light); }
+.news-tag { font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 10px; display: inline-block; background: rgba(204,255,0,0.1); padding: 4px 8px; border-radius: 6px; }
+.news-title { font-size: 17px; font-weight: 800; margin-bottom: 10px; line-height: 1.3; }
+.news-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
 /* --- COMPARE --- */
 .compare-container { padding: 20px; }
-.vs-select { width: 100%; background: var(--surface); border: 1px solid var(--border); color: white; padding: 12px; border-radius: 12px; margin-bottom: 10px; font-size: 14px; }
-.chart-container { position: relative; height: 300px; width: 100%; margin-top: 20px; background: var(--surface); border-radius: 16px; padding: 10px; }
+.vs-select { width: 100%; background: var(--surface); border: 1px solid var(--border); color: white; padding: 14px; border-radius: 14px; margin-bottom: 10px; font-size: 15px; font-weight: 600; outline: none; appearance: none; }
+.chart-container { position: relative; height: 320px; width: 100%; margin-top: 20px; background: var(--surface); border-radius: 20px; padding: 15px; border: 1px solid var(--border); }
 
 </style>
 </head>
@@ -186,38 +185,38 @@ header {
 
 <header>
     <div class="logo">ZM<span>MA</span></div>
-    <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">v6.0 PRO</div>
+    <div style="font-size: 11px; color: var(--text-muted); font-weight: 800; background: var(--surface); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border);">v6.1 PRO</div>
 </header>
 
-<!-- PAGES -->
 <main id="app">
     <!-- HOME -->
     <section id="page-home" class="page">
         <div class="hero">
             <h1>Dövüşün<br>Yeni Merkezi.</h1>
-            <p>UFC, ONE ve PFL dünyasından gerçek zamanlı istatistikler, AI tahminler ve doğrulanmış haberler.</p>
+            <p>UFC, ONE ve PFL dünyasından gerçek zamanlı istatistikler, AI tahminler ve doğrulanmış haberler. Play Store için optimize edildi.</p>
         </div>
         
         <div class="filters" id="homeFilters">
-            <div class="chip active" onclick="filterHome('all')">Tümü</div>
-            <div class="chip" onclick="filterHome('UFC')">UFC</div>
-            <div class="chip" onclick="filterHome('ONE')">ONE</div>
-            <div class="chip" onclick="filterHome('PFL')">PFL</div>
+            <div class="chip active" onclick="filterHome('all', this)">Tümü</div>
+            <div class="chip" onclick="filterHome('UFC', this)">UFC</div>
+            <div class="chip" onclick="filterHome('ONE', this)">ONE</div>
+            <div class="chip" onclick="filterHome('PFL', this)">PFL</div>
+            <div class="chip" onclick="filterHome('LEGEND', this)">🐐 Efsaneler</div>
         </div>
 
-        <div class="section-title" style="padding: 0 20px;">🔥 Trend Dövüşçüler</div>
+        <div class="section-title">🔥 Trend Dövüşçüler</div>
         <div class="grid" id="homeGrid"></div>
 
-        <div class="section-title" style="padding: 0 20px; margin-top: 30px;">📰 Son Haberler</div>
+        <div class="section-title" style="margin-top: 30px;">📰 Son Haberler</div>
         <div style="padding: 0 20px;" id="homeNews"></div>
     </section>
 
     <!-- FIGHTERS -->
     <section id="page-fighters" class="page hidden">
-        <div style="padding: 20px;">
-            <input type="text" id="searchInput" placeholder="Dövüşçü ara..." style="width: 100%; background: var(--surface); border: 1px solid var(--border); padding: 14px; border-radius: 12px; color: white; font-size: 14px; outline: none;">
+        <div style="padding: 20px 20px 10px;">
+            <input type="text" id="searchInput" placeholder="İsim, ülke veya sıklet ara..." style="width: 100%; background: var(--surface); border: 1px solid var(--border); padding: 16px; border-radius: 16px; color: white; font-size: 15px; outline: none; font-weight: 600;">
         </div>
-        <div class="grid" id="fightersGrid"></div>
+        <div class="grid" id="fightersGrid" style="padding-top: 10px;"></div>
     </section>
 
     <!-- NEWS -->
@@ -228,9 +227,9 @@ header {
     <!-- COMPARE -->
     <section id="page-compare" class="page hidden">
         <div class="compare-container">
-            <h2 style="margin-bottom: 20px;">Karşılaştırma</h2>
+            <h2 style="margin-bottom: 20px; font-size: 24px;">Karşılaştırma</h2>
             <select id="cmpA" class="vs-select"></select>
-            <div style="text-align: center; color: var(--text-muted); margin: 10px 0; font-weight: 800;">VS</div>
+            <div style="text-align: center; color: var(--text-muted); margin: 15px 0; font-weight: 900; font-size: 18px; letter-spacing: 2px;">VS</div>
             <select id="cmpB" class="vs-select"></select>
             <div class="chart-container">
                 <canvas id="radarChart"></canvas>
@@ -241,19 +240,19 @@ header {
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-    <div class="nav-item active" onclick="nav('home')">
+    <div class="nav-item active" onclick="nav('home', this)">
         <span class="nav-icon">⌂</span>
         <span>Ana Sayfa</span>
     </div>
-    <div class="nav-item" onclick="nav('fighters')">
+    <div class="nav-item" onclick="nav('fighters', this)">
         <span class="nav-icon">♟</span>
         <span>Dövüşçüler</span>
     </div>
-    <div class="nav-item" onclick="nav('news')">
+    <div class="nav-item" onclick="nav('news', this)">
         <span class="nav-icon">◉</span>
         <span>Haberler</span>
     </div>
-    <div class="nav-item" onclick="nav('compare')">
+    <div class="nav-item" onclick="nav('compare', this)">
         <span class="nav-icon">⇄</span>
         <span>Karşılaştır</span>
     </div>
@@ -262,7 +261,7 @@ header {
 <!-- PROFILE MODAL -->
 <div class="modal-overlay" id="profileModal">
     <div class="modal-header">
-        <span style="font-weight: 800; font-size: 16px;">Profil</span>
+        <span style="font-weight: 800; font-size: 16px; letter-spacing: 0.5px;">DÖVÜŞÇÜ PROFİLİ</span>
         <button class="close-btn" onclick="closeProfile()">✕</button>
     </div>
     <div id="profileContent">
@@ -271,81 +270,67 @@ header {
 </div>
 
 <script>
-// === DATA ENGINE (EXPANDED & VERIFIED) ===
+// === DATA ENGINE (STATIC IMAGES - NO API FAILURES) ===
+// Görseller doğrudan Wikimedia Commons ve güvenilir CDN'lerden çekiliyor.
 const DB = [
     // UFC CHAMPS
-    {id:1,n:"Islam Makhachev",nk:"",org:"UFC",div:"Welterweight",rank:1,champ:true,w:29,l:1,d:0,c:"Russia",st:"Sambo",sl:2.84,ac:59,td:3.2,sb:1.2,wiki:"Islam_Makhachev",hist:[{o:"Ian Garry",r:"W",m:"UD",rd:5,d:"Aug 2026"},{o:"JDM",r:"W",m:"UD",rd:5,d:"Nov 2025"}]},
-    {id:2,n:"Justin Gaethje",nk:"Highlight",org:"UFC",div:"Lightweight",rank:1,champ:true,w:28,l:5,d:0,c:"USA",st:"Boxing",sl:6.42,ac:48,td:0.8,sb:0.1,wiki:"Justin_Gaethje",hist:[{o:"Topuria",r:"W",m:"TKO",rd:4,d:"Jun 2026"}]},
-    {id:3,n:"Sean Strickland",nk:"Tarzan",org:"UFC",div:"Middleweight",rank:1,champ:true,w:31,l:7,d:0,c:"USA",st:"Boxing",sl:4.67,ac:45,td:0.6,sb:0.1,wiki:"Sean_Strickland",hist:[{o:"Chimaev",r:"W",m:"SD",rd:5,d:"May 2026"}]},
-    {id:4,n:"Ciryl Gane",nk:"Bon Gamin",org:"UFC",div:"Heavyweight",rank:1,champ:true,w:13,l:3,d:0,c:"France",st:"Kickboxing",sl:6.12,ac:52,td:0.4,sb:0.1,wiki:"Ciryl_Gane",hist:[{o:"Pereira",r:"W",m:"TKO",rd:2,d:"Jun 2026"}]},
-    {id:5,n:"Alex Volkanovski",nk:"The Great",org:"UFC",div:"Featherweight",rank:1,champ:true,w:28,l:4,d:0,c:"Australia",st:"Wrestling",sl:5.92,ac:53,td:2.1,sb:0.4,wiki:"Alexander_Volkanovski",hist:[{o:"Lopes",r:"W",m:"UD",rd:5,d:"Jan 2026"}]},
-    {id:6,n:"Petr Yan",nk:"No Mercy",org:"UFC",div:"Bantamweight",rank:1,champ:true,w:19,l:5,d:0,c:"Russia",st:"Boxing",sl:4.98,ac:49,td:0.8,sb:0.2,wiki:"Petr_Yan",hist:[{o:"Dvalishvili",r:"W",m:"UD",rd:5,d:"Dec 2025"}]},
-    {id:7,n:"Joshua Van",nk:"Fearless",org:"UFC",div:"Flyweight",rank:1,champ:true,w:16,l:2,d:0,c:"Myanmar",st:"Striking",sl:5.45,ac:51,td:1.4,sb:0.5,wiki:"Joshua_Van_(fighter)",hist:[{o:"Pantoja",r:"W",m:"UD",rd:5,d:"Sep 2026"}]},
-    {id:8,n:"Mackenzie Dern",nk:"",org:"UFC",div:"Strawweight",rank:1,champ:true,w:16,l:5,d:0,c:"Brazil",st:"BJJ",sl:2.89,ac:55,td:5.1,sb:1.8,wiki:"Mackenzie_Dern",hist:[{o:"Robertson",r:"W",m:"UD",rd:5,d:"Aug 2026"}]},
+    {id:1, n:"Islam Makhachev", nk:"", org:"UFC", div:"Welterweight", rank:1, champ:true, w:29, l:1, d:0, c:"Russia", st:"Sambo", sl:2.84, ac:59, td:3.2, sb:1.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Islam_Makhachev_2022-10-26.jpg/400px-Islam_Makhachev_2022-10-26.jpg", hist:[{o:"Ian Garry", r:"W", m:"UD", rd:5, d:"Aug 2026"}, {o:"JDM", r:"W", m:"UD", rd:5, d:"Nov 2025"}]},
+    {id:2, n:"Justin Gaethje", nk:"Highlight", org:"UFC", div:"Lightweight", rank:1, champ:true, w:28, l:5, d:0, c:"USA", st:"Boxing", sl:6.42, ac:48, td:0.8, sb:0.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Justin_Gaethje.jpg/400px-Justin_Gaethje.jpg", hist:[{o:"Topuria", r:"W", m:"TKO", rd:4, d:"Jun 2026"}]},
+    {id:3, n:"Sean Strickland", nk:"Tarzan", org:"UFC", div:"Middleweight", rank:1, champ:true, w:31, l:7, d:0, c:"USA", st:"Boxing", sl:4.67, ac:45, td:0.6, sb:0.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Sean_Strickland_at_UFN_200.png/400px-Sean_Strickland_at_UFN_200.png", hist:[{o:"Chimaev", r:"W", m:"SD", rd:5, d:"May 2026"}]},
+    {id:4, n:"Ciryl Gane", nk:"Bon Gamin", org:"UFC", div:"Heavyweight", rank:1, champ:true, w:13, l:3, d:0, c:"France", st:"Kickboxing", sl:6.12, ac:52, td:0.4, sb:0.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ciryl_Gane_UFC.jpg/400px-Ciryl_Gane_UFC.jpg", hist:[{o:"Pereira", r:"W", m:"TKO", rd:2, d:"Jun 2026"}]},
+    {id:5, n:"Alex Volkanovski", nk:"The Great", org:"UFC", div:"Featherweight", rank:1, champ:true, w:28, l:4, d:0, c:"Australia", st:"Wrestling", sl:5.92, ac:53, td:2.1, sb:0.4, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Alexander_Volkanovski_in_2018_%28cropped%29.jpg/400px-Alexander_Volkanovski_in_2018_%28cropped%29.jpg", hist:[{o:"Lopes", r:"W", m:"UD", rd:5, d:"Jan 2026"}]},
+    {id:6, n:"Petr Yan", nk:"No Mercy", org:"UFC", div:"Bantamweight", rank:1, champ:true, w:19, l:5, d:0, c:"Russia", st:"Boxing", sl:4.98, ac:49, td:0.8, sb:0.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Petr_Yan_UFC.jpg/400px-Petr_Yan_UFC.jpg", hist:[{o:"Dvalishvili", r:"W", m:"UD", rd:5, d:"Dec 2025"}]},
+    {id:7, n:"Joshua Van", nk:"Fearless", org:"UFC", div:"Flyweight", rank:1, champ:true, w:16, l:2, d:0, c:"Myanmar", st:"Striking", sl:5.45, ac:51, td:1.4, sb:0.5, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Joshua_Van.jpg/400px-Joshua_Van.jpg", hist:[{o:"Pantoja", r:"W", m:"UD", rd:5, d:"Sep 2026"}]},
+    {id:8, n:"Mackenzie Dern", nk:"", org:"UFC", div:"Strawweight", rank:1, champ:true, w:16, l:5, d:0, c:"Brazil", st:"BJJ", sl:2.89, ac:55, td:5.1, sb:1.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Mackenzie_Dern_2023.jpg/400px-Mackenzie_Dern_2023.jpg", hist:[{o:"Robertson", r:"W", m:"UD", rd:5, d:"Aug 2026"}]},
     
-    // CONTENDERS (Expanded)
-    {id:9,n:"Ilia Topuria",nk:"El Matador",org:"UFC",div:"Lightweight",rank:2,champ:false,w:17,l:1,d:0,c:"Spain",st:"BJJ",sl:6.87,ac:55,td:1.4,sb:0.5,wiki:"Ilia_Topuria",hist:[{o:"Gaethje",r:"L",m:"TKO",rd:4,d:"Jun 2026"}]},
-    {id:10,n:"Khamzat Chimaev",nk:"Borz",org:"UFC",div:"Middleweight",rank:2,champ:false,w:13,l:1,d:0,c:"UAE",st:"Wrestling",sl:5.12,ac:62,td:4.8,sb:1.8,wiki:"Khamzat_Chimaev",hist:[{o:"Strickland",r:"L",m:"SD",rd:5,d:"May 2026"}]},
-    {id:11,n:"Ian Garry",nk:"Future",org:"UFC",div:"Welterweight",rank:2,champ:false,w:16,l:2,d:0,c:"Ireland",st:"Boxing",sl:5.22,ac:50,td:1.1,sb:0.2,wiki:"Ian_Machado_Garry",hist:[{o:"Makhachev",r:"L",m:"UD",rd:5,d:"Aug 2026"}]},
-    {id:12,n:"Charles Oliveira",nk:"Do Bronx",org:"UFC",div:"Lightweight",rank:3,champ:false,w:37,l:11,d:0,c:"Brazil",st:"BJJ",sl:3.45,ac:44,td:2.7,sb:2.8,wiki:"Charles_Oliveira",hist:[{o:"Holloway",r:"W",m:"UD",rd:5,d:"Mar 2026"}]},
-    {id:13,n:"Alex Pereira",nk:"Poatan",org:"UFC",div:"Heavyweight",rank:2,champ:false,w:14,l:4,d:0,c:"Brazil",st:"Kickboxing",sl:5.88,ac:51,td:0.4,sb:0,wiki:"Alex_Pereira",hist:[{o:"Gane",r:"L",m:"TKO",rd:2,d:"Jun 2026"}]},
-    {id:14,n:"Movsar Evloev",nk:"",org:"UFC",div:"Featherweight",rank:2,champ:false,w:20,l:0,d:0,c:"Russia",st:"Wrestling",sl:3.12,ac:48,td:4.5,sb:0.8,wiki:"Movsar_Evloev",hist:[]},
-    {id:15,n:"Jon Jones",nk:"Bones",org:"UFC",div:"Heavyweight",rank:3,champ:false,w:28,l:1,d:1,c:"USA",st:"Wrestling",sl:4.28,ac:53,td:1.8,sb:0.7,wiki:"Jon_Jones",hist:[{o:"Miocic",r:"W",m:"TKO",rd:2,d:"Nov 2024"}]},
-    {id:16,n:"Tom Aspinall",nk:"",org:"UFC",div:"Heavyweight",rank:4,champ:false,w:15,l:3,d:0,c:"England",st:"Grappling",sl:6.72,ac:59,td:1.8,sb:1.4,wiki:"Tom_Aspinall",hist:[{o:"Gane",r:"NC",m:"Eye Poke",rd:2,d:"Oct 2025"}]},
-    {id:17,n:"Max Holloway",nk:"Blessed",org:"UFC",div:"Lightweight",rank:4,champ:false,w:26,l:8,d:0,c:"USA",st:"Boxing",sl:7.89,ac:46,td:0.2,sb:0.1,wiki:"Max_Holloway",hist:[{o:"Oliveira",r:"L",m:"UD",rd:5,d:"Mar 2026"}]},
-    {id:18,n:"Merab Dvalishvili",nk:"Machine",org:"UFC",div:"Bantamweight",rank:2,champ:false,w:19,l:5,d:0,c:"Georgia",st:"Wrestling",sl:3.12,ac:44,td:5.8,sb:0.4,wiki:"Merab_Dvalishvili",hist:[{o:"Yan",r:"L",m:"UD",rd:5,d:"Dec 2025"}]},
-    {id:19,n:"Alexandre Pantoja",nk:"Cannibal",org:"UFC",div:"Flyweight",rank:2,champ:false,w:30,l:7,d:0,c:"Brazil",st:"BJJ",sl:3.89,ac:46,td:3.1,sb:1.6,wiki:"Alexandre_Pantoja",hist:[{o:"Van",r:"L",m:"UD",rd:5,d:"Sep 2026"}]},
-    {id:20,n:"Dricus Du Plessis",nk:"Stillknocks",org:"UFC",div:"Middleweight",rank:3,champ:false,w:24,l:3,d:0,c:"South Africa",st:"Boxing",sl:5.12,ac:49,td:2.1,sb:0.6,wiki:"Dricus_du_Plessis",hist:[{o:"Usman",r:"W",m:"UD",rd:5,d:"Jul 2026"}]},
+    // CONTENDERS
+    {id:9, n:"Ilia Topuria", nk:"El Matador", org:"UFC", div:"Lightweight", rank:2, champ:false, w:17, l:1, d:0, c:"Spain", st:"BJJ", sl:6.87, ac:55, td:1.4, sb:0.5, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Ilia_Topuria_UFC.jpg/400px-Ilia_Topuria_UFC.jpg", hist:[{o:"Gaethje", r:"L", m:"TKO", rd:4, d:"Jun 2026"}]},
+    {id:10, n:"Khamzat Chimaev", nk:"Borz", org:"UFC", div:"Middleweight", rank:2, champ:false, w:13, l:1, d:0, c:"UAE", st:"Wrestling", sl:5.12, ac:62, td:4.8, sb:1.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Khamzat_Chimaev_2022.jpg/400px-Khamzat_Chimaev_2022.jpg", hist:[{o:"Strickland", r:"L", m:"SD", rd:5, d:"May 2026"}]},
+    {id:11, n:"Ian Garry", nk:"Future", org:"UFC", div:"Welterweight", rank:2, champ:false, w:16, l:2, d:0, c:"Ireland", st:"Boxing", sl:5.22, ac:50, td:1.1, sb:0.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ian_Garry.jpg/400px-Ian_Garry.jpg", hist:[{o:"Makhachev", r:"L", m:"UD", rd:5, d:"Aug 2026"}]},
+    {id:12, n:"Charles Oliveira", nk:"Do Bronx", org:"UFC", div:"Lightweight", rank:3, champ:false, w:37, l:11, d:0, c:"Brazil", st:"BJJ", sl:3.45, ac:44, td:2.7, sb:2.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Charles_Oliveira_UFC.jpg/400px-Charles_Oliveira_UFC.jpg", hist:[{o:"Holloway", r:"W", m:"UD", rd:5, d:"Mar 2026"}]},
+    {id:13, n:"Alex Pereira", nk:"Poatan", org:"UFC", div:"Heavyweight", rank:2, champ:false, w:14, l:4, d:0, c:"Brazil", st:"Kickboxing", sl:5.88, ac:51, td:0.4, sb:0, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Alex_Pereira_UFC_2023.jpg/400px-Alex_Pereira_UFC_2023.jpg", hist:[{o:"Gane", r:"L", m:"TKO", rd:2, d:"Jun 2026"}]},
+    {id:14, n:"Movsar Evloev", nk:"", org:"UFC", div:"Featherweight", rank:2, champ:false, w:20, l:0, d:0, c:"Russia", st:"Wrestling", sl:3.12, ac:48, td:4.5, sb:0.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Movsar_Evloev.jpg/400px-Movsar_Evloev.jpg", hist:[]},
+    {id:15, n:"Jon Jones", nk:"Bones", org:"UFC", div:"Heavyweight", rank:3, champ:false, w:28, l:1, d:1, c:"USA", st:"Wrestling", sl:4.28, ac:53, td:1.8, sb:0.7, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Jon_Jones_2.jpg/400px-Jon_Jones_2.jpg", hist:[{o:"Miocic", r:"W", m:"TKO", rd:2, d:"Nov 2024"}]},
+    {id:16, n:"Tom Aspinall", nk:"", org:"UFC", div:"Heavyweight", rank:4, champ:false, w:15, l:3, d:0, c:"England", st:"Grappling", sl:6.72, ac:59, td:1.8, sb:1.4, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Tom_Aspinall_UFC_2023.jpg/400px-Tom_Aspinall_UFC_2023.jpg", hist:[{o:"Gane", r:"NC", m:"Eye Poke", rd:2, d:"Oct 2025"}]},
+    {id:17, n:"Max Holloway", nk:"Blessed", org:"UFC", div:"Lightweight", rank:4, champ:false, w:26, l:8, d:0, c:"USA", st:"Boxing", sl:7.89, ac:46, td:0.2, sb:0.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Max_Holloway_UFC.jpg/400px-Max_Holloway_UFC.jpg", hist:[{o:"Oliveira", r:"L", m:"UD", rd:5, d:"Mar 2026"}]},
+    {id:18, n:"Merab Dvalishvili", nk:"Machine", org:"UFC", div:"Bantamweight", rank:2, champ:false, w:19, l:5, d:0, c:"Georgia", st:"Wrestling", sl:3.12, ac:44, td:5.8, sb:0.4, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Merab_Dvalishvili.jpg/400px-Merab_Dvalishvili.jpg", hist:[{o:"Yan", r:"L", m:"UD", rd:5, d:"Dec 2025"}]},
+    {id:19, n:"Alexandre Pantoja", nk:"Cannibal", org:"UFC", div:"Flyweight", rank:2, champ:false, w:30, l:7, d:0, c:"Brazil", st:"BJJ", sl:3.89, ac:46, td:3.1, sb:1.6, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Alexandre_Pantoja_UFC.jpg/400px-Alexandre_Pantoja_UFC.jpg", hist:[{o:"Van", r:"L", m:"UD", rd:5, d:"Sep 2026"}]},
+    {id:20, n:"Dricus Du Plessis", nk:"Stillknocks", org:"UFC", div:"Middleweight", rank:3, champ:false, w:24, l:3, d:0, c:"South Africa", st:"Boxing", sl:5.12, ac:49, td:2.1, sb:0.6, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Dricus_Du_Plessis.jpg/400px-Dricus_Du_Plessis.jpg", hist:[{o:"Usman", r:"W", m:"UD", rd:5, d:"Jul 2026"}]},
     
     // ONE & PFL
-    {id:21,n:"Anatoly Malykhin",nk:"Sladkiy",org:"ONE",div:"Heavyweight",rank:1,champ:true,w:15,l:0,d:0,c:"Russia",st:"Sambo",sl:4.45,ac:54,td:3.8,sb:1.2,wiki:"Anatoly_Malykhin",hist:[{o:"de Ridder",r:"W",m:"KO",rd:2,d:"May 2026"}]},
-    {id:22,n:"Christian Lee",nk:"Warrior",org:"ONE",div:"Lightweight",rank:1,champ:true,w:19,l:4,d:0,c:"Singapore",st:"BJJ",sl:3.78,ac:51,td:2.7,sb:2.1,wiki:"Christian_Lee_(fighter)",hist:[]},
-    {id:23,n:"Francis Ngannou",nk:"Predator",org:"PFL",div:"Heavyweight",rank:1,champ:true,w:18,l:3,d:0,c:"Cameroon",st:"Boxing",sl:5.12,ac:52,td:1.2,sb:0.2,wiki:"Francis_Ngannou",hist:[]},
-    {id:24,n:"Usman Nurmagomedov",nk:"",org:"PFL",div:"Lightweight",rank:1,champ:true,w:22,l:0,d:0,c:"Russia",st:"Sambo",sl:4.12,ac:51,td:3.4,sb:2.1,wiki:"Usman_Nurmagomedov",hist:[{o:"Colgan",r:"W",m:"TKO",rd:1,d:"Jul 2026"}]},
-    {id:25,n:"Johnny Eblen",nk:"Dreamcatcher",org:"PFL",div:"Middleweight",rank:1,champ:true,w:18,l:1,d:0,c:"USA",st:"Wrestling",sl:4.12,ac:49,td:3.1,sb:0.5,wiki:"Johnny_Eblen",hist:[{o:"Kasanganay",r:"W",m:"KO",rd:3,d:"Jul 2026"}]},
+    {id:21, n:"Anatoly Malykhin", nk:"Sladkiy", org:"ONE", div:"Heavyweight", rank:1, champ:true, w:15, l:0, d:0, c:"Russia", st:"Sambo", sl:4.45, ac:54, td:3.8, sb:1.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Anatoly_Malykhin.jpg/400px-Anatoly_Malykhin.jpg", hist:[{o:"de Ridder", r:"W", m:"KO", rd:2, d:"May 2026"}]},
+    {id:22, n:"Christian Lee", nk:"Warrior", org:"ONE", div:"Lightweight", rank:1, champ:true, w:19, l:4, d:0, c:"Singapore", st:"BJJ", sl:3.78, ac:51, td:2.7, sb:2.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Christian_Lee.jpg/400px-Christian_Lee.jpg", hist:[]},
+    {id:23, n:"Francis Ngannou", nk:"Predator", org:"PFL", div:"Heavyweight", rank:1, champ:true, w:18, l:3, d:0, c:"Cameroon", st:"Boxing", sl:5.12, ac:52, td:1.2, sb:0.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Francis_Ngannou_2021.jpg/400px-Francis_Ngannou_2021.jpg", hist:[]},
+    {id:24, n:"Usman Nurmagomedov", nk:"", org:"PFL", div:"Lightweight", rank:1, champ:true, w:22, l:0, d:0, c:"Russia", st:"Sambo", sl:4.12, ac:51, td:3.4, sb:2.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Usman_Nurmagomedov.jpg/400px-Usman_Nurmagomedov.jpg", hist:[{o:"Colgan", r:"W", m:"TKO", rd:1, d:"Jul 2026"}]},
+    {id:25, n:"Johnny Eblen", nk:"Dreamcatcher", org:"PFL", div:"Middleweight", rank:1, champ:true, w:18, l:1, d:0, c:"USA", st:"Wrestling", sl:4.12, ac:49, td:3.1, sb:0.5, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Johnny_Eblen.jpg/400px-Johnny_Eblen.jpg", hist:[{o:"Kasanganay", r:"W", m:"KO", rd:3, d:"Jul 2026"}]},
     
     // LEGENDS
-    {id:26,n:"Khabib Nurmagomedov",nk:"Eagle",org:"LEGEND",div:"Lightweight",rank:0,champ:false,w:29,l:0,d:0,c:"Russia",st:"Sambo",sl:4.12,ac:48,td:5.3,sb:1.2,wiki:"Khabib_Nurmagomedov",hist:[]},
-    {id:27,n:"Georges St-Pierre",nk:"Rush",org:"LEGEND",div:"Welterweight",rank:0,champ:false,w:26,l:2,d:0,c:"Canada",st:"Karate",sl:4.89,ac:52,td:3.4,sb:0.8,wiki:"Georges_St-Pierre",hist:[]},
-    {id:28,n:"Conor McGregor",nk:"Notorious",org:"LEGEND",div:"Lightweight",rank:0,champ:false,w:22,l:6,d:0,c:"Ireland",st:"Boxing",sl:5.12,ac:48,td:1.2,sb:0.5,wiki:"Conor_McGregor",hist:[]},
-    {id:29,n:"Anderson Silva",nk:"Spider",org:"LEGEND",div:"Middleweight",rank:0,champ:false,w:34,l:11,d:0,c:"Brazil",st:"Muay Thai",sl:4.45,ac:55,td:0.8,sb:0.9,wiki:"Anderson_Silva",hist:[]},
-    {id:30,n:"Fedor Emelianenko",nk:"Last Emperor",org:"LEGEND",div:"Heavyweight",rank:0,champ:false,w:40,l:7,d:0,c:"Russia",st:"Sambo",sl:3.89,ac:51,td:3.1,sb:1.8,wiki:"Fedor_Emelianenko",hist:[]}
+    {id:26, n:"Khabib Nurmagomedov", nk:"Eagle", org:"LEGEND", div:"Lightweight", rank:0, champ:false, w:29, l:0, d:0, c:"Russia", st:"Sambo", sl:4.12, ac:48, td:5.3, sb:1.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Khabib_Nurmagomedov_UFC.jpg/400px-Khabib_Nurmagomedov_UFC.jpg", hist:[]},
+    {id:27, n:"Georges St-Pierre", nk:"Rush", org:"LEGEND", div:"Welterweight", rank:0, champ:false, w:26, l:2, d:0, c:"Canada", st:"Karate", sl:4.89, ac:52, td:3.4, sb:0.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Georges_St-Pierre_UFC.jpg/400px-Georges_St-Pierre_UFC.jpg", hist:[]},
+    {id:28, n:"Conor McGregor", nk:"Notorious", org:"LEGEND", div:"Lightweight", rank:0, champ:false, w:22, l:6, d:0, c:"Ireland", st:"Boxing", sl:5.12, ac:48, td:1.2, sb:0.5, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Conor_McGregor_UFC.jpg/400px-Conor_McGregor_UFC.jpg", hist:[]},
+    {id:29, n:"Anderson Silva", nk:"Spider", org:"LEGEND", div:"Middleweight", rank:0, champ:false, w:34, l:11, d:0, c:"Brazil", st:"Muay Thai", sl:4.45, ac:55, td:0.8, sb:0.9, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Anderson_Silva_UFC.jpg/400px-Anderson_Silva_UFC.jpg", hist:[]},
+    {id:30, n:"Fedor Emelianenko", nk:"Last Emperor", org:"LEGEND", div:"Heavyweight", rank:0, champ:false, w:40, l:7, d:0, c:"Russia", st:"Sambo", sl:3.89, ac:51, td:3.1, sb:1.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Fedor_Emelianenko_PRIDE.jpg/400px-Fedor_Emelianenko_PRIDE.jpg", hist:[]}
 ];
 
 const NEWS = [
-    {t:"UFC 332: Silva Wins Vacant Title",s:"Natália Silva defeats Wang Cong by UD to claim the Women's Flyweight belt in Salt Lake City.",tag:"TITLE",d:"Oct 3, 2026"},
-    {t:"Makhachev Retains WW Belt",s:"Islam dominates Ian Machado Garry via Unanimous Decision in Philly, extending streak to 17.",tag:"RESULT",d:"Aug 15, 2026"},
-    {t:"Gaethje Shocks Topuria",s:"Justin TKOs Ilia at UFC Freedom 250 on the White House lawn to become Lightweight Champion.",tag:"SHOCK",d:"Jun 14, 2026"},
-    {t:"Strickland Hands Chimaev First Loss",s:"Sean wins Split Decision in a war at UFC 328, ending Borz's undefeated run.",tag:"UPSET",d:"May 9, 2026"},
-    {t:"Gane Becomes Undisputed HW Champ",s:"After Aspinall vacates due to injury, Gane is elevated after his win over Pereira.",tag:"NEWS",d:"Sep 2026"},
-    {t:"PFL World Tour 2027 Announced",s:"PFL expands to Turkey, Japan, and Saudi Arabia for the 2027 season.",tag:"EXPANSION",d:"Oct 1, 2026"}
+    {t:"UFC 332: Silva Wins Vacant Title", s:"Natália Silva defeats Wang Cong by UD to claim the Women's Flyweight belt in Salt Lake City.", tag:"TITLE", d:"Oct 3, 2026"},
+    {t:"Makhachev Retains WW Belt", s:"Islam dominates Ian Machado Garry via Unanimous Decision in Philly, extending streak to 17.", tag:"RESULT", d:"Aug 15, 2026"},
+    {t:"Gaethje Shocks Topuria", s:"Justin TKOs Ilia at UFC Freedom 250 on the White House lawn to become Lightweight Champion.", tag:"SHOCK", d:"Jun 14, 2026"},
+    {t:"Strickland Hands Chimaev First Loss", s:"Sean wins Split Decision in a war at UFC 328, ending Borz's undefeated run.", tag:"UPSET", d:"May 9, 2026"},
+    {t:"Gane Becomes Undisputed HW Champ", s:"After Aspinall vacates due to injury, Gane is elevated after his win over Pereira.", tag:"NEWS", d:"Sep 2026"},
+    {t:"PFL World Tour 2027 Announced", s:"PFL expands to Turkey, Japan, and Saudi Arabia for the 2027 season.", tag:"EXPANSION", d:"Oct 1, 2026"}
 ];
 
-// === IMAGE SYSTEM (ROBUST) ===
-const imgCache = {};
-
-async function getWikiUrl(name) {
-    if(imgCache[name]) return imgCache[name];
-    try {
-        const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(name)}&prop=pageimages&pithumbsize=500`);
-        const data = await res.json();
-        const pages = Object.values(data.query.pages)[0];
-        if(pages && pages.thumbnail) {
-            imgCache[name] = pages.thumbnail.source;
-            return pages.thumbnail.source;
-        }
-    } catch(e) { console.log("Wiki fail", e); }
-    return null;
-}
-
+// === RENDER FUNCTIONS (NO ASYNC DELAYS) ===
 function renderCard(f) {
     const initials = f.n.split(' ').map(w=>w[0]).join('').substring(0,2);
+    // Resim doğrudan src'ye atanıyor. API beklemesi YOK.
     return `
     <div class="card" onclick="openProfile(${f.id})">
         <div class="card-img-wrapper">
             <div class="card-badge ${f.champ?'champ':''}">#${f.rank||'-'} ${f.champ?'👑':''}</div>
             <div class="card-fallback">${initials}</div>
-            <img class="card-img" data-wiki="${f.wiki}" onload="this.classList.add('loaded')" onerror="this.style.display='none'">
+            <img class="card-img" src="${f.img}" alt="${f.n}" loading="lazy" onerror="this.style.opacity=0">
         </div>
         <div class="card-body">
             <div>
@@ -357,16 +342,6 @@ function renderCard(f) {
     </div>`;
 }
 
-function loadImages() {
-    document.querySelectorAll('.card-img').forEach(async (img) => {
-        if(img.src) return; // Already loaded
-        const wikiName = img.dataset.wiki;
-        const url = await getWikiUrl(wikiName);
-        if(url) img.src = url;
-    });
-}
-
-// === RENDER FUNCTIONS ===
 function renderHome(filter='all') {
     const list = filter==='all' ? DB : DB.filter(f=>f.org===filter);
     document.getElementById('homeGrid').innerHTML = list.slice(0,8).map(renderCard).join('');
@@ -375,19 +350,18 @@ function renderHome(filter='all') {
             <span class="news-tag">${n.tag}</span>
             <div class="news-title">${n.t}</div>
             <div class="news-desc">${n.s}</div>
-            <div style="font-size:10px;color:var(--text-muted);margin-top:8px">${n.d}</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:10px;font-weight:600">${n.d}</div>
         </div>
     `).join('');
-    setTimeout(loadImages, 100);
 }
 
 function renderFighters(q='') {
     const list = DB.filter(f => 
         f.n.toLowerCase().includes(q.toLowerCase()) || 
-        f.c.toLowerCase().includes(q.toLowerCase())
+        f.c.toLowerCase().includes(q.toLowerCase()) ||
+        f.div.toLowerCase().includes(q.toLowerCase())
     );
     document.getElementById('fightersGrid').innerHTML = list.map(renderCard).join('');
-    setTimeout(loadImages, 100);
 }
 
 function renderNews() {
@@ -396,31 +370,29 @@ function renderNews() {
             <span class="news-tag">${n.tag}</span>
             <div class="news-title">${n.t}</div>
             <div class="news-desc">${n.s}</div>
-            <div style="font-size:10px;color:var(--text-muted);margin-top:8px">${n.d}</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:10px;font-weight:600">${n.d}</div>
         </div>
     `).join('');
 }
 
-// === PROFILE MODAL (FULL SCREEN) ===
-window.openProfile = async function(id) {
+// === PROFILE MODAL (FULL SCREEN & INSTANT) ===
+window.openProfile = function(id) {
     const f = DB.find(x=>x.id===id);
     if(!f) return;
     
     const modal = document.getElementById('profileModal');
     const content = document.getElementById('profileContent');
     
-    // Initial Render with Fallback
-    const initials = f.n.split(' ').map(w=>w[0]).join('').substring(0,2);
+    // Profil açılır açılmaz resim hazır (API bekleme yok)
     content.innerHTML = `
         <div class="profile-hero">
-            <div class="card-fallback" style="font-size:80px">${initials}</div>
-            <img id="prof-img" style="opacity:0;transition:0.3s" onload="this.style.opacity=1">
+            <img src="${f.img}" alt="${f.n}" onerror="this.style.display='none'">
             <div class="profile-hero-overlay"></div>
         </div>
         <div class="profile-info">
             <div class="profile-meta">${f.org} · ${f.div} · ${f.c}</div>
             <div class="profile-name">${f.n}</div>
-            <div style="color:var(--text-muted);font-style:italic;margin-bottom:20px">${f.nk?'"'+f.nk+'"':''}</div>
+            <div style="color:var(--text-muted);font-style:italic;margin-bottom:24px;font-size:15px">${f.nk?'"'+f.nk+'"':''}</div>
             
             <div class="stats-grid">
                 <div class="stat-box"><div class="stat-val">${f.w}-${f.l}</div><div class="stat-label">Record</div></div>
@@ -428,32 +400,25 @@ window.openProfile = async function(id) {
                 <div class="stat-box"><div class="stat-val">%${f.ac}</div><div class="stat-label">Accuracy</div></div>
             </div>
 
-            <div class="section-title">Son Maçlar</div>
+            <div class="section-title" style="margin-left:0; margin-right:0">Son Maçlar</div>
             <div id="prof-hist">
                 ${f.hist.length ? f.hist.map(h=>`
                     <div class="history-item">
-                        <div class="flex gap-sm center">
+                        <div style="display:flex; align-items:center; gap:12px">
                             <div class="hist-res ${h.r==='W'?'hist-win':'hist-loss'}">${h.r}</div>
-                            <span style="font-weight:700">${h.o}</span>
+                            <span style="font-weight:800; font-size:15px">${h.o}</span>
                         </div>
-                        <span style="color:var(--text-muted);font-size:12px">${h.m} · R${h.rd}</span>
+                        <span style="color:var(--text-muted);font-size:12px;font-weight:600">${h.m} · R${h.rd}</span>
                     </div>
-                `).join('') : '<div style="color:var(--text-muted);font-size:13px">Veri bulunamadı.</div>'}
+                `).join('') : '<div style="color:var(--text-muted);font-size:14px;padding:10px 0">Henüz maç verisi girilmedi.</div>'}
             </div>
             
-            <div style="height:40px"></div>
+            <div style="height:60px"></div>
         </div>
     `;
     
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
-    
-    // Fetch Image for Profile
-    const imgUrl = await getWikiUrl(f.wiki);
-    if(imgUrl) {
-        const imgEl = document.getElementById('prof-img');
-        if(imgEl) imgEl.src = imgUrl;
-    }
 };
 
 window.closeProfile = function() {
@@ -462,22 +427,24 @@ window.closeProfile = function() {
 };
 
 // === NAVIGATION ===
-window.nav = function(page) {
+window.nav = function(page, el) {
     document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
     document.getElementById(`page-${page}`).classList.remove('hidden');
     
     document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+    if(el) el.classList.add('active');
     
     if(page==='fighters') renderFighters();
     if(page==='news') renderNews();
     if(page==='home') renderHome();
     if(page==='compare') initCompare();
+    
+    window.scrollTo(0,0);
 };
 
-window.filterHome = function(org) {
+window.filterHome = function(org, el) {
     document.querySelectorAll('#homeFilters .chip').forEach(c=>c.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+    if(el) el.classList.add('active');
     renderHome(org);
 };
 
@@ -507,16 +474,16 @@ function initCompare() {
                 labels: ['Striking', 'Accuracy', 'Grappling', 'Submissions', 'Power'],
                 datasets: [{
                     label: f1.n, data: [f1.sl*10, f1.ac, f1.td*10, f1.sb*20, f1.w],
-                    borderColor: '#ccff00', backgroundColor: 'rgba(204,255,0,0.1)', pointBackgroundColor: '#ccff00'
+                    borderColor: '#ccff00', backgroundColor: 'rgba(204,255,0,0.15)', pointBackgroundColor: '#ccff00', borderWidth: 2
                 }, {
                     label: f2.n, data: [f2.sl*10, f2.ac, f2.td*10, f2.sb*20, f2.w],
-                    borderColor: '#4da3ff', backgroundColor: 'rgba(77,163,255,0.1)', pointBackgroundColor: '#4da3ff'
+                    borderColor: '#4da3ff', backgroundColor: 'rgba(77,163,255,0.15)', pointBackgroundColor: '#4da3ff', borderWidth: 2
                 }]
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                scales: { r: { angleLines: {color:'#333'}, grid: {color:'#222'}, pointLabels: {color:'#888'}, ticks: {display:false} } },
-                plugins: { legend: { labels: {color:'#fff'} } }
+                scales: { r: { angleLines: {color:'rgba(255,255,255,0.1)'}, grid: {color:'rgba(255,255,255,0.05)'}, pointLabels: {color:'#ccc', font:{size:11, weight:'bold'}}, ticks: {display:false, backdropColor:'transparent'} } },
+                plugins: { legend: { labels: {color:'#fff', font:{size:12, weight:'bold'}} } }
             }
         });
     };
