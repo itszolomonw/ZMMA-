@@ -2,515 +2,660 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ZMMA — MMA Intelligence Hub</title>
+<meta name="theme-color" content="#09090b">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
-    --bg: #09090b;
-    --surface: #18181b;
-    --surface-hover: #27272a;
-    --primary: #ccff00;
-    --text: #fafafa;
-    --muted: #a1a1aa;
-    --border: rgba(255,255,255,0.08);
-    --danger: #ef4444;
-    --success: #22c55e;
+    --bg:#09090b; --surface:#18181b; --surface-2:#27272a; --primary:#ccff00; --on-primary:#000;
+    --text:#fafafa; --muted:#a1a1aa; --border:rgba(255,255,255,.09); --danger:#ef4444; --success:#22c55e; --gold:#f5c542;
+    box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow-x: hidden; padding-bottom: 80px; }
-.hidden { display: none !important; }
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+        --bg:#f6f6f2; --surface:#fff; --surface-2:#ececE6; --primary:#4d6b00; --on-primary:#fff;
+        --text:#111114; --muted:#5c5c66; --border:rgba(0,0,0,.1);
+    }
+}
+:root[data-theme="light"] {
+    --bg:#f6f6f2; --surface:#fff; --surface-2:#ececE6; --primary:#4d6b00; --on-primary:#fff;
+    --text:#111114; --muted:#5c5c66; --border:rgba(0,0,0,.1);
+}
+html { scroll-padding-top:env(safe-area-inset-top,0px); }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; overflow-x:hidden; padding-bottom:90px; min-height:100%; }
+.hidden { display:none !important; }
+button { font:inherit; color:inherit; }
+:focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
 
 /* HEADER */
-header { position: sticky; top: 0; z-index: 90; background: rgba(9,9,11,0.9); backdrop-filter: blur(10px); padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; }
-.logo span { color: var(--primary); }
+header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; background:color-mix(in srgb,var(--bg) 90%,transparent); backdrop-filter:blur(10px); padding:14px 20px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+.logo { font-size:22px; font-weight:900; letter-spacing:-.5px; }
+.logo span { color:var(--primary); }
+.ver { font-size:11px; color:var(--muted); font-weight:700; }
 
 /* HERO */
-.hero { padding: 30px 20px; background: radial-gradient(circle at top right, rgba(204,255,0,0.05), transparent 70%); }
-.hero h1 { font-size: 32px; line-height: 1.1; margin-bottom: 10px; font-weight: 800; }
-.hero p { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.hero { padding:30px 20px 24px; background:radial-gradient(circle at top right,color-mix(in srgb,var(--primary) 10%,transparent),transparent 70%); }
+.hero h1 { font-size:34px; line-height:1.05; margin-bottom:10px; font-weight:800; letter-spacing:-1px; }
+.hero p { color:var(--muted); font-size:14px; line-height:1.5; max-width:46ch; }
+.hero-stats { display:flex; gap:22px; margin-top:20px; }
+.hero-stats b { display:block; font-size:22px; }
+.hero-stats span { font-size:11px; color:var(--muted); font-weight:600; }
 
-/* FILTERS */
-.filters { display: flex; gap: 10px; overflow-x: auto; padding: 0 20px 20px; scrollbar-width: none; }
-.filters::-webkit-scrollbar { display: none; }
-.chip { background: var(--surface); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; cursor: pointer; transition: 0.2s; }
-.chip.active { background: var(--primary); color: #000; border-color: var(--primary); }
+/* CHIPS */
+.filters { display:flex; gap:8px; overflow-x:auto; padding:0 20px 16px; scrollbar-width:none; }
+.filters::-webkit-scrollbar { display:none; }
+.chip { background:var(--surface); border:1px solid var(--border); padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600; color:var(--muted); white-space:nowrap; cursor:pointer; transition:background .2s,color .2s; }
+.chip.active { background:var(--primary); color:var(--on-primary); border-color:var(--primary); }
+
+.section-title { font-size:18px; font-weight:700; margin:20px 20px 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.section-title small { font-size:12px; color:var(--muted); font-weight:600; }
 
 /* GRID & CARDS */
-.section-title { font-size: 18px; font-weight: 700; margin: 20px 20px 15px; display: flex; align-items: center; gap: 8px; }
-.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; }
-@media(min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media(min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+.grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:0 20px; }
+@media(min-width:768px){ .grid{ grid-template-columns:repeat(3,1fr);} }
+@media(min-width:1024px){ .grid{ grid-template-columns:repeat(4,1fr);} }
+.card { background:var(--surface); border-radius:16px; overflow:hidden; border:1px solid var(--border); position:relative; cursor:pointer; display:flex; flex-direction:column; text-align:left; width:100%; }
+.card:active { transform:scale(.98); }
+.card-img-wrap { aspect-ratio:4/5; width:100%; background:#000; position:relative; overflow:hidden; }
+.card-img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.badge { position:absolute; top:8px; left:8px; background:rgba(0,0,0,.72); backdrop-filter:blur(4px); padding:4px 8px; border-radius:6px; font-size:11px; font-weight:800; color:#ccff00; z-index:2; }
+.badge.champ { background:var(--gold); color:#000; }
+.fav-dot { position:absolute; top:8px; right:8px; z-index:2; font-size:16px; color:var(--gold); text-shadow:0 1px 4px rgba(0,0,0,.8); }
+.card-info { padding:12px; margin-top:-34px; position:relative; z-index:2; background:linear-gradient(to top,var(--surface) 62%,transparent); }
+.card-org { font-size:10px; color:var(--primary); font-weight:800; margin-bottom:2px; }
+.card-name { font-size:15px; font-weight:700; line-height:1.2; margin-bottom:6px; }
+.card-rec { font-size:11px; font-weight:700; background:var(--surface-2); padding:2px 7px; border-radius:4px; display:inline-block; }
+.empty { grid-column:1/-1; color:var(--muted); text-align:center; padding:40px 20px; font-size:14px; }
 
-.card { background: var(--surface); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); position: relative; cursor: pointer; transition: transform 0.2s; display: flex; flex-direction: column; }
-.card:active { transform: scale(0.98); }
-.card-img-wrap { height: 160px; width: 100%; background: #000; position: relative; overflow: hidden; }
-.card-img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: 0.3s; }
-.card:hover .card-img { transform: scale(1.05); }
-/* Premium Fallback */
-.card-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 42px; font-weight: 900; color: rgba(255,255,255,0.1); background: linear-gradient(135deg, #27272a, #09090b); z-index: 0; }
-.card-img { position: relative; z-index: 1; }
-
-.badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; color: var(--primary); z-index: 2; border: 1px solid rgba(255,255,255,0.1); }
-.badge.champ { background: var(--primary); color: #000; border: none; }
-
-.card-info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(to top, var(--surface) 70%, transparent); margin-top: -25px; position: relative; z-index: 2; }
-.card-org { font-size: 9px; color: var(--primary); text-transform: uppercase; font-weight: 800; margin-bottom: 2px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
-.card-name { font-size: 15px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
-.card-rec { font-size: 11px; color: #ddd; font-weight: 600; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; width: fit-content; backdrop-filter: blur(2px); }
+/* FIGHTERS TOOLBAR */
+.toolbar { padding:18px 20px 12px; display:flex; flex-direction:column; gap:10px; }
+.input { width:100%; background:var(--surface); border:1px solid var(--border); padding:13px 14px; border-radius:12px; color:var(--text); font-size:15px; outline:none; }
+.input:focus { border-color:var(--primary); }
 
 /* BOTTOM NAV */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; background: rgba(9,9,11,0.95); backdrop-filter: blur(15px); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
-.nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--muted); font-size: 10px; font-weight: 600; cursor: pointer; width: 60px; }
-.nav-item.active { color: var(--primary); }
-.nav-icon { font-size: 20px; }
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; background:color-mix(in srgb,var(--bg) 94%,transparent); backdrop-filter:blur(15px); border-top:1px solid var(--border); display:flex; justify-content:space-around; align-items:center; z-index:100; padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px)); }
+.nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted); font-size:11px; font-weight:600; cursor:pointer; width:70px; background:none; border:none; }
+.nav-item.active { color:var(--primary); }
+.nav-icon { font-size:20px; line-height:1; }
 
-/* MODAL (PROFILE) */
-.modal { position: fixed; inset: 0; background: var(--bg); z-index: 200; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; display: flex; flex-direction: column; }
-.modal.open { transform: translateY(0); }
-.modal-head { position: sticky; top: 0; z-index: 10; padding: 16px 20px; background: rgba(9,9,11,0.9); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-.close-btn { background: var(--surface); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; }
+/* MODAL */
+.modal { position:fixed; inset:0; background:var(--bg); z-index:200; transform:translateY(100%); visibility:hidden; transition:transform .3s cubic-bezier(.16,1,.3,1),visibility .3s; overflow-y:auto; }
+.modal.open { transform:translateY(0); visibility:visible; }
+.modal-head { position:sticky; top:0; z-index:10; padding:calc(14px + env(safe-area-inset-top,0px)) 20px 14px; background:color-mix(in srgb,var(--bg) 90%,transparent); backdrop-filter:blur(10px); display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
+.head-actions { display:flex; gap:8px; }
+.round-btn { background:var(--surface); border:1px solid var(--border); width:36px; height:36px; border-radius:50%; font-size:16px; cursor:pointer; display:grid; place-items:center; }
+.round-btn.on { color:var(--gold); border-color:var(--gold); }
 
-.prof-hero { height: 320px; width: 100%; background: #000; position: relative; }
-.prof-hero img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.prof-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 150px; background: linear-gradient(to top, var(--bg), transparent); }
-.prof-info { padding: 0 20px; margin-top: -50px; position: relative; z-index: 2; }
-.prof-name { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
-.prof-meta { color: var(--primary); font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; }
-
-.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
-.stat-box { background: var(--surface); padding: 14px 10px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
-.stat-val { font-size: 18px; font-weight: 800; margin-bottom: 2px; }
-.stat-lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; font-weight: 700; }
-
-.hist-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--surface); border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--border); }
-.hist-res { width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; font-size: 12px; font-weight: 800; }
-.win { background: rgba(34,197,94,0.15); color: var(--success); }
-.loss { background: rgba(239,68,68,0.15); color: var(--danger); }
+.prof-hero { height:340px; width:100%; background:#000; position:relative; }
+.prof-hero img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.prof-overlay { position:absolute; bottom:0; left:0; right:0; height:160px; background:linear-gradient(to top,var(--bg),transparent); }
+.prof-info { padding:0 20px 20px; margin-top:-56px; position:relative; z-index:2; max-width:720px; margin-inline:auto; }
+.prof-name { font-size:32px; font-weight:800; margin-bottom:4px; letter-spacing:-.5px; }
+.prof-meta { color:var(--primary); font-size:13px; font-weight:700; margin-bottom:20px; }
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px; }
+.stat-box { background:var(--surface); padding:14px 8px; border-radius:12px; text-align:center; border:1px solid var(--border); }
+.stat-val { font-size:18px; font-weight:800; margin-bottom:2px; }
+.stat-lbl { font-size:10px; color:var(--muted); font-weight:700; }
+.hist-item { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--surface); border-radius:12px; margin-bottom:8px; border:1px solid var(--border); }
+.hist-res { width:26px; height:26px; border-radius:6px; display:grid; place-items:center; font-size:12px; font-weight:800; }
+.win { background:rgba(34,197,94,.15); color:var(--success); }
+.loss { background:rgba(239,68,68,.15); color:var(--danger); }
+.nc { background:rgba(161,161,170,.18); color:var(--muted); }
 
 /* NEWS */
-.news-card { background: var(--surface); border-radius: 16px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
-.news-tag { font-size: 10px; font-weight: 800; color: var(--primary); background: rgba(204,255,0,0.1); padding: 4px 8px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
-.news-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-.news-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.news-card { background:var(--surface); border-radius:16px; padding:16px; margin-bottom:12px; border:1px solid var(--border); }
+.news-tag { font-size:10px; font-weight:800; color:var(--primary); background:color-mix(in srgb,var(--primary) 12%,transparent); padding:4px 8px; border-radius:6px; display:inline-block; margin-bottom:10px; }
+.news-title { font-size:16px; font-weight:700; margin-bottom:8px; line-height:1.3; }
+.news-desc { font-size:14px; color:var(--muted); line-height:1.5; }
+.news-date { font-size:11px; color:var(--muted); margin-top:8px; font-weight:600; }
 
-/* COMPARE ADVANCED */
-.cmp-container { padding: 20px; }
-.cmp-selects { display: flex; gap: 10px; margin-bottom: 20px; }
-.cmp-select { flex: 1; background: var(--surface); border: 1px solid var(--border); color: white; padding: 12px; border-radius: 12px; font-size: 14px; outline: none; }
-.cmp-vs { display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--muted); }
+/* COMPARE */
+.cmp-container { padding:20px; max-width:720px; margin:0 auto; }
+.cmp-container h2 { font-size:24px; margin-bottom:18px; }
+.cmp-selects { display:flex; gap:10px; margin-bottom:14px; align-items:center; }
+.cmp-select { flex:1; min-width:0; background:var(--surface); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:12px; font-size:14px; outline:none; }
+.cmp-vs { font-weight:900; color:var(--muted); }
+.cmp-faces { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+.cmp-face { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; text-align:center; }
+.cmp-face img { width:100%; aspect-ratio:1/1; object-fit:cover; object-position:top; display:block; }
+.cmp-face div { padding:8px; font-size:13px; font-weight:700; }
+.cmp-face.a { border-bottom:3px solid var(--primary); }
+.cmp-face.b { border-bottom:3px solid var(--danger); }
+.ai-pred { background:linear-gradient(135deg,color-mix(in srgb,var(--primary) 12%,transparent),transparent); border:1px solid color-mix(in srgb,var(--primary) 30%,transparent); padding:16px; border-radius:16px; margin:14px 0 22px; text-align:center; }
+.ai-pred h3 { color:var(--primary); font-size:13px; margin-bottom:8px; }
+.ai-pred .winner { font-size:24px; font-weight:900; margin-bottom:4px; }
+.ai-pred .conf { font-size:12px; color:var(--muted); }
+.pbar { display:flex; height:8px; border-radius:4px; overflow:hidden; margin:10px 0 6px; background:var(--surface-2); }
+.pbar i { display:block; height:100%; }
+.cmp-head { display:flex; justify-content:space-between; align-items:baseline; font-size:13px; }
+.cmp-head .l { font-size:11px; color:var(--muted); font-weight:700; }
+.cmp-head .v { font-weight:800; min-width:44px; }
+.cmp-head .v:last-child { text-align:right; }
+.cmp-bar-bg { height:6px; background:var(--surface-2); border-radius:3px; margin:6px 0 16px; overflow:hidden; display:flex; }
+.chart-box { height:320px; margin-top:24px; background:var(--surface); border-radius:16px; padding:10px; border:1px solid var(--border); position:relative; }
+.note { font-size:11px; color:var(--muted); margin-top:12px; line-height:1.5; }
 
-.cmp-stats { margin-top: 20px; }
-.cmp-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 13px; }
-.cmp-bar-bg { flex: 1; height: 6px; background: var(--surface); border-radius: 3px; margin: 0 15px; overflow: hidden; display: flex; }
-.cmp-bar-l { height: 100%; background: var(--primary); }
-.cmp-bar-r { height: 100%; background: var(--danger); margin-left: auto; }
-.cmp-val { font-weight: 700; width: 40px; text-align: center; }
-.cmp-val.left { text-align: left; }
-.cmp-val.right { text-align: right; }
-
-.ai-pred { background: linear-gradient(135deg, rgba(204,255,0,0.1), transparent); border: 1px solid rgba(204,255,0,0.2); padding: 16px; border-radius: 16px; margin-top: 20px; text-align: center; }
-.ai-pred h3 { color: var(--primary); font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-.ai-pred .winner { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
-.ai-pred .conf { font-size: 12px; color: var(--muted); }
-
+@media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
 </head>
 <body>
 
 <header>
     <div class="logo">ZM<span>MA</span></div>
-    <div style="font-size: 11px; color: var(--muted); font-weight: 700;">v7.0</div>
+    <div class="ver">v8.0</div>
 </header>
 
 <main id="app">
-    <!-- HOME -->
+    <!-- ANA SAYFA -->
     <section id="page-home" class="page">
         <div class="hero">
-            <h1>Dövüşün<br>Merkezi.</h1>
-            <p>UFC, ONE ve PFL dünyasından doğrulanmış istatistikler, Türkçe haberler ve gelişmiş analiz araçları.</p>
+            <h1>Dövüşün<br>merkezi.</h1>
+            <p>UFC, ONE ve PFL dünyasından istatistikler, Türkçe haberler ve karşılaştırma araçları.</p>
+            <div class="hero-stats" id="heroStats"></div>
         </div>
-        <div class="filters" id="homeFilters">
-            <div class="chip active" onclick="filterHome('all', this)">Tümü</div>
-            <div class="chip" onclick="filterHome('UFC', this)">UFC</div>
-            <div class="chip" onclick="filterHome('ONE', this)">ONE</div>
-            <div class="chip" onclick="filterHome('PFL', this)">PFL</div>
-            <div class="chip" onclick="filterHome('LEGEND', this)">Efsaneler</div>
+        <div class="filters" id="homeFilters" role="tablist" aria-label="Organizasyon filtresi">
+            <button class="chip active" data-org="all">Tümü</button>
+            <button class="chip" data-org="UFC">UFC</button>
+            <button class="chip" data-org="ONE">ONE</button>
+            <button class="chip" data-org="PFL">PFL</button>
+            <button class="chip" data-org="LEGEND">Efsaneler</button>
         </div>
-        <div class="section-title">🔥 Öne Çıkanlar</div>
+        <div class="section-title">Öne çıkanlar <small id="homeCount"></small></div>
         <div class="grid" id="homeGrid"></div>
-        <div class="section-title" style="margin-top: 30px;">📰 Gündem</div>
-        <div style="padding: 0 20px;" id="homeNews"></div>
+        <div class="section-title" style="margin-top:30px">Gündem <small><a href="#" id="allNews" style="color:var(--primary);text-decoration:none">Tümünü gör</a></small></div>
+        <div style="padding:0 20px" id="homeNews"></div>
     </section>
 
-    <!-- FIGHTERS -->
+    <!-- DÖVÜŞÇÜLER -->
     <section id="page-fighters" class="page hidden">
-        <div style="padding: 20px 20px 10px;">
-            <input type="text" id="searchInput" placeholder="Dövüşçü, ülke veya sıklet ara..." style="width: 100%; background: var(--surface); border: 1px solid var(--border); padding: 14px; border-radius: 12px; color: white; font-size: 14px; outline: none;">
+        <div class="toolbar">
+            <input type="search" id="searchInput" class="input" placeholder="Dövüşçü, ülke, sıklet veya organizasyon ara…" aria-label="Dövüşçü ara" autocomplete="off">
+            <select id="sortSelect" class="input" aria-label="Sırala">
+                <option value="rank">Sıralama: Şampiyon ve rank</option>
+                <option value="name">İsim (A–Z)</option>
+                <option value="wins">Galibiyet sayısı</option>
+                <option value="sl">Vuruş (SLpM)</option>
+                <option value="td">Takedown</option>
+            </select>
         </div>
-        <div class="grid" id="fightersGrid" style="padding-top: 10px;"></div>
+        <div class="filters" id="fighterFilters">
+            <button class="chip active" data-org="all">Tümü</button>
+            <button class="chip" data-org="CHAMP">Şampiyonlar</button>
+            <button class="chip" data-org="UFC">UFC</button>
+            <button class="chip" data-org="ONE">ONE</button>
+            <button class="chip" data-org="PFL">PFL</button>
+            <button class="chip" data-org="LEGEND">Efsaneler</button>
+            <button class="chip" data-org="FAV">★ Favoriler</button>
+        </div>
+        <div class="grid" id="fightersGrid"></div>
     </section>
 
-    <!-- NEWS -->
+    <!-- HABERLER -->
     <section id="page-news" class="page hidden">
-        <div style="padding: 20px;" id="newsGrid"></div>
+        <div class="toolbar"><input type="search" id="newsSearch" class="input" placeholder="Haberlerde ara…" aria-label="Haber ara" autocomplete="off"></div>
+        <div style="padding:0 20px" id="newsGrid"></div>
     </section>
 
-    <!-- COMPARE -->
+    <!-- KARŞILAŞTIR -->
     <section id="page-compare" class="page hidden">
         <div class="cmp-container">
-            <h2 style="margin-size: 24px; margin-bottom: 20px;">Gelişmiş Karşılaştırma</h2>
+            <h2>Karşılaştırma</h2>
             <div class="cmp-selects">
-                <select id="cmpA" class="cmp-select"></select>
-                <div class="cmp-vs">VS</div>
-                <select id="cmpB" class="cmp-select"></select>
+                <select id="cmpA" class="cmp-select" aria-label="Birinci dövüşçü"></select>
+                <button class="round-btn" id="cmpSwap" aria-label="Yer değiştir">⇄</button>
+                <select id="cmpB" class="cmp-select" aria-label="İkinci dövüşçü"></select>
             </div>
-            
-            <div class="ai-pred" id="aiPredBox">
-                <h3>AI Kazanma Tahmini</h3>
+            <div class="cmp-faces" id="cmpFaces"></div>
+            <div class="ai-pred">
+                <h3>İstatistik tahmini</h3>
                 <div class="winner" id="aiWinner">-</div>
-                <div class="conf" id="aiConf">Dövüşçileri seçin</div>
+                <div class="pbar"><i id="pbA" style="background:var(--primary)"></i><i id="pbB" style="background:var(--danger)"></i></div>
+                <div class="conf" id="aiConf"></div>
             </div>
-
-            <div class="cmp-stats" id="cmpStats">
-                <!-- Dynamic Bars -->
-            </div>
-
-            <div style="height: 300px; margin-top: 30px; background: var(--surface); border-radius: 16px; padding: 10px; border: 1px solid var(--border);">
-                <canvas id="radarChart"></canvas>
-            </div>
+            <div id="cmpStats"></div>
+            <div class="chart-box"><canvas id="radarChart" aria-label="Radar grafik"></canvas></div>
+            <p class="note">Tahmin; vuruş, isabet, takedown, submission ve galibiyet verilerini ağırlıklandıran basit bir modeldir. Eğlence amaçlıdır, bahis tavsiyesi değildir.</p>
         </div>
     </section>
 </main>
 
-<nav class="bottom-nav">
-    <div class="nav-item active" onclick="nav('home', this)"><span class="nav-icon">⌂</span><span>Ana Sayfa</span></div>
-    <div class="nav-item" onclick="nav('fighters', this)"><span class="nav-icon">♟</span><span>Dövüşçüler</span></div>
-    <div class="nav-item" onclick="nav('news', this)"><span class="nav-icon">◉</span><span>Haberler</span></div>
-    <div class="nav-item" onclick="nav('compare', this)"><span class="nav-icon">⇄</span><span>Karşılaştır</span></div>
+<nav class="bottom-nav" aria-label="Ana menü">
+    <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span><span>Ana Sayfa</span></button>
+    <button class="nav-item" data-page="fighters"><span class="nav-icon">♟</span><span>Dövüşçüler</span></button>
+    <button class="nav-item" data-page="news"><span class="nav-icon">◉</span><span>Haberler</span></button>
+    <button class="nav-item" data-page="compare"><span class="nav-icon">⇄</span><span>Karşılaştır</span></button>
 </nav>
 
-<div class="modal" id="profileModal">
+<div class="modal" id="profileModal" role="dialog" aria-modal="true" aria-label="Dövüşçü profili">
     <div class="modal-head">
-        <span style="font-weight: 700; font-size: 15px;">PROFİL</span>
-        <button class="close-btn" onclick="closeProfile()">✕</button>
+        <span style="font-weight:700;font-size:15px">Profil</span>
+        <div class="head-actions">
+            <button class="round-btn" id="favBtn" aria-label="Favorilere ekle">☆</button>
+            <button class="round-btn" id="closeBtn" aria-label="Kapat">✕</button>
+        </div>
     </div>
     <div id="profileContent"></div>
 </div>
 
 <script>
-// === VERİTABANI (60+ DÖVÜŞÇÜ, GERÇEK LİNKLER) ===
-const DB = [
-    // UFC ŞAMPİYONLAR
-    {id:1, n:"Islam Makhachev", org:"UFC", div:"Welterweight", r:1, c:true, w:29, l:1, d:0, co:"Rusya", st:"Sambo", sl:2.84, ac:59, td:3.2, sb:1.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Islam_Makhachev_2022-10-26.jpg/400px-Islam_Makhachev_2022-10-26.jpg", h:[{o:"Ian Garry", r:"W", m:"UD", rd:5}, {o:"JDM", r:"W", m:"UD", rd:5}]},
-    {id:2, n:"Justin Gaethje", org:"UFC", div:"Lightweight", r:1, c:true, w:28, l:5, d:0, co:"ABD", st:"Boks", sl:6.42, ac:48, td:0.8, sb:0.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Justin_Gaethje.jpg/400px-Justin_Gaethje.jpg", h:[{o:"Topuria", r:"W", m:"TKO", rd:4}]},
-    {id:3, n:"Sean Strickland", org:"UFC", div:"Middleweight", r:1, c:true, w:31, l:7, d:0, co:"ABD", st:"Boks", sl:4.67, ac:45, td:0.6, sb:0.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Sean_Strickland_at_UFN_200.png/400px-Sean_Strickland_at_UFN_200.png", h:[{o:"Chimaev", r:"W", m:"SD", rd:5}]},
-    {id:4, n:"Ciryl Gane", org:"UFC", div:"Heavyweight", r:1, c:true, w:13, l:3, d:0, co:"Fransa", st:"Kickboks", sl:6.12, ac:52, td:0.4, sb:0.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ciryl_Gane_UFC.jpg/400px-Ciryl_Gane_UFC.jpg", h:[{o:"Pereira", r:"W", m:"TKO", rd:2}]},
-    {id:5, n:"Alex Volkanovski", org:"UFC", div:"Featherweight", r:1, c:true, w:28, l:4, d:0, co:"Avustralya", st:"Güreş", sl:5.92, ac:53, td:2.1, sb:0.4, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Alexander_Volkanovski_in_2018_%28cropped%29.jpg/400px-Alexander_Volkanovski_in_2018_%28cropped%29.jpg", h:[{o:"Lopes", r:"W", m:"UD", rd:5}]},
-    {id:6, n:"Petr Yan", org:"UFC", div:"Bantamweight", r:1, c:true, w:19, l:5, d:0, co:"Rusya", st:"Boks", sl:4.98, ac:49, td:0.8, sb:0.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Petr_Yan_UFC.jpg/400px-Petr_Yan_UFC.jpg", h:[{o:"Dvalishvili", r:"W", m:"UD", rd:5}]},
-    {id:7, n:"Joshua Van", org:"UFC", div:"Flyweight", r:1, c:true, w:16, l:2, d:0, co:"Myanmar", st:"Striking", sl:5.45, ac:51, td:1.4, sb:0.5, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2024-02/van_joshua_02-24.png", h:[{o:"Pantoja", r:"W", m:"UD", rd:5}]},
-    {id:8, n:"Mackenzie Dern", org:"UFC", div:"Strawweight", r:1, c:true, w:16, l:5, d:0, co:"Brezilya", st:"BJJ", sl:2.89, ac:55, td:5.1, sb:1.8, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-09/dern_mackenzie_09-23.png", h:[{o:"Robertson", r:"W", m:"UD", rd:5}]},
-    {id:9, n:"Natalia Silva", org:"UFC", div:"Flyweight (K)", r:1, c:true, w:20, l:5, d:1, co:"Brezilya", st:"Striking", sl:4.62, ac:52, td:1.8, sb:0.6, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2024-01/silva_natalia_01-24.png", h:[{o:"Wang Cong", r:"W", m:"UD", rd:5}]},
+/* ============================================================
+   VERİ — görseller artık veride değil; her dövüşçü için görsel
+   JS ile üretilir (bkz. avatar()) ve mümkünse gerçek fotoğrafla
+   değiştirilir (bkz. hydratePhotos()).
+   Sütunlar: id, ad, org, sıklet, rank, şampiyon, G, M, B, ülke,
+             stil, SLpM, isabet%, TD, SUB, son maçlar, [özel foto URL]
+   ============================================================ */
+const R = (o, r, m, rd) => ({o, r, m, rd});
+const RAW = [
+ [1,"Islam Makhachev","UFC","Welterweight",1,1,29,1,0,"Rusya","Sambo",2.84,59,3.2,1.2,[R("Ian Garry","W","UD",5),R("J. Della Maddalena","W","UD",5)]],
+ [2,"Justin Gaethje","UFC","Lightweight",1,1,28,5,0,"ABD","Boks",6.42,48,0.8,0.1,[R("Ilia Topuria","W","TKO",4)]],
+ [3,"Sean Strickland","UFC","Middleweight",1,1,31,7,0,"ABD","Boks",4.67,45,0.6,0.1,[R("Khamzat Chimaev","W","SD",5)]],
+ [4,"Ciryl Gane","UFC","Heavyweight",1,1,13,3,0,"Fransa","Kickboks",6.12,52,0.4,0.1,[R("Alex Pereira","W","TKO",2)]],
+ [5,"Alexander Volkanovski","UFC","Featherweight",1,1,28,4,0,"Avustralya","Güreş",5.92,53,2.1,0.4,[R("Diego Lopes","W","UD",5)]],
+ [6,"Petr Yan","UFC","Bantamweight",1,1,19,5,0,"Rusya","Boks",4.98,49,0.8,0.2,[R("Merab Dvalishvili","W","UD",5)]],
+ [7,"Joshua Van","UFC","Flyweight",1,1,16,2,0,"Myanmar","Striking",5.45,51,1.4,0.5,[R("Alexandre Pantoja","W","UD",5)]],
+ [8,"Mackenzie Dern","UFC","Strawweight",1,1,16,5,0,"Brezilya","BJJ",2.89,55,5.1,1.8,[R("Gillian Robertson","W","UD",5)]],
+ [9,"Natalia Silva","UFC","Flyweight (K)",1,1,20,5,1,"Brezilya","Striking",4.62,52,1.8,0.6,[R("Wang Cong","W","UD",5)]],
 
-    // UFC CONTENDERLAR
-    {id:10, n:"Ilia Topuria", org:"UFC", div:"Lightweight", r:2, c:false, w:17, l:1, d:0, co:"İspanya", st:"BJJ", sl:6.87, ac:55, td:1.4, sb:0.5, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2024-02/topuria_ilia_02-24.png", h:[{o:"Gaethje", r:"L", m:"TKO", rd:4}]},
-    {id:11, n:"Khamzat Chimaev", org:"UFC", div:"Middleweight", r:2, c:false, w:13, l:1, d:0, co:"BAE", st:"Güreş", sl:5.12, ac:62, td:4.8, sb:1.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Khamzat_Chimaev_2022.jpg/400px-Khamzat_Chimaev_2022.jpg", h:[{o:"Strickland", r:"L", m:"SD", rd:5}]},
-    {id:12, n:"Ian Garry", org:"UFC", div:"Welterweight", r:2, c:false, w:16, l:2, d:0, co:"İrlanda", st:"Boks", sl:5.22, ac:50, td:1.1, sb:0.2, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2024-02/garry_ian_02-24.png", h:[{o:"Makhachev", r:"L", m:"UD", rd:5}]},
-    {id:13, n:"Charles Oliveira", org:"UFC", div:"Lightweight", r:3, c:false, w:37, l:11, d:0, co:"Brezilya", st:"BJJ", sl:3.45, ac:44, td:2.7, sb:2.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Charles_Oliveira_UFC.jpg/400px-Charles_Oliveira_UFC.jpg", h:[{o:"Holloway", r:"W", m:"UD", rd:5}]},
-    {id:14, n:"Alex Pereira", org:"UFC", div:"Heavyweight", r:2, c:false, w:14, l:4, d:0, co:"Brezilya", st:"Kickboks", sl:5.88, ac:51, td:0.4, sb:0, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Alex_Pereira_UFC_2023.jpg/400px-Alex_Pereira_UFC_2023.jpg", h:[{o:"Gane", r:"L", m:"TKO", rd:2}]},
-    {id:15, n:"Movsar Evloev", org:"UFC", div:"Featherweight", r:2, c:false, w:20, l:0, d:0, co:"Rusya", st:"Güreş", sl:3.12, ac:48, td:4.5, sb:0.8, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2022-11/evloev_movsar_11-22.png", h:[]},
-    {id:16, n:"Jon Jones", org:"UFC", div:"Heavyweight", r:3, c:false, w:28, l:1, d:1, co:"ABD", st:"Güreş", sl:4.28, ac:53, td:1.8, sb:0.7, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Jon_Jones_2.jpg/400px-Jon_Jones_2.jpg", h:[{o:"Miocic", r:"W", m:"TKO", rd:2}]},
-    {id:17, n:"Tom Aspinall", org:"UFC", div:"Heavyweight", r:4, c:false, w:15, l:3, d:0, co:"İngiltere", st:"Grappling", sl:6.72, ac:59, td:1.8, sb:1.4, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Tom_Aspinall_UFC_2023.jpg/400px-Tom_Aspinall_UFC_2023.jpg", h:[{o:"Gane", r:"NC", m:"Eye Poke", rd:2}]},
-    {id:18, n:"Max Holloway", org:"UFC", div:"Lightweight", r:4, c:false, w:26, l:8, d:0, co:"ABD", st:"Boks", sl:7.89, ac:46, td:0.2, sb:0.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Max_Holloway_UFC.jpg/400px-Max_Holloway_UFC.jpg", h:[{o:"Oliveira", r:"L", m:"UD", rd:5}]},
-    {id:19, n:"Merab Dvalishvili", org:"UFC", div:"Bantamweight", r:2, c:false, w:19, l:5, d:0, co:"Gürcistan", st:"Güreş", sl:3.12, ac:44, td:5.8, sb:0.4, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-08/dvalishvili_merab_08-23.png", h:[{o:"Yan", r:"L", m:"UD", rd:5}]},
-    {id:20, n:"Alexandre Pantoja", org:"UFC", div:"Flyweight", r:2, c:false, w:30, l:7, d:0, co:"Brezilya", st:"BJJ", sl:3.89, ac:46, td:3.1, sb:1.6, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Alexandre_Pantoja_UFC.jpg/400px-Alexandre_Pantoja_UFC.jpg", h:[{o:"Van", r:"L", m:"UD", rd:5}]},
-    {id:21, n:"Dricus Du Plessis", org:"UFC", div:"Middleweight", r:3, c:false, w:24, l:3, d:0, co:"G. Afrika", st:"Boks", sl:5.12, ac:49, td:2.1, sb:0.6, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2024-01/du_plessis_dricus_01-24.png", h:[{o:"Usman", r:"W", m:"UD", rd:5}]},
-    {id:22, n:"Diego Lopes", org:"UFC", div:"Featherweight", r:3, c:false, w:26, l:7, d:0, co:"Brezilya", st:"BJJ", sl:4.56, ac:48, td:1.7, sb:1.4, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-10/lopes_diego_10-23.png", h:[{o:"Volkanovski", r:"L", m:"UD", rd:5}]},
-    {id:23, n:"Jack Della Maddalena", org:"UFC", div:"Welterweight", r:3, c:false, w:18, l:4, d:0, co:"Avustralya", st:"Striking", sl:5.88, ac:51, td:1.4, sb:0.6, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-09/della_maddalena_jack_09-23.png", h:[{o:"Makhachev", r:"L", m:"UD", rd:5}]},
-    {id:24, n:"Bo Nickal", org:"UFC", div:"Middleweight", r:5, c:false, w:8, l:0, d:0, co:"ABD", st:"Güreş", sl:2.89, ac:55, td:6.7, sb:3.2, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2024-02/nickal_bo_02-24.png", h:[]},
-    {id:25, n:"Shavkat Rakhmonov", org:"UFC", div:"Welterweight", r:6, c:false, w:20, l:0, d:0, co:"Kazakistan", st:"Sambo", sl:5.23, ac:54, td:2.1, sb:1.5, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-08/rakhmonov_shavkat_08-23.png", h:[]},
-    {id:26, n:"Magomed Ankalaev", org:"UFC", div:"Light Heavyweight", r:2, c:false, w:20, l:2, d:1, co:"Rusya", st:"Güreş", sl:3.78, ac:50, td:3.1, sb:0.5, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-11/ankalaev_magomed_11-23.png", h:[{o:"Pereira", r:"L", m:"TKO", rd:1}]},
-    {id:27, n:"Jiri Prochazka", org:"UFC", div:"Light Heavyweight", r:3, c:false, w:31, l:5, d:1, co:"Çekya", st:"Muay Thai", sl:6.78, ac:49, td:0.2, sb:0.4, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Jiri_Prochazka_UFC.jpg/400px-Jiri_Prochazka_UFC.jpg", h:[]},
-    {id:28, n:"Carlos Ulberg", org:"UFC", div:"Light Heavyweight", r:4, c:false, w:13, l:1, d:0, co:"Y. Zelanda", st:"Kickboks", sl:6.12, ac:52, td:0.4, sb:0.3, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-09/ulberg_carlos_09-23.png", h:[]},
-    {id:29, n:"Robert Whittaker", org:"UFC", div:"Middleweight", r:4, c:false, w:27, l:8, d:0, co:"Avustralya", st:"Karate", sl:5.45, ac:47, td:1.1, sb:0.5, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Robert_Whittaker_UFC.jpg/400px-Robert_Whittaker_UFC.jpg", h:[{o:"Chimaev", r:"L", m:"Sub", rd:1}]},
-    {id:30, n:"Paulo Costa", org:"UFC", div:"Middleweight", r:5, c:false, w:14, l:3, d:0, co:"Brezilya", st:"Boks", sl:6.12, ac:51, td:0.6, sb:0.2, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-09/costa_paulo_09-23.png", h:[]},
-    {id:31, n:"Israel Adesanya", org:"UFC", div:"Middleweight", r:6, c:false, w:24, l:6, d:0, co:"Y. Zelanda", st:"Kickboks", sl:4.89, ac:51, td:0.4, sb:0.3, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Israel_Adesanya_UFC.jpg/400px-Israel_Adesanya_UFC.jpg", h:[]},
-    {id:32, n:"Arman Tsarukyan", org:"UFC", div:"Lightweight", r:4, c:false, w:22, l:3, d:0, co:"Ermenistan", st:"Güreş", sl:4.87, ac:47, td:3.8, sb:0.9, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2024-01/tsarukyan_arman_01-24.png", h:[]},
-    {id:33, n:"Mateusz Gamrot", org:"UFC", div:"Lightweight", r:5, c:false, w:24, l:3, d:0, co:"Polonya", st:"Güreş", sl:3.89, ac:48, td:4.2, sb:1.1, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-09/gamrot_mateusz_09-23.png", h:[]},
-    {id:34, n:"Lerone Murphy", org:"UFC", div:"Featherweight", r:4, c:false, w:15, l:0, d:0, co:"İngiltere", st:"Striking", sl:5.23, ac:51, td:1.1, sb:0.5, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-08/murphy_lerone_08-23.png", h:[]},
-    {id:35, n:"Brian Ortega", org:"UFC", div:"Featherweight", r:5, c:false, w:16, l:4, d:0, co:"ABD", st:"BJJ", sl:3.78, ac:45, td:2.1, sb:2.1, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-07/ortega_brian_07-23.png", h:[]},
-    {id:36, n:"Aljamain Sterling", org:"UFC", div:"Bantamweight", r:3, c:false, w:24, l:5, d:0, co:"ABD", st:"Güreş", sl:3.89, ac:46, td:4.2, sb:0.9, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Aljamain_Sterling_UFC.jpg/400px-Aljamain_Sterling_UFC.jpg", h:[]},
-    {id:37, n:"Umar Nurmagomedov", org:"UFC", div:"Bantamweight", r:4, c:false, w:18, l:0, d:0, co:"Rusya", st:"Sambo", sl:3.45, ac:51, td:4.1, sb:1.2, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2022-09/nurmagomedov_umar_09-22.png", h:[]},
-    {id:38, n:"Brandon Royval", org:"UFC", div:"Flyweight", r:2, c:false, w:17, l:7, d:0, co:"ABD", st:"BJJ", sl:4.23, ac:46, td:1.8, sb:1.4, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-09/royval_brandon_09-23.png", h:[]},
-    {id:39, n:"Tatsuro Taira", org:"UFC", div:"Flyweight", r:3, c:false, w:15, l:1, d:0, co:"Japonya", st:"Judo", sl:3.78, ac:49, td:3.4, sb:2.1, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2024-01/taira_tatsuro_01-24.png", h:[]},
-    {id:40, n:"Tatiana Suarez", org:"UFC", div:"Strawweight", r:2, c:false, w:11, l:1, d:0, co:"ABD", st:"Güreş", sl:2.89, ac:55, td:5.1, sb:1.8, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-09/suarez_tatiana_09-23.png", h:[]},
-    {id:41, n:"Alexa Grasso", org:"UFC", div:"Flyweight (K)", r:2, c:false, w:17, l:4, d:1, co:"Meksika", st:"Boks", sl:4.78, ac:49, td:1.1, sb:0.4, img:"https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/image/2023-03/grasso_alexa_03-23.png", h:[]},
-    {id:42, n:"Valentina Shevchenko", org:"UFC", div:"Flyweight (K)", r:3, c:false, w:24, l:4, d:1, co:"Kırgızistan", st:"Muay Thai", sl:4.62, ac:52, td:1.8, sb:0.6, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Valentina_Shevchenko_UFC.jpg/400px-Valentina_Shevchenko_UFC.jpg", h:[]},
-    {id:43, n:"Zhang Weili", org:"UFC", div:"Strawweight", r:3, c:false, w:26, l:3, d:0, co:"Çin", st:"Sanda", sl:5.78, ac:49, td:2.8, sb:0.9, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Zhang_Weili_UFC.jpg/400px-Zhang_Weili_UFC.jpg", h:[]},
+ [10,"Ilia Topuria","UFC","Lightweight",2,0,17,1,0,"İspanya","BJJ",6.87,55,1.4,0.5,[R("Justin Gaethje","L","TKO",4)]],
+ [11,"Khamzat Chimaev","UFC","Middleweight",2,0,13,1,0,"BAE","Güreş",5.12,62,4.8,1.8,[R("Sean Strickland","L","SD",5)]],
+ [12,"Ian Garry","UFC","Welterweight",2,0,16,2,0,"İrlanda","Boks",5.22,50,1.1,0.2,[R("Islam Makhachev","L","UD",5)]],
+ [13,"Charles Oliveira","UFC","Lightweight",3,0,37,11,0,"Brezilya","BJJ",3.45,44,2.7,2.8,[R("Max Holloway","W","UD",5)]],
+ [14,"Alex Pereira","UFC","Heavyweight",2,0,14,4,0,"Brezilya","Kickboks",5.88,51,0.4,0,[R("Ciryl Gane","L","TKO",2)]],
+ [15,"Movsar Evloev","UFC","Featherweight",2,0,20,0,0,"Rusya","Güreş",3.12,48,4.5,0.8,[]],
+ [16,"Jon Jones","UFC","Heavyweight",3,0,28,1,1,"ABD","Güreş",4.28,53,1.8,0.7,[R("Stipe Miocic","W","TKO",3)]],
+ [17,"Tom Aspinall","UFC","Heavyweight",4,0,15,3,0,"İngiltere","Grappling",6.72,59,1.8,1.4,[R("Ciryl Gane","NC","Göz darbesi",2)]],
+ [18,"Max Holloway","UFC","Lightweight",4,0,26,8,0,"ABD","Boks",7.89,46,0.2,0.1,[R("Charles Oliveira","L","UD",5)]],
+ [19,"Merab Dvalishvili","UFC","Bantamweight",2,0,19,5,0,"Gürcistan","Güreş",3.12,44,5.8,0.4,[R("Petr Yan","L","UD",5)]],
+ [20,"Alexandre Pantoja","UFC","Flyweight",2,0,30,7,0,"Brezilya","BJJ",3.89,46,3.1,1.6,[R("Joshua Van","L","UD",5)]],
+ [21,"Dricus Du Plessis","UFC","Middleweight",3,0,24,3,0,"G. Afrika","Boks",5.12,49,2.1,0.6,[R("Kamaru Usman","W","UD",5)]],
+ [22,"Diego Lopes","UFC","Featherweight",3,0,26,7,0,"Brezilya","BJJ",4.56,48,1.7,1.4,[R("Alexander Volkanovski","L","UD",5)]],
+ [23,"Jack Della Maddalena","UFC","Welterweight",3,0,18,4,0,"Avustralya","Striking",5.88,51,1.4,0.6,[R("Islam Makhachev","L","UD",5)]],
+ [24,"Bo Nickal","UFC","Middleweight",5,0,8,0,0,"ABD","Güreş",2.89,55,6.7,3.2,[]],
+ [25,"Shavkat Rakhmonov","UFC","Welterweight",6,0,20,0,0,"Kazakistan","Sambo",5.23,54,2.1,1.5,[]],
+ [26,"Magomed Ankalaev","UFC","Light Heavyweight",2,0,20,2,1,"Rusya","Güreş",3.78,50,3.1,0.5,[R("Alex Pereira","L","TKO",1)]],
+ [27,"Jiri Prochazka","UFC","Light Heavyweight",3,0,31,5,1,"Çekya","Muay Thai",6.78,49,0.2,0.4,[]],
+ [28,"Carlos Ulberg","UFC","Light Heavyweight",4,0,13,1,0,"Y. Zelanda","Kickboks",6.12,52,0.4,0.3,[]],
+ [29,"Robert Whittaker","UFC","Middleweight",4,0,27,8,0,"Avustralya","Karate",5.45,47,1.1,0.5,[R("Khamzat Chimaev","L","Sub",1)]],
+ [30,"Paulo Costa","UFC","Middleweight",5,0,14,3,0,"Brezilya","Boks",6.12,51,0.6,0.2,[]],
+ [31,"Israel Adesanya","UFC","Middleweight",6,0,24,6,0,"Y. Zelanda","Kickboks",4.89,51,0.4,0.3,[]],
+ [32,"Arman Tsarukyan","UFC","Lightweight",4,0,22,3,0,"Ermenistan","Güreş",4.87,47,3.8,0.9,[]],
+ [33,"Mateusz Gamrot","UFC","Lightweight",5,0,24,3,0,"Polonya","Güreş",3.89,48,4.2,1.1,[]],
+ [34,"Lerone Murphy","UFC","Featherweight",4,0,15,0,0,"İngiltere","Striking",5.23,51,1.1,0.5,[]],
+ [35,"Brian Ortega","UFC","Featherweight",5,0,16,4,0,"ABD","BJJ",3.78,45,2.1,2.1,[]],
+ [36,"Aljamain Sterling","UFC","Bantamweight",3,0,24,5,0,"ABD","Güreş",3.89,46,4.2,0.9,[]],
+ [37,"Umar Nurmagomedov","UFC","Bantamweight",4,0,18,0,0,"Rusya","Sambo",3.45,51,4.1,1.2,[]],
+ [38,"Brandon Royval","UFC","Flyweight",2,0,17,7,0,"ABD","BJJ",4.23,46,1.8,1.4,[]],
+ [39,"Tatsuro Taira","UFC","Flyweight",3,0,15,1,0,"Japonya","Judo",3.78,49,3.4,2.1,[]],
+ [40,"Tatiana Suarez","UFC","Strawweight",2,0,11,1,0,"ABD","Güreş",2.89,55,5.1,1.8,[]],
+ [41,"Alexa Grasso","UFC","Flyweight (K)",2,0,17,4,1,"Meksika","Boks",4.78,49,1.1,0.4,[]],
+ [42,"Valentina Shevchenko","UFC","Flyweight (K)",3,0,24,4,1,"Kırgızistan","Muay Thai",4.62,52,1.8,0.6,[]],
+ [43,"Zhang Weili","UFC","Strawweight",3,0,26,3,0,"Çin","Sanda",5.78,49,2.8,0.9,[]],
 
-    // ONE & PFL
-    {id:44, n:"Anatoly Malykhin", org:"ONE", div:"Heavyweight", r:1, c:true, w:15, l:0, d:0, co:"Rusya", st:"Sambo", sl:4.45, ac:54, td:3.8, sb:1.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Anatoly_Malykhin.jpg/400px-Anatoly_Malykhin.jpg", h:[{o:"de Ridder", r:"W", m:"KO", rd:2}]},
-    {id:45, n:"Christian Lee", org:"ONE", div:"Lightweight", r:1, c:true, w:19, l:4, d:0, co:"Singapur", st:"BJJ", sl:3.78, ac:51, td:2.7, sb:2.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Christian_Lee.jpg/400px-Christian_Lee.jpg", h:[]},
-    {id:46, n:"Stamp Fairtex", org:"ONE", div:"Atomweight", r:1, c:true, w:11, l:2, d:0, co:"Tayland", st:"Muay Thai", sl:5.23, ac:53, td:2.1, sb:0.8, img:"https://images.onefc.com/athletes/stamp-fairtex/one-fc-stamp-fairtex-profile.jpg", h:[]},
-    {id:47, n:"Rodtang", org:"ONE", div:"Flyweight MT", r:1, c:true, w:289, l:45, d:10, co:"Tayland", st:"Muay Thai", sl:8.45, ac:53, td:0, sb:0, img:"https://images.onefc.com/athletes/rodtang/one-fc-rodtang-profile.jpg", h:[]},
-    {id:48, n:"Superbon", org:"ONE", div:"Featherweight KB", r:1, c:true, w:123, l:35, d:3, co:"Tayland", st:"Muay Thai", sl:7.23, ac:50, td:0, sb:0, img:"https://images.onefc.com/athletes/superbon/one-fc-superbon-profile.jpg", h:[]},
-    {id:49, n:"Francis Ngannou", org:"PFL", div:"Heavyweight", r:1, c:true, w:18, l:3, d:0, co:"Kamerun", st:"Boks", sl:5.12, ac:52, td:1.2, sb:0.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Francis_Ngannou_2021.jpg/400px-Francis_Ngannou_2021.jpg", h:[]},
-    {id:50, n:"Usman Nurmagomedov", org:"PFL", div:"Lightweight", r:1, c:true, w:22, l:0, d:0, co:"Rusya", st:"Sambo", sl:4.12, ac:51, td:3.4, sb:2.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Usman_Nurmagomedov.jpg/400px-Usman_Nurmagomedov.jpg", h:[{o:"Colgan", r:"W", m:"TKO", rd:1}]},
-    {id:51, n:"Johnny Eblen", org:"PFL", div:"Middleweight", r:1, c:true, w:18, l:1, d:0, co:"ABD", st:"Güreş", sl:4.12, ac:49, td:3.1, sb:0.5, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Johnny_Eblen.jpg/400px-Johnny_Eblen.jpg", h:[{o:"Kasanganay", r:"W", m:"KO", rd:3}]},
-    {id:52, n:"Kayla Harrison", org:"PFL", div:"Lightweight (K)", r:1, c:true, w:17, l:1, d:0, co:"ABD", st:"Judo", sl:3.12, ac:52, td:4.4, sb:2.1, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Kayla_Harrison.jpg/400px-Kayla_Harrison.jpg", h:[]},
+ [44,"Anatoly Malykhin","ONE","Heavyweight",1,1,15,0,0,"Rusya","Sambo",4.45,54,3.8,1.2,[R("Reinier de Ridder","W","KO",2)]],
+ [45,"Christian Lee","ONE","Lightweight",1,1,19,4,0,"Singapur","BJJ",3.78,51,2.7,2.1,[]],
+ [46,"Stamp Fairtex","ONE","Atomweight",1,1,11,2,0,"Tayland","Muay Thai",5.23,53,2.1,0.8,[]],
+ [47,"Rodtang Jitmuangnon","ONE","Flyweight MT",1,1,289,45,10,"Tayland","Muay Thai",8.45,53,0,0,[]],
+ [48,"Superbon Singha Mawynn","ONE","Featherweight KB",1,1,123,35,3,"Tayland","Muay Thai",7.23,50,0,0,[]],
+ [49,"Francis Ngannou","PFL","Heavyweight",1,1,18,3,0,"Kamerun","Boks",5.12,52,1.2,0.2,[]],
+ [50,"Usman Nurmagomedov","PFL","Lightweight",1,1,22,0,0,"Rusya","Sambo",4.12,51,3.4,2.1,[R("Archie Colgan","W","TKO",1)]],
+ [51,"Johnny Eblen","PFL","Middleweight",1,1,18,1,0,"ABD","Güreş",4.12,49,3.1,0.5,[R("Fabian Edwards","W","KO",3)]],
+ [52,"Kayla Harrison","PFL","Lightweight (K)",1,1,17,1,0,"ABD","Judo",3.12,52,4.4,2.1,[]],
 
-    // EFSANELER
-    {id:53, n:"Khabib Nurmagomedov", org:"LEGEND", div:"Lightweight", r:0, c:false, w:29, l:0, d:0, co:"Rusya", st:"Sambo", sl:4.12, ac:48, td:5.3, sb:1.2, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Khabib_Nurmagomedov_UFC.jpg/400px-Khabib_Nurmagomedov_UFC.jpg", h:[]},
-    {id:54, n:"Georges St-Pierre", org:"LEGEND", div:"Welterweight", r:0, c:false, w:26, l:2, d:0, co:"Kanada", st:"Karate", sl:4.89, ac:52, td:3.4, sb:0.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Georges_St-Pierre_UFC.jpg/400px-Georges_St-Pierre_UFC.jpg", h:[]},
-    {id:55, n:"Conor McGregor", org:"LEGEND", div:"Lightweight", r:0, c:false, w:22, l:6, d:0, co:"İrlanda", st:"Boks", sl:5.12, ac:48, td:1.2, sb:0.5, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Conor_McGregor_UFC.jpg/400px-Conor_McGregor_UFC.jpg", h:[]},
-    {id:56, n:"Anderson Silva", org:"LEGEND", div:"Middleweight", r:0, c:false, w:34, l:11, d:0, co:"Brezilya", st:"Muay Thai", sl:4.45, ac:55, td:0.8, sb:0.9, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Anderson_Silva_UFC.jpg/400px-Anderson_Silva_UFC.jpg", h:[]},
-    {id:57, n:"Fedor Emelianenko", org:"LEGEND", div:"Heavyweight", r:0, c:false, w:40, l:7, d:0, co:"Rusya", st:"Sambo", sl:3.89, ac:51, td:3.1, sb:1.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Fedor_Emelianenko_PRIDE.jpg/400px-Fedor_Emelianenko_PRIDE.jpg", h:[]},
-    {id:58, n:"Ronda Rousey", org:"LEGEND", div:"Bantamweight", r:0, c:false, w:12, l:2, d:0, co:"ABD", st:"Judo", sl:2.89, ac:45, td:4.5, sb:3.5, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ronda_Rousey_UFC.jpg/400px-Ronda_Rousey_UFC.jpg", h:[]},
-    {id:59, n:"Jose Aldo", org:"LEGEND", div:"Featherweight", r:0, c:false, w:31, l:8, d:0, co:"Brezilya", st:"Muay Thai", sl:4.56, ac:51, td:1.4, sb:0.8, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Jose_Aldo_UFC.jpg/400px-Jose_Aldo_UFC.jpg", h:[]},
-    {id:60, n:"Demetrious Johnson", org:"LEGEND", div:"Flyweight", r:0, c:false, w:30, l:4, d:1, co:"ABD", st:"Güreş", sl:4.23, ac:49, td:3.8, sb:1.9, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Demetrious_Johnson_UFC.jpg/400px-Demetrious_Johnson_UFC.jpg", h:[]}
+ [53,"Khabib Nurmagomedov","LEGEND","Lightweight",0,0,29,0,0,"Rusya","Sambo",4.12,48,5.3,1.2,[]],
+ [54,"Georges St-Pierre","LEGEND","Welterweight",0,0,26,2,0,"Kanada","Karate",4.89,52,3.4,0.8,[]],
+ [55,"Conor McGregor","LEGEND","Lightweight",0,0,22,6,0,"İrlanda","Boks",5.12,48,1.2,0.5,[]],
+ [56,"Anderson Silva","LEGEND","Middleweight",0,0,34,11,0,"Brezilya","Muay Thai",4.45,55,0.8,0.9,[]],
+ [57,"Fedor Emelianenko","LEGEND","Heavyweight",0,0,40,7,0,"Rusya","Sambo",3.89,51,3.1,1.8,[]],
+ [58,"Ronda Rousey","LEGEND","Bantamweight",0,0,12,2,0,"ABD","Judo",2.89,45,4.5,3.5,[]],
+ [59,"José Aldo","LEGEND","Featherweight",0,0,31,8,0,"Brezilya","Muay Thai",4.56,51,1.4,0.8,[]],
+ [60,"Demetrious Johnson","LEGEND","Flyweight",0,0,30,4,1,"ABD","Güreş",4.23,49,3.8,1.9,[]]
 ];
+const DB = RAW.map(a => ({id:a[0], n:a[1], org:a[2], div:a[3], r:a[4], c:!!a[5], w:a[6], l:a[7], d:a[8], co:a[9], st:a[10], sl:a[11], ac:a[12], td:a[13], sb:a[14], h:a[15], img:a[16]||null}));
 
-// === 40+ TÜRKÇE HABER ===
 const NEWS = [
-    {t:"UFC 332: Natalia Silva Kemeri Kaptı", s:"Salt Lake City'de tarihi gece. Natalia Silva, Wang Cong'u oybirliğiyle yenerek boştaki Kadınlar Sinek Sıklet kemerinin yeni sahibi oldu.", tag:"ŞAMPİYON", d:"3 Eki 2026"},
-    {t:"Makhachev Seriyi 17'ye Çıkardı", s:"Islam Makhachev, Philadelphia'da Ian Garry'yi dominant bir performansla geçerek Welterweight kemerini korudu ve galibiyet serisini 17'ye çıkardı.", tag:"SONUÇ", d:"15 Ağu 2026"},
-    {t:"Gaethje'den Beyaz Saray'da Şok Nakavt", s:"Justin Gaethje, UFC Freedom 250'de Ilia Topuria'yı 4. rauntta köşe müdahalesiyle TKO ederek Lightweight şampiyonu oldu.", tag:"ŞOK", d:"14 Haz 2026"},
-    {t:"Strickland, Chimaev'i Yıktı!", s:"Sean Strickland, UFC 328'de yenilgisiz Khamzat Chimaev'i split decision ile geçerek Middleweight kemerini geri aldı. Borz'un ilk yenilgisi.", tag:"SÜRPRİZ", d:"9 May 2026"},
-    {t:"Gane Tartışmasız Ağır Sıklet Şampiyonu", s:"Tom Aspinall'ın sakatlık nedeniyle kemeri bırakmasının ardından, Ciryl Gane otomatik olarak tartışmasız ağır sıklet şampiyonu ilan edildi.", tag:"GÜNDEM", d:"Eyl 2026"},
-    {t:"PFL 2027 Türkiye'ye Geliyor", s:"PFL yönetimi, 2027 sezonu için Türkiye, Japonya ve Suudi Arabistan'ı kapsayan devasa bir dünya turu açıkladı.", tag:"GENİŞLEME", d:"1 Eki 2026"},
-    {t:"Joshua Van Pantoja'yı Geçti", s:"Genç yetenek Joshua Van, UFC 331'de Alexandre Pantoja'yı tam 5 raunt sonunda yenerek Flyweight kemerini korudu.", tag:"SONUÇ", d:"19 Eyl 2026"},
-    {t:"Volkanovski Lopes'i Yine Yendi", s:"Alexander Volkanovski, Diego Lopes ile olan rövanş maçını kazanarak Featherweight kemerini korudu. Sırada Evloev var.", tag:"ŞAMPİYON", d:"31 Oca 2026"},
-    {t:"Mackenzie Dern Kemerini Korudu", s:"Mackenzie Dern, UFC 330'da Gillian Robertson'ı geçerek Strawweight kemerini başarıyla savundu.", tag:"SONUÇ", d:"15 Ağu 2026"},
-    {t:"Petr Yan Geri Döndü", s:"Petr Yan, Merab Dvalishvili'yi yenerek Bantamweight kemerini geri aldı ve 4.5 yıllık hasreti bitirdi.", tag:"GERİ DÖNÜŞ", d:"Ara 2025"},
-    {t:"Jon Jones'tan Emeklilik Sinyali mi?", s:"Aspinall'ın kemeri bırakmasının ardından Jon Jones sosyal medyadan gizemli bir paylaşım yaparak geri dönüş sinyali verdi.", tag:"DEDİKODU", d:"Eyl 2026"},
-    {t:"Alex Pereira Ağır Sıklete Geçti", s:"Alex Pereira, Light Heavyweight kemerini bırakarak Ağır Sıklete yükseldi ancak Gane karşısında nakavt oldu.", tag:"TRANSFER", d:"Şub 2026"},
-    {t:"Bo Nickal Rekor Kırdı", s:"NCAA efsanesi Bo Nickal, UFC'deki 8. maçını da bitirerek rekor kırdı. Orta sıkletin yeni korkulu rüyası.", tag:"YÜKSELEN", d:"2026"},
-    {t:"Shavkat Sakatlığı Nedeniyle Ara Veriyor", s:"Yenilgisiz Kazak yıldız Shavkat Rakhmonov, diz sakatlığı nedeniyle 2026'nın geri kalanında kafeste olmayacak.", tag:"SAKATLIK", d:"2026"},
-    {t:"Malykhin Emekli Oldu", s:"ONE Championship'in 3 sıklet şampiyonu Anatoly Malykhin, unvanını koruduktan sonra şok bir kararla emekliliğini açıkladı.", tag:"EMEKLİLİK", d:"May 2026"},
-    {t:"Rodtang vs Superbon Süper Maçı", s:"ONE Championship, 2027'de iki Tayland efsanesi Rodtang ve Superbon'u süper maçta karşılaştıracağını duyurdu.", tag:"DUYURU", d:"2026"},
-    {t:"Usman Nurmagomedov 22-0", s:"Khabib'in kuzeni Usman Nurmagomedov, PFL'de Archie Colgan'ı ilk rauntta nakavt ederek yenilgisizliğini sürdürdü.", tag:"SERİ", d:"Tem 2026"},
-    {t:"Kayla Harrison UFC Yolunda", s:"İki kez olimpiyat şampiyonu judocu Kayla Harrison'ın PFL'den ayrılıp UFC ile anlaştığı iddia ediliyor.", tag:"TRANSFER", d:"2026"},
-    {t:"UFC Suudi Arabistan Kartı Açıklandı", s:"Riyad'da yapılacak özel etkinlikte 3 unvan maçı birden olacak. Makhachev vs Rakhmonov ihtimali konuşuluyor.", tag:"ETKİNLİK", d:"2026"},
-    {t:"Dricus Du Plessis Usman'ı Yendi", s:"Dricus Du Plessis, eski şampiyon Kamaru Usman'ı karar ile geçerek sıralamadaki yerini sağlamlaştırdı.", tag:"SONUÇ", d:"Tem 2026"},
-    {t:"Charles Oliveira Holloway'i Geçti", s:"Do Bronx lakaplı Charles Oliveira, Max Holloway ile olan epik mücadeleyi oybirliğiyle kazandı.", tag:"SONUÇ", d:"Mar 2026"},
-    {t:"Movsar Evloev Hala Yenilgisiz", s:"Dağıstanlı güreşçi Movsar Evloev, 20-0'lık rekoruyla Volkanovski maçını bekliyor.", tag:"YÜKSELEN", d:"2026"},
-    {t:"Tom Aspinall Göz Sakatlığı", s:"Tom Aspinall, Gane maçındaki göz poke sakatlığının iyileşmemesi nedeniyle kemeri bırakmak zorunda kaldı.", tag:"SAKATLIK", d:"Eyl 2026"},
-    {t:"Ian Garry'nin Hayal Kırıklığı", s:"Ian Garry, Makhachev karşısında varlık gösteremeyince hayranlarını üzdü. 'Geri döneceğim' dedi.", tag:"RÖPORTAJ", d:"Ağu 2026"},
-    {t:"Zhang Weili Sıklet Değiştiriyor mu?", s:"Çinli şampiyon Zhang Weili'nin strawweight divisionından ayrılıp tüy sıklete çıkabileceği konuşuluyor.", tag:"DEDİKODU", d:"2026"},
-    {t:"Jiri Prochazka Antrenman Kampında", s:"Çekyalı çılgın Jiri Prochazka, LHW kemeri için yeni kampına başladı. 'Kaos geri dönecek' dedi.", tag:"KAMP", d:"2026"},
-    {t:"Carlos Ulberg KO Serisi", s:"Yeni Zelandalı Carlos Ulberg, üst üste 3. nakavtını alarak LHW sıralamasında yükseldi.", tag:"YÜKSELEN", d:"2026"},
-    {t:"Robert Whittaker Rövanş İstiyor", s:"Chimaev'e submission ile kaybeden Whittaker, hemen rövanş istediğini açıkladı.", tag:"AÇIKLAMA", d:"2026"},
-    {t:"Paulo Costa'dan Açıklama", s:"Paulo Costa, orta sıkletteki geleceği hakkında konuştu. 'Emekli olmuyorum, sadece dinleniyorum.'", tag:"RÖPORTAJ", d:"2026"},
-    {t:"Adesanya'nın Geleceği Belirsiz", s:"Israel Adesanya'nın üst üste gelen yenilgilerden sonra kariyerine ara verebileceği belirtiliyor.", tag:"GÜNDEM", d:"2026"},
-    {t:"Arman Tsarukyan Title Shot Bekliyor", s:"Arman Tsarukyan, lightweight kemer maçı için sırasını beklediğini ve hazır olduğunu söyledi.", tag:"AÇIKLAMA", d:"2026"},
-    {t:"Gamrot Polonya'da Kahraman", s:"Mateusz Gamrot, Polonya'da yılın sporcusu ödülüne aday gösterildi.", tag:"ÖDÜL", d:"2026"},
-    {t:"Lerone Murphy Yenilgisiz", s:"İngiliz Lerone Murphy, 15-0'lık rekoruyla featherweight divisionında sessizce yükseliyor.", tag:"YÜKSELEN", d:"2026"},
-    {t:"Brian Ortega Geri Dönüyor", s:"Sakatlıktan dönen Brian Ortega, 2026 sonuna kadar kafese döneceğini açıkladı.", tag:"GERİ DÖNÜŞ", d:"2026"},
-    {t:"Sterling Tüy Sıklete mi?", s:"Aljamain Sterling'in bantamweight'ten tüy sıklete çıkabileceği dedikoduları alevlendi.", tag:"DEDİKODU", d:"2026"},
-    {t:"Umar Nurmagomedov Sessiz", s:"Umar Nurmagomedov, medya yerine kafeste konuşmayı tercih ettiğini söyledi.", tag:"RÖPORTAJ", d:"2026"},
-    {t:"Royval Pantoja'yı İstiyor", s:"Brandon Royval, Pantoja ile 3. maç için çağrı yaptı.", tag:"ÇAĞRI", d:"2026"},
-    {t:"Taira Japonya'da Popüler", s:"Tatsuro Taira, Japonya'da MMA'in popülerleşmesinde büyük rol oynuyor.", tag:"ANALİZ", d:"2026"},
-    {t:"Tatiana Suarez Geri Döndü", s:"Sakatlıklarla boğuşan Tatiana Suarez, yeniden title shot peşinde.", tag:"GERİ DÖNÜŞ", d:"2026"},
-    {t:"Alexa Grasso Meksika'da", s:"Alexa Grasso, memleketi Meksika'da büyük bir törenle karşılandı.", tag:"ETKİNLİK", d:"2026"}
-];
+ ["ŞAMPİYON","UFC 332: Natalia Silva kemeri kaptı","Salt Lake City'de tarihi gece. Natalia Silva, Wang Cong'u oybirliğiyle yenerek boştaki Kadınlar Sinek Sıklet kemerinin yeni sahibi oldu.","3 Eki 2026"],
+ ["GENİŞLEME","PFL 2027 Türkiye'ye geliyor","PFL yönetimi, 2027 sezonu için Türkiye, Japonya ve Suudi Arabistan'ı kapsayan bir dünya turu açıkladı.","1 Eki 2026"],
+ ["SONUÇ","Joshua Van, Pantoja'yı geçti","Joshua Van, UFC 331'de Alexandre Pantoja'yı 5 raunt sonunda yenerek Flyweight kemerini korudu.","19 Eyl 2026"],
+ ["GÜNDEM","Gane tartışmasız ağır sıklet şampiyonu","Tom Aspinall'ın sakatlık nedeniyle kemeri bırakmasının ardından Ciryl Gane tartışmasız şampiyon ilan edildi.","Eyl 2026"],
+ ["SAKATLIK","Tom Aspinall göz sakatlığı","Aspinall, Gane maçındaki göz darbesinin etkilerinin geçmemesi nedeniyle kemeri bırakmak zorunda kaldı.","Eyl 2026"],
+ ["DEDİKODU","Jon Jones'tan gizemli paylaşım","Aspinall'ın kemeri bırakmasının ardından Jon Jones sosyal medyada geri dönüş sinyali verdi.","Eyl 2026"],
+ ["SONUÇ","Makhachev serisini 17'ye çıkardı","Islam Makhachev, Philadelphia'da Ian Garry'yi geçerek Welterweight kemerini korudu ve serisini 17'ye çıkardı.","15 Ağu 2026"],
+ ["SONUÇ","Mackenzie Dern kemerini korudu","Mackenzie Dern, UFC 330'da Gillian Robertson'ı geçerek Strawweight kemerini savundu.","15 Ağu 2026"],
+ ["RÖPORTAJ","Ian Garry: \"Geri döneceğim\"","Ian Garry, Makhachev karşısındaki yenilginin ardından hayranlarına seslendi.","Ağu 2026"],
+ ["SERİ","Usman Nurmagomedov 22-0","Usman Nurmagomedov, PFL'de Archie Colgan'ı ilk rauntta bitirerek yenilgisizliğini sürdürdü.","Tem 2026"],
+ ["SONUÇ","Du Plessis, Usman'ı yendi","Dricus Du Plessis, Kamaru Usman'ı kararla geçerek sıralamadaki yerini sağlamlaştırdı.","Tem 2026"],
+ ["ŞOK","Gaethje, Beyaz Saray'da Topuria'yı durdurdu","Justin Gaethje, UFC Freedom 250'de Ilia Topuria'yı 4. rauntta TKO ile yenerek Lightweight şampiyonu oldu.","14 Haz 2026"],
+ ["EMEKLİLİK","Malykhin emekli oldu","ONE'ın üç sıklet şampiyonu Anatoly Malykhin, unvanını koruduktan sonra emekliliğini açıkladı.","May 2026"],
+ ["SÜRPRİZ","Strickland, Chimaev'i yıktı","Sean Strickland, UFC 328'de Khamzat Chimaev'i split decision ile geçerek kemeri geri aldı. Chimaev'in ilk yenilgisi.","9 May 2026"],
+ ["SONUÇ","Oliveira, Holloway'i geçti","Charles Oliveira, Max Holloway ile yaptığı mücadeleyi oybirliğiyle kazandı.","Mar 2026"],
+ ["TRANSFER","Alex Pereira ağır sıklete geçti","Pereira, Light Heavyweight kemerini bırakıp Ağır Sıklete yükseldi ancak Gane karşısında nakavt oldu.","Şub 2026"],
+ ["ŞAMPİYON","Volkanovski, Lopes'i yine yendi","Alexander Volkanovski, rövanşı kazanarak Featherweight kemerini korudu. Sırada Evloev var.","31 Oca 2026"],
+ ["GERİ DÖNÜŞ","Petr Yan geri döndü","Petr Yan, Merab Dvalishvili'yi yenerek Bantamweight kemerini geri aldı.","Ara 2025"],
+ ["DUYURU","Rodtang vs Superbon süper maçı","ONE, 2027'de iki Tayland efsanesini süper maçta karşılaştıracağını duyurdu.","2026"],
+ ["ETKİNLİK","UFC Suudi Arabistan kartı açıklandı","Riyad'daki özel etkinlikte üç unvan maçı yapılacak. Makhachev – Rakhmonov ihtimali konuşuluyor.","2026"],
+ ["TRANSFER","Kayla Harrison UFC yolunda","İki kez olimpiyat şampiyonu Kayla Harrison'ın PFL'den ayrılıp UFC ile anlaştığı iddia ediliyor.","2026"],
+ ["SAKATLIK","Shavkat Rakhmonov ara veriyor","Rakhmonov, diz sakatlığı nedeniyle 2026'nın geri kalanında dövüşmeyecek.","2026"],
+ ["YÜKSELEN","Bo Nickal 8-0","Bo Nickal, UFC'deki 8. maçını da bitirerek orta sıkletin yeni adaylarından biri oldu.","2026"],
+ ["YÜKSELEN","Movsar Evloev hâlâ yenilgisiz","Evloev, 20-0'lık rekoruyla Volkanovski maçını bekliyor.","2026"],
+ ["YÜKSELEN","Carlos Ulberg'den üçüncü KO","Ulberg, üst üste 3. nakavtını alarak LHW sıralamasında yükseldi.","2026"],
+ ["YÜKSELEN","Lerone Murphy 15-0","Lerone Murphy, featherweight'te sessizce yükselmeye devam ediyor.","2026"],
+ ["DEDİKODU","Zhang Weili sıklet değiştirir mi?","Weili'nin strawweight'ten ayrılıp daha yüksek bir sıkletin kapısını çalabileceği konuşuluyor.","2026"],
+ ["DEDİKODU","Sterling tüy sıklete mi çıkıyor?","Aljamain Sterling'in bantamweight'ten featherweight'e çıkabileceği söylentileri arttı.","2026"],
+ ["KAMP","Jiri Prochazka kampta","Prochazka, LHW kemeri için yeni kampına başladı: \"Kaos geri dönecek.\"","2026"],
+ ["AÇIKLAMA","Whittaker rövanş istiyor","Chimaev'e submission ile kaybeden Whittaker, hemen rövanş istediğini açıkladı.","2026"],
+ ["AÇIKLAMA","Tsarukyan title shot bekliyor","Arman Tsarukyan, lightweight kemer maçı için sırasını beklediğini söyledi.","2026"],
+ ["RÖPORTAJ","Paulo Costa: \"Emekli değilim\"","Costa, orta sıkletteki geleceği hakkında \"sadece dinleniyorum\" dedi.","2026"],
+ ["GÜNDEM","Adesanya'nın geleceği belirsiz","Israel Adesanya'nın kariyerine ara verebileceği belirtiliyor.","2026"],
+ ["GERİ DÖNÜŞ","Brian Ortega dönüyor","Sakatlıktan dönen Ortega, 2026 sonuna kadar kafese döneceğini açıkladı.","2026"],
+ ["GERİ DÖNÜŞ","Tatiana Suarez geri döndü","Sakatlıklarla boğuşan Suarez, yeniden title shot peşinde.","2026"],
+ ["ÇAĞRI","Royval, Pantoja'yı istiyor","Brandon Royval, Pantoja ile üçüncü maç için çağrı yaptı.","2026"],
+ ["RÖPORTAJ","Umar Nurmagomedov sessiz","Umar, medya yerine kafeste konuşmayı tercih ettiğini söyledi.","2026"],
+ ["ANALİZ","Taira Japonya'da MMA'yı büyütüyor","Tatsuro Taira, Japonya'da MMA'nın popülerleşmesinde büyük rol oynuyor.","2026"],
+ ["ÖDÜL","Gamrot Polonya'da yılın sporcusu adayı","Mateusz Gamrot, Polonya'da yılın sporcusu ödülüne aday gösterildi.","2026"],
+ ["ETKİNLİK","Alexa Grasso Meksika'da","Grasso, memleketi Meksika'da törenle karşılandı.","2026"]
+].map(a => ({tag:a[0], t:a[1], s:a[2], d:a[3]}));
 
-// === RENDER ===
-function getFallback(name) { return name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase(); }
+/* ============================================================
+   YARDIMCILAR
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const byId = id => DB.find(f => f.id === Number(id));
+const ORG_NAME = {UFC:'UFC', ONE:'ONE', PFL:'PFL', LEGEND:'Efsane'};
 
-function renderCard(f) {
-    return `
-    <div class="card" onclick="openProfile(${f.id})">
+/* localStorage engellenebilir → her erişim try/catch */
+const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch(e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} }
+};
+let favs = new Set(store.get('zmma:favs', []));
+const saveFavs = () => store.set('zmma:favs', [...favs]);
+
+/* ============================================================
+   GÖRSEL SİSTEMİ
+   Hata analizi özeti: eski kod uydurma Wikimedia/UFC URL'lerine
+   bağlıydı; hepsi 404/403 döndü ve onerror görseli gizleyince
+   sadece baş harfler kalıyordu. Yeni sistem:
+   1) Her zaman çalışan, satır içi SVG avatar (ağ gerektirmez)
+   2) Mümkünse Wikipedia API'den gerçek fotoğraf (progressive)
+   3) Başarısız olursa avatar kalır — asla boş/kırık görsel yok
+   ============================================================ */
+function hueOf(str) { let h = 0; for (const ch of str) h = (h * 31 + ch.charCodeAt(0)) % 360; return h; }
+function initials(name) { return name.split(/\s+/).filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase(); }
+
+const avatarCache = {};
+function avatar(f) {
+    if (avatarCache[f.id]) return avatarCache[f.id];
+    const h = hueOf(f.co);
+    const ring = f.c ? `<rect x="3" y="3" width="194" height="244" rx="12" fill="none" stroke="#f5c542" stroke-width="5"/>` : '';
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 250">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h},50%,30%)"/><stop offset="1" stop-color="#09090b"/></linearGradient></defs>
+<rect width="200" height="250" fill="url(#g)"/>
+<circle cx="100" cy="96" r="38" fill="#fff" fill-opacity=".13"/>
+<path d="M30 250c0-58 32-92 70-92s70 34 70 92z" fill="#fff" fill-opacity=".13"/>
+<text x="100" y="110" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="800" fill="#fff" fill-opacity=".9">${initials(f.n)}</text>
+${ring}</svg>`;
+    return avatarCache[f.id] = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+/* Fotoğraf çözücü: önce elle verilen URL, sonra Wikipedia araması.
+   Sandbox/CSP altında (ör. yayınlanmış önizleme) istek engellenir,
+   catch'e düşer ve avatar kalır. Kendi sunucunda gerçek foto gelir. */
+const photoCache = store.get('zmma:photos', {});
+const photoPending = {};
+function resolvePhoto(f) {
+    if (photoCache[f.id] !== undefined) return Promise.resolve(photoCache[f.id]);
+    if (f.img) return Promise.resolve(f.img);
+    if (photoPending[f.id]) return photoPending[f.id];
+    const q = encodeURIComponent(f.n + ' mixed martial artist');
+    const url = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrlimit=1&gsrsearch=${q}&prop=pageimages&piprop=thumbnail&pithumbsize=600`;
+    photoPending[f.id] = fetch(url).then(r => r.json()).then(j => {
+        const pages = j && j.query && j.query.pages;
+        const p = pages && Object.values(pages)[0];
+        const src = p && p.thumbnail && p.thumbnail.source || '';
+        photoCache[f.id] = src; store.set('zmma:photos', photoCache);
+        return src;
+    }).catch(() => '');
+    return photoPending[f.id];
+}
+
+function swapPhoto(imgEl, f) {
+    resolvePhoto(f).then(src => {
+        if (!src || !imgEl.isConnected) return;
+        const test = new Image();
+        test.onload = () => { imgEl.src = src; };
+        test.src = src; /* yüklenemezse avatar kalır */
+    });
+}
+
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        swapPhoto(e.target, byId(e.target.dataset.id));
+    });
+}, {rootMargin: '200px'}) : null;
+
+function hydratePhotos(root) {
+    root.querySelectorAll('img[data-id]').forEach(img => io ? io.observe(img) : swapPhoto(img, byId(img.dataset.id)));
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function cardHTML(f) {
+    return `<button class="card" data-open="${f.id}" aria-label="${esc(f.n)} profilini aç">
         <div class="card-img-wrap">
-            <div class="badge ${f.c?'champ':''}">#${f.r||'-'} ${f.c?'👑':''}</div>
-            <div class="card-fallback">${getFallback(f.n)}</div>
-            <img class="card-img" src="${f.img}" alt="${f.n}" loading="lazy" onerror="this.style.opacity=0">
+            <div class="badge ${f.c ? 'champ' : ''}">${f.c ? '👑 Şampiyon' : (f.r ? '#' + f.r : ORG_NAME[f.org])}</div>
+            ${favs.has(f.id) ? '<div class="fav-dot">★</div>' : ''}
+            <img class="card-img" data-id="${f.id}" src="${avatar(f)}" alt="${esc(f.n)}" loading="lazy" decoding="async">
         </div>
         <div class="card-info">
-            <div>
-                <div class="card-org">${f.org} · ${f.div}</div>
-                <div class="card-name">${f.n}</div>
-            </div>
-            <div class="card-rec">${f.w}-${f.l}-${f.d}</div>
+            <div class="card-org">${ORG_NAME[f.org]} · ${esc(f.div)}</div>
+            <div class="card-name">${esc(f.n)}</div>
+            <span class="card-rec">${f.w}-${f.l}-${f.d}</span>
         </div>
-    </div>`;
+    </button>`;
+}
+function newsHTML(n) {
+    return `<article class="news-card"><span class="news-tag">${esc(n.tag)}</span><div class="news-title">${esc(n.t)}</div><div class="news-desc">${esc(n.s)}</div><div class="news-date">${esc(n.d)}</div></article>`;
+}
+function fillGrid(el, list) {
+    el.innerHTML = list.length ? list.map(cardHTML).join('') : '<div class="empty">Sonuç bulunamadı. Aramayı veya filtreyi değiştir.</div>';
+    hydratePhotos(el);
 }
 
-function renderHome(filter='all') {
-    const list = filter==='all' ? DB : DB.filter(f=>f.org===filter);
-    document.getElementById('homeGrid').innerHTML = list.slice(0,8).map(renderCard).join('');
-    document.getElementById('homeNews').innerHTML = NEWS.slice(0,4).map(n=>`
-        <div class="news-card">
-            <span class="news-tag">${n.tag}</span>
-            <div class="news-title">${n.t}</div>
-            <div class="news-desc">${n.s}</div>
-            <div style="font-size:10px;color:var(--muted);margin-top:8px;font-weight:600">${n.d}</div>
-        </div>
-    `).join('');
+let homeOrg = 'all';
+function renderHome() {
+    const pool = homeOrg === 'all' ? DB : DB.filter(f => f.org === homeOrg);
+    const feat = [...pool].sort((a, b) => (b.c - a.c) || ((a.r || 99) - (b.r || 99))).slice(0, 8);
+    fillGrid($('#homeGrid'), feat);
+    $('#homeCount').textContent = pool.length + ' dövüşçü';
+    $('#homeNews').innerHTML = NEWS.slice(0, 4).map(newsHTML).join('');
+    $('#heroStats').innerHTML = `<div><b>${DB.length}</b><span>Dövüşçü</span></div><div><b>${DB.filter(f => f.c).length}</b><span>Şampiyon</span></div><div><b>${NEWS.length}</b><span>Haber</span></div>`;
 }
 
-function renderFighters(q='') {
-    const list = DB.filter(f => f.n.toLowerCase().includes(q.toLowerCase()) || f.co.toLowerCase().includes(q.toLowerCase()) || f.div.toLowerCase().includes(q.toLowerCase()));
-    document.getElementById('fightersGrid').innerHTML = list.map(renderCard).join('');
+let fOrg = 'all';
+function renderFighters() {
+    const q = $('#searchInput').value.trim().toLocaleLowerCase('tr');
+    const sort = $('#sortSelect').value;
+    let list = DB.filter(f => {
+        if (fOrg === 'CHAMP' && !f.c) return false;
+        if (fOrg === 'FAV' && !favs.has(f.id)) return false;
+        if (!['all', 'CHAMP', 'FAV'].includes(fOrg) && f.org !== fOrg) return false;
+        if (!q) return true;
+        return [f.n, f.co, f.div, f.org, f.st].some(v => v.toLocaleLowerCase('tr').includes(q));
+    });
+    const cmp = {
+        rank: (a, b) => (b.c - a.c) || ((a.r || 99) - (b.r || 99)) || a.n.localeCompare(b.n),
+        name: (a, b) => a.n.localeCompare(b.n),
+        wins: (a, b) => b.w - a.w,
+        sl: (a, b) => b.sl - a.sl,
+        td: (a, b) => b.td - a.td
+    }[sort];
+    list.sort(cmp);
+    fillGrid($('#fightersGrid'), list);
 }
 
 function renderNews() {
-    document.getElementById('newsGrid').innerHTML = NEWS.map(n=>`
-        <div class="news-card">
-            <span class="news-tag">${n.tag}</span>
-            <div class="news-title">${n.t}</div>
-            <div class="news-desc">${n.s}</div>
-            <div style="font-size:10px;color:var(--muted);margin-top:8px;font-weight:600">${n.d}</div>
-        </div>
-    `).join('');
+    const q = $('#newsSearch').value.trim().toLocaleLowerCase('tr');
+    const list = NEWS.filter(n => !q || (n.t + n.s + n.tag).toLocaleLowerCase('tr').includes(q));
+    $('#newsGrid').innerHTML = list.length ? list.map(newsHTML).join('') : '<div class="empty">Haber bulunamadı.</div>';
 }
 
-// === PROFILE ===
-window.openProfile = function(id) {
-    const f = DB.find(x=>x.id===id);
-    if(!f) return;
-    const modal = document.getElementById('profileModal');
-    const content = document.getElementById('profileContent');
-    
-    content.innerHTML = `
-        <div class="prof-hero">
-            <div class="card-fallback" style="font-size:80px">${getFallback(f.n)}</div>
-            <img src="${f.img}" alt="${f.n}" style="position:relative;z-index:1;width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.style.display='none'">
-            <div class="prof-overlay"></div>
-        </div>
+/* ============================================================
+   PROFİL
+   ============================================================ */
+let openId = null;
+function openProfile(id) {
+    const f = byId(id); if (!f) return;
+    openId = f.id;
+    $('#profileContent').innerHTML = `
+        <div class="prof-hero"><img data-id="${f.id}" src="${avatar(f)}" alt="${esc(f.n)}"><div class="prof-overlay"></div></div>
         <div class="prof-info">
-            <div class="prof-meta">${f.org} · ${f.div} · ${f.co}</div>
-            <div class="prof-name">${f.n}</div>
-            
+            <div class="prof-meta">${f.c ? '👑 Şampiyon · ' : ''}${ORG_NAME[f.org]} · ${esc(f.div)} · ${esc(f.co)}</div>
+            <div class="prof-name">${esc(f.n)}</div>
+            <div style="height:16px"></div>
             <div class="stats-row">
-                <div class="stat-box"><div class="stat-val">${f.w}-${f.l}</div><div class="stat-lbl">Rekor</div></div>
-                <div class="stat-box"><div class="stat-val">${f.sl}</div><div class="stat-lbl">SLpM</div></div>
+                <div class="stat-box"><div class="stat-val">${f.w}-${f.l}-${f.d}</div><div class="stat-lbl">Rekor</div></div>
+                <div class="stat-box"><div class="stat-val">${f.sl}</div><div class="stat-lbl">Vuruş / dk</div></div>
                 <div class="stat-box"><div class="stat-val">%${f.ac}</div><div class="stat-lbl">İsabet</div></div>
             </div>
-
-            <div class="section-title" style="margin:0 0 12px 0">Son Maçlar</div>
-            ${f.h.length ? f.h.map(h=>`
+            <div class="stats-row" style="margin-bottom:24px">
+                <div class="stat-box"><div class="stat-val">${f.td}</div><div class="stat-lbl">Takedown / 15 dk</div></div>
+                <div class="stat-box"><div class="stat-val">${f.sb}</div><div class="stat-lbl">Submission / 15 dk</div></div>
+                <div class="stat-box"><div class="stat-val" style="font-size:15px">${esc(f.st)}</div><div class="stat-lbl">Ana stil</div></div>
+            </div>
+            <div class="section-title" style="margin:0 0 12px">Son maçlar</div>
+            ${f.h.length ? f.h.map(h => `
                 <div class="hist-item">
                     <div style="display:flex;align-items:center;gap:12px">
-                        <div class="hist-res ${h.r==='W'?'win':'loss'}">${h.r}</div>
-                        <span style="font-weight:700;font-size:14px">${h.o}</span>
+                        <div class="hist-res ${h.r === 'W' ? 'win' : h.r === 'L' ? 'loss' : 'nc'}">${h.r}</div>
+                        <span style="font-weight:700;font-size:14px">${esc(h.o)}</span>
                     </div>
-                    <span style="color:var(--muted);font-size:12px;font-weight:600">${h.m} · R${h.rd}</span>
-                </div>
-            `).join('') : '<div style="color:var(--muted);font-size:13px;padding:10px 0">Maç verisi yok.</div>'}
-            <div style="height:40px"></div>
-        </div>
-    `;
-    modal.classList.add('open');
+                    <span style="color:var(--muted);font-size:12px;font-weight:600">${esc(h.m)} · R${h.rd}</span>
+                </div>`).join('') : '<div style="color:var(--muted);font-size:13px;padding:6px 0">Bu dövüşçü için maç verisi henüz eklenmedi.</div>'}
+            <button class="chip active" id="cmpFromProfile" style="margin-top:18px;font-size:14px;padding:12px 20px">Karşılaştırmaya ekle</button>
+        </div>`;
+    swapPhoto($('#profileContent img'), f);
+    updateFavBtn();
+    $('#cmpFromProfile').onclick = () => { closeProfile(); goCompare(f.id); };
+    $('#profileModal').classList.add('open');
+    $('#profileModal').scrollTop = 0;
     document.body.style.overflow = 'hidden';
-};
-
-window.closeProfile = function() {
-    document.getElementById('profileModal').classList.remove('open');
-    document.body.style.overflow = '';
-};
-
-// === NAV ===
-window.nav = function(page, el) {
-    document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
-    document.getElementById(`page-${page}`).classList.remove('hidden');
-    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    if(el) el.classList.add('active');
-    
-    if(page==='fighters') renderFighters();
-    if(page==='news') renderNews();
-    if(page==='home') renderHome();
-    if(page==='compare') initCompare();
-    window.scrollTo(0,0);
-};
-
-window.filterHome = function(org, el) {
-    document.querySelectorAll('#homeFilters .chip').forEach(c=>c.classList.remove('active'));
-    if(el) el.classList.add('active');
-    renderHome(org);
-};
-
-document.getElementById('searchInput').addEventListener('input', (e) => renderFighters(e.target.value));
-
-// === GELİŞMİŞ KARŞILAŞTIRMA ===
-let chartInstance = null;
-function initCompare() {
-    const selA = document.getElementById('cmpA');
-    const selB = document.getElementById('cmpB');
-    const opts = DB.map(f=>`<option value="${f.id}">${f.n}</option>`).join('');
-    selA.innerHTML = opts; selB.innerHTML = opts;
-    selA.value = 1; selB.value = 3;
-    
-    const update = () => {
-        const f1 = DB.find(x=>x.id==selA.value);
-        const f2 = DB.find(x=>x.id==selB.value);
-        
-        // AI Tahmin
-        let score1 = (f1.sl*2) + (f1.ac/10) + (f1.td*5) + (f1.sb*10) + (f1.w);
-        let score2 = (f2.sl*2) + (f2.ac/10) + (f2.td*5) + (f2.sb*10) + (f2.w);
-        let total = score1 + score2;
-        let p1 = Math.round((score1/total)*100);
-        let p2 = 100 - p1;
-        let winner = p1 > p2 ? f1.n : f2.n;
-        
-        document.getElementById('aiWinner').innerText = winner;
-        document.getElementById('aiConf').innerText = `%${Math.max(p1,p2)} Güven Oranı`;
-
-        // Barlar
-        const stats = [
-            {l:'Striking (SLpM)', v1:f1.sl, v2:f2.sl, max:10},
-            {l:'İsabet (%)', v1:f1.ac, v2:f2.ac, max:100},
-            {l:'Takedown Ort.', v1:f1.td, v2:f2.td, max:8},
-            {l:'Submission Ort.', v1:f1.sb, v2:f2.sb, max:4},
-            {l:'Galibiyet', v1:f1.w, v2:f2.w, max:40}
-        ];
-        
-        document.getElementById('cmpStats').innerHTML = stats.map(s => {
-            let w1 = (s.v1 / (s.v1+s.v2)) * 100;
-            let w2 = (s.v2 / (s.v1+s.v2)) * 100;
-            let c1 = s.v1 >= s.v2 ? 'var(--primary)' : 'var(--muted)';
-            let c2 = s.v2 >= s.v1 ? 'var(--danger)' : 'var(--muted)';
-            return `
-            <div class="cmp-row">
-                <div class="cmp-val left" style="color:${c1}">${s.v1}</div>
-                <div style="flex:1;text-align:center;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px">${s.l}</div>
-                <div class="cmp-val right" style="color:${c2}">${s.v2}</div>
-            </div>
-            <div class="cmp-row" style="margin-top:-8px;margin-bottom:16px">
-                <div class="cmp-bar-bg">
-                    <div class="cmp-bar-l" style="width:${w1}%;background:${c1}"></div>
-                    <div class="cmp-bar-r" style="width:${w2}%;background:${c2}"></div>
-                </div>
-            </div>`;
-        }).join('');
-
-        // Radar
-        const ctx = document.getElementById('radarChart').getContext('2d');
-        if(chartInstance) chartInstance.destroy();
-        chartInstance = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: ['Striking', 'İsabet', 'Güreş', 'Submission', 'Güç'],
-                datasets: [{
-                    label: f1.n, data: [f1.sl*10, f1.ac, f1.td*10, f1.sb*20, f1.w],
-                    borderColor: '#ccff00', backgroundColor: 'rgba(204,255,0,0.15)', pointBackgroundColor: '#ccff00', borderWidth: 2
-                }, {
-                    label: f2.n, data: [f2.sl*10, f2.ac, f2.td*10, f2.sb*20, f2.w],
-                    borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.15)', pointBackgroundColor: '#ef4444', borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                scales: { r: { angleLines: {color:'rgba(255,255,255,0.1)'}, grid: {color:'rgba(255,255,255,0.05)'}, pointLabels: {color:'#ccc', font:{size:11, weight:'bold'}}, ticks: {display:false, backdropColor:'transparent'} } },
-                plugins: { legend: { labels: {color:'#fff', font:{size:12, weight:'bold'}} } }
-            }
-        });
-    };
-    
-    selA.onchange = update; selB.onchange = update;
-    update();
+    $('#closeBtn').focus();
 }
+function closeProfile() {
+    $('#profileModal').classList.remove('open');
+    document.body.style.overflow = '';
+    openId = null;
+}
+function updateFavBtn() {
+    const on = favs.has(openId);
+    const b = $('#favBtn');
+    b.textContent = on ? '★' : '☆';
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-label', on ? 'Favorilerden çıkar' : 'Favorilere ekle');
+}
+
+/* ============================================================
+   KARŞILAŞTIRMA
+   ============================================================ */
+let chartInstance = null, cmpReady = false;
+const METRICS = [
+    {k:'sl', l:'Vuruş (dk başına)', max:10, wt:.22},
+    {k:'ac', l:'Vuruş isabeti (%)', max:100, wt:.18},
+    {k:'td', l:'Takedown (15 dk)', max:8, wt:.22},
+    {k:'sb', l:'Submission (15 dk)', max:4, wt:.18},
+    {k:'w',  l:'Galibiyet', max:40, wt:.20}
+];
+const norm = (f, m) => Math.min(100, (f[m.k] / m.max) * 100);
+
+function initCompare() {
+    if (cmpReady) return;
+    cmpReady = true;
+    const opts = [...DB].sort((a, b) => a.n.localeCompare(b.n)).map(f => `<option value="${f.id}">${esc(f.n)} (${esc(f.div)})</option>`).join('');
+    $('#cmpA').innerHTML = opts; $('#cmpB').innerHTML = opts;
+    $('#cmpA').value = 1; $('#cmpB').value = 3;
+    $('#cmpA').onchange = $('#cmpB').onchange = updateCompare;
+    $('#cmpSwap').onclick = () => { const a = $('#cmpA').value; $('#cmpA').value = $('#cmpB').value; $('#cmpB').value = a; updateCompare(); };
+}
+function goCompare(id) {
+    nav('compare');
+    if (id) { $('#cmpA').value = id; if ($('#cmpB').value == id) $('#cmpB').value = id == 1 ? 3 : 1; updateCompare(); }
+}
+function updateCompare() {
+    const f1 = byId($('#cmpA').value), f2 = byId($('#cmpB').value);
+    if (!f1 || !f2) return;
+
+    $('#cmpFaces').innerHTML = [f1, f2].map((f, i) => `<div class="cmp-face ${i ? 'b' : 'a'}"><img data-id="${f.id}" src="${avatar(f)}" alt="${esc(f.n)}"><div>${esc(f.n)}</div></div>`).join('');
+    $$('#cmpFaces img').forEach(img => swapPhoto(img, byId(img.dataset.id)));
+
+    if (f1.id === f2.id) {
+        $('#aiWinner').textContent = 'Aynı dövüşçü';
+        $('#aiConf').textContent = 'Karşılaştırmak için farklı iki dövüşçü seç.';
+        $('#pbA').style.width = '50\%'; $('#pbB').style.width = '50%';
+    } else {
+        const sc = f => METRICS.reduce((t, m) => t + norm(f, m) * m.wt, 0) * (f.l + f.d === 0 ? 1.04 : 1);
+        const s1 = sc(f1), s2 = sc(f2);
+        const p1 = Math.round(Math.min(80, Math.max(20, 50 + (s1 - s2) * 1.1)));
+        $('#aiWinner').textContent = p1 >= 50 ? f1.n : f2.n;
+        $('#aiConf').textContent = `${f1.n} %${p1} · ${f2.n} %${100 - p1}`;
+        $('#pbA').style.width = p1 + '\%'; $('#pbB').style.width = (100 - p1) + '%';
+    }
+
+    $('#cmpStats').innerHTML = METRICS.map(m => {
+        const a = f1[m.k], b = f2[m.k], sum = a + b;
+        const w1 = sum ? a / sum * 100 : 50;
+        const c1 = a >= b ? 'var(--primary)' : 'var(--muted)';
+        const c2 = b >= a ? 'var(--danger)' : 'var(--muted)';
+        return `<div class="cmp-head"><span class="v" style="color:${c1}">${a}</span><span class="l">${m.l}</span><span class="v" style="color:${c2}">${b}</span></div>
+        <div class="cmp-bar-bg"><i style="width:${w1}%;background:${c1}"></i><i style="width:${100 - w1}%;background:${c2}"></i></div>`;
+    }).join('');
+
+    if (typeof Chart === 'undefined') return;
+    if (chartInstance) chartInstance.destroy();
+    const css = getComputedStyle(document.documentElement);
+    const txt = css.getPropertyValue('--text').trim() || '#fff';
+    const mu = css.getPropertyValue('--muted').trim() || '#aaa';
+    chartInstance = new Chart($('#radarChart').getContext('2d'), {         type: 'radar',         data: {             labels: ['Vuruş', 'İsabet', 'Takedown', 'Submission', 'Tecrübe'],             datasets: [f1, f2].map((f, i) => ({                 label: f.n, data: METRICS.map(m => Math.round(norm(f, m))),                 borderColor: i ? '#ef4444' : '#ccff00', backgroundColor: i ? 'rgba(239,68,68,.18)' : 'rgba(204,255,0,.16)',                 pointBackgroundColor: i ? '#ef4444' : '#ccff00', borderWidth: 2             }))         },         options: {             responsive: true, maintainAspectRatio: false,             scales: { r: { min: 0, max: 100, angleLines: {color: 'rgba(128,128,128,.25)'}, grid: {color: 'rgba(128,128,128,.2)'}, pointLabels: {color: txt, font: {size: 11, weight: 'bold'}}, ticks: {display: false} } },             plugins: { legend: { labels: {color: txt, font: {size: 12, weight: 'bold'}} } }         }     }); }  /* ============================================================    NAVİGASYON & OLAYLAR    ============================================================ */ function nav(page) {     $$('.page').forEach(p => p.classList.add('hidden'));
+    $('#page-' + page).classList.remove('hidden');     $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
+    if (page === 'home') renderHome();
+    if (page === 'fighters') renderFighters();
+    if (page === 'news') renderNews();
+    if (page === 'compare') { initCompare(); updateCompare(); }
+    window.scrollTo(0, 0);
+}
+
+document.addEventListener('click', e => {
+    const card = e.target.closest('[data-open]');
+    if (card) return openProfile(card.dataset.open);
+    const navBtn = e.target.closest('.nav-item');
+    if (navBtn) return nav(navBtn.dataset.page);
+});
+$('#allNews').onclick = e => { e.preventDefault(); nav('news'); };
+$('#homeFilters').addEventListener('click', e => {     const c = e.target.closest('.chip'); if (!c) return;     $$('#homeFilters .chip').forEach(x => x.classList.toggle('active', x === c));
+    homeOrg = c.dataset.org; renderHome();
+});
+$('#fighterFilters').addEventListener('click', e => {     const c = e.target.closest('.chip'); if (!c) return;     $$('#fighterFilters .chip').forEach(x => x.classList.toggle('active', x === c));
+    fOrg = c.dataset.org; renderFighters();
+});
+$('#searchInput').addEventListener('input', renderFighters);
+$('#sortSelect').addEventListener('change', renderFighters);
+$('#newsSearch').addEventListener('input', renderNews);
+$('#closeBtn').onclick = closeProfile;
+$('#favBtn').onclick = () => {
+    if (openId == null) return;
+    favs.has(openId) ? favs.delete(openId) : favs.add(openId);
+    saveFavs(); updateFavBtn();
+    if (!$('#page-fighters').classList.contains('hidden')) renderFighters();
+    if (!$('#page-home').classList.contains('hidden')) renderHome();
+};
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && openId != null) closeProfile(); });
 
 renderHome();
 </script>
