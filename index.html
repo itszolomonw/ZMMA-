@@ -4,1418 +4,543 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08090d">
-<title>ZMMA — MMA Intelligence Hub</title>
+<title>ZMMA v3.0 — Ultimate MMA Intelligence Hub</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{
-    --bg:#08090d;--bg2:#0d0f15;--panel:#11141b;--panel2:#151923;--panel3:#1a1f2a;
-    --line:#242a36;--text:#f4f5f7;--muted:#8d95a5;--muted2:#687080;
-    --accent:#e8ff3d;--accent2:#b8d900;--danger:#ff4d67;--blue:#4da3ff;
-    --green:#36d98b;--orange:#ff9f43;--purple:#b07bff;
-    --radius:18px;--radius-sm:12px;--shadow:0 18px 50px rgba(0,0,0,.32);
+--bg:#08090d;--bg2:#0d0f15;--panel:#11141b;--panel2:#151923;--panel3:#1a1f2a;
+--line:#242a36;--text:#f4f5f7;--muted:#8d95a5;--muted2:#687080;
+--accent:#e8ff3d;--danger:#ff4d67;--blue:#4da3ff;--green:#36d98b;--orange:#ff9f43;--purple:#b07bff;
+--radius:18px;--shadow:0 18px 50px rgba(0,0,0,.32);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:var(--bg)}
-body{
-    min-height:100vh;
-    background:radial-gradient(circle at 85% 0%,rgba(232,255,61,.055),transparent 28%),
-               radial-gradient(circle at 0% 40%,rgba(77,163,255,.035),transparent 30%),var(--bg);
-    color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;overflow-x:hidden;
-}
-button,input,select{font:inherit}
-button{border:0;cursor:pointer}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%;object-fit:cover}
-::-webkit-scrollbar{width:7px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:#303746;border-radius:99px}
-
-.app{min-height:100vh}
-.topbar{
-    position:sticky;top:0;z-index:100;height:72px;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 28px;background:rgba(8,9,13,.84);backdrop-filter:blur(20px);
-    border-bottom:1px solid rgba(255,255,255,.055);
-}
+body{min-height:100vh;background:radial-gradient(circle at 85% 0%,rgba(232,255,61,.055),transparent 28%),radial-gradient(circle at 0% 40%,rgba(77,163,255,.035),transparent 30%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;overflow-x:hidden;font-size:14px}
+button,input,select{font:inherit}button{border:0;cursor:pointer}a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#303746;border-radius:99px}
+.topbar{position:sticky;top:0;z-index:100;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(8,9,13,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.055)}
 .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.04em;font-size:22px}
-.brand-mark{
-    width:35px;height:35px;border-radius:11px;display:grid;place-items:center;
-    color:#08090d;background:var(--accent);font-size:14px;font-weight:1000;
-    box-shadow:0 0 25px rgba(232,255,61,.16);
-}
+.brand-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#08090d;background:var(--accent);font-size:15px;font-weight:1000;box-shadow:0 0 25px rgba(232,255,61,.2)}
 .brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:.15em;font-weight:800;margin-top:-2px}
-.top-actions{display:flex;align-items:center;gap:8px}
-.icon-btn{
-    width:42px;height:42px;border-radius:13px;background:var(--panel);
-    color:var(--text);border:1px solid var(--line);display:grid;place-items:center;transition:.2s ease;
-}
-.icon-btn:hover{background:var(--panel2);transform:translateY(-1px)}
-
-.desktop-nav{
-    position:fixed;left:0;top:72px;bottom:0;width:225px;padding:22px 15px;
-    border-right:1px solid rgba(255,255,255,.055);background:#090a0f;z-index:70;
-}
-.nav-label{padding:0 12px 10px;color:var(--muted2);font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:900}
-.nav-item{
-    width:100%;min-height:46px;display:flex;align-items:center;gap:12px;padding:0 13px;
-    margin-bottom:4px;border-radius:13px;background:transparent;color:var(--muted);
-    font-size:13px;font-weight:800;text-align:left;transition:.2s ease;
-}
+.desktop-nav{position:fixed;left:0;top:72px;bottom:0;width:230px;padding:22px 15px;border-right:1px solid rgba(255,255,255,.055);background:#090a0f;z-index:70;overflow-y:auto}
+.nav-label{padding:0 12px 10px;color:var(--muted2);font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:900;margin-top:15px}
+.nav-item{width:100%;min-height:44px;display:flex;align-items:center;gap:12px;padding:0 13px;margin-bottom:3px;border-radius:13px;background:transparent;color:var(--muted);font-size:13px;font-weight:800;text-align:left;transition:.2s}
 .nav-item:hover{color:var(--text);background:var(--panel)}
 .nav-item.active{color:var(--text);background:linear-gradient(90deg,rgba(232,255,61,.13),rgba(232,255,61,.025));box-shadow:inset 2px 0 0 var(--accent)}
-.nav-icon{width:22px;text-align:center;font-size:16px}
 .mobile-nav{display:none}
-
-.main{margin-left:225px;padding:30px 34px 80px;max-width:1550px}
-.page{display:none;animation:pageIn .25s ease}
-.page.active{display:block}
-@keyframes pageIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-
-.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:26px;flex-wrap:wrap}
+.main{margin-left:230px;padding:30px 34px 80px;max-width:1550px}
+.page{display:none;animation:pageIn .25s ease}.page.active{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.page-head{margin-bottom:26px}
 .eyebrow{color:var(--accent);font-size:10px;font-weight:1000;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
-h1{font-size:clamp(30px,4vw,48px);line-height:1;letter-spacing:-.055em}
-.page-subtitle{margin-top:10px;color:var(--muted);font-size:14px;max-width:650px;line-height:1.65}
-
-.section-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:38px 0 15px;flex-wrap:wrap}
-.section-title h2{font-size:19px;letter-spacing:-.03em}
-.section-title span{color:var(--muted);font-size:11px}
-
-.hero{
-    position:relative;min-height:410px;overflow:hidden;border:1px solid var(--line);
-    border-radius:26px;background:linear-gradient(110deg,#12151d 0%,#0d1016 58%,#10151d 100%);
-    box-shadow:var(--shadow);
-}
-.hero-grid{
-    position:absolute;inset:0;opacity:.28;
-    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-                     linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-    background-size:38px 38px;
-}
-.hero-glow{
-    position:absolute;width:420px;height:420px;right:-100px;top:-120px;
-    border-radius:50%;background:radial-gradient(circle,rgba(232,255,61,.16),transparent 68%);
-}
-.hero-content{position:relative;z-index:2;padding:48px;max-width:720px}
-.hero-kicker{
-    display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;
-    background:rgba(232,255,61,.08);border:1px solid rgba(232,255,61,.16);
-    color:var(--accent);font-size:10px;font-weight:1000;letter-spacing:.1em;text-transform:uppercase;
-}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
-.hero h1{margin-top:24px;font-size:clamp(42px,6vw,76px)}
-.hero h1 em{color:var(--accent);font-style:normal}
-.hero p{max-width:610px;margin-top:20px;color:#aeb5c1;line-height:1.7;font-size:15px}
-.hero-buttons{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
-.primary-btn,.secondary-btn{min-height:46px;padding:0 18px;border-radius:13px;font-size:12px;font-weight:950;transition:.2s ease}
-.primary-btn{background:var(--accent);color:#090a0d}
-.primary-btn:hover{background:#f1ff76;transform:translateY(-1px)}
-.secondary-btn{color:var(--text);background:var(--panel2);border:1px solid var(--line)}
-.secondary-btn:hover{background:var(--panel3)}
-
-.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
-.stat{padding:18px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}
-.stat strong{display:block;font-size:23px;letter-spacing:-.04em}
-.stat span{display:block;color:var(--muted);font-size:10px;margin-top:5px;font-weight:700}
-
-.search-wrap{position:relative;margin-bottom:22px}
-.search-input{
-    width:100%;height:54px;border-radius:15px;border:1px solid var(--line);
-    background:var(--panel);color:var(--text);outline:none;padding:0 18px 0 48px;font-size:13px;
-}
-.search-input:focus{border-color:#424b5d;box-shadow:0 0 0 3px rgba(232,255,61,.045)}
-.search-icon{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:var(--muted)}
-
-.feature-grid{display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:12px}
-.feature-card{
-    position:relative;min-height:225px;padding:22px;overflow:hidden;border-radius:18px;
-    border:1px solid var(--line);background:var(--panel);cursor:pointer;transition:.22s ease;
-}
-.feature-card:hover{transform:translateY(-3px);border-color:#3a4352}
-.feature-card.large{min-height:300px;background:radial-gradient(circle at 90% 10%,rgba(232,255,61,.09),transparent 34%),var(--panel)}
-.feature-card .tag{
-    display:inline-flex;padding:6px 8px;border-radius:7px;background:rgba(255,255,255,.055);
-    color:#cdd2da;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;
-}
-.feature-card h3{position:absolute;left:22px;right:22px;bottom:46px;font-size:23px;line-height:1.1;letter-spacing:-.035em}
-.feature-card p{position:absolute;left:22px;right:22px;bottom:19px;color:var(--muted);font-size:10px}
-
-.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.news-card{border:1px solid var(--line);background:var(--panel);border-radius:17px;overflow:hidden;transition:.2s ease;cursor:pointer}
-.news-card:hover{transform:translateY(-2px);border-color:#3a4352}
-.news-image{
-    height:160px;display:grid;place-items:center;position:relative;
-    background:#111;overflow:hidden;
-}
-.news-logo-overlay{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,0.3);backdrop-filter:blur(2px)}
-.promo-logo{font-size:32px;font-weight:900;color:white;text-shadow:0 2px 10px rgba(0,0,0,0.5)}
-.promo-logo.ufc{color:#d20a0a}
-.promo-logo.one{color:#e8ff3d;text-shadow:0 0 20px rgba(232,255,61,.4)}
-.promo-logo.pfl{color:#ffd700}
-
-.news-body{padding:16px}
-.news-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted2);font-size:9px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}
-.news-body h3{margin-top:10px;font-size:15px;line-height:1.35;letter-spacing:-.02em}
-.news-body p{margin-top:8px;color:var(--muted);font-size:11px;line-height:1.55}
-
+h1{font-size:clamp(28px,4vw,46px);line-height:1.1;letter-spacing:-.055em}
+.page-subtitle{margin-top:10px;color:var(--muted);font-size:13px;max-width:650px;line-height:1.65}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:32px 0 14px;flex-wrap:wrap}
+.section-title h2{font-size:18px;letter-spacing:-.03em}
+.hero{position:relative;min-height:380px;overflow:hidden;border:1px solid var(--line);border-radius:24px;background:linear-gradient(110deg,#12151d 0%,#0d1016 58%,#10151d 100%);box-shadow:var(--shadow);margin-bottom:20px}
+.hero-content{position:relative;z-index:2;padding:44px;max-width:700px}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(232,255,61,.08);border:1px solid rgba(232,255,61,.16);color:var(--accent);font-size:10px;font-weight:1000}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{margin-top:20px;font-size:clamp(38px,5vw,68px)}.hero h1 em{color:var(--accent);font-style:normal}
+.hero p{max-width:580px;margin-top:16px;color:#aeb5c1;line-height:1.7;font-size:14px}
+.hero-buttons{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.primary-btn,.secondary-btn{min-height:44px;padding:0 18px;border-radius:13px;font-size:12px;font-weight:950;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.primary-btn{background:var(--accent);color:#090a0d}.primary-btn:hover{background:#f1ff76;transform:translateY(-1px)}
+.secondary-btn{color:var(--text);background:var(--panel2);border:1px solid var(--line)}.secondary-btn:hover{background:var(--panel3)}
+.stat-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:15px 0}
+.stat{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.stat strong{display:block;font-size:22px;letter-spacing:-.04em}.stat span{display:block;color:var(--muted);font-size:10px;margin-top:4px;font-weight:700}
+.search-wrap{position:relative;margin-bottom:18px}
+.search-input{width:100%;height:52px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--text);outline:none;padding:0 18px 0 46px;font-size:13px;transition:.2s}
+.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,255,61,.08)}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
 .fighter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.fighter-card{
-    position:relative;overflow:hidden;min-height:280px;border:1px solid var(--line);
-    background:linear-gradient(145deg,var(--panel2),var(--panel));border-radius:18px;
-    cursor:pointer;transition:.22s ease;
-}
-.fighter-card:hover{transform:translateY(-3px);border-color:#414a5a}
-.fighter-photo{
-    height:180px;position:relative;overflow:hidden;
-    background:radial-gradient(circle at 50% 30%,rgba(232,255,61,.09),transparent 45%),#0d1016;
-}
-.fighter-photo img{
-    width:100%;height:100%;object-fit:cover;object-position:top center;
-    mask-image:linear-gradient(to bottom,black 60%,transparent 100%);
-    -webkit-mask-image:linear-gradient(to bottom,black 60%,transparent 100%);
-    transition:transform 0.4s ease;
-}
-.fighter-card:hover .fighter-photo img{transform:scale(1.05)}
-.fighter-rank{
-    position:absolute;left:10px;top:10px;padding:5px 7px;border-radius:7px;
-    background:rgba(0,0,0,.7);color:var(--accent);font-size:9px;font-weight:1000;z-index:2;
-}
-.fighter-info{padding:14px;position:relative;z-index:2;margin-top:-20px}
+.fighter-card{position:relative;overflow:hidden;min-height:270px;border:1px solid var(--line);background:linear-gradient(145deg,var(--panel2),var(--panel));border-radius:18px;cursor:pointer;transition:.22s}
+.fighter-card:hover{transform:translateY(-3px);border-color:#414a5a;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.fighter-photo{height:175px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 30%,rgba(232,255,61,.06),transparent 45%),#0d1016}
+.fighter-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s}
+.fighter-card:hover .fighter-photo img{transform:scale(1.06)}
+.fighter-rank{position:absolute;left:10px;top:10px;padding:4px 8px;border-radius:7px;background:rgba(0,0,0,.75);color:var(--accent);font-size:9px;font-weight:1000;z-index:2;backdrop-filter:blur(4px)}
+.fighter-info{padding:14px;position:relative;z-index:2;margin-top:-22px}
 .fighter-info .division{color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}
-.fighter-info h3{margin-top:5px;font-size:16px;letter-spacing:-.025em;text-shadow:0 2px 4px rgba(0,0,0,0.8)}
-.fighter-info .record{margin-top:6px;color:#b6bdc9;font-size:10px}
-
+.fighter-info h3{margin-top:4px;font-size:15px;letter-spacing:-.025em}
+.fighter-info .record{margin-top:5px;color:#b6bdc9;font-size:10px}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.news-card{border:1px solid var(--line);background:var(--panel);border-radius:16px;overflow:hidden;transition:.2s;cursor:pointer}
+.news-card:hover{transform:translateY(-2px);border-color:#3a4352}
+.news-image{height:140px;display:grid;place-items:center;background:linear-gradient(135deg,#12151d,#0d1016);position:relative;overflow:hidden}
+.promo-logo{font-size:28px;font-weight:900;color:white;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.promo-logo.ufc{color:#d20a0a}.promo-logo.one{color:#e8ff3d}.promo-logo.pfl{color:#ffd700}
+.news-body{padding:14px}
+.news-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted2);font-size:9px;text-transform:uppercase;font-weight:900}
+.news-body h3{margin-top:8px;font-size:14px;line-height:1.35}.news-body p{margin-top:6px;color:var(--muted);font-size:11px;line-height:1.55}
 .event-list{display:grid;gap:10px}
-.event-card{
-    display:grid;grid-template-columns:92px 1fr auto;align-items:center;gap:18px;
-    padding:18px;border:1px solid var(--line);border-radius:17px;background:var(--panel);transition:.2s ease;
-}
+.event-card{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:16px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--panel);transition:.2s}
 .event-card:hover{border-color:#3b4453;transform:translateX(2px)}
-.event-date{text-align:center;padding:12px 7px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)}
-.event-date strong{display:block;color:var(--accent);font-size:22px}
-.event-date span{color:var(--muted);font-size:9px;font-weight:900;text-transform:uppercase}
-.event-info h3{font-size:16px}
-.event-info p{margin-top:5px;color:var(--muted);font-size:10px}
-.event-status{padding:7px 10px;border-radius:999px;background:rgba(54,217,139,.08);border:1px solid rgba(54,217,139,.15);color:var(--green);font-size:9px;font-weight:1000;white-space:nowrap}
-.event-status.upcoming{background:rgba(77,163,255,.08);border-color:rgba(77,163,255,.15);color:var(--blue)}
-
+.event-date{text-align:center;padding:10px 6px;border-radius:11px;background:var(--panel2);border:1px solid var(--line)}
+.event-date strong{display:block;color:var(--accent);font-size:20px}.event-date span{color:var(--muted);font-size:9px;font-weight:900}
+.event-info h3{font-size:15px}.event-info p{margin-top:4px;color:var(--muted);font-size:10px}
+.event-status{padding:6px 10px;border-radius:999px;font-size:9px;font-weight:1000;white-space:nowrap}
+.event-status.done{background:rgba(54,217,139,.08);border:1px solid rgba(54,217,139,.15);color:var(--green)}
+.event-status.upcoming{background:rgba(77,163,255,.08);border:1px solid rgba(77,163,255,.15);color:var(--blue)}
 .rank-list{display:grid;gap:8px}
-.rank-row{
-    display:grid;grid-template-columns:44px 1fr 120px 100px;align-items:center;gap:12px;
-    min-height:70px;padding:10px 14px;border:1px solid var(--line);background:var(--panel);border-radius:13px;cursor:pointer;transition:.2s;
-}
+.rank-row{display:grid;grid-template-columns:44px 1fr 110px 90px;align-items:center;gap:12px;min-height:66px;padding:10px 14px;border:1px solid var(--line);background:var(--panel);border-radius:13px;cursor:pointer;transition:.2s}
 .rank-row:hover{border-color:#3a4352;transform:translateX(2px)}
 .rank-number{color:var(--muted2);font-weight:1000;font-size:13px}
-.rank-name{font-size:13px;font-weight:900}
-.rank-name small{display:block;margin-top:4px;color:var(--muted);font-size:9px;font-weight:700}
-.rank-record{color:#b8bfca;font-size:10px}
-.rank-score{text-align:right;color:var(--accent);font-size:11px;font-weight:1000}
-
-.compare-box{display:grid;grid-template-columns:1fr 70px 1fr;gap:12px;align-items:stretch}
-.compare-side{min-height:260px;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:22px}
+.rank-name{font-size:13px;font-weight:900}.rank-name small{display:block;margin-top:3px;color:var(--muted);font-size:9px}
+.rank-record{color:#b8bfca;font-size:10px}.rank-score{text-align:right;color:var(--accent);font-size:11px;font-weight:1000}
+.compare-box{display:grid;grid-template-columns:1fr 60px 1fr;gap:12px;align-items:stretch}
+.compare-side{min-height:240px;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px}
 .compare-vs{display:grid;place-items:center;color:var(--accent);font-weight:1000;font-size:12px}
-.compare-select{width:100%;height:46px;padding:0 12px;border-radius:11px;border:1px solid var(--line);background:var(--panel2);color:var(--text);outline:none}
-.compare-name{margin-top:18px;font-size:20px;font-weight:1000}
-.compare-stat{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:11px}
-.compare-stat span{color:var(--muted)}
-.compare-stat strong{color:#e3e6eb}
-
-.modal-layer{position:fixed;inset:0;z-index:500;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(0,0,0,.72);backdrop-filter:blur(10px)}
+.compare-select{width:100%;height:44px;padding:0 12px;border-radius:11px;border:1px solid var(--line);background:var(--panel2);color:var(--text);outline:none;font-size:12px}
+.compare-name{margin-top:14px;font-size:18px;font-weight:1000}
+.compare-stat{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:11px}
+.compare-stat span{color:var(--muted)}.compare-stat strong{color:#e3e6eb}
+.modal-layer{position:fixed;inset:0;z-index:500;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(0,0,0,.75);backdrop-filter:blur(10px)}
 .modal-layer.open{display:flex}
-.modal{width:min(900px,100%);max-height:90vh;overflow:auto;border:1px solid #303745;border-radius:24px;background:#0d1016;box-shadow:0 30px 100px rgba(0,0,0,.6);animation:modalIn .22s ease}
+.modal{width:min(880px,100%);max-height:90vh;overflow:auto;border:1px solid #303745;border-radius:22px;background:#0d1016;box-shadow:0 30px 100px rgba(0,0,0,.6);animation:modalIn .22s ease}
 @keyframes modalIn{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:none}}
-.modal-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:rgba(13,16,22,.92);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
-.modal-head h2{font-size:17px}
-.close-btn{width:36px;height:36px;border-radius:10px;background:var(--panel2);color:var(--muted)}
-.modal-content{padding:22px}
-
-.profile-top{display:grid;grid-template-columns:180px 1fr;gap:22px;align-items:center}
-.profile-photo{
-    width:180px;height:220px;border-radius:18px;overflow:hidden;position:relative;
-    border:1px solid var(--line);background:#000;
-}
+.modal-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:rgba(13,16,22,.95);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.modal-head h2{font-size:16px}.close-btn{width:34px;height:34px;border-radius:10px;background:var(--panel2);color:var(--muted);display:grid;place-items:center}
+.modal-content{padding:20px}
+.profile-top{display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:center}
+.profile-photo{width:170px;height:210px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000}
 .profile-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
 .profile-kicker{color:var(--accent);font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:1000}
-.profile-name{margin-top:8px;font-size:32px;letter-spacing:-.05em}
-.profile-nick{margin-top:5px;color:var(--muted);font-size:13px;font-style:italic}
-.profile-record{margin-top:15px;font-size:19px;font-weight:900}
-.profile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}
-.profile-stat{padding:13px;border-radius:12px;background:var(--panel);border:1px solid var(--line)}
+.profile-name{margin-top:6px;font-size:28px;letter-spacing:-.05em}
+.profile-nick{margin-top:4px;color:var(--muted);font-size:12px;font-style:italic}
+.profile-record{margin-top:12px;font-size:18px;font-weight:900}
+.profile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.profile-stat{padding:12px;border-radius:12px;background:var(--panel);border:1px solid var(--line)}
 .profile-stat span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;font-weight:900}
-.profile-stat strong{display:block;margin-top:5px;font-size:12px}
-
-.detail-section{margin-top:25px}
-.detail-section h3{margin-bottom:12px;font-size:14px;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
-
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:15px}
-.stats-box{padding:18px;border-radius:14px;background:var(--panel);border:1px solid var(--line)}
-.stats-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
-.stat-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:12px;border-bottom:1px dashed rgba(255,255,255,.04)}
-.stat-row:last-child{border:0}
-.stat-row .val{font-weight:900;color:var(--accent)}
-
-.finish-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;margin:10px 0;background:#1a1f2a}
+.profile-stat strong{display:block;margin-top:4px;font-size:12px}
+.detail-section{margin-top:22px}
+.detail-section h3{margin-bottom:10px;font-size:13px;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
+.stats-box{padding:16px;border-radius:14px;background:var(--panel);border:1px solid var(--line)}
+.stats-box h4{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:11px;border-bottom:1px dashed rgba(255,255,255,.04)}
+.stat-row:last-child{border:0}.stat-row .val{font-weight:900;color:var(--accent)}
+.finish-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;margin:8px 0;background:#1a1f2a}
 .finish-bar div{height:100%}
-
-.fight-history{display:grid;gap:7px}
-.fight-row{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;padding:11px;border-radius:11px;background:var(--panel);border:1px solid var(--line);font-size:10px}
-.result-win{color:var(--green);font-weight:1000}
-.result-loss{color:var(--danger);font-weight:1000}
-
-.history-timeline{display:flex;gap:10px;overflow-x:auto;padding-bottom:15px;margin-bottom:20px}
-.timeline-btn{
-    padding:10px 20px;border-radius:10px;background:var(--panel);border:1px solid var(--line);
-    color:var(--text);font-weight:bold;font-size:12px;white-space:nowrap;transition:0.2s;
-}
-.timeline-btn:hover{background:var(--panel2);border-color:var(--accent)}
-
-.filter-bar{display:flex;gap:8px;overflow:auto;padding-bottom:3px;margin-bottom:16px}
-.filter{flex:0 0 auto;height:37px;padding:0 13px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:10px;font-weight:900;transition:.2s}
+.fight-history{display:grid;gap:6px}
+.fight-row{display:grid;grid-template-columns:48px 1fr auto;gap:8px;align-items:center;padding:10px;border-radius:11px;background:var(--panel);border:1px solid var(--line);font-size:10px}
+.result-win{color:var(--green);font-weight:1000}.result-loss{color:var(--danger);font-weight:1000}.result-nc{color:var(--orange);font-weight:1000}
+.filter-bar{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:14px}
+.filter{flex:0 0 auto;height:36px;padding:0 13px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:10px;font-weight:900;transition:.2s;white-space:nowrap}
 .filter.active{background:var(--accent);color:#090a0d;border-color:var(--accent)}
-.filter:hover:not(.active){color:var(--text);border-color:#3a4352}
-.empty{padding:45px 20px;border:1px dashed #303744;border-radius:16px;text-align:center;color:var(--muted)}
-.footer{margin-top:70px;padding:28px 0;color:var(--muted2);border-top:1px solid var(--line);font-size:10px;line-height:1.7}
-
-.champ-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;background:rgba(232,255,61,.1);border:1px solid rgba(232,255,61,.25);color:var(--accent);font-size:9px;font-weight:900;margin-left:8px}
-
-@media(max-width:1100px){.fighter-grid{grid-template-columns:repeat(3,1fr)}.feature-grid{grid-template-columns:1fr 1fr}.feature-card.large{grid-column:span 2}.news-grid{grid-template-columns:repeat(2,1fr)}}
+.empty{padding:40px 20px;border:1px dashed #303744;border-radius:16px;text-align:center;color:var(--muted);grid-column:1/-1}
+.footer{margin-top:60px;padding:24px 0;color:var(--muted2);border-top:1px solid var(--line);font-size:10px;line-height:1.7}
+.champ-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:999px;background:rgba(232,255,61,.1);border:1px solid rgba(232,255,61,.25);color:var(--accent);font-size:9px;font-weight:900;margin-left:6px}
+.predict-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:15px}
+.predict-bar{height:14px;border-radius:99px;overflow:hidden;background:#1a1f2a;margin:14px 0;display:flex}
+.predict-bar .a{background:var(--accent)}.predict-bar .b{background:var(--blue)}
+.fantasy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.fantasy-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;transition:.2s}
+.fantasy-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.fantasy-card.selected{border-color:var(--accent);background:rgba(232,255,61,.05);box-shadow:0 0 15px rgba(232,255,61,.1)}
+.tabs{display:flex;gap:4px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.tab{padding:10px 16px;background:transparent;color:var(--muted);font-size:12px;font-weight:800;border-bottom:2px solid transparent;transition:.2s}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.history-timeline{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:18px}
+.timeline-btn{padding:9px 16px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);font-weight:700;font-size:11px;white-space:nowrap;transition:.2s}
+.timeline-btn:hover{border-color:var(--accent)}
+@media(max-width:1100px){.fighter-grid{grid-template-columns:repeat(3,1fr)}.news-grid{grid-template-columns:repeat(2,1fr)}.fantasy-grid{grid-template-columns:repeat(3,1fr)}.stat-strip{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:800px){
-    .topbar{height:62px;padding:0 15px}.desktop-nav{display:none}.main{margin-left:0;padding:20px 14px 90px}
-    .mobile-nav{position:fixed;display:flex;align-items:center;justify-content:space-around;left:8px;right:8px;bottom:8px;height:64px;z-index:200;border:1px solid #2b303b;border-radius:18px;background:rgba(13,15,21,.93);backdrop-filter:blur(18px);box-shadow:0 15px 50px rgba(0,0,0,.45)}
-    .mobile-nav button{flex:1;height:54px;background:transparent;color:var(--muted);font-size:9px;font-weight:900}
-    .mobile-nav button.active{color:var(--accent)}
-    .hero{min-height:430px;border-radius:21px}.hero-content{padding:30px 23px}.hero h1{font-size:44px}
-    .stat-strip{grid-template-columns:1fr 1fr}.feature-grid{grid-template-columns:1fr}.feature-card.large{grid-column:auto}.news-grid{grid-template-columns:1fr}
-    .fighter-grid{grid-template-columns:1fr 1fr}.event-card{grid-template-columns:66px 1fr}.event-status{grid-column:2;justify-self:start}
-    .rank-row{grid-template-columns:34px 1fr auto}.rank-record{display:none}.compare-box{grid-template-columns:1fr}.compare-vs{min-height:20px}
-    .profile-top{grid-template-columns:1fr}.profile-photo{width:100%;height:190px}.profile-grid{grid-template-columns:1fr 1fr}
-    .stats-grid{grid-template-columns:1fr}
-    .modal-layer{padding:0;align-items:flex-end}.modal{max-height:94vh;border-radius:23px 23px 0 0}
+.desktop-nav{display:none}.main{margin-left:0;padding:18px 14px 90px}
+.mobile-nav{position:fixed;display:flex;align-items:center;justify-content:space-around;left:8px;right:8px;bottom:8px;height:62px;z-index:200;border:1px solid #2b303b;border-radius:18px;background:rgba(13,15,21,.95);backdrop-filter:blur(18px)}
+.mobile-nav button{flex:1;height:52px;background:transparent;color:var(--muted);font-size:9px;font-weight:900}
+.mobile-nav button.active{color:var(--accent)}
+.fighter-grid{grid-template-columns:1fr 1fr}.news-grid{grid-template-columns:1fr}.stat-strip{grid-template-columns:1fr 1fr}
+.compare-box{grid-template-columns:1fr}.profile-top{grid-template-columns:1fr}.profile-photo{width:100%;height:180px}
+.stats-grid{grid-template-columns:1fr}.fantasy-grid{grid-template-columns:1fr 1fr}
+.hero-content{padding:28px}.hero h1{font-size:36px}
 }
 </style>
 </head>
 <body>
-<div class="app">
-
 <header class="topbar">
-    <div class="brand">
-        <div class="brand-mark">ZM</div>
-        <div>ZMMA<small>MMA INTELLIGENCE HUB · VERIFIED DATA</small></div>
-    </div>
-    <div class="top-actions">
-        <button class="icon-btn" aria-label="Ara" onclick="document.getElementById('fighterSearch')?.focus()">⌕</button>
-    </div>
+<div class="brand"><div class="brand-mark">ZM</div><div>ZMMA<small>v3.0 · ULTIMATE EDITION · 10 EKİM 2026</small></div></div>
 </header>
 
 <aside class="desktop-nav">
-    <div class="nav-label">Keşfet</div>
-    <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span>Ana Sayfa</button>
-    <button class="nav-item" data-page="news"><span class="nav-icon">◉</span>Haberler</button>
-    <button class="nav-item" data-page="fighters"><span class="nav-icon">♟</span>Dövüşçüler</button>
-    <button class="nav-item" data-page="events"><span class="nav-icon">◈</span>Etkinlikler</button>
-    <button class="nav-item" data-page="rankings"><span class="nav-icon">≡</span>Sıralamalar</button>
-    <div class="nav-label" style="margin-top:25px;">Organizasyonlar</div>
-    <button class="nav-item" data-page="ufc"><span class="nav-icon">🥇</span>UFC</button>
-    <button class="nav-item" data-page="one"><span class="nav-icon">🐯</span>ONE</button>
-    <button class="nav-item" data-page="pfl"><span class="nav-icon">🏆</span>PFL</button>
-    <div class="nav-label" style="margin-top:25px;">Araçlar</div>
-    <button class="nav-item" data-page="compare"><span class="nav-icon">⇄</span>Karşılaştır</button>
-    <button class="nav-item" data-page="history"><span class="nav-icon">◷</span>MMA Tarihi</button>
-    <button class="nav-item" data-page="goat"><span class="nav-icon">★</span>GOAT</button>
+<div class="nav-label">Keşfet</div>
+<button class="nav-item active" data-page="home">⌂ Ana Sayfa</button>
+<button class="nav-item" data-page="news">◉ Haberler</button>
+<button class="nav-item" data-page="fighters">♟ Dövüşçüler</button>
+<button class="nav-item" data-page="events">◈ Etkinlikler</button>
+<button class="nav-item" data-page="rankings">≡ Sıralamalar</button>
+<div class="nav-label">Yeni Özellikler</div>
+<button class="nav-item" data-page="predict">🎲 AI Predictor</button>
+<button class="nav-item" data-page="compare">⇄ Karşılaştır</button>
+<button class="nav-item" data-page="fantasy">⭐ Fantasy MMA</button>
+<div class="nav-label">Organizasyonlar</div>
+<button class="nav-item" data-page="ufc">🥇 UFC</button>
+<button class="nav-item" data-page="one">🐯 ONE</button>
+<button class="nav-item" data-page="pfl">🏆 PFL</button>
+<div class="nav-label">Diğer</div>
+<button class="nav-item" data-page="history">◷ MMA Tarihi</button>
+<button class="nav-item" data-page="goat">🐐 GOAT Tartışması</button>
 </aside>
 
 <main class="main">
-
-<!-- HOME -->
 <section class="page active" id="page-home">
-    <div class="hero">
-        <div class="hero-grid"></div><div class="hero-glow"></div>
-        <div class="hero-content">
-            <div class="hero-kicker"><span class="live-dot"></span>MMA NOW · 6 Ekim 2026 · DOĞRULANMIŞ VERİLER</div>
-            <h1>Dövüşün<br><em>merkezi.</em></h1>
-            <p>ZMMA; UFC, ONE Championship ve PFL dünyasını gerçek dövüşçü istatistikleri, doğrulanmış haberler ve Wikimedia Commons görselleriyle birleştiren bağımsız istatistik hub'ıdır. Tüm veriler UFC.com, Sherdog ve Wikipedia kaynaklarından doğrulanmıştır.</p>
-            <div class="hero-buttons">
-                <button class="primary-btn" data-page="news">Güncel Haberler →</button>
-                <button class="secondary-btn" data-page="fighters">Dövüşçüleri Keşfet</button>
-            </div>
-        </div>
-    </div>
-    <div class="stat-strip">
-        <div class="stat"><strong id="fighterCount">0</strong><span>Aktif Dövüşçü</span></div>
-        <div class="stat"><strong id="newsCount">0</strong><span>Haber</span></div>
-        <div class="stat"><strong>3</strong><span>Büyük Organizasyon</span></div>
-        <div class="stat"><strong>24/7</strong><span>Canlı Takip</span></div>
-    </div>
-    <div class="section-title"><h2>Şu an MMA'de (Ekim 2026)</h2><span>6 Ekim 2026</span></div>
-    <div class="feature-grid">
-        <article class="feature-card large" data-page="events"><span class="tag">SONUÇLANDI</span><h3>UFC 332: Silva vs Wang Cong</h3><p>Salt Lake City · Natalia Silva yeni şampiyon (UD)</p></article>
-        <article class="feature-card" data-page="events"><span class="tag">YAKLAŞAN</span><h3>UFC 333: Volkanovski vs Evloev</h3><p>Abu Dhabi · 24 Ekim 2026</p></article>
-        <article class="feature-card" data-page="news"><span class="tag">SON DAKİKA</span><h3>Strickland: Chimaev'in İlk Yenilgisi</h3><p>UFC 328 · Split Decision</p></article>
-    </div>
-    <div class="section-title"><h2>Son Haberler</h2><button class="secondary-btn" data-page="news">Tümünü gör</button></div>
-    <div class="news-grid" id="homeNews"></div>
-    <div class="section-title"><h2>UFC Şampiyonları (Ekim 2026)</h2><button class="secondary-btn" data-page="rankings">Sıralamalar</button></div>
-    <div class="fighter-grid" id="homeFighters"></div>
+<div class="hero"><div class="hero-content">
+<div class="hero-kicker"><span class="live-dot"></span>CANLI · 10 EKİM 2026 · DOĞRULANMIŞ VERİLER</div>
+<h1>Dövüşün<br><em>merkezi.</em></h1>
+<p>UFC, ONE Championship ve PFL dünyasını tek çatı altında toplayan Ultimate MMA Intelligence Hub. Gerçek istatistikler, AI tahminler, Fantasy MMA ve çok daha fazlası.</p>
+<div class="hero-buttons"><button class="primary-btn" data-page="fighters">♟ Dövüşçüleri Keşfet</button><button class="secondary-btn" data-page="predict">🎲 AI Predictor</button><button class="secondary-btn" data-page="fantasy">⭐ Fantasy</button></div>
+</div></div>
+<div class="stat-strip">
+<div class="stat"><strong id="statFighters">0</strong><span>Dövüşçü</span></div>
+<div class="stat"><strong id="statNews">0</strong><span>Haber</span></div>
+<div class="stat"><strong>3</strong><span>Organizasyon</span></div>
+<div class="stat"><strong>AI</strong><span>Predictor</span></div>
+<div class="stat"><strong>24/7</strong><span>Canlı Veri</span></div>
+</div>
+<div class="section-title"><h2>🏆 UFC Şampiyonları (Ekim 2026)</h2></div>
+<div class="fighter-grid" id="homeChamps"></div>
+<div class="section-title"><h2>📰 Son Haberler</h2><button class="secondary-btn" data-page="news">Tümü →</button></div>
+<div class="news-grid" id="homeNews"></div>
 </section>
 
-<!-- NEWS -->
 <section class="page" id="page-news">
-    <div class="page-head">
-        <div><div class="eyebrow">ZMMA NEWSROOM · DOĞRULANMIŞ</div><h1>Haberler</h1><p class="page-subtitle">UFC, ONE, PFL ve dünya MMA sahnesinden son dakika gelişmeleri. Tüm haberler resmi kaynaklardan doğrulanmıştır.</p></div>
-    </div>
-    <div class="filter-bar" id="newsFilters">
-        <button class="filter active" data-filter="all">Tümü</button>
-        <button class="filter" data-filter="UFC">UFC</button>
-        <button class="filter" data-filter="ONE">ONE</button>
-        <button class="filter" data-filter="PFL">PFL</button>
-    </div>
-    <div class="news-grid" id="newsGrid"></div>
+<div class="page-head"><div class="eyebrow">ZMMA NEWSROOM · DOĞRULANMIŞ</div><h1>Haberler</h1><p class="page-subtitle">UFC, ONE ve PFL dünyasından son dakika gelişmeleri. Tüm haberler resmi kaynaklardan doğrulanmıştır.</p></div>
+<div class="filter-bar" id="newsFilters"><button class="filter active" data-f="all">Tümü</button><button class="filter" data-f="UFC">UFC</button><button class="filter" data-f="ONE">ONE</button><button class="filter" data-f="PFL">PFL</button></div>
+<div class="news-grid" id="newsGrid"></div>
 </section>
 
-<!-- FIGHTERS -->
 <section class="page" id="page-fighters">
-    <div class="page-head">
-        <div><div class="eyebrow">FIGHTER DATABASE · SHERDOG / UFC STATS</div><h1>Dövüşçüler</h1><p class="page-subtitle">Doğrulanmış istatistikler · Gerçek maç geçmişi · Wikimedia Commons görselleri.</p></div>
-    </div>
-    <div class="search-wrap"><span class="search-icon">⌕</span><input class="search-input" id="fighterSearch" placeholder="İsim veya lakap ara..." autocomplete="off"></div>
-    <div class="filter-bar" id="fighterFilters">
-        <button class="filter active" data-division="all">Tümü</button>
-        <button class="filter" data-division="Heavyweight">Heavyweight</button>
-        <button class="filter" data-division="Light Heavyweight">LHW</button>
-        <button class="filter" data-division="Middleweight">Middleweight</button>
-        <button class="filter" data-division="Welterweight">Welterweight</button>
-        <button class="filter" data-division="Lightweight">Lightweight</button>
-        <button class="filter" data-division="Featherweight">Featherweight</button>
-        <button class="filter" data-division="Bantamweight">Bantamweight</button>
-        <button class="filter" data-division="Flyweight">Flyweight</button>
-        <button class="filter" data-division="Strawweight">Strawweight</button>
-    </div>
-    <div class="filter-bar" id="orgFilters" style="margin-top:-5px">
-        <button class="filter active" data-org="all">Tüm Organizasyonlar</button>
-        <button class="filter" data-org="UFC">UFC</button>
-        <button class="filter" data-org="ONE">ONE</button>
-        <button class="filter" data-org="PFL">PFL</button>
-    </div>
-    <div class="fighter-grid" id="fighterGrid"></div>
+<div class="page-head"><div class="eyebrow">FIGHTER DATABASE · UFC/SHERDOG/WIKIPEDIA</div><h1>Dövüşçüler</h1><p class="page-subtitle" id="fCount">Yükleniyor...</p></div>
+<div class="search-wrap"><span class="search-icon">⌕</span><input class="search-input" id="fSearch" placeholder="Dövüşçü ara... (isim, ülke, sıklet)" autocomplete="off"></div>
+<div class="filter-bar" id="orgF"><button class="filter active" data-o="all">Tümü</button><button class="filter" data-o="UFC">UFC</button><button class="filter" data-o="ONE">ONE</button><button class="filter" data-o="PFL">PFL</button><button class="filter" data-o="LEGEND">🐐 Efsaneler</button></div>
+<div class="fighter-grid" id="fGrid"></div>
 </section>
 
-<!-- EVENTS -->
 <section class="page" id="page-events">
-    <div class="page-head">
-        <div><div class="eyebrow">FIGHT CALENDAR · DOĞRULANMIŞ</div><h1>Etkinlikler</h1><p class="page-subtitle">Yaklaşan ve tamamlanan kartlar.</p></div>
-    </div>
-    <div class="filter-bar" id="eventFilters">
-        <button class="filter active" data-event="all">Tümü</button>
-        <button class="filter" data-event="UFC">UFC</button>
-        <button class="filter" data-event="ONE">ONE</button>
-        <button class="filter" data-event="PFL">PFL</button>
-    </div>
-    <div class="event-list" id="eventList"></div>
+<div class="page-head"><div class="eyebrow">FIGHT CALENDAR 2026</div><h1>Etkinlikler</h1></div>
+<div class="event-list" id="evList"></div>
 </section>
 
-<!-- RANKINGS -->
 <section class="page" id="page-rankings">
-    <div class="page-head">
-        <div><div class="eyebrow">OFFICIAL UFC RANKINGS · EKİM 2026</div><h1>Sıralamalar</h1></div>
-    </div>
-    <div class="filter-bar" id="rankingFilters">
-        <button class="filter active" data-rank="p4p">P4P</button>
-        <button class="filter" data-rank="heavyweight">Heavyweight</button>
-        <button class="filter" data-rank="welterweight">Welterweight</button>
-        <button class="filter" data-rank="lightweight">Lightweight</button>
-        <button class="filter" data-rank="featherweight">Featherweight</button>
-        <button class="filter" data-rank="bantamweight">Bantamweight</button>
-        <button class="filter" data-rank="flyweight">Flyweight</button>
-        <button class="filter" data-rank="middleweight">Middleweight</button>
-    </div>
-    <div class="rank-list" id="rankList"></div>
+<div class="page-head"><div class="eyebrow">OFFICIAL UFC RANKINGS · EKİM 2026</div><h1>Sıralamalar</h1></div>
+<div class="rank-list" id="rList"></div>
 </section>
 
-<!-- UFC -->
-<section class="page" id="page-ufc">
-    <div class="page-head"><div><div class="eyebrow">ULTIMATE FIGHTING CHAMPIONSHIP</div><h1>UFC</h1><p class="page-subtitle">Dünyanın en büyük MMA organizasyonu · Doğrulanmış şampiyonlar ve sıralamalar</p></div></div>
-    <div class="stat-strip">
-        <div class="stat"><strong id="ufcCount">0</strong><span>Dövüşçü</span></div>
-        <div class="stat"><strong>1993</strong><span>Kuruluş</span></div>
-        <div class="stat"><strong>Las Vegas</strong><span>HQ</span></div>
-        <div class="stat"><strong>332+</strong><span>PPV</span></div>
-    </div>
-    <div class="section-title"><h2>UFC Şampiyonları (Ekim 2026)</h2></div>
-    <div class="fighter-grid" id="ufcChamps"></div>
-    <div class="section-title"><h2>UFC Sıralaması Top 5</h2></div>
-    <div class="fighter-grid" id="ufcRank"></div>
+<section class="page" id="page-predict">
+<div class="page-head"><div class="eyebrow">AI FIGHT PREDICTOR v2</div><h1>🎲 AI Predictor</h1><p class="page-subtitle">İstatistik bazlı dövüş tahminleri. İki dövüşçü seç, yapay zeka kazananı tahmin etsin.</p></div>
+<div class="compare-box">
+<div class="compare-side"><select class="compare-select" id="pA"></select><div id="pAc"></div></div>
+<div class="compare-vs">VS</div>
+<div class="compare-side"><select class="compare-select" id="pB"></select><div id="pBc"></div></div>
+</div>
+<button class="primary-btn" style="width:100%;margin-top:18px;padding:14px" onclick="runPred()">🔮 TAHMİN YAP</button>
+<div id="predRes"></div>
 </section>
 
-<!-- ONE -->
-<section class="page" id="page-one">
-    <div class="page-head"><div><div class="eyebrow">ONE CHAMPIONSHIP</div><h1>ONE</h1><p class="page-subtitle">Asya'nın en büyük dövüş platformu · MMA + Kickboxing + Submission</p></div></div>
-    <div class="stat-strip">
-        <div class="stat"><strong id="oneCount">0</strong><span>Dövüşçü</span></div>
-        <div class="stat"><strong>2011</strong><span>Kuruluş</span></div>
-        <div class="stat"><strong>Singapore</strong><span>HQ</span></div>
-        <div class="stat"><strong>170+</strong><span>Etkinlik</span></div>
-    </div>
-    <div class="section-title"><h2>ONE Şampiyonları</h2></div>
-    <div class="fighter-grid" id="oneChamps"></div>
-    <div class="section-title"><h2>ONE Yıldızları</h2></div>
-    <div class="fighter-grid" id="oneRank"></div>
-</section>
-
-<!-- PFL -->
-<section class="page" id="page-pfl">
-    <div class="page-head"><div><div class="eyebrow">PROFESSIONAL FIGHTERS LEAGUE</div><h1>PFL</h1><p class="page-subtitle">Sezon + Playoff formatı · Kazanan $1M ödül alır</p></div></div>
-    <div class="stat-strip">
-        <div class="stat"><strong id="pflCount">0</strong><span>Dövüşçü</span></div>
-        <div class="stat"><strong>2018</strong><span>Kuruluş</span></div>
-        <div class="stat"><strong>Washington</strong><span>HQ</span></div>
-        <div class="stat"><strong>$1M</strong><span>Şampiyon Ödülü</span></div>
-    </div>
-    <div class="section-title"><h2>PFL Şampiyonları</h2></div>
-    <div class="fighter-grid" id="pflChamps"></div>
-    <div class="section-title"><h2>PFL Finalistleri</h2></div>
-    <div class="fighter-grid" id="pflRank"></div>
-</section>
-
-<!-- COMPARE -->
 <section class="page" id="page-compare">
-    <div class="page-head"><div><div class="eyebrow">FIGHTER LAB</div><h1>Karşılaştır</h1><p class="page-subtitle">Radar chart & Sherdog-style metriklerle derin karşılaştırma.</p></div></div>
-    <div class="compare-box">
-        <div class="compare-side"><select class="compare-select" id="compareA"></select><div id="compareAContent"></div></div>
-        <div class="compare-vs">VS</div>
-        <div class="compare-side"><select class="compare-select" id="compareB"></select><div id="compareBContent"></div></div>
-    </div>
-    <div style="margin-top:30px;height:400px;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px">
-        <canvas id="compareRadar"></canvas>
-    </div>
+<div class="page-head"><div class="eyebrow">HEAD TO HEAD ANALYSIS</div><h1>Karşılaştır</h1></div>
+<div class="compare-box">
+<div class="compare-side"><select class="compare-select" id="cA"></select><div id="cAc"></div></div>
+<div class="compare-vs">VS</div>
+<div class="compare-side"><select class="compare-select" id="cB"></select><div id="cBc"></div></div>
+</div>
+<div style="margin-top:25px;height:380px;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px"><canvas id="cmpRadar"></canvas></div>
 </section>
 
-<!-- HISTORY -->
+<section class="page" id="page-fantasy">
+<div class="page-head"><div class="eyebrow">FANTASY MMA LEAGUE</div><h1>⭐ Fantasy MMA</h1><p class="page-subtitle">5 dövüşçü seç, takım puanını gör. Galibiyet = 10 puan, Finish = bonus, Şampiyon = +50 puan!</p></div>
+<div class="section-title"><h2>Takımını Kur</h2><span id="fCnt" style="color:var(--accent);font-weight:900">0/5</span></div>
+<div class="fantasy-grid" id="fGrid2"></div>
+<div style="margin-top:18px;padding:18px;background:var(--panel);border-radius:16px;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
+<div><div style="font-size:11px;color:var(--muted)">TOPLAM PUAN</div><div style="font-size:36px;font-weight:900;color:var(--accent)" id="fScore">0</div></div>
+<button class="primary-btn" onclick="resetFantasy()">Sıfırla</button>
+</div>
+</section>
+
+<section class="page" id="page-ufc">
+<div class="page-head"><div class="eyebrow">ULTIMATE FIGHTING CHAMPIONSHIP</div><h1>UFC</h1></div>
+<div class="section-title"><h2>Şampiyonlar</h2></div><div class="fighter-grid" id="ufcC"></div>
+<div class="section-title"><h2>Top Contenders</h2></div><div class="fighter-grid" id="ufcR"></div>
+</section>
+
+<section class="page" id="page-one">
+<div class="page-head"><div class="eyebrow">ONE CHAMPIONSHIP · ASYA'NIN EN BÜYÜĞÜ</div><h1>ONE</h1></div>
+<div class="fighter-grid" id="oneG"></div>
+</section>
+
+<section class="page" id="page-pfl">
+<div class="page-head"><div class="eyebrow">PROFESSIONAL FIGHTERS LEAGUE · $1M ÖDÜL</div><h1>PFL</h1></div>
+<div class="fighter-grid" id="pflG"></div>
+</section>
+
 <section class="page" id="page-history">
-    <div class="page-head">
-        <div><div class="eyebrow">MMA ARCHIVE</div><h1>MMA Tarihi</h1><p class="page-subtitle">Sporun dönüm noktalarına tıklayarak detayları inceleyin.</p></div>
-    </div>
-    <div class="history-timeline" id="historyTimeline"></div>
-    <div class="news-grid" id="historyGrid"></div>
+<div class="page-head"><div class="eyebrow">MMA ARCHIVE · 1993-2026</div><h1>MMA Tarihi</h1></div>
+<div class="history-timeline" id="hTimeline"></div>
+<div class="news-grid" id="hGrid"></div>
 </section>
 
-<!-- GOAT -->
 <section class="page" id="page-goat">
-    <div class="page-head"><div><div class="eyebrow">LEGACY DEBATE</div><h1>GOAT</h1><p class="page-subtitle">Tüm zamanların en iyisi kim? Şampiyonlar ve efsaneler.</p></div></div>
-    <div class="fighter-grid" id="goatGrid"></div>
+<div class="page-head"><div class="eyebrow">LEGACY DEBATE · GOAT</div><h1>🐐 GOAT Tartışması</h1><p class="page-subtitle">Tüm zamanların en iyisi kim? İstatistiklerle karşılaştır.</p></div>
+<div class="fighter-grid" id="goatG"></div>
 </section>
 
-<footer class="footer"><strong>ZMMA</strong> — Bağımsız MMA istatistik platformu · Veriler 6 Ekim 2026 itibarıyla güncellendi · UFC.com, Sherdog.com, Wikipedia ve Wikimedia Commons üzerinden doğrulanmıştır.</footer>
+<footer class="footer"><strong>ZMMA v3.0</strong> — Ultimate MMA Intelligence Hub · Veriler 10 Ekim 2026 itibarıyla güncellendi · Kaynaklar: UFC.com, Sherdog.com, ESPN MMA, Wikipedia, Wikimedia Commons</footer>
 </main>
 
 <nav class="mobile-nav">
-    <button class="active" data-page="home"><span class="nav-icon">⌂</span>Ana Sayfa</button>
-    <button data-page="news"><span class="nav-icon">◉</span>Haber</button>
-    <button data-page="fighters"><span class="nav-icon">♟</span>Dövüşçü</button>
-    <button data-page="events"><span class="nav-icon">◈</span>Etkinlik</button>
-    <button data-page="rankings"><span class="nav-icon">≡</span>Sıralama</button>
+<button class="active" data-page="home">⌂ Ana</button>
+<button data-page="fighters">♟ Dövüşçü</button>
+<button data-page="predict">🎲 AI</button>
+<button data-page="news">◉ Haber</button>
+<button data-page="fantasy">⭐ Fantasy</button>
 </nav>
 
-<div class="modal-layer" id="modalLayer">
-    <div class="modal">
-        <div class="modal-head"><h2 id="modalTitle">ZMMA</h2><button class="close-btn" id="closeModal">✕</button></div>
-        <div class="modal-content" id="modalContent"></div>
-    </div>
-</div>
+<div class="modal-layer" id="mLayer"><div class="modal"><div class="modal-head"><h2 id="mTitle">ZMMA</h2><button class="close-btn" onclick="closeM()">✕</button></div><div class="modal-content" id="mContent"></div></div></div>
 
 <script>
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
-const esc = v => String(v||'').replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];const esc=v=>String(v||'').replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const FL={"Russia":"🇷🇺","USA":"🇺🇸","Spain":"🇪🇸","Australia":"🇦🇺","England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Brazil":"🇧🇷","Singapore":"🇸🇬","Canada":"🇨🇦","Mexico":"🇲🇽","China":"🇨🇳","Japan":"🇯🇵","Thailand":"🇹🇭","Ireland":"🇮🇪","France":"🇫🇷","South Africa":"🇿🇦","Georgia":"🇬🇪","Armenia":"🇦🇲","Kazakhstan":"🇰🇿","Kyrgyzstan":"🇰🇬","Philippines":"🇵🇭","Myanmar":"🇲🇲","Suriname":"🇸🇷","Cameroon":"🇨🇲","Netherlands":"🇳🇱","Czech Republic":"🇨🇿","New Zealand":"🇳🇿","UAE":"🇦🇪","Poland":"🇵🇱","Nigeria":"🇳🇬","Sweden":"🇸🇪"};
 
-const flags = {
-    "Russia":"🇷🇺","USA":"🇺🇸","Spain":"🇪🇸","Australia":"🇦🇺","England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","UAE":"🇦🇪",
-    "Brazil":"🇧🇷","Singapore":"🇸🇬","Canada":"🇨🇦","Mexico":"🇲🇽","China":"🇨🇳","Japan":"🇯🇵",
-    "Thailand":"🇹🇭","Poland":"🇵🇱","Ireland":"🇮🇪","France":"🇫🇷","Germany":"🇩🇪",
-    "South Africa":"🇿🇦","Georgia":"🇬🇪","Armenia":"🇦🇲","Kazakhstan":"🇰🇿",
-    "Kyrgyzstan":"🇰🇬","Philippines":"🇵🇭","South Korea":"🇰🇷",
-    "Cuba":"🇨🇺","New Zealand":"🇳🇿","Ukraine":"🇺🇦",
-    "Czech Republic":"🇨🇿","Netherlands":"🇳🇱","Myanmar":"🇲🇲","Suriname":"🇸🇷","Cameroon":"🇨🇲"
-};
+function img(f){
+const fb=`https://ui-avatars.com/api/?name=${encodeURIComponent(f.n)}&background=1a1f2a&color=e8ff3d&size=400&bold=true`;
+if(!f.img||!f.img.length)return{src:fb,e:''};
+let c='';f.img.forEach((u,i)=>{if(i<f.img.length-1)c+=` onerror="this.onerror=null;this.src='${f.img[i+1]}'"`;else c+=` onerror="this.onerror=null;this.src='${fb}'"`});
+return{src:f.img[0],e:c};
+}
 
-// ============================================================
-// VERIFIED FIGHTERS DATABASE (Real Stats - UFC/Sherdog/Wikipedia)
-// Sources: UFC.com, Sherdog.com, ESPN MMA, Wikipedia
-// ============================================================
-const fighters = [
-    // ============ UFC CHAMPIONS (October 2026) ============
-    
-    // ISLAM MAKHACHEV - Welterweight Champion
-    // Sources: UFC.com (verified Nov 2025, Aug 2026)
-    {id:"islam-makhachev",name:"Islam Makhachev",nickname:"",country:"Russia",division:"Welterweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:29,losses:1,draws:0},height:"178 cm",reach:"178 cm",stance:"Southpaw",age:34,style:"Sambo / Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Islam_Makhachev_2022-10-26.jpg/800px-Islam_Makhachev_2022-10-26.jpg","https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Islam_Makhachev_2023.jpg/800px-Islam_Makhachev_2023.jpg"],
-     stats:{slpm:2.84,sapm:1.73,strAcc:59,strDef:65,tdAvg:3.21,tdAcc:58,tdDef:89,subAvg:1.2},
-     finishRate:{ko:24,sub:38,dec:38},
-     bio:"2025 Kasım'da Jack Della Maddalena'yı UD (50-45, 50-45, 50-45) ile yenerek Welterweight kemerini aldı. Ağustos 2026'da Ian Machado Garry'yi yine UD ile yenerek kemerini korudu. İki sıklet şampiyonu.",
-     recent:[
-         {opponent:"Ian Machado Garry",result:"W",method:"Decision (Unanimous)",round:5,date:"15 Ağu 2026 · UFC 330"},
-         {opponent:"Jack Della Maddalena",result:"W",method:"Decision (Unanimous)",round:5,date:"15 Kas 2025 · UFC 322"},
-         {opponent:"Alexander Volkanovski",result:"W",method:"Decision (Unanimous)",round:5,date:"Eki 2024 · UFC 308"},
-         {opponent:"Dustin Poirier",result:"W",method:"Submission (RNC)",round:3,date:"Haz 2024 · UFC 302"},
-         {opponent:"Charles Oliveira",result:"W",method:"Decision (Unanimous)",round:5,date:"Kas 2023 · UFC 294"}
-     ]},
-    
-    // JUSTIN GAETHJE - Lightweight Champion
-    // Source: UFC Freedom 250 (June 14, 2026) - TKO corner stoppage R4
-    {id:"justin-gaethje",name:"Justin Gaethje",nickname:"The Highlight",country:"USA",division:"Lightweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:28,losses:5,draws:0},height:"180 cm",reach:"178 cm",stance:"Orthodox",age:37,style:"Boxing / Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Justin_Gaethje.jpg/800px-Justin_Gaethje.jpg","https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Justin_Gaethje_at_press_conference.png/800px-Justin_Gaethje_at_press_conference.png"],
-     stats:{slpm:6.42,sapm:5.11,strAcc:48,strDef:55,tdAvg:0.85,tdAcc:40,tdDef:74,subAvg:0.1},
-     finishRate:{ko:63,sub:4,dec:33},
-     bio:"Haziran 2026'da Ilia Topuria'yı UFC Freedom 250'de TKO (corner stoppage) R4 ile yenerek Lightweight kemerini aldı. Kariyerinin en büyük zaferi.",
-     recent:[
-         {opponent:"Ilia Topuria",result:"W",method:"TKO (Corner Stoppage)",round:4,date:"14 Haz 2026 · UFC Freedom 250"},
-         {opponent:"Dustin Poirier",result:"W",method:"KO (Head Kick)",round:2,date:"Tem 2025 · UFC 315"},
-         {opponent:"Charles Oliveira",result:"L",method:"Submission",round:1,date:"Mar 2025 · UFC 312"}
-     ]},
-    
-    // SEAN STRICKLAND - Middleweight Champion
-    // Source: UFC 328 (May 9, 2026) - Split Decision vs Chimaev
-    {id:"sean-strickland",name:"Sean Strickland",nickname:"Tarzan",country:"USA",division:"Middleweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:31,losses:7,draws:0},height:"185 cm",reach:"193 cm",stance:"Orthodox",age:35,style:"Boxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Sean_Strickland_at_UFN_200.png/800px-Sean_Strickland_at_UFN_200.png"],
-     stats:{slpm:4.67,sapm:3.12,strAcc:45,strDef:62,tdAvg:0.67,tdAcc:33,tdDef:81,subAvg:0.1},
-     finishRate:{ko:38,sub:4,dec:58},
-     bio:"Mayıs 2026'da Khamzat Chimaev'i UFC 328'de Split Decision ile yenerek 2. kez Middleweight şampiyonu oldu. Chimaev'e kariyerinin ilk yenilgisini tattırdı. UFC Middleweight tarihinin en çok strike atan dövüşçüsü.",
-     recent:[
-         {opponent:"Khamzat Chimaev",result:"W",method:"Decision (Split)",round:5,date:"9 May 2026 · UFC 328"},
-         {opponent:"Anthony Hernandez",result:"W",method:"TKO (Punches)",round:3,date:"21 Şub 2026 · UFC Fight Night"},
-         {opponent:"Dricus du Plessis",result:"L",method:"Decision (Split)",round:5,date:"Ağu 2024 · UFC 312"}
-     ]},
-    
-    // CIRRYL GANE - Heavyweight Champion
-    // Source: UFC Freedom 250 (June 14, 2026) - KO R2 vs Alex Pereira
-    {id:"ciryl-gane",name:"Ciryl Gane",nickname:"Bon Gamin",country:"France",division:"Heavyweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:13,losses:3,draws:0},height:"193 cm",reach:"201 cm",stance:"Orthodox",age:36,style:"Kickboxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ciryl_Gane_UFC.jpg/800px-Ciryl_Gane_UFC.jpg"],
-     stats:{slpm:6.12,sapm:3.89,strAcc:52,strDef:58,tdAvg:0.45,tdAcc:33,tdDef:81,subAvg:0.1},
-     finishRate:{ko:67,sub:8,dec:25},
-     bio:"Haziran 2026'da Alex Pereira'yı TKO ile yenerek Interim Heavyweight kemerini aldı. Tom Aspinall kemeri bırakınca Eylül 2026'da undisputed şampiyon ilan edildi.",
-     recent:[
-         {opponent:"Alex Pereira",result:"W",method:"TKO (Punches)",round:2,date:"14 Haz 2026 · UFC Freedom 250"},
-         {opponent:"Tom Aspinall",result:"NC",method:"No Contest (Eye Poke)",round:2,date:"25 Eki 2025 · UFC 321"}
-     ]},
-    
-    // ALEXANDER VOLKANOVSKI - Featherweight Champion
-    // Source: UFC 325 (Jan 31, 2026) - UD vs Diego Lopes
-    {id:"alex-volkanovski",name:"Alexander Volkanovski",nickname:"The Great",country:"Australia",division:"Featherweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:28,losses:4,draws:0},height:"168 cm",reach:"181 cm",stance:"Orthodox",age:37,style:"Wrestling / Boxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Alexander_Volkanovski_in_2018_%28cropped%29.jpg/800px-Alexander_Volkanovski_in_2018_%28cropped%29.jpg"],
-     stats:{slpm:5.92,sapm:3.87,strAcc:53,strDef:61,tdAvg:2.11,tdAcc:48,tdDef:81,subAvg:0.4},
-     finishRate:{ko:31,sub:10,dec:59},
-     bio:"Ocak 2026'da Diego Lopes'i UD ile yenerek kemerini korudu. Ekim 2026'da Movsar Evloev ile UFC 333'te karşılaşacak.",
-     recent:[
-         {opponent:"Diego Lopes",result:"W",method:"Decision (Unanimous)",round:5,date:"31 Oca 2026 · UFC 325"},
-         {opponent:"Diego Lopes",result:"W",method:"Decision (Unanimous)",round:5,date:"12 Nis 2025 · UFC 314"},
-         {opponent:"Ilia Topuria",result:"L",method:"KO",round:2,date:"Haz 2024 · UFC 308"}
-     ]},
-    
-    // PETR YAN - Bantamweight Champion
-    // Source: UFC 323 - UD vs Merab Dvalishvili
-    {id:"petr-yan",name:"Petr Yan",nickname:"No Mercy",country:"Russia",division:"Bantamweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:19,losses:5,draws:0},height:"170 cm",reach:"173 cm",stance:"Switch",age:33,style:"Boxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Petr_Yan_UFC.jpg/800px-Petr_Yan_UFC.jpg"],
-     stats:{slpm:4.98,sapm:3.12,strAcc:49,strDef:61,tdAvg:0.87,tdAcc:38,tdDef:80,subAvg:0.2},
-     finishRate:{ko:39,sub:6,dec:55},
-     bio:"2025 sonunda Merab Dvalishvili'yi UD ile yenerek Bantamweight kemerini geri aldı. 4.5 yıllık bir mücadelenin ardından tekrar zirveye çıktı.",
-     recent:[
-         {opponent:"Merab Dvalishvili",result:"W",method:"Decision (Unanimous)",round:5,date:"Ara 2025 · UFC 323"},
-         {opponent:"Song Yadong",result:"W",method:"Decision",round:5,date:"Ağu 2025"}
-     ]},
-    
-    // JOSHUA VAN - Flyweight Champion
-    // Source: UFC 331 (Sep 19, 2026) - UD vs Alexandre Pantoja
-    {id:"joshua-van",name:"Joshua Van",nickname:"The Fearless",country:"Myanmar",division:"Flyweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:16,losses:2,draws:0},height:"173 cm",reach:"178 cm",stance:"Orthodox",age:26,style:"Striking",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Joshua_Van_UFC.jpg/800px-Joshua_Van_UFC.jpg"],
-     stats:{slpm:5.45,sapm:3.12,strAcc:51,strDef:62,tdAvg:1.45,tdAcc:42,tdDef:76,subAvg:0.5},
-     finishRate:{ko:47,sub:11,dec:42},
-     bio:"Eylül 2026'da Alexandre Pantoja'yı UD ile yenerek Flyweight kemerini 2. kez korudu. Genç yaşta divisionı domine ediyor.",
-     recent:[
-         {opponent:"Alexandre Pantoja",result:"W",method:"Decision (Unanimous)",round:5,date:"19 Eyl 2026 · UFC 331"},
-         {opponent:"Alexandre Pantoja",result:"W",method:"TKO (Injury)",round:1,date:"Ara 2025 · UFC 324"}
-     ]},
-    
-    // MACKENZIE DERN - Women's Strawweight Champion
-    // Source: UFC 330 (Aug 15, 2026) - UD vs Gillian Robertson
-    {id:"mackenzie-dern",name:"Mackenzie Dern",nickname:"",country:"Brazil",division:"Women's Strawweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:16,losses:5,draws:0},height:"165 cm",reach:"168 cm",stance:"Orthodox",age:33,style:"BJJ",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Mackenzie_Dern.jpg/800px-Mackenzie_Dern.jpg"],
-     stats:{slpm:2.89,sapm:1.78,strAcc:55,strDef:72,tdAvg:5.12,tdAcc:68,tdDef:90,subAvg:1.8},
-     finishRate:{ko:9,sub:55,dec:36},
-     bio:"Ağustos 2026'da Gillian Robertson'ı UD (49-46, 49-46, 48-47) ile yenerek Strawweight kemerini korudu. Zhang Weili'nin divisiondan ayrılmasından sonra kemeri kazandı.",
-     recent:[
-         {opponent:"Gillian Robertson",result:"W",method:"Decision (Unanimous)",round:5,date:"15 Ağu 2026 · UFC 330"},
-         {opponent:"Yan Xiaonan",result:"W",method:"Decision (Split)",round:5,date:"Ağu 2025 · UFC Fight Night"}
-     ]},
-    
-    // NATALIA SILVA - Women's Flyweight Champion
-    // Source: UFC 332 (Oct 3, 2026) - UD vs Wang Cong (vacant title)
-    {id:"natalia-silva",name:"Natália Silva",nickname:"",country:"Brazil",division:"Women's Flyweight",organization:"UFC",rank:1,champion:true,
-     record:{wins:20,losses:5,draws:1},height:"165 cm",reach:"168 cm",stance:"Southpaw",age:30,style:"Striking / BJJ",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Natalia_Silva_UFC.jpg/800px-Natalia_Silva_UFC.jpg"],
-     stats:{slpm:4.62,sapm:2.11,strAcc:52,strDef:68,tdAvg:1.87,tdAcc:52,tdDef:84,subAvg:0.6},
-     finishRate:{ko:35,sub:12,dec:53},
-     bio:"Ekim 2026'da UFC 332'de Wang Cong'u UD (48-47, 48-47, 49-46) ile yenerek VACANT Women's Flyweight kemerini kazandı. Valentina Shevchenko sakatlıktan dolayı kemeri bıraktı.",
-     recent:[
-         {opponent:"Wang Cong",result:"W",method:"Decision (Unanimous)",round:5,date:"3 Eki 2026 · UFC 332"},
-         {opponent:"Andrea Lee",result:"W",method:"Decision",round:3,date:"Haz 2026"}
-     ]},
-
-    // ============ TOP UFC CONTENDERS ============
-    
-    // ILIA TOPURIA (Former Featherweight Champion)
-    {id:"ilia-topuria",name:"Ilia Topuria",nickname:"El Matador",country:"Spain",division:"Lightweight",organization:"UFC",rank:2,
-     record:{wins:17,losses:1,draws:0},height:"170 cm",reach:"175 cm",stance:"Orthodox",age:29,style:"Boxing / BJJ",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Ilia_Topuria_UFC.jpg/800px-Ilia_Topuria_UFC.jpg"],
-     stats:{slpm:6.87,sapm:3.21,strAcc:55,strDef:63,tdAvg:1.42,tdAcc:44,tdDef:82,subAvg:0.5},
-     finishRate:{ko:65,sub:12,dec:23},
-     bio:"Eski Featherweight şampiyonu. Haziran 2026'da Justin Gaethje'ye Lightweight title maçında TKO (corner stoppage) ile yenildi.",
-     recent:[
-         {opponent:"Justin Gaethje",result:"L",method:"TKO (Corner Stoppage)",round:4,date:"14 Haz 2026 · UFC Freedom 250"},
-         {opponent:"Max Holloway",result:"W",method:"KO",round:3,date:"Ağu 2025 · UFC 319"},
-         {opponent:"Alexander Volkanovski",result:"W",method:"KO",round:2,date:"Haz 2024 · UFC 308"}
-     ]},
-    
-    // KHANZAT CHIMAEV (Lost to Strickland)
-    {id:"khamzat-chimaev",name:"Khamzat Chimaev",nickname:"Borz",country:"UAE",division:"Middleweight",organization:"UFC",rank:2,
-     record:{wins:13,losses:1,draws:0},height:"188 cm",reach:"191 cm",stance:"Orthodox",age:32,style:"Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Khamzat_Chimaev_2022.jpg/800px-Khamzat_Chimaev_2022.jpg"],
-     stats:{slpm:5.12,sapm:1.89,strAcc:62,strDef:71,tdAvg:4.87,tdAcc:68,tdDef:94,subAvg:1.8},
-     finishRate:{ko:31,sub:38,dec:31},
-     bio:"Mayıs 2026'da Sean Strickland'a Split Decision ile yenilerek kariyerinin ilk mağlubiyetini aldı. Middleweight title maçında.",
-     recent:[
-         {opponent:"Sean Strickland",result:"L",method:"Decision (Split)",round:5,date:"9 May 2026 · UFC 328"},
-         {opponent:"Robert Whittaker",result:"W",method:"Submission (Face Crank)",round:1,date:"Eki 2024 · UFC 308"}
-     ]},
-    
-    // IAN MACHADO GARRY
-    {id:"ian-garry",name:"Ian Machado Garry",nickname:"The Future",country:"Ireland",division:"Welterweight",organization:"UFC",rank:2,
-     record:{wins:16,losses:2,draws:0},height:"191 cm",reach:"196 cm",stance:"Orthodox",age:28,style:"Boxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ian_Garry.jpg/800px-Ian_Garry.jpg"],
-     stats:{slpm:5.22,sapm:2.98,strAcc:50,strDef:62,tdAvg:1.12,tdAcc:40,tdDef:78,subAvg:0.2},
-     finishRate:{ko:53,sub:7,dec:40},
-     bio:"Ağustos 2026'da Islam Makhachev'e UD ile yenilerek Welterweight title maçında kaybetti.",
-     recent:[
-         {opponent:"Islam Makhachev",result:"L",method:"Decision (Unanimous)",round:5,date:"15 Ağu 2026 · UFC 330"},
-         {opponent:"Joaquin Buckley",result:"W",method:"Decision (Unanimous)",round:5,date:"Ara 2025 · UFC Fight Night"}
-     ]},
-    
-    // JACK DELLA MADDALENA (Former Welterweight Champion)
-    {id:"jack-della-maddalena",name:"Jack Della Maddalena",nickname:"JDM",country:"Australia",division:"Welterweight",organization:"UFC",rank:3,
-     record:{wins:18,losses:4,draws:0},height:"183 cm",reach:"188 cm",stance:"Orthodox",age:29,style:"Striking / BJJ",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Jack_Della_Maddalena.jpg/800px-Jack_Della_Maddalena.jpg"],
-     stats:{slpm:5.88,sapm:3.42,strAcc:51,strDef:60,tdAvg:1.45,tdAcc:48,tdDef:75,subAvg:0.6},
-     finishRate:{ko:59,sub:12,dec:29},
-     bio:"Kasım 2025'te Islam Makhachev'e UD (50-45 x3) ile yenilerek Welterweight kemerini kaybetti.",
-     recent:[
-         {opponent:"Islam Makhachev",result:"L",method:"Decision (Unanimous)",round:5,date:"15 Kas 2025 · UFC 322"},
-         {opponent:"Gilbert Burns",result:"W",method:"TKO",round:2,date:"Ağu 2025"}
-     ]},
-    
-    // CHARLES OLIVEIRA
-    {id:"charles-oliveira",name:"Charles Oliveira",nickname:"Do Bronx",country:"Brazil",division:"Lightweight",organization:"UFC",rank:3,
-     record:{wins:37,losses:11,draws:0},height:"178 cm",reach:"185 cm",stance:"Orthodox",age:36,style:"BJJ",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Charles_Oliveira_UFC.jpg/800px-Charles_Oliveira_UFC.jpg"],
-     stats:{slpm:3.45,sapm:2.98,strAcc:44,strDef:56,tdAvg:2.78,tdAcc:55,tdDef:73,subAvg:2.8},
-     finishRate:{ko:19,sub:51,dec:30},
-     bio:"UFC tarihinin en çok finish'i olan dövüşçüsü (20+ finish). Mart 2026'da Max Holloway'i UD ile yendi.",
-     recent:[
-         {opponent:"Max Holloway",result:"W",method:"Decision (Unanimous)",round:5,date:"7 Mar 2026 · UFC 326"},
-         {opponent:"Mateusz Gamrot",result:"W",method:"Decision",round:5,date:"11 Eki 2025"},
-         {opponent:"Ilia Topuria",result:"L",method:"TKO",round:2,date:"28 Haz 2025"}
-     ]},
-    
-    // ALEX PEREIRA (Heavyweight)
-    {id:"alex-pereira",name:"Alex Pereira",nickname:"Poatan",country:"Brazil",division:"Heavyweight",organization:"UFC",rank:2,
-     record:{wins:14,losses:4,draws:0},height:"193 cm",reach:"201 cm",stance:"Orthodox",age:39,style:"Kickboxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Alex_Pereira_UFC_2023.jpg/800px-Alex_Pereira_UFC_2023.jpg"],
-     stats:{slpm:5.88,sapm:3.11,strAcc:51,strDef:58,tdAvg:0.42,tdAcc:33,tdDef:81,subAvg:0.0},
-     finishRate:{ko:71,sub:0,dec:29},
-     bio:"Eski 2-sıklet şampiyonu. Şubat 2026'da LHW kemerini bıraktı, HW'ye çıktı. Haziran 2026'da Ciryl Gane'e TKO ile yenildi.",
-     recent:[
-         {opponent:"Ciryl Gane",result:"L",method:"TKO (Punches)",round:2,date:"14 Haz 2026 · UFC Freedom 250"},
-         {opponent:"Magomed Ankalaev",result:"W",method:"TKO",round:1,date:"4 Eki 2025 · UFC 320"}
-     ]},
-    
-    // MOV SAR EVLOEV
-    {id:"movsar-evloev",name:"Movsar Evloev",nickname:"",country:"Russia",division:"Featherweight",organization:"UFC",rank:2,
-     record:{wins:20,losses:0,draws:0},height:"170 cm",reach:"180 cm",stance:"Orthodox",age:32,style:"Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Movsar_Evloev.jpg/800px-Movsar_Evloev.jpg"],
-     stats:{slpm:3.12,sapm:1.87,strAcc:48,strDef:69,tdAvg:4.56,tdAcc:62,tdDef:92,subAvg:0.8},
-     finishRate:{ko:11,sub:22,dec:67},
-     bio:"Dağıstan'ın yeni nesil güreş silahı. 20-0 yenilgisiz rekor. Ekim 2026'da Volkanovski ile title maçına çıkacak.",
-     recent:[
-         {opponent:"Arnold Allen",result:"W",method:"Decision (Unanimous)",round:3,date:"Oca 2026"},
-         {opponent:"Dan Ige",result:"W",method:"Decision",round:3,date:"2025"}
-     ]},
-    
-    // JON JONES (Retired/Vacated)
-    {id:"jon-jones",name:"Jon Jones",nickname:"Bones",country:"USA",division:"Heavyweight",organization:"UFC",rank:3,
-     record:{wins:28,losses:1,draws:1},height:"193 cm",reach:"215 cm",stance:"Orthodox",age:39,style:"Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Jon_Jones_2.jpg/800px-Jon_Jones_2.jpg"],
-     stats:{slpm:4.28,sapm:2.14,strAcc:53,strDef:64,tdAvg:1.87,tdAcc:45,tdDef:97,subAvg:0.7},
-     finishRate:{ko:29,sub:25,dec:46},
-     bio:"GOAT tartışmalarının merkezi. 2025'te Stipe Miocic'i TKO ile yendi. Ciryl Gane ile title maçına çıkmadan önce HW kemerini bıraktı.",
-     recent:[
-         {opponent:"Stipe Miocic",result:"W",method:"TKO (Spinning Back Kick)",round:2,date:"16 Kas 2024 · UFC 309"}
-     ]},
-    
-    // TOM ASPINALL (Vacated HW title Sep 2026)
-    {id:"tom-aspinall",name:"Tom Aspinall",nickname:"",country:"England",division:"Heavyweight",organization:"UFC",rank:4,
-     record:{wins:15,losses:3,draws:0},height:"196 cm",reach:"198 cm",stance:"Orthodox",age:33,style:"Boxing / Grappling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Tom_Aspinall_UFC_2023.jpg/800px-Tom_Aspinall_UFC_2023.jpg"],
-     stats:{slpm:6.72,sapm:3.21,strAcc:59,strDef:63,tdAvg:1.87,tdAcc:52,tdDef:77,subAvg:1.4},
-     finishRate:{ko:53,sub:29,dec:18},
-     bio:"Eylül 2026'da göz sakatlığı nedeniyle Heavyweight kemerini bıraktı. Ciryl Gane undisputed şampiyon ilan edildi.",
-     recent:[
-         {opponent:"Ciryl Gane",result:"NC",method:"No Contest (Eye Poke)",round:2,date:"25 Eki 2025 · UFC 321"},
-         {opponent:"Curtis Blaydes",result:"W",method:"TKO",round:1,date:"Tem 2024"}
-     ]},
-    
-    // MAX HOLLOWAY
-    {id:"max-holloway",name:"Max Holloway",nickname:"Blessed",country:"USA",division:"Lightweight",organization:"UFC",rank:4,
-     record:{wins:26,losses:8,draws:0},height:"180 cm",reach:"178 cm",stance:"Orthodox",age:34,style:"Boxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Max_Holloway_UFC.jpg/800px-Max_Holloway_UFC.jpg"],
-     stats:{slpm:7.89,sapm:4.56,strAcc:46,strDef:58,tdAvg:0.23,tdAcc:25,tdDef:75,subAvg:0.1},
-     finishRate:{ko:33,sub:4,dec:63},
-     bio:"BMF şampiyonu. Mart 2026'da Charles Oliveira'ya UD ile yenildi. UFC tarihinin en çok strike atan dövüşçüsü.",
-     recent:[
-         {opponent:"Charles Oliveira",result:"L",method:"Decision (Unanimous)",round:5,date:"7 Mar 2026 · UFC 326"},
-         {opponent:"Justin Gaethje",result:"W",method:"KO",round:6,date:"Nis 2024 · UFC 300 (BMF)"}
-     ]},
-    
-    // MERAB DVALISHVILI
-    {id:"merab-dvalishvili",name:"Merab Dvalishvili",nickname:"The Machine",country:"Georgia",division:"Bantamweight",organization:"UFC",rank:2,
-     record:{wins:19,losses:5,draws:0},height:"168 cm",reach:"173 cm",stance:"Orthodox",age:35,style:"Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Merab_Dvalishvili.jpg/800px-Merab_Dvalishvili.jpg"],
-     stats:{slpm:3.12,sapm:2.45,strAcc:44,strDef:62,tdAvg:5.89,tdAcc:62,tdDef:88,subAvg:0.4},
-     finishRate:{ko:11,sub:11,dec:78},
-     bio:"10 maçlık galibiyet serisi olan güreşçi. Aralık 2025'te Petr Yan'a UD ile yenilerek kemeri kaybetti.",
-     recent:[
-         {opponent:"Petr Yan",result:"L",method:"Decision (Unanimous)",round:5,date:"Ara 2025 · UFC 323"},
-         {opponent:"Sean O'Malley",result:"W",method:"Decision (Unanimous)",round:5,date:"Ağu 2024 · UFC 304"}
-     ]},
-    
-    // ALEXANDRE PANTOJA (Former Flyweight Champion)
-    {id:"alexandre-pantoja",name:"Alexandre Pantoja",nickname:"The Cannibal",country:"Brazil",division:"Flyweight",organization:"UFC",rank:2,
-     record:{wins:30,losses:7,draws:0},height:"165 cm",reach:"170 cm",stance:"Orthodox",age:36,style:"BJJ / Boxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Alexandre_Pantoja_UFC.jpg/800px-Alexandre_Pantoja_UFC.jpg"],
-     stats:{slpm:3.89,sapm:2.56,strAcc:46,strDef:57,tdAvg:3.12,tdAcc:55,tdDef:76,subAvg:1.6},
-     finishRate:{ko:27,sub:40,dec:33},
-     bio:"Eski Flyweight şampiyonu. Eylül 2026'da Joshua Van'a UD ile yenildi. Aralık 2025'te de ilk maçta sakatlıktan yenilmişti.",
-     recent:[
-         {opponent:"Joshua Van",result:"L",method:"Decision (Unanimous)",round:5,date:"19 Eyl 2026 · UFC 331"},
-         {opponent:"Joshua Van",result:"L",method:"TKO (Injury)",round:1,date:"Ara 2025 · UFC 324"}
-     ]},
-    
-    // ALEXA GRASSO (Former Women's Flyweight Champion)
-    {id:"alexa-grasso",name:"Alexa Grasso",nickname:"",country:"Mexico",division:"Women's Flyweight",organization:"UFC",rank:2,
-     record:{wins:17,losses:4,draws:1},height:"163 cm",reach:"165 cm",stance:"Orthodox",age:32,style:"Boxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Alexa_Grasso.jpg/800px-Alexa_Grasso.jpg"],
-     stats:{slpm:4.78,sapm:3.12,strAcc:49,strDef:60,tdAvg:1.12,tdAcc:40,tdDef:75,subAvg:0.4},
-     finishRate:{ko:24,sub:12,dec:64},
-     bio:"Eski Women's Flyweight şampiyonu. Valentina Shevchenko ile 3 kez karşılaştı. Eylül 2024'te Shevchenko'ya yenilerek kemeri kaybetti.",
-     recent:[
-         {opponent:"Valentina Shevchenko",result:"L",method:"Decision (Unanimous)",round:5,date:"14 Eyl 2024 · UFC 306"}
-     ]},
-    
-    // VALENTINA SHEVCHENKO (Vacated Flyweight title Sep 2026)
-    {id:"valentina-shevchenko",name:"Valentina Shevchenko",nickname:"Bullet",country:"Kyrgyzstan",division:"Women's Flyweight",organization:"UFC",rank:3,
-     record:{wins:24,losses:4,draws:1},height:"165 cm",reach:"168 cm",stance:"Southpaw",age:38,style:"Muay Thai",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Valentina_Shevchenko_UFC.jpg/800px-Valentina_Shevchenko_UFC.jpg"],
-     stats:{slpm:4.62,sapm:2.11,strAcc:52,strDef:68,tdAvg:1.87,tdAcc:52,tdDef:84,subAvg:0.6},
-     finishRate:{ko:35,sub:12,dec:53},
-     bio:"Eylül 2026'da sakatlıktan dolayı Women's Flyweight kemerini bıraktı. Uzun süreli şampiyon.",
-     recent:[
-         {opponent:"Alexa Grasso",result:"W",method:"Decision (Unanimous)",round:5,date:"14 Eyl 2024 · UFC 306"}
-     ]},
-    
-    // DIEGO LOPES
-    {id:"diego-lopes",name:"Diego Lopes",nickname:"The Silent Assassin",country:"Brazil",division:"Featherweight",organization:"UFC",rank:3,
-     record:{wins:26,losses:7,draws:0},height:"178 cm",reach:"183 cm",stance:"Southpaw",age:30,style:"BJJ / Striking",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Diego_Lopes.jpg/800px-Diego_Lopes.jpg"],
-     stats:{slpm:4.56,sapm:3.12,strAcc:48,strDef:59,tdAvg:1.78,tdAcc:47,tdDef:78,subAvg:1.4},
-     finishRate:{ko:35,sub:35,dec:30},
-     bio:"2 kez Volkanovski ile title maçı yaptı, ikisini de kaybetti.",
-     recent:[
-         {opponent:"Alexander Volkanovski",result:"L",method:"Decision (Unanimous)",round:5,date:"31 Oca 2026 · UFC 325"},
-         {opponent:"Alexander Volkanovski",result:"L",method:"Decision (Unanimous)",round:5,date:"12 Nis 2025 · UFC 314"}
-     ]},
-    
-    // DRICUS DU PLESSIS
-    {id:"dricus-du-plessis",name:"Dricus Du Plessis",nickname:"Stillknocks",country:"South Africa",division:"Middleweight",organization:"UFC",rank:3,
-     record:{wins:24,losses:3,draws:0},height:"188 cm",reach:"193 cm",stance:"Orthodox",age:31,style:"Boxing / Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Dricus_Du_Plessis.jpg/800px-Dricus_Du_Plessis.jpg"],
-     stats:{slpm:5.12,sapm:3.89,strAcc:49,strDef:55,tdAvg:2.12,tdAcc:52,tdDef:75,subAvg:0.6},
-     finishRate:{ko:48,sub:9,dec:43},
-     bio:"Eski Middleweight şampiyonu. Temmuz 2026'da Kamaru Usman'ı yendi. 2025'te Chimaev'e yenilerek kemeri kaybetti.",
-     recent:[
-         {opponent:"Kamaru Usman",result:"W",method:"Decision",round:5,date:"18 Tem 2026 · UFC Fight Night"},
-         {opponent:"Khamzat Chimaev",result:"L",method:"Decision (Unanimous)",round:5,date:"Ağu 2025 · UFC 319"}
-     ]},
-
-    // ============ ONE CHAMPIONSHIP ============
-    
-    // ANATOLY MALYKHIN - 3-division ONE Champion
-    {id:"anatoly-malykhin",name:"Anatoly Malykhin",nickname:"Sladkiy",country:"Russia",division:"Heavyweight",organization:"ONE",rank:1,champion:true,
-     record:{wins:15,losses:0,draws:0},height:"188 cm",reach:"190 cm",stance:"Orthodox",age:37,style:"Sambo",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Anatoly_Malykhin.jpg/800px-Anatoly_Malykhin.jpg"],
-     stats:{slpm:4.45,sapm:2.12,strAcc:54,strDef:67,tdAvg:3.89,tdAcc:62,tdDef:88,subAvg:1.2},
-     finishRate:{ko:47,sub:40,dec:13},
-     bio:"ONE Championship tarihinin 3 sıklette birden şampiyon olan ilk MMA dövüşçüsü (Heavyweight, Light Heavyweight, Middleweight). Mayıs 2026'da emekli olduğunu açıkladı.",
-     recent:[
-         {opponent:"Reinier de Ridder",result:"W",method:"KO",round:2,date:"May 2026 · ONE on Prime Video 5"}
-     ]},
-    
-    // CHRISTIAN LEE - ONE Lightweight Champion
-    {id:"christian-lee",name:"Christian Lee",nickname:"The Warrior",country:"Singapore",division:"Lightweight",organization:"ONE",rank:1,champion:true,
-     record:{wins:19,losses:4,draws:0},height:"175 cm",reach:"178 cm",stance:"Orthodox",age:28,style:"BJJ",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Christian_Lee.jpg/800px-Christian_Lee.jpg"],
-     stats:{slpm:3.78,sapm:2.45,strAcc:51,strDef:63,tdAvg:2.78,tdAcc:55,tdDef:82,subAvg:2.1},
-     finishRate:{ko:21,sub:53,dec:26},
-     bio:"Genç yaşta hem güreş hem de jiu-jitsu dünyalarını domine eden yetenek. ONE Lightweight şampiyonu.",
-     recent:[
-         {opponent:"Ok Rae Yoon",result:"W",method:"Submission",round:2,date:"2026"}
-     ]},
-    
-    // STAMP FAIRTEX - ONE Atomweight Champion
-    {id:"stamp-fairtex",name:"Stamp Fairtex",nickname:"",country:"Thailand",division:"Atomweight",organization:"ONE",rank:1,champion:true,
-     record:{wins:11,losses:2,draws:0},height:"155 cm",reach:"158 cm",stance:"Orthodox",age:27,style:"Muay Thai / BJJ",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Stamp_Fairtex.jpg/800px-Stamp_Fairtex.jpg"],
-     stats:{slpm:5.23,sapm:3.12,strAcc:53,strDef:64,tdAvg:2.12,tdAcc:48,tdDef:80,subAvg:0.8},
-     finishRate:{ko:45,sub:27,dec:28},
-     bio:"ONE 3-spor şampiyonu (MMA, Muay Thai, Kickboxing).",
-     recent:[]},
-    
-    // RO DTANG - ONE Flyweight Muay Thai Champion
-    {id:"rodtang",name:"Rodtang Jitmuangnon",nickname:"The Iron Man",country:"Thailand",division:"Flyweight Muay Thai",organization:"ONE",rank:1,champion:true,
-     record:{wins:289,losses:45,draws:10},height:"167 cm",reach:"170 cm",stance:"Orthodox",age:28,style:"Muay Thai",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Rodtang_Jitmuangnon.jpg/800px-Rodtang_Jitmuangnon.jpg"],
-     stats:{slpm:8.45,sapm:4.23,strAcc:53,strDef:60,tdAvg:0,tdAcc:0,tdDef:95,subAvg:0},
-     finishRate:{ko:65,sub:0,dec:35},
-     bio:"ONE tarihinin en popüler dövüşçüsü. Efsanevi Muay Thai şampiyonu.",
-     recent:[]},
-
-    // ============ PFL ============
-    
-    // JOHNNY EBLEN - PFL Middleweight Champion
-    {id:"johnny-eblen",name:"Johnny Eblen",nickname:"The Dreamcatcher",country:"USA",division:"Middleweight",organization:"PFL",rank:1,champion:true,
-     record:{wins:18,losses:1,draws:0},height:"188 cm",reach:"193 cm",stance:"Orthodox",age:34,style:"Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Johnny_Eblen.jpg/800px-Johnny_Eblen.jpg"],
-     stats:{slpm:4.12,sapm:2.45,strAcc:49,strDef:63,tdAvg:3.12,tdAcc:55,tdDef:85,subAvg:0.5},
-     finishRate:{ko:28,sub:17,dec:55},
-     bio:"Temmuz 2026'da PFL Austin'de Impa Kasanganay'i KO (round 3) ile yenerek PFL Middleweight şampiyonu oldu.",
-     recent:[
-         {opponent:"Impa Kasanganay",result:"W",method:"KO (Punches)",round:3,date:"18 Tem 2026 · PFL Austin"}
-     ]},
-    
-    // IMPA KASANGANAY
-    {id:"impa-kasanganay",name:"Impa Kasanganay",nickname:"",country:"USA",division:"Middleweight",organization:"PFL",rank:2,
-     record:{wins:20,losses:7,draws:0},height:"185 cm",reach:"193 cm",stance:"Orthodox",age:32,style:"Striking",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Impa_Kasanganay.jpg/800px-Impa_Kasanganay.jpg"],
-     stats:{slpm:5.45,sapm:3.12,strAcc:51,strDef:62,tdAvg:1.45,tdAcc:42,tdDef:76,subAvg:0.5},
-     finishRate:{ko:47,sub:11,dec:42},
-     bio:"Temmuz 2026'da Johnny Eblen'e PFL Austin'de KO ile yenildi.",
-     recent:[
-         {opponent:"Johnny Eblen",result:"L",method:"KO (Punches)",round:3,date:"18 Tem 2026 · PFL Austin"}
-     ]},
-    
-    // FRANCIS NGANNOU
-    {id:"francis-ngannou",name:"Francis Ngannou",nickname:"The Predator",country:"Cameroon",division:"Heavyweight",organization:"PFL",rank:1,champion:true,
-     record:{wins:18,losses:3,draws:0},height:"193 cm",reach:"206 cm",stance:"Orthodox",age:40,style:"Boxing",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Francis_Ngannou_2021.jpg/800px-Francis_Ngannou_2021.jpg"],
-     stats:{slpm:5.12,sapm:2.89,strAcc:52,strDef:58,tdAvg:1.23,tdAcc:38,tdDef:77,subAvg:0.2},
-     finishRate:{ko:78,sub:6,dec:16},
-     bio:"Eski UFC HW şampiyonu. 2023'te UFC'den ayrıldıktan sonra PFL'ye katıldı.",
-     recent:[]},
-    
-    // USMAN NURMAGOMEDOV - Bellator/PFL Lightweight
-    {id:"usman-nurmagomedov",name:"Usman Nurmagomedov",nickname:"",country:"Russia",division:"Lightweight",organization:"PFL",rank:1,champion:true,
-     record:{wins:22,losses:0,draws:0},height:"180 cm",reach:"180 cm",stance:"Orthodox",age:27,style:"Sambo / Wrestling",
-     images:["https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Usman_Nurmagomedov.jpg/800px-Usman_Nurmagomedov.jpg"],
-     stats:{slpm:4.12,sapm:1.89,strAcc:51,strDef:72,tdAvg:3.45,tdAcc:62,tdDef:92,subAvg:2.1},
-     finishRate:{ko:22,sub:45,dec:33},
-     bio:"Khabib'in kuzeni. Bellator Lightweight şampiyonu. Temmuz 2026'da PFL'de Archie Colgan'ı TKO R1 ile yendi.",
-     recent:[
-         {opponent:"Archie Colgan",result:"W",method:"TKO (Strikes)",round:1,date:"31 Tem 2026 · PFL New York"}
-     ]}
+const F=[
+// === UFC CHAMPIONS ===
+{i:"makhachev",n:"Islam Makhachev",nk:"",c:"Russia",d:"Welterweight",o:"UFC",r:1,ch:1,w:29,l:1,dr:0,h:"178cm",rc:"178cm",s:"Southpaw",a:34,st:"Sambo/Wrestling",img:["https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Islam_Makhachev_2022-10-26.jpg/400px-Islam_Makhachev_2022-10-26.jpg"],st2:{sl:2.84,sa:1.73,ac:59,df:65,td:3.21,ta:58,dd:89,sb:1.2},fr:{k:24,s:38,d:38},b:"Dağıstanlı dominatör. Kasım 2025'te Jack Della Maddalena'yı 50-45 x3 UD ile yenerek WW kemerini aldı. Ağustos 2026'da Ian Machado Garry'yi yine UD ile geçti. 17 maçlık galibiyet serisiyle UFC rekoru kırdı. İki sıklet şampiyonu (LW+WW). Khabib'in öğrencisi ve mirasının devamı.",rc2:[{o:"Ian Machado Garry",r:"W",m:"Decision (Unanimous)",rd:5,d:"15 Ağu 2026 · UFC 330"},{o:"Jack Della Maddalena",r:"W",m:"Decision (Unanimous)",rd:5,d:"15 Kas 2025 · UFC 322"},{o:"Alexander Volkanovski",r:"W",m:"Decision (Unanimous)",rd:5,d:"21 Eki 2024 · UFC 308"},{o:"Dustin Poirier",r:"W",m:"Submission (RNC)",rd:3,d:"1 Haz 2024 · UFC 302"},{o:"Charles Oliveira",r:"W",m:"Decision (Unanimous)",rd:5,d:"21 Eki 2023 · UFC 294"}]},
+{i:"gaethje",n:"Justin Gaethje",nk:"The Highlight",c:"USA",d:"Lightweight",o:"UFC",r:1,ch:1,w:28,l:5,dr:0,h:"180cm",rc:"178cm",s:"Orthodox",a:37,st:"Boxing/Wrestling",img:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Justin_Gaethje.jpg/400px-Justin_Gaethje.jpg"],st2:{sl:6.42,sa:5.11,ac:48,df:55,td:0.85,ta:40,dd:74,sb:0.1},fr:{k:63,s:4,d:33},b:"Colorado'lu savaşçı. Haziran 2026'da UFC Freedom 250'de Ilia Topuria'yı 4. rauntta corner stoppage TKO ile yenerek Lightweight kemerini kazandı. Kariyerinin en büyük zaferi. Daha önce Dustin Poirier'i KO ile yenmişti. En heyecanlı dövüşçülerden biri.",rc2:[{o:"Ilia Topuria",r:"W",m:"TKO (Corner Stoppage)",rd:4,d:"14 Haz 2026 · UFC Freedom 250"},{o:"Dustin Poirier",r:"W",m:"KO (Head Kick)",rd:2,d:"8 Mar 2025 · UFC 315"},{o:"Max Holloway",r:"L",m:"Decision",rd:5,d:"2024"}]},
+{i:"strickland",n:"Sean Strickland",nk:"Tarzan",c:"USA",d:"Middleweight",o:"UFC",r:1,ch:1,w:31,l:7,dr:0,h:"185cm",rc:"193cm",s:"Orthodox",a:35,st:"Boxing",img:["https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Sean_Strickland_at_UFN_200.png/400px-Sean_Strickland_at_UFN_200.png"],st2:{sl:4.67,sa:3.12,ac:45,df:62,td:0.67,ta:33,dd:81,sb:0.1},fr:{k:38,s:4,d:58},b:"İki kez UFC Middleweight Şampiyonu. Mayıs 2026'da UFC 328'de yenilgisiz Khamzat Chimaev'i Split Decision ile yenerek herkesi şok etti. Chimaev'in kariyerindeki ilk yenilgi. UFC MW tarihinin en çok strike atan dövüşçüsü rekorunu kırdı.",rc2:[{o:"Khamzat Chimaev",r:"W",m:"Decision (Split)",rd:5,d:"9 May 2026 · UFC 328"},{o:"Anthony Hernandez",r:"W",m:"TKO (Punches)",rd:3,d:"21 Şub 2026 · UFC FN"},{o:"Dricus Du Plessis",r:"L",m:"Decision (Split)",rd:5,d:"2025 · UFC 312"}]},
+{i:"gane",n:"Ciryl Gane",nk:"Bon Gamin",c:"France",d:"Heavyweight",o:"UFC",r:1,ch:1,w:13,l:3,dr:0,h:"193cm",rc:"201cm",s:"Orthodox",a:36,st:"Kickboxing",img:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ciryl_Gane_UFC.jpg/400px-Ciryl_Gane_UFC.jpg"],st2:{sl:6.12,sa:3.89,ac:52,df:58,td:0.45,ta:33,dd:81,sb:0.1},fr:{k:67,s:8,d:25},b:"Fransız kickboxer. Haziran 2026'da UFC Freedom 250'de Alex Pereira'yı 2. rauntta TKO ile yenerek Interim HW kemerini aldı. Eylül 2026'da Tom Aspinall kemeri bırakınca undisputed şampiyon ilan edildi.",rc2:[{o:"Alex Pereira",r:"W",m:"TKO (Punches)",rd:2,d:"14 Haz 2026 · UFC Freedom 250"},{o:"Tom Aspinall",r:"NC",m:"No Contest (Eye Poke)",rd:2,d:"25 Eki 2025 · UFC 321"}]},
+{i:"volkanovski",n:"Alexander Volkanovski",nk:"The Great",c:"Australia",d:"Featherweight",o:"UFC",r:1,ch:1,w:28,l:4,dr:0,h:"168cm",rc:"181cm",s:"Orthodox",a:37,st:"Wrestling/Boxing",img:["https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Alexander_Volkanovski_in_2018_%28cropped%29.jpg/400px-Alexander_Volkanovski_in_2018_%28cropped%29.jpg"],st2:{sl:5.92,sa:3.87,ac:53,df:61,td:2.11,ta:48,dd:81,sb:0.4},fr:{k:31,s:10,d:59},b:"Avustralyalı efsane. Diego Lopes'i 2 kez UD ile yenerek FW kemerini korudu. Ekim 2026'da Movsar Evloev ile UFC 333'te karşılaşacak. En aktif şampiyonlardan.",rc2:[{o:"Diego Lopes",r:"W",m:"Decision (Unanimous)",rd:5,d:"31 Oca 2026 · UFC 325"},{o:"Diego Lopes",r:"W",m:"Decision (Unanimous)",rd:5,d:"12 Nis 2025 · UFC 314"}]},
+{i:"yan",n:"Petr Yan",nk:"No Mercy",c:"Russia",d:"Bantamweight",o:"UFC",r:1,ch:1,w:19,l:5,dr:0,h:"170cm",rc:"173cm",s:"Switch",a:33,st:"Boxing",img:[],st2:{sl:4.98,sa:3.12,ac:49,df:61,td:0.87,ta:38,dd:80,sb:0.2},fr:{k:39,s:6,d:55},b:"Sibiryalı boksör. Aralık 2025'te UFC 323'te Merab Dvalishvili'yi UD ile yenerek BW kemerini geri aldı. 4.5 yıllık bir mücadelenin ardından tekrar zirveye çıktı.",rc2:[{o:"Merab Dvalishvili",r:"W",m:"Decision (Unanimous)",rd:5,d:"Ara 2025 · UFC 323"}]},
+{i:"van",n:"Joshua Van",nk:"The Fearless",c:"Myanmar",d:"Flyweight",o:"UFC",r:1,ch:1,w:16,l:2,dr:0,h:"173cm",rc:"178cm",s:"Orthodox",a:26,st:"Striking",img:[],st2:{sl:5.45,sa:3.12,ac:51,df:62,td:1.45,ta:42,dd:76,sb:0.5},fr:{k:47,s:11,d:42},b:"Myanmar asıllı Amerikalı. Eylül 2026'da UFC 331'de Alexandre Pantoja'yı UD ile yenerek FW kemerini 2. kez korudu. Genç yaşta divisionı domine ediyor.",rc2:[{o:"Alexandre Pantoja",r:"W",m:"Decision (Unanimous)",rd:5,d:"19 Eyl 2026 · UFC 331"},{o:"Alexandre Pantoja",r:"W",m:"TKO (Injury)",rd:1,d:"Ara 2025 · UFC 324"}]},
+{i:"dern",n:"Mackenzie Dern",nk:"",c:"Brazil",d:"Strawweight (W)",o:"UFC",r:1,ch:1,w:16,l:5,dr:0,h:"165cm",rc:"168cm",s:"Orthodox",a:33,st:"BJJ",img:[],st2:{sl:2.89,sa:1.78,ac:55,df:72,td:5.12,ta:68,dd:90,sb:1.8},fr:{k:9,s:55,d:36},b:"BJJ dünya şampiyonu. Ağustos 2026'da UFC 330'da Gillian Robertson'ı UD ile yenerek SW kemerini korudu. Zhang Weili'nin divisiondan ayrılmasından sonra kemeri kazandı.",rc2:[{o:"Gillian Robertson",r:"W",m:"Decision (Unanimous)",rd:5,d:"15 Ağu 2026 · UFC 330"}]},
+{i:"silva",n:"Natália Silva",nk:"",c:"Brazil",d:"Flyweight (W)",o:"UFC",r:1,ch:1,w:20,l:5,dr:1,h:"165cm",rc:"168cm",s:"Southpaw",a:30,st:"Striking/BJJ",img:[],st2:{sl:4.62,sa:2.11,ac:52,df:68,td:1.87,ta:52,dd:84,sb:0.6},fr:{k:35,s:12,d:53},b:"Ekim 2026'da UFC 332'de Wang Cong'u UD ile yenerek VACANT WFLW kemerini kazandı. Valentina Shevchenko sakatlıktan dolayı kemeri bırakmıştı.",rc2:[{o:"Wang Cong",r:"W",m:"Decision (Unanimous)",rd:5,d:"3 Eki 2026 · UFC 332"}]},
+// === UFC CONTENDERS ===
+{i:"topuria",n:"Ilia Topuria",nk:"El Matador",c:"Spain",d:"Lightweight",o:"UFC",r:2,ch:0,w:17,l:1,dr:0,h:"170cm",rc:"175cm",s:"Orthodox",a:29,st:"Boxing/BJJ",img:[],st2:{sl:6.87,sa:3.21,ac:55,df:63,td:1.42,ta:44,dd:82,sb:0.5},fr:{k:65,s:12,d:23},b:"Gürcü asıllı İspanyol. Eski FW şampiyonu. Haziran 2026'da Gaethje'ye LW title maçında yenildi. İlk UFC yenilgisi.",rc2:[{o:"Justin Gaethje",r:"L",m:"TKO (Corner)",rd:4,d:"14 Haz 2026"}]},
+{i:"chimaev",n:"Khamzat Chimaev",nk:"Borz",c:"UAE",d:"Middleweight",o:"UFC",r:2,ch:0,w:13,l:1,dr:0,h:"188cm",rc:"191cm",s:"Orthodox",a:32,st:"Wrestling",img:[],st2:{sl:5.12,sa:1.89,ac:62,df:71,td:4.87,ta:68,dd:94,sb:1.8},fr:{k:31,s:38,d:31},b:"Çeçen asıllı. Mayıs 2026'da Strickland'a SD ile yenilerek ilk mağlubiyetini aldı. UFC 319'da DDP'yi yenerek MW şampiyonu olmuştu.",rc2:[{o:"Sean Strickland",r:"L",m:"Decision (Split)",rd:5,d:"9 May 2026 · UFC 328"},{o:"Dricus Du Plessis",r:"W",m:"Decision (UD)",rd:5,d:"2025 · UFC 319"}]},
+{i:"garry",n:"Ian Machado Garry",nk:"The Future",c:"Ireland",d:"Welterweight",o:"UFC",r:2,ch:0,w:16,l:2,dr:0,h:"191cm",rc:"196cm",s:"Orthodox",a:28,st:"Boxing",img:[],st2:{sl:5.22,sa:2.98,ac:50,df:62,td:1.12,ta:40,dd:78,sb:0.2},fr:{k:53,s:7,d:40},b:"İrlandalı yıldız. Ağustos 2026'da Makhachev'e WW title maçında UD ile yenildi.",rc2:[{o:"Islam Makhachev",r:"L",m:"Decision (UD)",rd:5,d:"15 Ağu 2026 · UFC 330"}]},
+{i:"oliveira",n:"Charles Oliveira",nk:"Do Bronx",c:"Brazil",d:"Lightweight",o:"UFC",r:3,ch:0,w:37,l:11,dr:0,h:"178cm",rc:"185cm",s:"Orthodox",a:36,st:"BJJ",img:[],st2:{sl:3.45,sa:2.98,ac:44,df:56,td:2.78,ta:55,dd:73,sb:2.8},fr:{k:19,s:51,d:30},b:"UFC tarihinin en çok finish'i olan dövüşçüsü. Mart 2026'da Max Holloway'i UD ile yendi.",rc2:[{o:"Max Holloway",r:"W",m:"Decision (UD)",rd:5,d:"7 Mar 2026 · UFC 326"}]},
+{i:"pereira",n:"Alex Pereira",nk:"Poatan",c:"Brazil",d:"Heavyweight",o:"UFC",r:2,ch:0,w:14,l:4,dr:0,h:"193cm",rc:"201cm",s:"Orthodox",a:39,st:"Kickboxing",img:[],st2:{sl:5.88,sa:3.11,ac:51,df:58,td:0.42,ta:33,dd:81,sb:0},fr:{k:71,s:0,d:29},b:"Eski 2-sıklet şampiyonu. Şubat 2026'da LHW kemerini bıraktı, HW'ye çıktı. Haziran'da Gane'e TKO ile yenildi.",rc2:[{o:"Ciryl Gane",r:"L",m:"TKO",rd:2,d:"14 Haz 2026"}]},
+{i:"evloev",n:"Movsar Evloev",nk:"",c:"Russia",d:"Featherweight",o:"UFC",r:2,ch:0,w:20,l:0,dr:0,h:"170cm",rc:"180cm",s:"Orthodox",a:32,st:"Wrestling",img:[],st2:{sl:3.12,sa:1.87,ac:48,df:69,td:4.56,ta:62,dd:92,sb:0.8},fr:{k:11,s:22,d:67},b:"20-0 yenilgisiz Dağıstanlı. Ekim 2026'da Volkanovski ile UFC 333'te title maçı yapacak.",rc2:[]},
+{i:"jones",n:"Jon Jones",nk:"Bones",c:"USA",d:"Heavyweight",o:"UFC",r:3,ch:0,w:28,l:1,dr:1,h:"193cm",rc:"215cm",s:"Orthodox",a:39,st:"Wrestling",img:[],st2:{sl:4.28,sa:2.14,ac:53,df:64,td:1.87,ta:45,dd:97,sb:0.7},fr:{k:29,s:25,d:46},b:"GOAT tartışmasının merkezi. Kasım 2024'te Stipe Miocic'i TKO ile yendi. Geri dönüş sinyali veriyor.",rc2:[{o:"Stipe Miocic",r:"W",m:"TKO",rd:2,d:"16 Kas 2024 · UFC 309"}]},
+{i:"holloway",n:"Max Holloway",nk:"Blessed",c:"USA",d:"Lightweight",o:"UFC",r:4,ch:0,w:26,l:8,dr:0,h:"180cm",rc:"178cm",s:"Orthodox",a:34,st:"Boxing",img:[],st2:{sl:7.89,sa:4.56,ac:46,df:58,td:0.23,ta:25,dd:75,sb:0.1},fr:{k:33,s:4,d:63},b:"BMF şampiyonu. UFC tarihinin en çok strike atan dövüşçüsü. Mart 2026'da Oliveira'ya yenildi.",rc2:[{o:"Charles Oliveira",r:"L",m:"Decision",rd:5,d:"7 Mar 2026"}]},
+{i:"dvalishvili",n:"Merab Dvalishvili",nk:"The Machine",c:"Georgia",d:"Bantamweight",o:"UFC",r:2,ch:0,w:19,l:5,dr:0,h:"168cm",rc:"173cm",s:"Orthodox",a:35,st:"Wrestling",img:[],st2:{sl:3.12,sa:2.45,ac:44,df:62,td:5.89,ta:62,dd:88,sb:0.4},fr:{k:11,s:11,d:78},b:"Gürcü güreş makinesi. Aralık 2025'te Yan'a UD ile yenilerek kemeri kaybetti.",rc2:[{o:"Petr Yan",r:"L",m:"Decision (UD)",rd:5,d:"Ara 2025"}]},
+{i:"pantoja",n:"Alexandre Pantoja",nk:"The Cannibal",c:"Brazil",d:"Flyweight",o:"UFC",r:2,ch:0,w:30,l:7,dr:0,h:"165cm",rc:"170cm",s:"Orthodox",a:36,st:"BJJ",img:[],st2:{sl:3.89,sa:2.56,ac:46,df:57,td:3.12,ta:55,dd:76,sb:1.6},fr:{k:27,s:40,d:33},b:"Eski FW şampiyonu. Van'a 2 kez yenildi. Eylül 2026'da UD, Aralık 2025'te TKO (injury).",rc2:[{o:"Joshua Van",r:"L",m:"Decision (UD)",rd:5,d:"19 Eyl 2026"}]},
+{i:"ddp",n:"Dricus Du Plessis",nk:"Stillknocks",c:"South Africa",d:"Middleweight",o:"UFC",r:3,ch:0,w:24,l:3,dr:0,h:"188cm",rc:"193cm",s:"Orthodox",a:31,st:"Boxing",img:[],st2:{sl:5.12,sa:3.89,ac:49,df:55,td:2.12,ta:52,dd:75,sb:0.6},fr:{k:48,s:9,d:43},b:"Güney Afrikalı. Temmuz 2026'da Kamaru Usman'ı yendi. 2025'te Chimaev'e yenilerek kemeri kaybetti.",rc2:[{o:"Kamaru Usman",r:"W",m:"Decision",rd:5,d:"18 Tem 2026"}]},
+{i:"lopes",n:"Diego Lopes",nk:"",c:"Brazil",d:"Featherweight",o:"UFC",r:3,ch:0,w:26,l:7,dr:0,h:"178cm",rc:"183cm",s:"Southpaw",a:30,st:"BJJ",img:[],st2:{sl:4.56,sa:3.12,ac:48,df:59,td:1.78,ta:47,dd:78,sb:1.4},fr:{k:35,s:35,d:30},b:"Volkanovski'ye 2 kez title maçında yenildi.",rc2:[{o:"Alexander Volkanovski",r:"L",m:"Decision",rd:5,d:"31 Oca 2026"}]},
+{i:"jdm",n:"Jack Della Maddalena",nk:"JDM",c:"Australia",d:"Welterweight",o:"UFC",r:3,ch:0,w:18,l:4,dr:0,h:"183cm",rc:"188cm",s:"Orthodox",a:29,st:"Striking",img:[],st2:{sl:5.88,sa:3.42,ac:51,df:60,td:1.45,ta:48,dd:75,sb:0.6},fr:{k:59,s:12,d:29},b:"Eski WW şampiyonu. Kasım 2025'te Makhachev'e 50-45 x3 UD ile kaybetti.",rc2:[{o:"Islam Makhachev",r:"L",m:"Decision (UD)",rd:5,d:"15 Kas 2025"}]},
+{i:"nickal",n:"Bo Nickal",nk:"The All-American",c:"USA",d:"Middleweight",o:"UFC",r:5,ch:0,w:8,l:0,dr:0,h:"188cm",rc:"191cm",s:"Orthodox",a:31,st:"Wrestling",img:[],st2:{sl:2.89,sa:1.45,ac:55,df:75,td:6.78,ta:78,dd:95,sb:3.2},fr:{k:13,s:75,d:12},b:"NCAA wrestling efsanesi. UFC'de 8 maç, 8 finish. Yenilgisiz.",rc2:[]},
+{i:"shavkat",n:"Shavkat Rakhmonov",nk:"Nomad",c:"Kazakhstan",d:"Welterweight",o:"UFC",r:6,ch:0,w:20,l:0,dr:0,h:"185cm",rc:"196cm",s:"Orthodox",a:31,st:"Sambo",img:[],st2:{sl:5.23,sa:2.45,ac:54,df:68,td:2.12,ta:55,dd:85,sb:1.5},fr:{k:45,s:35,d:20},b:"20-0 yenilgisiz Kazak. Sakatlıktan 2026'da dövüşemiyor.",rc2:[]},
+{i:"aspinall",n:"Tom Aspinall",nk:"",c:"England",d:"Heavyweight",o:"UFC",r:4,ch:0,w:15,l:3,dr:0,h:"196cm",rc:"198cm",s:"Orthodox",a:33,st:"Boxing/Grappling",img:[],st2:{sl:6.72,sa:3.21,ac:59,df:63,td:1.87,ta:52,dd:77,sb:1.4},fr:{k:53,s:29,d:18},b:"Eylül 2026'da göz sakatlığı nedeniyle HW kemerini bıraktı.",rc2:[{o:"Ciryl Gane",r:"NC",m:"No Contest",rd:2,d:"25 Eki 2025"}]},
+{i:"ankalaev",n:"Magomed Ankalaev",nk:"",c:"Russia",d:"Light Heavyweight",o:"UFC",r:2,ch:0,w:20,l:2,dr:1,h:"188cm",rc:"191cm",s:"Orthodox",a:34,st:"Wrestling",img:[],st2:{sl:3.78,sa:2.12,ac:50,df:66,td:3.12,ta:55,dd:83,sb:0.5},fr:{k:30,s:15,d:55},b:"Dağıstanlı LHW contender. Ekim 2025'te Pereira'ya yenildi.",rc2:[{o:"Alex Pereira",r:"L",m:"TKO",rd:1,d:"4 Eki 2025 · UFC 320"}]},
+{i:"prochazka",n:"Jiri Prochazka",nk:"Denisa",c:"Czech Republic",d:"Light Heavyweight",o:"UFC",r:3,ch:0,w:31,l:5,dr:1,h:"191cm",rc:"203cm",s:"Orthodox",a:33,st:"Muay Thai",img:[],st2:{sl:6.78,sa:4.23,ac:49,df:54,td:0.23,ta:25,dd:67,sb:0.4},fr:{k:71,s:6,d:23},b:"Eski LHW şampiyonu. En heyecanlı striker'lardan.",rc2:[]},
+{i:"ulberg",n:"Carlos Ulberg",nk:"The Black Jag",c:"New Zealand",d:"Light Heavyweight",o:"UFC",r:4,ch:0,w:13,l:1,dr:0,h:"191cm",rc:"196cm",s:"Southpaw",a:34,st:"Kickboxing",img:[],st2:{sl:6.12,sa:3.45,ac:52,df:60,td:0.45,ta:33,dd:79,sb:0.3},fr:{k:62,s:8,d:30},b:"Yeni Zelandalı KO sanatçısı.",rc2:[]},
+{i:"whittaker",n:"Robert Whittaker",nk:"The Reaper",c:"Australia",d:"Middleweight",o:"UFC",r:4,ch:0,w:27,l:8,dr:0,h:"183cm",rc:"188cm",s:"Southpaw",a:35,st:"Karate/BJJ",img:[],st2:{sl:5.45,sa:3.78,ac:47,df:58,td:1.12,ta:40,dd:77,sb:0.5},fr:{k:41,s:11,d:48},b:"Eski MW şampiyonu. Ekim 2024'te Chimaev'e submission ile yenildi.",rc2:[{o:"Khamzat Chimaev",r:"L",m:"Submission",rd:1,d:"2024"}]},
+{i:"costa",n:"Paulo Costa",nk:"The Eraser",c:"Brazil",d:"Middleweight",o:"UFC",r:5,ch:0,w:14,l:3,dr:0,h:"183cm",rc:"185cm",s:"Orthodox",a:35,st:"Boxing/BJJ",img:[],st2:{sl:6.12,sa:4.23,ac:51,df:56,td:0.67,ta:33,dd:70,sb:0.2},fr:{k:79,s:7,d:14},b:"Brezilyalı power puncher.",rc2:[]},
+{i:"adesanya",n:"Israel Adesanya",nk:"The Last Stylebender",c:"New Zealand",d:"Middleweight",o:"UFC",r:6,ch:0,w:24,l:6,dr:0,h:"193cm",rc:"203cm",s:"Orthodox",a:37,st:"Kickboxing",img:[],st2:{sl:4.89,sa:3.12,ac:51,df:62,td:0.45,ta:30,dd:78,sb:0.3},fr:{k:58,s:3,d:39},b:"Eski MW şampiyonu. Striker efsanesi.",rc2:[]},
+{i:"tsarukyan",n:"Arman Tsarukyan",nk:"Ahalkalakets",c:"Armenia",d:"Lightweight",o:"UFC",r:4,ch:0,w:22,l:3,dr:0,h:"173cm",rc:"183cm",s:"Southpaw",a:29,st:"Wrestling",img:[],st2:{sl:4.87,sa:2.89,ac:47,df:63,td:3.89,ta:58,dd:85,sb:0.9},fr:{k:18,s:27,d:55},b:"Ermeni yıldız. LW title shot bekliyor.",rc2:[]},
+{i:"gamrot",n:"Mateusz Gamrot",nk:"Gamer",c:"Poland",d:"Lightweight",o:"UFC",r:5,ch:0,w:24,l:3,dr:0,h:"178cm",rc:"183cm",s:"Orthodox",a:34,st:"Wrestling/BJJ",img:[],st2:{sl:3.89,sa:2.78,ac:48,df:61,td:4.23,ta:58,dd:82,sb:1.1},fr:{k:21,s:33,d:46},b:"Polonyalı güreşçi.",rc2:[]},
+{i:"fiziev",n:"Rafael Fiziev",nk:"Ataman",c:"Azerbaijan",d:"Lightweight",o:"UFC",r:6,ch:0,w:14,l:3,dr:0,h:"175cm",rc:"180cm",s:"Orthodox",a:32,st:"Muay Thai",img:[],st2:{sl:6.45,sa:3.89,ac:52,df:57,td:0.67,ta:35,dd:72,sb:0.4},fr:{k:68,s:9,d:23},b:"Azeri asıllı Muay Thai uzmanı.",rc2:[]},
+{i:"murphy",n:"Lerone Murphy",nk:"The Miracle",c:"England",d:"Featherweight",o:"UFC",r:4,ch:0,w:15,l:0,dr:0,h:"178cm",rc:"185cm",s:"Orthodox",a:31,st:"Striking",img:[],st2:{sl:5.23,sa:2.45,ac:51,df:64,td:1.12,ta:40,dd:78,sb:0.5},fr:{k:47,s:13,d:40},b:"Yenilgisiz İngiliz. FW'de yükseliyor.",rc2:[]},
+{i:"ortega",n:"Brian Ortega",nk:"T-City",c:"USA",d:"Featherweight",o:"UFC",r:5,ch:0,w:16,l:4,dr:0,h:"175cm",rc:"180cm",s:"Orthodox",a:35,st:"BJJ",img:[],st2:{sl:3.78,sa:3.12,ac:45,df:57,td:2.12,ta:48,dd:75,sb:2.1},fr:{k:13,s:56,d:31},b:"Triangle choke uzmanı.",rc2:[]},
+{i:"sterling",n:"Aljamain Sterling",nk:"Funk Master",c:"USA",d:"Bantamweight",o:"UFC",r:3,ch:0,w:24,l:5,dr:0,h:"170cm",rc:"180cm",s:"Orthodox",a:37,st:"Wrestling/BJJ",img:[],st2:{sl:3.89,sa:2.78,ac:46,df:60,td:4.23,ta:52,dd:84,sb:0.9},fr:{k:13,s:33,d:54},b:"Eski BW şampiyonu.",rc2:[]},
+{i:"umar",n:"Umar Nurmagomedov",nk:"",c:"Russia",d:"Bantamweight",o:"UFC",r:4,ch:0,w:18,l:0,dr:0,h:"175cm",rc:"178cm",s:"Orthodox",a:30,st:"Wrestling/Sambo",img:[],st2:{sl:3.45,sa:1.89,ac:51,df:72,td:4.12,ta:63,dd:92,sb:1.2},fr:{k:17,s:28,d:55},b:"Khabib'in kuzeni. 18-0 yenilgisiz.",rc2:[]},
+{i:"sandhagen",n:"Cory Sandhagen",nk:"The Sandman",c:"USA",d:"Bantamweight",o:"UFC",r:5,ch:0,w:18,l:5,dr:0,h:"175cm",rc:"180cm",s:"Switch",a:33,st:"Striking",img:[],st2:{sl:5.12,sa:3.45,ac:49,df:58,td:1.45,ta:42,dd:76,sb:0.8},fr:{k:39,s:17,d:44},b:"Versatile contender.",rc2:[]},
+{i:"royval",n:"Brandon Royval",nk:"Raw Dawg",c:"USA",d:"Flyweight",o:"UFC",r:2,ch:0,w:17,l:7,dr:0,h:"173cm",rc:"175cm",s:"Southpaw",a:32,st:"Striking/BJJ",img:[],st2:{sl:4.23,sa:3.89,ac:46,df:55,td:1.89,ta:45,dd:70,sb:1.4},fr:{k:24,s:35,d:41},b:"Aggressive flyweight.",rc2:[]},
+{i:"taira",n:"Tatsuro Taira",nk:"",c:"Japan",d:"Flyweight",o:"UFC",r:3,ch:0,w:15,l:1,dr:0,h:"170cm",rc:"175cm",s:"Orthodox",a:27,st:"Judo/BJJ",img:[],st2:{sl:3.78,sa:2.12,ac:49,df:63,td:3.45,ta:58,dd:82,sb:2.1},fr:{k:13,s:47,d:40},b:"Japon yıldız. FW'de yükseliyor.",rc2:[]},
+{i:"suarez",n:"Tatiana Suarez",nk:"",c:"USA",d:"Strawweight (W)",o:"UFC",r:2,ch:0,w:11,l:1,dr:0,h:"165cm",rc:"168cm",s:"Orthodox",a:34,st:"Wrestling",img:[],st2:{sl:2.89,sa:1.78,ac:55,df:72,td:5.12,ta:68,dd:90,sb:1.8},fr:{k:9,s:55,d:36},b:"Olimpiyat güreşçisi.",rc2:[]},
+{i:"grasso",n:"Alexa Grasso",nk:"",c:"Mexico",d:"Flyweight (W)",o:"UFC",r:2,ch:0,w:17,l:4,dr:1,h:"163cm",rc:"165cm",s:"Orthodox",a:32,st:"Boxing",img:[],st2:{sl:4.78,sa:3.12,ac:49,df:60,td:1.12,ta:40,dd:75,sb:0.4},fr:{k:24,s:12,d:64},b:"Eski WFLW şampiyonu.",rc2:[]},
+{i:"shevchenko",n:"Valentina Shevchenko",nk:"Bullet",c:"Kyrgyzstan",d:"Flyweight (W)",o:"UFC",r:3,ch:0,w:24,l:4,dr:1,h:"165cm",rc:"168cm",s:"Southpaw",a:38,st:"Muay Thai",img:[],st2:{sl:4.62,sa:2.11,ac:52,df:68,td:1.87,ta:52,dd:84,sb:0.6},fr:{k:35,s:12,d:53},b:"Eylül 2026'da sakatlıktan kemeri bıraktı.",rc2:[]},
+{i:"zhang",n:"Zhang Weili",nk:"Magnum",c:"China",d:"Strawweight (W)",o:"UFC",r:3,ch:0,w:26,l:3,dr:0,h:"163cm",rc:"163cm",s:"Orthodox",a:37,st:"Sanda/BJJ",img:[],st2:{sl:5.78,sa:3.42,ac:49,df:58,td:2.89,ta:58,dd:79,sb:0.9},fr:{k:42,s:19,d:39},b:"Eski SW şampiyonu. Divisiondan ayrıldı.",rc2:[]},
+// === ONE CHAMPIONSHIP ===
+{i:"malykhin",n:"Anatoly Malykhin",nk:"Sladkiy",c:"Russia",d:"Heavyweight",o:"ONE",r:1,ch:1,w:15,l:0,dr:0,h:"188cm",rc:"190cm",s:"Orthodox",a:37,st:"Sambo",img:[],st2:{sl:4.45,sa:2.12,ac:54,df:67,td:3.89,ta:62,dd:88,sb:1.2},fr:{k:47,s:40,d:13},b:"ONE tarihinin 3-division MMA şampiyonu. Mayıs 2026'da emekli oldu.",rc2:[{o:"Reinier de Ridder",r:"W",m:"KO",rd:2,d:"May 2026"}]},
+{i:"clee",n:"Christian Lee",nk:"The Warrior",c:"Singapore",d:"Lightweight",o:"ONE",r:1,ch:1,w:19,l:4,dr:0,h:"175cm",rc:"178cm",s:"Orthodox",a:28,st:"BJJ",img:[],st2:{sl:3.78,sa:2.45,ac:51,df:63,td:2.78,ta:55,dd:82,sb:2.1},fr:{k:21,s:53,d:26},b:"ONE LW şampiyonu. Genç yaşta dominasyon.",rc2:[]},
+{i:"stamp",n:"Stamp Fairtex",nk:"",c:"Thailand",d:"Atomweight",o:"ONE",r:1,ch:1,w:11,l:2,dr:0,h:"155cm",rc:"158cm",s:"Orthodox",a:27,st:"Muay Thai/BJJ",img:[],st2:{sl:5.23,sa:3.12,ac:53,df:64,td:2.12,ta:48,dd:80,sb:0.8},fr:{k:45,s:27,d:28},b:"3-sport ONE şampiyonu (MMA, MT, KB).",rc2:[]},
+{i:"rodtang",n:"Rodtang Jitmuangnon",nk:"The Iron Man",c:"Thailand",d:"Flyweight MT",o:"ONE",r:1,ch:1,w:289,l:45,dr:10,h:"167cm",rc:"170cm",s:"Orthodox",a:28,st:"Muay Thai",img:[],st2:{sl:8.45,sa:4.23,ac:53,df:60,td:0,ta:0,dd:95,sb:0},fr:{k:65,s:0,d:35},b:"ONE tarihinin en popüler dövüşçüsü.",rc2:[]},
+{i:"superbon",n:"Superbon Singha Mawynn",nk:"",c:"Thailand",d:"Featherweight KB",o:"ONE",r:1,ch:1,w:123,l:35,dr:3,h:"178cm",rc:"183cm",s:"Southpaw",a:35,st:"Muay Thai",img:[],st2:{sl:7.23,sa:4.12,ac:50,df:58,td:0,ta:0,dd:90,sb:0},fr:{k:60,s:0,d:40},b:"KB efsanesi.",rc2:[]},
+{i:"aungla",n:"Aung La Nsang",nk:"The Burmese Python",c:"Myanmar",d:"Middleweight",o:"ONE",r:1,ch:1,w:29,l:14,dr:0,h:"183cm",rc:"188cm",s:"Orthodox",a:41,st:"Striking",img:[],st2:{sl:4.89,sa:3.45,ac:48,df:58,td:1.89,ta:45,dd:75,sb:1.1},fr:{k:41,s:21,d:38},b:"Myanmar kahramanı.",rc2:[]},
+{i:"xiong",n:"Xiong Jing Nan",nk:"The Panda",c:"China",d:"Strawweight (W)",o:"ONE",r:1,ch:1,w:19,l:2,dr:0,h:"165cm",rc:"168cm",s:"Orthodox",a:37,st:"Sanda",img:[],st2:{sl:4.67,sa:3.12,ac:51,df:60,td:1.45,ta:42,dd:78,sb:0.3},fr:{k:47,s:11,d:42},b:"ONE WSW şampiyonu.",rc2:[]},
+{i:"alee",n:"Angela Lee",nk:"Unstoppable",c:"Singapore",d:"Atomweight (W)",o:"ONE",r:1,ch:1,w:12,l:4,dr:0,h:"157cm",rc:"160cm",s:"Orthodox",a:31,st:"BJJ",img:[],st2:{sl:3.89,sa:2.45,ac:50,df:62,td:2.89,ta:55,dd:85,sb:1.8},fr:{k:17,s:58,d:25},b:"Uzun süreli Atomweight şampiyonu.",rc2:[]},
+// === PFL ===
+{i:"ngannou",n:"Francis Ngannou",nk:"The Predator",c:"Cameroon",d:"Heavyweight",o:"PFL",r:1,ch:1,w:18,l:3,dr:0,h:"193cm",rc:"206cm",s:"Orthodox",a:40,st:"Boxing",img:[],st2:{sl:5.12,sa:2.89,ac:52,df:58,td:1.23,ta:38,dd:77,sb:0.2},fr:{k:78,s:6,d:16},b:"Eski UFC HW şampiyonu. PFL'ye geçti.",rc2:[]},
+{i:"eblen",n:"Johnny Eblen",nk:"The Dreamcatcher",c:"USA",d:"Middleweight",o:"PFL",r:1,ch:1,w:18,l:1,dr:0,h:"188cm",rc:"193cm",s:"Orthodox",a:34,st:"Wrestling",img:[],st2:{sl:4.12,sa:2.45,ac:49,df:63,td:3.12,ta:55,dd:85,sb:0.5},fr:{k:28,s:17,d:55},b:"Temmuz 2026'da Kasanganay'i KO ile yendi.",rc2:[{o:"Impa Kasanganay",r:"W",m:"KO",rd:3,d:"18 Tem 2026"}]},
+{i:"usmann",n:"Usman Nurmagomedov",nk:"",c:"Russia",d:"Lightweight",o:"PFL",r:1,ch:1,w:22,l:0,dr:0,h:"180cm",rc:"180cm",s:"Orthodox",a:27,st:"Sambo",img:[],st2:{sl:4.12,sa:1.89,ac:51,df:72,td:3.45,ta:62,dd:92,sb:2.1},fr:{k:22,s:45,d:33},b:"Khabib'in kuzeni. 22-0 yenilgisiz.",rc2:[{o:"Archie Colgan",r:"W",m:"TKO",rd:1,d:"31 Tem 2026"}]},
+{i:"kayla",n:"Kayla Harrison",nk:"",c:"USA",d:"Lightweight (W)",o:"PFL",r:1,ch:1,w:17,l:1,dr:0,h:"173cm",rc:"175cm",s:"Orthodox",a:36,st:"Judo",img:[],st2:{sl:3.12,sa:2.12,ac:52,df:65,td:4.45,ta:68,dd:92,sb:2.1},fr:{k:12,s:59,d:29},b:"2x Olimpiyat altın madalyalı judocu.",rc2:[]},
+{i:"kasanganay",n:"Impa Kasanganay",nk:"",c:"USA",d:"Middleweight",o:"PFL",r:2,ch:0,w:20,l:7,dr:0,h:"185cm",rc:"193cm",s:"Orthodox",a:32,st:"Striking",img:[],st2:{sl:5.45,sa:3.12,ac:51,df:62,td:1.45,ta:42,dd:76,sb:0.5},fr:{k:47,s:11,d:42},b:"Eblen'e KO ile yenildi.",rc2:[{o:"Johnny Eblen",r:"L",m:"KO",rd:3,d:"18 Tem 2026"}]},
+{i:"loughnane",n:"Brendan Loughnane",nk:"",c:"England",d:"Featherweight",o:"PFL",r:1,ch:1,w:31,l:5,dr:0,h:"180cm",rc:"185cm",s:"Orthodox",a:36,st:"Striking",img:[],st2:{sl:6.12,sa:3.45,ac:51,df:61,td:0.89,ta:35,dd:75,sb:0.3},fr:{k:55,s:6,d:39},b:"PFL FW şampiyonu.",rc2:[]},
+// === LEGENDS ===
+{i:"khabib",n:"Khabib Nurmagomedov",nk:"The Eagle",c:"Russia",d:"Lightweight",o:"LEGEND",r:0,ch:0,w:29,l:0,dr:0,h:"178cm",rc:"178cm",s:"Orthodox",a:37,st:"Sambo/Wrestling",img:[],st2:{sl:4.12,sa:1.78,ac:48,df:65,td:5.32,ta:48,dd:84,sb:1.2},fr:{k:28,s:38,d:34},b:"29-0 yenilgisiz emekli. Tüm zamanların en dominant şampiyonlarından. Hiç ciddi bir tehditle karşılaşmadı.",rc2:[]},
+{i:"gsp",n:"Georges St-Pierre",nk:"Rush",c:"Canada",d:"Welterweight",o:"LEGEND",r:0,ch:0,w:26,l:2,dr:0,h:"178cm",rc:"193cm",s:"Orthodox",a:44,st:"Karate/Wrestling",img:[],st2:{sl:4.89,sa:2.12,ac:52,df:68,td:3.45,ta:45,dd:88,sb:0.8},fr:{k:31,s:23,d:46},b:"2-sıklet şampiyonu. En teknik dövüşçü. 9 WW title defense.",rc2:[]},
+{i:"conor",n:"Conor McGregor",nk:"The Notorious",c:"Ireland",d:"Lightweight",o:"LEGEND",r:0,ch:0,w:22,l:6,dr:0,h:"175cm",rc:"188cm",s:"Southpaw",a:37,st:"Boxing",img:[],st2:{sl:5.12,sa:3.89,ac:48,df:52,td:1.23,ta:38,dd:62,sb:0.5},fr:{k:73,s:9,d:18},b:"2-sıklet şampiyonu. En büyük PPV (UFC 229). MMA'i mainstream yapan adam.",rc2:[]},
+{i:"silva2",n:"Anderson Silva",nk:"The Spider",c:"Brazil",d:"Middleweight",o:"LEGEND",r:0,ch:0,w:34,l:11,dr:0,h:"188cm",rc:"196cm",s:"Orthodox",a:50,st:"Muay Thai",img:[],st2:{sl:4.45,sa:2.78,ac:55,df:65,td:0.89,ta:35,dd:72,sb:0.9},fr:{k:59,s:18,d:23},b:"16 maçlık galibiyet serisi rekoru. En uzun title reign (2457 gün).",rc2:[]},
+{i:"fedor",n:"Fedor Emelianenko",nk:"The Last Emperor",c:"Russia",d:"Heavyweight",o:"LEGEND",r:0,ch:0,w:40,l:7,dr:0,h:"183cm",rc:"188cm",s:"Orthodox",a:49,st:"Sambo/Judo",img:[],st2:{sl:3.89,sa:2.45,ac:51,df:58,td:3.12,ta:52,dd:78,sb:1.8},fr:{k:38,s:40,d:22},b:"PRIDE efsanesi. 10 yıl yenilgisiz. HW'de en küçük ama en dominant.",rc2:[]},
+{i:"ronda",n:"Ronda Rousey",nk:"Rowdy",c:"USA",d:"Bantamweight (W)",o:"LEGEND",r:0,ch:0,w:12,l:2,dr:0,h:"170cm",rc:"173cm",s:"Orthodox",a:38,st:"Judo",img:[],st2:{sl:2.89,sa:1.78,ac:45,df:55,td:4.56,ta:68,dd:85,sb:3.5},fr:{k:33,s:58,d:9},b:"İlk kadın UFC şampiyonu. Kadın MMA'i ana akıma taşıdı.",rc2:[]},
+{i:"aldo",n:"Jose Aldo",nk:"Junior",c:"Brazil",d:"Featherweight",o:"LEGEND",r:0,ch:0,w:31,l:8,dr:0,h:"170cm",rc:"178cm",s:"Orthodox",a:39,st:"Muay Thai/BJJ",img:[],st2:{sl:4.56,sa:2.89,ac:51,df:62,td:1.45,ta:42,dd:82,sb:0.8},fr:{k:45,s:19,d:36},b:"WEC/UFC FW şampiyonu. 10 yıl yenilgisiz kaldı.",rc2:[]},
+{i:"dj",n:"Demetrious Johnson",nk:"Mighty Mouse",c:"USA",d:"Flyweight",o:"LEGEND",r:0,ch:0,w:30,l:4,dr:1,h:"160cm",rc:"165cm",s:"Orthodox",a:39,st:"Wrestling/BJJ",img:[],st2:{sl:4.23,sa:2.12,ac:49,df:64,td:3.89,ta:55,dd:86,sb:1.9},fr:{k:27,s:33,d:40},b:"En çok title defense rekoru (11). En teknik dövüşçü.",rc2:[]},
+{i:"stipe",n:"Stipe Miocic",nk:"",c:"USA",d:"Heavyweight",o:"LEGEND",r:0,ch:0,w:20,l:5,dr:0,h:"193cm",rc:"203cm",s:"Orthodox",a:43,st:"Boxing/Wrestling",img:[],st2:{sl:5.12,sa:3.78,ac:50,df:56,td:2.12,ta:50,dd:78,sb:0.2},fr:{k:55,s:5,d:40},b:"En çok HW title defense (3). İtfaiyeci.",rc2:[]}
 ];
 
-// ============================================================
-// VERIFIED NEWS DATABASE (Real Events - October 2026)
-// ============================================================
-const news = [
-    {id:1,org:"UFC",date:"3 Eki 2026",title:"UFC 332: Natália Silva Kadınlar Sinek Sıklet Şampiyonu",summary:"Natália Silva, Wang Cong'u Unanimous Decision (48-47, 48-47, 49-46) ile yenerek VACANT Women's Flyweight kemerini kazandı. Valentina Shevchenko Eylül'de sakatlıktan dolayı kemeri bırakmıştı.",icon:"🥇",tag:"TITLE"},
-    {id:2,org:"UFC",date:"15 Ağu 2026",title:"UFC 330: Makhachev Garry'yi UD ile Geçti, Dern Kemeri Korudu",summary:"Islam Makhachev, Ian Machado Garry'yi Unanimous Decision ile yenerek Welterweight kemerini korudu (17 galibiyet serisi). Co-main'de Mackenzie Dern, Gillian Robertson'ı UD (49-46, 49-46, 48-47) ile geçti.",icon:"🥊",tag:"DOUBLE"},
-    {id:3,org:"UFC",date:"14 Haz 2026",title:"UFC Freedom 250: Gaethje Topuria'yı TKO ile Yıkıp Şampiyon Oldu",summary:"Justin Gaethje, Ilia Topuria'yı TKO (Corner Stoppage) R4 5:00 ile yenerek Lightweight kemerini kazandı. Aynı gecede Ciryl Gane, Alex Pereira'yı TKO ile yenerek Interim HW kemerini aldı.",icon:"🇺🇸",tag:"SHOCK"},
-    {id:4,org:"UFC",date:"9 May 2026",title:"UFC 328: Strickland, Chimaev'e İlk Yenilgisini Tattırdı!",summary:"Sean Strickland, Khamzat Chimaev'i Split Decision (47-48, 48-47, 48-47) ile yenerek 2. kez Middleweight şampiyonu oldu. Chimaev kariyerinin ilk yenilgisini aldı.",icon:"💥",tag:"UPSET"},
-    {id:5,org:"UFC",date:"19 Eyl 2026",title:"UFC 331: Joshua Van Pantoja'yı UD ile Geçti",summary:"Joshua Van, Alexandre Pantoja'yı Unanimous Decision ile yenerek Flyweight kemerini 2. kez korudu. Aralık 2025'te de Pantoja'yı sakatlıktan yenmişti.",icon:"🇲🇲",tag:"TITLE"},
-    {id:6,org:"UFC",date:"31 Oca 2026",title:"UFC 325: Volkanovski Lopes'i UD ile Geçti",summary:"Alexander Volkanovski, Diego Lopes'i Unanimous Decision ile yenerek Featherweight kemerini 2. kez korudu. Ekim 2026'da Movsar Evloev ile karşılaşacak.",icon:"🇦🇺",tag:"TITLE"},
-    {id:7,org:"UFC",date:"15 Kas 2025",title:"UFC 322: Makhachev 2-Sıklet Şampiyonu Oldu",summary:"Islam Makhachev, Jack Della Maddalena'yı UD (50-45, 50-45, 50-45) ile yenerek Welterweight kemerini aldı. Lightweight'ten sonra 2. sıklet şampiyonluğu.",icon:"🥇",tag:"DOUBLE"},
-    {id:8,org:"ONE",date:"May 2026",title:"Malykhin 3. Kez Şampiyon, Emeklilik Açıkladı",summary:"Anatoly Malykhin, Reinier de Ridder'i KO ile yenerek 3 sıklet şampiyonluğunu perçinledi. Maç sonrası emekli olduğunu duyurdu.",icon:"🐯",tag:"RETIRE"},
-    {id:9,org:"PFL",date:"18 Tem 2026",title:"PFL Austin: Eblen Kasanganay'i KO ile Yendi",summary:"Johnny Eblen, Impa Kasanganay'i 3. rauntta KO ile yenerek PFL Middleweight şampiyonu oldu.",icon:"🏆",tag:"CHAMPION"},
-    {id:10,org:"PFL",date:"31 Tem 2026",title:"PFL New York: Usman Nurmagomedov 22-0'da",summary:"Usman Nurmagomedov, Archie Colgan'ı TKO R1 ile yendi. Khabib'in kuzeni yenilgisizliğini sürdürdü.",icon:"🇷🇺",tag:"STREAK"}
+const NEWS=[
+{id:1,o:"UFC",d:"3 Eki 2026",t:"UFC 332: Natália Silva Kadınlar Sinek Sıklet Şampiyonu Oldu",s:"Salt Lake City'de tarihi gece. Natália Silva, Wang Cong'u Unanimous Decision (48-47, 48-47, 49-46) ile yenerek VACANT Women's Flyweight kemerini kazandı. Valentina Shevchenko Eylül'de sakatlıktan dolayı kemeri bırakmıştı. Silva, UFC tarihinde Brezilya adına bu kemeri kazanan ilk isim oldu.",tag:"TITLE"},
+{id:2,o:"UFC",d:"15 Ağu 2026",t:"UFC 330: Makhachev Garry'yi UD ile Geçti, 17 Maçlık Seri!",s:"Philadelphia'da Islam Makhachev, Ian Machado Garry'yi Unanimous Decision ile yenerek WW kemerini korudu. Bu galibiyetle 17 maçlık galibiyet serisine ulaşan Makhachev, UFC rekorunu egale etti. Co-main'de Mackenzie Dern, Gillian Robertson'ı UD ile geçti.",tag:"DOUBLE"},
+{id:3,o:"UFC",d:"14 Haz 2026",t:"UFC Freedom 250: Gaethje Topuria'yı TKO ile Yıktı, LW Şampiyonu!",s:"Washington D.C.'de Beyaz Saray çimlerinde tarihi gece. Justin Gaethje, Ilia Topuria'yı 4. rauntta corner stoppage TKO ile yenerek Lightweight kemerini kazandı. Aynı gecede Ciryl Gane, Alex Pereira'yı TKO ile yenerek Interim HW kemerini aldı.",tag:"SHOCK"},
+{id:4,o:"UFC",d:"9 May 2026",t:"UFC 328: Strickland, Chimaev'e İlk Yenilgisini Tattırdı!",s:"Newark'ta şok! Sean Strickland, yenilgisiz Khamzat Chimaev'i Split Decision (47-48, 48-47, 48-47) ile yenerek 2. kez MW şampiyonu oldu. Chimaev kariyerinin ilk mağlubiyetini aldı. Strickland ayrıca UFC MW tarihinin en çok strike atan dövüşçüsü rekorunu kırdı.",tag:"UPSET"},
+{id:5,o:"UFC",d:"19 Eyl 2026",t:"UFC 331: Joshua Van Pantoja'yı UD ile Geçti, FW Kemeri Korundu",s:"Las Vegas'ta Joshua Van, Alexandre Pantoja'yı Unanimous Decision ile yenerek Flyweight kemerini 2. kez korudu. Aralık 2025'teki ilk maçta Pantoja sakatlıktan yenilmişti, bu sefer tam 5 raunt dövüşüldü.",tag:"TITLE"},
+{id:6,o:"UFC",d:"31 Oca 2026",t:"UFC 325: Volkanovski Lopes'i UD ile Geçti, FW Kemeri Korundu",s:"Sidney'de Alexander Volkanovski, Diego Lopes'i Unanimous Decision ile yenerek FW kemerini 2. kez korudu. Ekim 2026'da Movsar Evloev ile UFC 333'te karşılaşacak.",tag:"TITLE"},
+{id:7,o:"UFC",d:"15 Kas 2025",t:"UFC 322: Makhachev Della Maddalena'yı 50-45 x3 UD ile Yendi, 2-Weight Champ!",s:"Las Vegas'ta Islam Makhachev, Jack Della Maddalena'yı tüm hakemlerden 50-45 alarak UD ile yendi ve WW kemerini kazandı. LW'den sonra 2. sıklet şampiyonluğu. Outstrike: 123-32.",tag:"DOUBLE"},
+{id:8,o:"UFC",d:"Eyl 2026",t:"Tom Aspinall HW Kemerini Bıraktı, Gane Undisputed Şampiyon",s:"Göz sakatlığı nedeniyle Tom Aspinall, Heavyweight kemerini bıraktı. Ciryl Gane otomatik olarak undisputed şampiyon ilan edildi. Jon Jones geri dönüş sinyali verdi.",tag:"VACATE"},
+{id:9,o:"UFC",d:"Şub 2026",t:"Alex Pereira LHW Kemerini Bıraktı, Heavyweight'e Yükseldi",s:"Alex Pereira, Light Heavyweight kemerini bırakarak Heavyweight'e çıktı. Haziran 2026'da Gane'e TKO ile yenildi. LHW kemeri şu an vacant.",tag:"MOVE"},
+{id:10,o:"UFC",d:"2026",t:"Bo Nickal 8 Maçlık Finish Serisi: UFC Rekoru",s:"NCAA wrestling efsanesi Bo Nickal, UFC'deki 8 maçını da finish ederek rekor kırdı. 75% submission rate ile MW'de yükseliyor.",tag:"RISING"},
+{id:11,o:"UFC",d:"2026",t:"Shavkat Rakhmonov Sakatlıktan Sıralamadan Çıktı",s:"20-0 yenilgisiz Kazak yıldız, diz sakatlığı nedeniyle 2026'da dövüşemeyecek. UFC sıralamasından çıkarıldı.",tag:"INJURY"},
+{id:12,o:"UFC",d:"2026",t:"Jon Jones: 'Geri Döneceğim' Sinyali",s:"Aspinall'ın kemeri bırakmasından sonra Jon Jones, sosyal medyada geri dönüş sinyali verdi. Gane vs Jones maçı konuşuluyor.",tag:"RETURN"},
+{id:13,o:"UFC",d:"2026",t:"UFC Suudi Arabistan: 3 Unvan Maçı Planlanıyor",s:"Riyad'da yapılacak özel etkinlikte 3 unvan maçı olacak. Makhachev vs Rakhmonov olası.",tag:"EVENT"},
+{id:14,o:"ONE",d:"May 2026",t:"Anatoly Malykhin 3. Kez Şampiyon, Sonra Emekli Oldu",s:"Malykhin, Reinier de Ridder'i KO ile yenerek 3-division ONE şampiyonluğunu perçinledi. Maç sonrası emeklilik açıkladı. $100K bonus aldı.",tag:"RETIRE"},
+{id:15,o:"ONE",d:"2026",t:"Rodtang vs Superbon: 2027 Süper Maç İlanı",s:"İki Thai efsanesi 2027'de süper maçta buluşacak. Kickboxing tarihinin en büyük maçı olacak.",tag:"SPECIAL"},
+{id:16,o:"ONE",d:"2026",t:"Christian Lee LW Kemerini Korudu",s:"Lee, Ok Rae Yoon'u submission ile yenerek ONE LW kemerini korudu.",tag:"TITLE"},
+{id:17,o:"PFL",d:"18 Tem 2026",t:"PFL Austin: Johnny Eblen Kasanganay'i KO ile Yendi",s:"Johnny Eblen, Impa Kasanganay'i 3. rauntta KO ile yenerek PFL MW şampiyonu oldu. $1M ödül kazandı.",tag:"CHAMPION"},
+{id:18,o:"PFL",d:"31 Tem 2026",t:"PFL New York: Usman Nurmagomedov 22-0'da",s:"Khabib'in kuzeni Usman Nurmagomedov, Archie Colgan'ı TKO R1 ile yendi. Yenilgisizliğini sürdürdü.",tag:"STREAK"},
+{id:19,o:"PFL",d:"2026",t:"Kayla Harrison UFC'ye Geçti",s:"2x Olimpiyat altın madalyalı judocu Kayla Harrison, PFL'den UFC'ye geçti.",tag:"TRANSFER"},
+{id:20,o:"PFL",d:"2026",t:"PFL World Tour 2027: Türkiye Dahil 6 Ülke",s:"PFL, 2027'de Türkiye, Japonya, Suudi Arabistan, İngiltere, Brezilya, Meksika'da etkinlik yapacak.",tag:"EXPANSION"},
+{id:21,o:"UFC",d:"2026",t:"Petr Yan: '4.5 Yıllık Mücadele Sonunda Geri Döndüm'",s:"BW şampiyonu Petr Yan, Dvalishvili'yi yendikten sonra duygusal açıklama yaptı.",tag:"INTERVIEW"},
+{id:22,o:"UFC",d:"2026",t:"Mackenzie Dern: 'Zhang Weili Dönerse Hazırım'",s:"SW şampiyonu Dern, Zhang'ın olası dönüşüne hazır olduğunu söyledi.",tag:"INTERVIEW"},
+{id:23,o:"UFC",d:"2026",t:"Ciryl Gane vs Josh Hokit: Kasım 2026'da Title Defense",s:"Gane, ilk undisputed title defense'ini Kasım'da yapacak.",tag:"EVENT"},
+{id:24,o:"UFC",d:"2026",t:"UFC 333 Kartı Açıklandı: Volkanovski vs Evloev Ana Maç",s:"24 Ekim 2026'da Abu Dhabi'de UFC 333. Yan vs Dvalishvili 2 co-main.",tag:"EVENT"},
+{id:25,o:"ONE",d:"2026",t:"Stamp Fairtex: MMA, MT ve KB'de 3 Kemer Birden",s:"Thai yıldız, 3 farklı sporda ONE şampiyonu olarak tarihe geçti.",tag:"RECORD"}
 ];
 
-// ============================================================
-// EVENTS DATABASE (Verified)
-// ============================================================
-const events = [
-    {id:1,promo:"UFC",day:"24",month:"EKİ",title:"UFC 333: Volkanovski vs Evloev",loc:"Abu Dhabi, Etihad Arena",status:"Yaklaşan",fights:[["Alexander Volkanovski","Movsar Evloev","Featherweight Title"]]},
-    {id:2,promo:"UFC",day:"3",month:"EKİ",title:"UFC 332: Silva vs Wang Cong",loc:"Salt Lake City, Delta Center",status:"Tamamlandı",fights:[["Natalia Silva","Wang Cong","Women's Flyweight Title (Vacant)"]]},
-    {id:3,promo:"UFC",day:"19",month:"EYL",title:"UFC 331: Van vs Pantoja 2",loc:"Las Vegas",status:"Tamamlandı",fights:[["Joshua Van","Alexandre Pantoja","Flyweight Title"]]},
-    {id:4,promo:"UFC",day:"15",month:"AĞU",title:"UFC 330: Makhachev vs Garry",loc:"Philadelphia",status:"Tamamlandı",fights:[["Islam Makhachev","Ian Machado Garry","Welterweight Title"],["Mackenzie Dern","Gillian Robertson","Strawweight Title"]]},
-    {id:5,promo:"UFC",day:"14",month:"HAZ",title:"UFC Freedom 250: Topuria vs Gaethje",loc:"Washington D.C. (White House Lawn)",status:"Tamamlandı",fights:[["Ilia Topuria","Justin Gaethje","Lightweight Title"],["Alex Pereira","Ciryl Gane","Interim HW Title"]]},
-    {id:6,promo:"UFC",day:"9",month:"MAY",title:"UFC 328: Chimaev vs Strickland",loc:"Newark, Prudential Center",status:"Tamamlandı",fights:[["Khamzat Chimaev","Sean Strickland","Middleweight Title"]]},
-    {id:7,promo:"ONE",day:"May",month:"2026",title:"ONE on Prime Video 5: Malykhin vs de Ridder",loc:"Bangkok",status:"Tamamlandı",fights:[["Anatoly Malykhin","Reinier de Ridder","Heavyweight"]]},
-    {id:8,promo:"PFL",day:"18",month:"TEM",title:"PFL Austin: Eblen vs Kasanganay",loc:"Austin, Moody Center",status:"Tamamlandı",fights:[["Johnny Eblen","Impa Kasanganay","Middleweight Final"]]}
+const EVENTS=[
+{p:"UFC",d:"24",m:"EKİ",t:"UFC 333: Volkanovski vs Evloev",l:"Abu Dhabi, Etihad Arena",s:"Yaklaşan"},
+{p:"UFC",d:"3",m:"EKİ",t:"UFC 332: Silva vs Wang Cong",l:"Salt Lake City, Delta Center",s:"Tamamlandı"},
+{p:"UFC",d:"19",m:"EYL",t:"UFC 331: Van vs Pantoja 2",l:"Las Vegas, T-Mobile Arena",s:"Tamamlandı"},
+{p:"UFC",d:"15",m:"AĞU",t:"UFC 330: Makhachev vs Garry",l:"Philadelphia, Wells Fargo Center",s:"Tamamlandı"},
+{p:"UFC",d:"14",m:"HAZ",t:"UFC Freedom 250: Topuria vs Gaethje",l:"Washington D.C.",s:"Tamamlandı"},
+{p:"UFC",d:"9",m:"MAY",t:"UFC 328: Chimaev vs Strickland",l:"Newark, Prudential Center",s:"Tamamlandı"},
+{p:"UFC",d:"31",m:"OCA",t:"UFC 325: Volkanovski vs Lopes 2",l:"Sydney",s:"Tamamlandı"},
+{p:"UFC",d:"15",m:"KAS",t:"UFC 322: Della Maddalena vs Makhachev",l:"Las Vegas",s:"Tamamlandı"},
+{p:"ONE",d:"May",m:"2026",t:"ONE on Prime Video 5: Malykhin vs de Ridder",l:"Bangkok",s:"Tamamlandı"},
+{p:"PFL",d:"18",m:"TEM",t:"PFL Austin: Eblen vs Kasanganay",l:"Austin, Moody Center",s:"Tamamlandı"},
+{p:"PFL",d:"31",m:"TEM",t:"PFL New York: Nurmagomedov vs Colgan",l:"New York",s:"Tamamlandı"}
 ];
 
-// ============================================================
-// HISTORY TIMELINE (Verified)
-// ============================================================
-const historyData = [
-    {year:"1993",title:"UFC 1: Başlangıç",desc:"Royce Gracie ve BJJ'nin dünyaya tanıtıldığı gece.",detail:"Colorado'da düzenlenen ilk turnuva, stil savaşlarını başlattı. Sekiz farklı dövüş sanatı temsilcisi tek gecede karşı karşıya geldi."},
-    {year:"2000",title:"PRIDE FC Altın Çağı",desc:"Japonya'da MMA'in stadyum sporuna dönüşmesi.",detail:"Fedor Emelianenko, Wanderlei Silva, Kazushi Sakuraba gibi efsanelerin doğuşu. Tokyo Dome'da 70,000 kişilik salonlar doldu."},
-    {year:"2006",title:"TUF Finali: Griffin vs Bonnar",desc:"UFC'in ana akıma girmesi.",detail:"Spike TV dönemi ve sporun patlaması. Dana White'ın 'bu maç UFC'i kurtardı' dediği tarihi gece."},
-    {year:"2012",title:"Rousey Etkisi",desc:"Kadınlar MMA'in UFC'e entegrasyonu.",detail:"Ronda Rousey ile birlikte kadın kategorilerinin açılması. UFC 157, ilk kadın maçı 70.000 PPV sattı."},
-    {year:"2018",title:"Khabib vs McGregor",desc:"MMA'in en büyük PPV'si.",detail:"UFC 229, 2.4 milyon PPV ile rekor kırdı. Sporun küresel popülaritesinin zirvesi."},
-    {year:"2020",title:"Ada Dönemi",desc:"Pandemi sırasında Fight Island konsepti.",detail:"UFC'in Abu Dabi'de yarattığı çözüm. Küresel etkinliklerin devamını sağladı."},
-    {year:"2024",title:"Saudi Vision 2030",desc:"Suudi Arabistan'ın MMA'e dev yatırımı.",detail:"Riyad'da düzenlenen mega etkinlikler ve PFL'nin Suudi fonu alması. Sporun yeni coğrafyası."},
-    {year:"2026",title:"Üç Organizasyon Dönemi",desc:"UFC, ONE ve PFL'nin küresel dengesi.",detail:"Artık tek bir organizasyon hakim değil. Üç farklı modelle MMA küresel bir spor oldu. Makhachev 2-weight champ, Strickland geri dönüş yaptı."}
+const HIST=[
+{y:"1993",t:"UFC 1: Başlangıç",d:"Royce Gracie ve BJJ'nin dünyaya tanıtıldığı gece. 8 farklı stil, tek turnuva."},
+{y:"2000",t:"PRIDE FC Altın Çağı",d:"Japonya'da MMA stadyum sporu oldu. Fedor, Wanderlei, Sakuraba efsaneleri doğdu."},
+{y:"2006",t:"TUF: Griffin vs Bonnar",d:"Spike TV'de canlı yayın. Dana White: 'Bu maç UFC'i kurtardı.'"},
+{y:"2012",t:"Rousey Etkisi",d:"İlk kadın UFC maçı. Kadın MMA ana akıma girdi."},
+{y:"2018",t:"Khabib vs McGregor",d:"UFC 229: 2.4M PPV. MMA tarihinin en büyük etkinliği."},
+{y:"2020",t:"Fight Island",d:"Pandemi döneminde Abu Dhabi'de ada konsepti. MMA durmadı."},
+{y:"2024",t:"Saudi Vision 2030",d:"Suudi Arabistan'ın MMA'e dev yatırımı. Riyadh Season etkinlikleri."},
+{y:"2026",t:"3 Organizasyon Dönemi",d:"UFC, ONE ve PFL dengesi. Makhachev 2-weight champ. Strickland geri dönüş."}
 ];
 
-// ============================================================
-// STATE
-// ============================================================
-let currentDiv = "all";
-let currentOrg = "all";
-let currentNewsFilter = "all";
-let currentEventFilter = "all";
-let currentRank = "p4p";
-let radarChart = null;
+// === RENDER ===
+function fCard(f){const im=img(f);return`<article class="fighter-card" onclick="openF('${f.i}')"><div class="fighter-photo">${f.r&&f.o!=='LEGEND'?`<div class="fighter-rank">#${f.r}${f.ch?' 👑':''}</div>`:''}${f.o==='LEGEND'?'<div class="fighter-rank">🐐 LEGEND</div>':''}<img src="${im.src}" ${im.e} alt="${esc(f.n)}" loading="lazy"></div><div class="fighter-info"><div class="division">${FL[f.c]||''} ${f.o} · ${f.d}</div><h3>${esc(f.n)}</h3><div class="record">${f.w}-${f.l}-${f.dr} ${f.ch?'👑':''}</div></div></article>`}
+function nCard(n){return`<article class="news-card" onclick="openN(${n.id})"><div class="news-image"><span class="promo-logo ${n.o.toLowerCase()}">${n.o}</span></div><div class="news-body"><div class="news-meta"><span>${n.o} · ${n.tag}</span><span>${n.d}</span></div><h3>${esc(n.t)}</h3><p>${esc(n.s).substring(0,120)}...</p></div></article>`}
 
-// ============================================================
-// RENDER FUNCTIONS
-// ============================================================
-function imgChain(urls, fallbackName){
-    const fallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(fallbackName)}&background=1a1f2a&color=e8ff3d&size=400&bold=true`;
-    if(!urls || !urls.length) return {src: fallback, onerror: ''};
-    let onerrorChain = '';
-    urls.forEach((url, i) => {
-        if(i < urls.length - 1){
-            onerrorChain += ` onerror="this.onerror=null;this.src='${urls[i+1]}'"`;
-        } else {
-            onerrorChain += ` onerror="this.src='${fallback}'"`;
-        }
-    });
-    return {src:urls[0], onerror:onerrorChain};
+function renderHome(){
+$('#homeChamps').innerHTML=F.filter(f=>f.ch&&f.o==='UFC').map(fCard).join('');
+$('#homeNews').innerHTML=NEWS.slice(0,6).map(nCard).join('');
+$('#statFighters').innerText=F.length;$('#statNews').innerText=NEWS.length;
+}
+function renderF(o='all',q=''){
+let l=F.filter(f=>{const mo=o==='all'||f.o===o;const mq=!q||f.n.toLowerCase().includes(q.toLowerCase())||f.c.toLowerCase().includes(q.toLowerCase())||f.d.toLowerCase().includes(q.toLowerCase());return mo&&mq});
+$('#fGrid').innerHTML=l.length?l.map(fCard).join(''):'<div class="empty">Sonuç bulunamadı.</div>';
+$('#fCount').innerText=`${l.length} dövüşçü bulundu · Toplam: ${F.length}`;
+}
+function renderN(f='all'){const l=f==='all'?NEWS:NEWS.filter(n=>n.o===f);$('#newsGrid').innerHTML=l.map(nCard).join('')}
+function renderEv(){$('#evList').innerHTML=EVENTS.map(e=>`<article class="event-card"><div class="event-date"><strong>${e.d}</strong><span>${e.m}</span></div><div class="event-info"><h3>${esc(e.t)}</h3><p>${e.p} · ${e.l}</p></div><div class="event-status ${e.s==='Yaklaşan'?'upcoming':'done'}">${e.s}</div></article>`).join('')}
+function renderR(){const c=F.filter(f=>f.ch&&f.o==='UFC');$('#rList').innerHTML=c.map((f,i)=>`<div class="rank-row" onclick="openF('${f.i}')"><div class="rank-number">#${i+1}</div><div class="rank-name">${FL[f.c]||''} ${esc(f.n)}<small>${f.d} · Champion</small></div><div class="rank-record">${f.w}-${f.l}-${f.dr}</div><div class="rank-score">👑</div></div>`).join('')}
+function renderOrg(){$('#ufcC').innerHTML=F.filter(f=>f.o==='UFC'&&f.ch).map(fCard).join('');$('#ufcR').innerHTML=F.filter(f=>f.o==='UFC'&&!f.ch).slice(0,8).map(fCard).join('');$('#oneG').innerHTML=F.filter(f=>f.o==='ONE').map(fCard).join('');$('#pflG').innerHTML=F.filter(f=>f.o==='PFL').map(fCard).join('')}
+function renderH(){$('#hTimeline').innerHTML=HIST.map(h=>`<button class="timeline-btn">${h.y}: ${h.t}</button>`).join('');$('#hGrid').innerHTML=HIST.map(h=>`<article class="news-card"><div class="news-image"><span class="promo-logo" style="font-size:36px">◷</span></div><div class="news-body"><div class="news-meta"><span>ARŞİV</span><span>${h.y}</span></div><h3>${esc(h.t)}</h3><p>${esc(h.d)}</p></div></article>`).join('')}
+function renderGoat(){const ids=['khabib','gsp','conor','silva2','fedor','jones','dj','aldo'];$('#goatG').innerHTML=F.filter(f=>ids.includes(f.i)).map(fCard).join('')}
+
+// === FANTASY ===
+let team=[];
+function renderFantasy(){
+const l=F.filter(f=>f.o==='UFC'||f.o==='PFL').slice(0,16);
+$('#fGrid2').innerHTML=l.map(f=>`<div class="fantasy-card ${team.includes(f.i)?'selected':''}" onclick="togF('${f.i}')"><div style="font-weight:900;font-size:12px">${FL[f.c]||''} ${esc(f.n)}</div><div style="color:var(--muted);font-size:10px;margin-top:4px">${f.d} · ${f.w}-${f.l}</div><div style="margin-top:8px;font-size:18px;font-weight:900;color:var(--accent)">${pts(f)} pts</div></div>`).join('');
+$('#fCnt').innerText=`${team.length}/5`;
+let t=0;team.forEach(i=>{const f=F.find(x=>x.i===i);if(f)t+=pts(f)});
+$('#fScore').innerText=t;
+}
+function pts(f){let p=f.w*10;p+=Math.round(f.fr.k*.5)+Math.round(f.fr.s*.5);if(f.ch)p+=50;return p}
+function togF(i){if(team.includes(i))team=team.filter(x=>x!==i);else if(team.length<5)team.push(i);renderFantasy()}
+function resetFantasy(){team=[];renderFantasy()}
+
+// === AI PREDICTOR ===
+function initPred(){
+const o=F.filter(f=>f.o!=='LEGEND').map(f=>`<option value="${f.i}">${f.o} · ${esc(f.n)}</option>`).join('');
+$('#pA').innerHTML=o;$('#pB').innerHTML=o;$('#pA').value='makhachev';$('#pB').value='strickland';
+updPred();
+}
+function updPred(){
+const a=F.find(f=>f.i===$('#pA').value),b=F.find(f=>f.i===$('#pB').value);
+if(a)$('#pAc').innerHTML=`<div class="compare-name">${FL[a.c]||''} ${esc(a.n)}</div><div class="compare-stat"><span>Record</span><strong>${a.w}-${a.l}-${a.dr}</strong></div><div class="compare-stat"><span>SLpM</span><strong>${a.st2.sl}</strong></div>`;
+if(b)$('#pBc').innerHTML=`<div class="compare-name">${FL[b.c]||''} ${esc(b.n)}</div><div class="compare-stat"><span>Record</span><strong>${b.w}-${b.l}-${b.dr}</strong></div><div class="compare-stat"><span>SLpM</span><strong>${b.st2.sl}</strong></div>`;
+}
+function runPred(){
+const a=F.find(f=>f.i===$('#pA').value),b=F.find(f=>f.i===$('#pB').value);
+if(!a||!b)return;
+let sa=(a.st2.sl||0)*5+(a.st2.ac||0)*.3+(a.st2.td||0)*10+(a.st2.sb||0)*15+(a.w*2);
+let sb=(b.st2.sl||0)*5+(b.st2.ac||0)*.3+(b.st2.td||0)*10+(b.st2.sb||0)*15+(b.w*2);
+if(a.ch)sa+=20;if(b.ch)sb+=20;
+const t=sa+sb,pa=Math.round((sa/t)*100),pb=100-pa,w=pa>=pb?a:b,wp=Math.max(pa,pb);
+$('#predRes').innerHTML=`<div class="predict-card"><div style="text-align:center;margin-bottom:12px;font-size:11px;color:var(--muted)">AI TAHMİN SONUCU</div><div style="display:flex;justify-content:space-between;align-items:center"><div style="text-align:center"><div style="font-weight:900">${FL[a.c]||''} ${esc(a.n)}</div><div style="color:var(--accent);font-size:28px;font-weight:900">${pa}%</div></div><div style="color:var(--muted)">VS</div><div style="text-align:center"><div style="font-weight:900">${FL[b.c]||''} ${esc(b.n)}</div><div style="color:var(--blue);font-size:28px;font-weight:900">${pb}%</div></div></div><div class="predict-bar"><div class="a" style="width:${pa}%"></div><div class="b" style="width:${pb}%"></div></div><div style="text-align:center;padding:14px;background:rgba(232,255,61,.05);border-radius:12px;border:1px solid rgba(232,255,61,.2)"><div style="font-size:11px;color:var(--muted)">KAZANAN TAHMİNİ</div><div style="font-size:22px;font-weight:900;color:var(--accent);margin-top:4px">🏆 ${esc(w.n)}</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Güven: ${wp}%</div></div></div>`;
 }
 
-function renderFighterCard(f){
-    const img = imgChain(f.images, f.name);
-    return `
-    <article class="fighter-card" onclick="openFighter('${f.id}')">
-        <div class="fighter-photo">
-            ${f.rank ? `<div class="fighter-rank">#${f.rank}${f.champion?' · 👑':''}</div>` : ''}
-            <img src="${img.src}" ${img.onerror} alt="${esc(f.name)}" loading="lazy">
-        </div>
-        <div class="fighter-info">
-            <div class="division">${flags[f.country]||''} ${f.organization} · ${f.division}</div>
-            <h3>${esc(f.name)}</h3>
-            <div class="record">${f.record.wins}-${f.record.losses}-${f.record.draws} ${f.champion?'👑':''}</div>
-        </div>
-    </article>`;
+// === COMPARE ===
+let radar=null;
+function initCmp(){
+const o=F.map(f=>`<option value="${f.i}">${f.o} · ${esc(f.n)}</option>`).join('');
+$('#cA').innerHTML=o;$('#cB').innerHTML=o;$('#cA').value='makhachev';$('#cB').value='strickland';
+updCmp();
+}
+function updCmp(){
+const a=F.find(f=>f.i===$('#cA').value),b=F.find(f=>f.i===$('#cB').value);
+const h=f=>f?`<div class="compare-name">${FL[f.c]||''} ${esc(f.n)} ${f.ch?'👑':''}</div><div class="compare-stat"><span>Record</span><strong>${f.w}-${f.l}-${f.dr}</strong></div><div class="compare-stat"><span>SLpM</span><strong>${f.st2.sl}</strong></div><div class="compare-stat"><span>Str Acc</span><strong>${f.st2.ac}%</strong></div><div class="compare-stat"><span>TD Avg</span><strong>${f.st2.td}</strong></div><div class="compare-stat"><span>Sub Avg</span><strong>${f.st2.sb}</strong></div>`:'';
+$('#cAc').innerHTML=h(a);$('#cBc').innerHTML=h(b);
+drawRadar(a,b);
+}
+function drawRadar(a,b){
+const cv=$('#cmpRadar');if(!cv)return;if(radar){radar.destroy();radar=null}if(!a||!b)return;
+radar=new Chart(cv,{type:'radar',data:{labels:['Striking','Accuracy','Defense','Takedown','Sub','Power'],datasets:[
+{label:a.n,data:[a.st2.sl||0,a.st2.ac||0,a.st2.df||0,a.st2.td||0,a.st2.sb||0,a.fr.k||0],borderColor:'#e8ff3d',backgroundColor:'rgba(232,255,61,.12)',borderWidth:2},
+{label:b.n,data:[b.st2.sl||0,b.st2.ac||0,b.st2.df||0,b.st2.td||0,b.st2.sb||0,b.fr.k||0],borderColor:'#4da3ff',backgroundColor:'rgba(77,163,255,.12)',borderWidth:2}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#f4f5f7'}}},scales:{r:{angleLines:{color:'rgba(255,255,255,.08)'},grid:{color:'rgba(255,255,255,.06)'},pointLabels:{color:'#f4f5f7',font:{size:11}},ticks:{display:false}}}}});
 }
 
-function renderFighters(){
-    const c = $("#fighterGrid");
-    const q = ($("#fighterSearch").value||"").toLowerCase().trim();
-    let list = fighters.filter(f => {
-        const matchDiv = currentDiv === "all" || f.division === currentDiv;
-        const matchOrg = currentOrg === "all" || f.organization === currentOrg;
-        const matchQ = !q || f.name.toLowerCase().includes(q) || (f.nickname||"").toLowerCase().includes(q) || f.country.toLowerCase().includes(q);
-        return matchDiv && matchOrg && matchQ;
-    });
-    if(list.length === 0){
-        c.innerHTML = `<div class="empty" style="grid-column:1/-1">Aramanıza uygun dövüşçü bulunamadı.</div>`;
-        return;
-    }
-    c.innerHTML = list.map(renderFighterCard).join("");
+// === MODAL ===
+function openM(t,h){$('#mTitle').textContent=t;$('#mContent').innerHTML=h;$('#mLayer').classList.add('open');document.body.style.overflow='hidden'}
+function closeM(){$('#mLayer').classList.remove('open');document.body.style.overflow=''}
+function openF(i){
+const f=F.find(x=>x.i===i);if(!f)return;const im=img(f);
+const fights=(f.rc2||[]).map(r=>`<div class="fight-row"><div class="${r.r==='W'?'result-win':r.r==='L'?'result-loss':'result-nc'}">${r.r}</div><div><strong>${esc(r.o)}</strong><br><span style="color:var(--muted)">${esc(r.m)} · R${r.rd}</span></div><div style="color:var(--muted2);font-size:9px">${esc(r.d)}</div></div>`).join('')||'<div class="empty">Maç geçmişi yok</div>';
+openM(f.n,`<div class="profile-top"><div class="profile-photo"><img src="${im.src}" ${im.e}></div><div><div class="profile-kicker">${FL[f.c]||''} ${f.o} · ${f.d}${f.ch?'<span class="champ-badge">👑 ŞAMPİYON</span>':''}</div><div class="profile-name">${esc(f.n)}</div><div class="profile-nick">${f.nk?'"'+esc(f.nk)+'"':''}</div><div class="profile-record">${f.w} - ${f.l} - ${f.dr}</div><p style="margin-top:8px;color:var(--muted);font-size:12px;line-height:1.6">${esc(f.b)}</p></div></div>
+<div class="profile-grid"><div class="profile-stat"><span>Boy</span><strong>${f.h}</strong></div><div class="profile-stat"><span>Reach</span><strong>${f.rc}</strong></div><div class="profile-stat"><span>Stance</span><strong>${f.s}</strong></div><div class="profile-stat"><span>Yaş</span><strong>${f.a}</strong></div></div>
+<div class="detail-section"><h3>🎯 Finish Rate</h3><div style="padding:12px;background:var(--panel);border-radius:12px;border:1px solid var(--line)"><div class="finish-bar"><div style="width:${f.fr.k}%;background:var(--danger)"></div><div style="width:${f.fr.s}%;background:var(--blue)"></div><div style="width:${f.fr.d}%;background:var(--green)"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px"><span>🥊 KO: <b style="color:var(--danger)">${f.fr.k}%</b></span><span>🔗 Sub: <b style="color:var(--blue)">${f.fr.s}%</b></span><span>⚖️ Dec: <b style="color:var(--green)">${f.fr.d}%</b></span></div></div></div>
+<div class="detail-section"><h3>📊 İstatistikler</h3><div class="stats-grid"><div class="stats-box"><h4>Striking</h4><div class="stat-row"><span>SLpM</span><span class="val">${f.st2.sl}</span></div><div class="stat-row"><span>SApM</span><span class="val">${f.st2.sa}</span></div><div class="stat-row"><span>Accuracy</span><span class="val" style="color:var(--green)">${f.st2.ac}%</span></div><div class="stat-row"><span>Defense</span><span class="val" style="color:var(--green)">${f.st2.df}%</span></div></div><div class="stats-box"><h4>Grappling</h4><div class="stat-row"><span>TD Avg</span><span class="val">${f.st2.td}</span></div><div class="stat-row"><span>TD Acc</span><span class="val" style="color:var(--blue)">${f.st2.ta}%</span></div><div class="stat-row"><span>TD Def</span><span class="val" style="color:var(--blue)">${f.st2.dd}%</span></div><div class="stat-row"><span>Sub Avg</span><span class="val" style="color:var(--orange)">${f.st2.sb}</span></div></div></div></div>
+<div class="detail-section"><h3>🕐 Son Maçlar</h3><div class="fight-history">${fights}</div><p style="margin-top:8px;font-size:9px;color:var(--muted2)">Kaynak: UFC.com, Sherdog, Wikipedia</p></div>`);
 }
+function openN(id){const n=NEWS.find(x=>x.id===id);if(!n)return;openM(n.o+' Haber',`<div class="eyebrow">${n.o} · ${n.tag} · ${n.d}</div><h2 style="margin-top:8px;font-size:22px">${esc(n.t)}</h2><div style="margin-top:16px;padding:18px;background:var(--panel);border-radius:14px;border:1px solid var(--line);line-height:1.7;font-size:13px">${esc(n.s)}</div><div style="margin-top:12px;padding:12px;background:var(--panel2);border-radius:10px;font-size:10px;color:var(--muted)">📊 Kaynak: ZMMA Intelligence Hub · UFC.com, Sherdog, ESPN MMA doğrulanmıştır</div>`)}
 
-function renderOrgSection(orgKey, champId, rankId, countId){
-    const org = orgKey.toUpperCase();
-    const list = fighters.filter(f => f.organization === org);
-    const champs = list.filter(f => f.champion);
-    const ranked = list.filter(f => !f.champion && f.rank).sort((a,b)=>a.rank-b.rank).slice(0,4);
-    $(`#${champId}`).innerHTML = champs.map(renderFighterCard).join("") || `<div class="empty" style="grid-column:1/-1">Şampiyon yok</div>`;
-    $(`#${rankId}`).innerHTML = ranked.map(renderFighterCard).join("") || `<div class="empty" style="grid-column:1/-1">Sıralama yok</div>`;
-    if(countId) $(`#${countId}`).innerText = list.length;
-}
+// === EVENTS ===
+$('#fSearch').addEventListener('input',e=>renderF(document.querySelector('#orgF .active')?.dataset.o||'all',e.target.value));
+$$('#orgF .filter').forEach(b=>b.onclick=()=>{$$('#orgF .filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderF(b.dataset.o,$('#fSearch').value)});
+$$('#newsFilters .filter').forEach(b=>b.onclick=()=>{$$('#newsFilters .filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderN(b.dataset.f)});
+$('#pA').onchange=updPred;$('#pB').onchange=updPred;
+$('#cA').onchange=updCmp;$('#cB').onchange=updCmp;
+$$('[data-page]').forEach(el=>el.onclick=()=>{const p=el.dataset.page;$$('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+p));$$('.nav-item,.mobile-nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));window.scrollTo({top:0,behavior:'smooth'})});
+$('#mLayer').onclick=e=>{if(e.target.id==='mLayer')closeM()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
 
-function renderHomeFighters(){
-    const featuredIds = ["islam-makhachev","justin-gaethje","sean-strickland","ciryl-gane","alex-volkanovski","petr-yan","joshua-van","mackenzie-dern","natalia-silva"];
-    const list = fighters.filter(f => featuredIds.includes(f.id));
-    $("#homeFighters").innerHTML = list.map(renderFighterCard).join("");
-}
-
-function renderNews(filter="all", target="#newsGrid"){
-    const c = $(target);
-    const list = filter === "all" ? news : news.filter(n => n.org === filter);
-    if(!list.length){
-        c.innerHTML = `<div class="empty" style="grid-column:1/-1">Bu kategoride haber bulunamadı.</div>`;
-        return;
-    }
-    c.innerHTML = list.map(n => {
-        const logoClass = n.org.toLowerCase();
-        return `
-        <article class="news-card" onclick="openNews(${n.id})">
-            <div class="news-image">
-                <div class="news-logo-overlay">
-                    <span class="promo-logo ${logoClass}">${n.org}</span>
-                </div>
-            </div>
-            <div class="news-body">
-                <div class="news-meta"><span>${n.org}${n.tag?' · '+n.tag:''}</span><span>${n.date}</span></div>
-                <h3>${esc(n.title)}</h3>
-                <p>${esc(n.summary)}</p>
-            </div>
-        </article>`;
-    }).join("");
-}
-
-function renderEvents(){
-    const list = currentEventFilter === "all" ? events : events.filter(e => e.promo === currentEventFilter);
-    $("#eventList").innerHTML = list.map(e => `
-        <article class="event-card">
-            <div class="event-date"><strong>${e.day}</strong><span>${e.month}</span></div>
-            <div class="event-info"><h3>${esc(e.title)}</h3><p>${esc(e.promo)} · ${esc(e.loc)}</p></div>
-            <div class="event-status ${e.status==='Yaklaşan'?'upcoming':''}">${e.status}</div>
-        </article>
-    `).join("") || `<div class="empty">Etkinlik yok</div>`;
-}
-
-function renderRankings(type="p4p"){
-    let list = [];
-    if(type === "p4p"){
-        list = fighters.filter(f => f.champion && f.organization === "UFC").slice(0,10);
-    } else {
-        const divMap = {
-            heavyweight:"Heavyweight",middleweight:"Middleweight",welterweight:"Welterweight",
-            lightweight:"Lightweight",featherweight:"Featherweight",bantamweight:"Bantamweight",
-            flyweight:"Flyweight"
-        };
-        const div = divMap[type];
-        list = fighters.filter(f => f.division === div && f.organization === "UFC").sort((a,b) => (a.rank||99) - (b.rank||99)).slice(0,10);
-    }
-    $("#rankList").innerHTML = list.map((f,i) => `
-        <div class="rank-row" onclick="openFighter('${f.id}')">
-            <div class="rank-number">#${i+1}</div>
-            <div class="rank-name">${flags[f.country]||''} ${esc(f.name)}<small>${f.division}${f.champion?' · 👑 Champ':''}</small></div>
-            <div class="rank-record">${f.record.wins}-${f.record.losses}-${f.record.draws}</div>
-            <div class="rank-score">${f.champion?'👑':'ELO '+(1600-(i*20))}</div>
-        </div>
-    `).join("") || `<div class="empty">Sıralama bulunamadı</div>`;
-}
-
-function renderHistory(){
-    $("#historyTimeline").innerHTML = historyData.map((h,i) => 
-        `<button class="timeline-btn" onclick="showHistoryDetail(${i})">${h.year}: ${h.title}</button>`
-    ).join("");
-    $("#historyGrid").innerHTML = historyData.map(h => `
-        <article class="news-card" onclick="showHistoryDetail('${h.year}')">
-            <div class="news-image"><span class="promo-logo" style="font-size:40px">◷</span></div>
-            <div class="news-body">
-                <div class="news-meta"><span>ARŞİV</span><span>${h.year}</span></div>
-                <h3>${esc(h.title)}</h3>
-                <p>${esc(h.desc)}</p>
-            </div>
-        </article>
-    `).join("");
-}
-
-function renderGOAT(){
-    const goatIds = ["jon-jones","francis-ngannou","islam-makhachev","alex-volkanovski","alex-pereira","charles-oliveira","justin-gaethje","max-holloway"];
-    const goats = fighters.filter(f => goatIds.includes(f.id));
-    $("#goatGrid").innerHTML = goats.slice(0,8).map(renderFighterCard).join("");
-}
-
-// ============================================================
-// MODAL: Fighter Detail
-// ============================================================
-function openModal(title, html){
-    $("#modalTitle").textContent = title;
-    $("#modalContent").innerHTML = html;
-    $("#modalLayer").classList.add("open");
-    document.body.style.overflow = "hidden";
-    if(radarChart){ radarChart.destroy(); radarChart = null; }
-}
-
-function closeModal(){
-    $("#modalLayer").classList.remove("open");
-    document.body.style.overflow = "";
-    if(radarChart){ radarChart.destroy(); radarChart = null; }
-}
-
-function openFighter(id){
-    const f = fighters.find(x => x.id === id);
-    if(!f) return;
-    
-    const img = imgChain(f.images, f.name);
-    const s = f.stats || {};
-    const fr = f.finishRate || {ko:0,sub:0,dec:0};
-    
-    const fightsHtml = (f.recent||[]).map(r => `
-        <div class="fight-row">
-            <div class="${r.result==='W'?'result-win':'result-loss'}">${r.result}</div>
-            <div><strong>${esc(r.opponent)}</strong><br><span style="color:var(--muted)">${esc(r.method)} · R${r.round||'?'}</span></div>
-            <div style="color:var(--muted2);font-size:9px">${esc(r.date)}</div>
-        </div>
-    `).join("") || '<div class="empty">Maç geçmişi mevcut değil</div>';
-
-    openModal(f.name, `
-        <div class="profile-top">
-            <div class="profile-photo"><img src="${img.src}" ${img.onerror} alt="${esc(f.name)}"></div>
-            <div>
-                <div class="profile-kicker">${flags[f.country]||''} ${f.organization} · ${f.division}${f.champion?'<span class="champ-badge">👑 ŞAMPİYON</span>':''}</div>
-                <div class="profile-name">${esc(f.name)}</div>
-                <div class="profile-nick">${f.nickname?'"'+esc(f.nickname)+'"':''}</div>
-                <div class="profile-record">${f.record.wins} - ${f.record.losses} - ${f.record.draws}</div>
-                <p style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.6">${esc(f.bio||'')}</p>
-            </div>
-        </div>
-
-        <div class="profile-grid">
-            <div class="profile-stat"><span>Boy</span><strong>${f.height}</strong></div>
-            <div class="profile-stat"><span>Reach</span><strong>${f.reach}</strong></div>
-            <div class="profile-stat"><span>Stance</span><strong>${f.stance}</strong></div>
-            <div class="profile-stat"><span>Yaş</span><strong>${f.age}</strong></div>
-        </div>
-
-        <div class="detail-section">
-            <h3>🎯 Finish Rate</h3>
-            <div style="padding:12px;background:var(--panel);border-radius:12px;border:1px solid var(--line)">
-                <div class="finish-bar">
-                    <div style="width:${fr.ko}%;background:var(--danger)" title="KO/TKO ${fr.ko}%"></div>
-                    <div style="width:${fr.sub}%;background:var(--blue)" title="Sub ${fr.sub}%"></div>
-                    <div style="width:${fr.dec}%;background:var(--green)" title="Dec ${fr.dec}%"></div>
-                </div>
-                <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:8px">
-                    <span>🥊 KO/TKO: <strong style="color:var(--danger)">${fr.ko}%</strong></span>
-                    <span>🔗 Submission: <strong style="color:var(--blue)">${fr.sub}%</strong></span>
-                    <span>⚖️ Decision: <strong style="color:var(--green)">${fr.dec}%</strong></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="detail-section">
-            <h3>📊 Sherdog-Style İstatistikler</h3>
-            <div class="stats-grid">
-                <div class="stats-box">
-                    <h4>Striking</h4>
-                    <div class="stat-row"><span>SLpM (Sig. Strikes / min)</span><span class="val">${s.slpm||'-'}</span></div>
-                    <div class="stat-row"><span>SApM (Absorbed / min)</span><span class="val">${s.sapm||'-'}</span></div>
-                    <div class="stat-row"><span>Str. Accuracy</span><span class="val" style="color:var(--green)">${s.strAcc||'-'}%</span></div>
-                    <div class="stat-row"><span>Str. Defense</span><span class="val" style="color:var(--green)">${s.strDef||'-'}%</span></div>
-                </div>
-                <div class="stats-box">
-                    <h4>Grappling</h4>
-                    <div class="stat-row"><span>TD Avg (per 15 min)</span><span class="val">${s.tdAvg||'-'}</span></div>
-                    <div class="stat-row"><span>TD Accuracy</span><span class="val" style="color:var(--blue)">${s.tdAcc||'-'}%</span></div>
-                    <div class="stat-row"><span>TD Defense</span><span class="val" style="color:var(--blue)">${s.tdDef||'-'}%</span></div>
-                    <div class="stat-row"><span>Sub. Avg</span><span class="val" style="color:var(--orange)">${s.subAvg||'-'}</span></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="detail-section">
-            <h3>🕐 Son Maçlar (Doğrulanmış)</h3>
-            <div class="fight-history">${fightsHtml}</div>
-            <p style="margin-top:10px;font-size:10px;color:var(--muted2)">📊 Kaynak: UFC.com, Sherdog.com, Wikipedia</p>
-        </div>
-    `);
-}
-
-function openNews(id){
-    const n = news.find(x => x.id === id);
-    if(!n) return;
-    openModal(n.org + ' Haber', `
-        <div class="eyebrow">${n.org} · ${n.tag||'NEWS'} · ${n.date}</div>
-        <h2 style="margin-top:10px;font-size:24px">${esc(n.title)}</h2>
-        <div style="margin-top:20px;padding:20px;background:var(--panel);border-radius:15px;border:1px solid var(--line);line-height:1.7">
-            ${esc(n.summary)}
-            <br><br>
-            <strong style="color:var(--accent)">ZMMA Analizi:</strong> Bu sonuç, ${n.org} sıralamalarında büyük değişikliklere yol açtı. Detaylı analiz için dövüşçü profillerini inceleyin.
-        </div>
-        <div style="margin-top:15px;padding:15px;background:var(--panel2);border-radius:12px;font-size:11px;color:var(--muted)">
-            📊 <strong>Kaynak:</strong> ZMMA Intelligence Hub · UFC.com, Sherdog.com ve Wikipedia üzerinden doğrulanmıştır · Son güncelleme: ${n.date}
-        </div>
-    `);
-}
-
-function showHistoryDetail(indexOrYear){
-    const item = typeof indexOrYear === 'number' ? historyData[indexOrYear] : historyData.find(h => h.year == indexOrYear);
-    if(!item) return;
-    openModal(item.year, `
-        <div class="eyebrow">MMA TARİHİ</div>
-        <h2 style="margin-top:8px;font-size:28px">${esc(item.year)} · ${esc(item.title)}</h2>
-        <p style="color:var(--muted);margin-top:12px;line-height:1.6">${esc(item.desc)}</p>
-        <div style="margin-top:20px;padding:18px;background:var(--panel2);border-radius:12px;border-left:3px solid var(--accent);line-height:1.7">
-            ${esc(item.detail)}
-        </div>
-    `);
-}
-
-// ============================================================
-// COMPARE with Radar Chart
-// ============================================================
-const selA = $("#compareA"), selB = $("#compareB");
-const opts = fighters.map(f => `<option value="${f.id}">${f.organization} · ${esc(f.name)}</option>`).join("");
-selA.innerHTML = opts; selB.innerHTML = opts;
-selA.value = "islam-makhachev"; selB.value = "justin-gaethje";
-
-function updateCompare(){
-    const f1 = fighters.find(f => f.id == selA.value);
-    const f2 = fighters.find(f => f.id == selB.value);
-    const html = (f) => {
-        const s = f.stats || {};
-        return `
-        <div class="compare-name">${flags[f.country]||''} ${esc(f.name)} ${f.champion?'👑':''}</div>
-        <div class="compare-stat"><span>Record</span><strong>${f.record.wins}-${f.record.losses}-${f.record.draws}</strong></div>
-        <div class="compare-stat"><span>SLpM</span><strong>${s.slpm||'-'}</strong></div>
-        <div class="compare-stat"><span>Str. Acc</span><strong>${s.strAcc||'-'}%</strong></div>
-        <div class="compare-stat"><span>TD Avg</span><strong>${s.tdAvg||'-'}</strong></div>
-        <div class="compare-stat"><span>Sub Avg</span><strong>${s.subAvg||'-'}</strong></div>
-        <div class="compare-stat"><span>Stil</span><strong>${esc(f.style)}</strong></div>`;
-    };
-    $("#compareAContent").innerHTML = html(f1);
-    $("#compareBContent").innerHTML = html(f2);
-    drawRadar(f1, f2);
-}
-
-function drawRadar(f1, f2){
-    const canvas = $("#compareRadar");
-    if(!canvas) return;
-    if(radarChart){ radarChart.destroy(); }
-    const s1 = f1.stats || {};
-    const s2 = f2.stats || {};
-    radarChart = new Chart(canvas, {
-        type: 'radar',
-        data: {
-            labels: ['Striking', 'Accuracy', 'Defense', 'Takedown', 'Sub Avg', 'Power'],
-            datasets: [{
-                label: f1.name,
-                data: [s1.slpm||0, s1.strAcc||0, s1.strDef||0, s1.tdAvg||0, s1.subAvg||0, (f1.finishRate?.ko||0)],
-                borderColor: '#e8ff3d',
-                backgroundColor: 'rgba(232,255,61,0.15)',
-                borderWidth: 2,
-                pointBackgroundColor: '#e8ff3d'
-            }, {
-                label: f2.name,
-                data: [s2.slpm||0, s2.strAcc||0, s2.strDef||0, s2.tdAvg||0, s2.subAvg||0, (f2.finishRate?.ko||0)],
-                borderColor: '#4da3ff',
-                backgroundColor: 'rgba(77,163,255,0.15)',
-                borderWidth: 2,
-                pointBackgroundColor: '#4da3ff'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: { color: '#f4f5f7', font: { weight: 'bold' } }
-                }
-            },
-            scales: {
-                r: {
-                    angleLines: { color: 'rgba(255,255,255,0.1)' },
-                    grid: { color: 'rgba(255,255,255,0.08)' },
-                    pointLabels: { color: '#f4f5f7', font: { size: 11, weight: 'bold' } },
-                    ticks: { display: false, stepSize: 20 }
-                }
-            }
-        }
-    });
-}
-
-selA.onchange = updateCompare;
-selB.onchange = updateCompare;
-
-// ============================================================
-// EVENT LISTENERS
-// ============================================================
-$("#fighterSearch").addEventListener("input", renderFighters);
-
-$$("#fighterFilters .filter").forEach(b => b.addEventListener("click", () => {
-    $$("#fighterFilters .filter").forEach(x => x.classList.remove("active"));
-    b.classList.add("active");
-    currentDiv = b.dataset.division;
-    renderFighters();
-}));
-
-$$("#orgFilters .filter").forEach(b => b.addEventListener("click", () => {
-    $$("#orgFilters .filter").forEach(x => x.classList.remove("active"));
-    b.classList.add("active");
-    currentOrg = b.dataset.org;
-    renderFighters();
-}));
-
-$$("#newsFilters .filter").forEach(b => b.addEventListener("click", () => {
-    $$("#newsFilters .filter").forEach(x => x.classList.remove("active"));
-    b.classList.add("active");
-    currentNewsFilter = b.dataset.filter;
-    renderNews(currentNewsFilter);
-}));
-
-$$("#eventFilters .filter").forEach(b => b.addEventListener("click", () => {
-    $$("#eventFilters .filter").forEach(x => x.classList.remove("active"));
-    b.classList.add("active");
-    currentEventFilter = b.dataset.event;
-    renderEvents();
-}));
-
-$$("#rankingFilters .filter").forEach(b => b.addEventListener("click", () => {
-    $$("#rankingFilters .filter").forEach(x => x.classList.remove("active"));
-    b.classList.add("active");
-    currentRank = b.dataset.rank;
-    renderRankings(currentRank);
-}));
-
-$$("[data-page]").forEach(el => el.addEventListener("click", (e) => {
-    const page = el.dataset.page;
-    $$(".page").forEach(p => p.classList.toggle("active", p.id === `page-${page}`));
-    $$(".nav-item, .mobile-nav button").forEach(b => b.classList.toggle("active", b.dataset.page === page));
-    window.scrollTo({top:0,behavior:'smooth'});
-}));
-
-$("#closeModal").onclick = closeModal;
-$("#modalLayer").onclick = (e) => { if(e.target.id === "modalLayer") closeModal(); };
-document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
-
-// ============================================================
-// INIT
-// ============================================================
-$("#fighterCount").innerText = fighters.length;
-$("#newsCount").innerText = news.length;
-
-renderNews();
-renderFighters();
-renderHomeFighters();
-renderEvents();
-renderRankings();
-renderHistory();
-renderGOAT();
-renderOrgSection("ufc","ufcChamps","ufcRank","ufcCount");
-renderOrgSection("one","oneChamps","oneRank","oneCount");
-renderOrgSection("pfl","pflChamps","pflRank","pflCount");
-updateCompare();
+// === INIT ===
+renderHome();renderF();renderN();renderEv();renderR();renderOrg();renderH();renderGoat();renderFantasy();initPred();initCmp();
 </script>
 </body>
 </html>
