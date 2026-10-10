@@ -14,36 +14,34 @@
 }
 @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) {
-        --bg:#f6f6f2; --surface:#fff; --surface-2:#ececE6; --primary:#4d6b00; --on-primary:#fff;
+        --bg:#f6f6f2; --surface:#ffffff; --surface-2:#ececE6; --primary:#4d6b00; --on-primary:#fff;
         --text:#111114; --muted:#5c5c66; --border:rgba(0,0,0,.1);
     }
 }
 :root[data-theme="light"] {
-    --bg:#f6f6f2; --surface:#fff; --surface-2:#ececE6; --primary:#4d6b00; --on-primary:#fff;
+    --bg:#f6f6f2; --surface:#ffffff; --surface-2:#ececE6; --primary:#4d6b00; --on-primary:#fff;
     --text:#111114; --muted:#5c5c66; --border:rgba(0,0,0,.1);
 }
 html { scroll-padding-top:env(safe-area-inset-top,0px); }
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; overflow-x:hidden; padding-bottom:90px; min-height:100%; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; overflow-x:hidden; padding-bottom:92px; min-height:100%; }
 .hidden { display:none !important; }
 button { font:inherit; color:inherit; }
 :focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
 
-/* HEADER */
 header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; background:color-mix(in srgb,var(--bg) 90%,transparent); backdrop-filter:blur(10px); padding:14px 20px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
 .logo { font-size:22px; font-weight:900; letter-spacing:-.5px; }
 .logo span { color:var(--primary); }
 .ver { font-size:11px; color:var(--muted); font-weight:700; }
 
-/* HERO */
 .hero { padding:30px 20px 24px; background:radial-gradient(circle at top right,color-mix(in srgb,var(--primary) 10%,transparent),transparent 70%); }
 .hero h1 { font-size:34px; line-height:1.05; margin-bottom:10px; font-weight:800; letter-spacing:-1px; }
 .hero p { color:var(--muted); font-size:14px; line-height:1.5; max-width:46ch; }
 .hero-stats { display:flex; gap:22px; margin-top:20px; }
 .hero-stats b { display:block; font-size:22px; }
 .hero-stats span { font-size:11px; color:var(--muted); font-weight:600; }
+.updated { margin-top:14px; font-size:11px; color:var(--muted); font-weight:600; }
 
-/* CHIPS */
 .filters { display:flex; gap:8px; overflow-x:auto; padding:0 20px 16px; scrollbar-width:none; }
 .filters::-webkit-scrollbar { display:none; }
 .chip { background:var(--surface); border:1px solid var(--border); padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600; color:var(--muted); white-space:nowrap; cursor:pointer; transition:background .2s,color .2s; }
@@ -51,8 +49,8 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 
 .section-title { font-size:18px; font-weight:700; margin:20px 20px 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
 .section-title small { font-size:12px; color:var(--muted); font-weight:600; }
+.section-title a { color:var(--primary); text-decoration:none; }
 
-/* GRID & CARDS */
 .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:0 20px; }
 @media(min-width:768px){ .grid{ grid-template-columns:repeat(3,1fr);} }
 @media(min-width:1024px){ .grid{ grid-template-columns:repeat(4,1fr);} }
@@ -69,18 +67,15 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 .card-rec { font-size:11px; font-weight:700; background:var(--surface-2); padding:2px 7px; border-radius:4px; display:inline-block; }
 .empty { grid-column:1/-1; color:var(--muted); text-align:center; padding:40px 20px; font-size:14px; }
 
-/* FIGHTERS TOOLBAR */
 .toolbar { padding:18px 20px 12px; display:flex; flex-direction:column; gap:10px; }
 .input { width:100%; background:var(--surface); border:1px solid var(--border); padding:13px 14px; border-radius:12px; color:var(--text); font-size:15px; outline:none; }
 .input:focus { border-color:var(--primary); }
 
-/* BOTTOM NAV */
 .bottom-nav { position:fixed; bottom:0; left:0; right:0; background:color-mix(in srgb,var(--bg) 94%,transparent); backdrop-filter:blur(15px); border-top:1px solid var(--border); display:flex; justify-content:space-around; align-items:center; z-index:100; padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px)); }
-.nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted); font-size:11px; font-weight:600; cursor:pointer; width:70px; background:none; border:none; }
+.nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted); font-size:10.5px; font-weight:600; cursor:pointer; width:64px; background:none; border:none; }
 .nav-item.active { color:var(--primary); }
 .nav-icon { font-size:20px; line-height:1; }
 
-/* MODAL */
 .modal { position:fixed; inset:0; background:var(--bg); z-index:200; transform:translateY(100%); visibility:hidden; transition:transform .3s cubic-bezier(.16,1,.3,1),visibility .3s; overflow-y:auto; }
 .modal.open { transform:translateY(0); visibility:visible; }
 .modal-head { position:sticky; top:0; z-index:10; padding:calc(14px + env(safe-area-inset-top,0px)) 20px 14px; background:color-mix(in srgb,var(--bg) 90%,transparent); backdrop-filter:blur(10px); display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
@@ -93,30 +88,42 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 .prof-overlay { position:absolute; bottom:0; left:0; right:0; height:160px; background:linear-gradient(to top,var(--bg),transparent); }
 .prof-info { padding:0 20px 20px; margin-top:-56px; position:relative; z-index:2; max-width:720px; margin-inline:auto; }
 .prof-name { font-size:32px; font-weight:800; margin-bottom:4px; letter-spacing:-.5px; }
-.prof-meta { color:var(--primary); font-size:13px; font-weight:700; margin-bottom:20px; }
+.prof-meta { color:var(--primary); font-size:13px; font-weight:700; margin-bottom:6px; }
 .stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px; }
 .stat-box { background:var(--surface); padding:14px 8px; border-radius:12px; text-align:center; border:1px solid var(--border); }
 .stat-val { font-size:18px; font-weight:800; margin-bottom:2px; }
 .stat-lbl { font-size:10px; color:var(--muted); font-weight:700; }
-.hist-item { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--surface); border-radius:12px; margin-bottom:8px; border:1px solid var(--border); }
-.hist-res { width:26px; height:26px; border-radius:6px; display:grid; place-items:center; font-size:12px; font-weight:800; }
+.info-box { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--primary); border-radius:12px; padding:12px 14px; margin-bottom:10px; font-size:14px; line-height:1.5; }
+.info-box small { display:block; font-size:11px; color:var(--muted); font-weight:700; margin-bottom:4px; }
+.info-box.next { border-left-color:var(--gold); }
+.hist-item { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--surface); border-radius:12px; margin-bottom:8px; border:1px solid var(--border); gap:10px; }
+.hist-res { width:26px; height:26px; border-radius:6px; display:grid; place-items:center; font-size:11px; font-weight:800; flex:none; }
 .win { background:rgba(34,197,94,.15); color:var(--success); }
 .loss { background:rgba(239,68,68,.15); color:var(--danger); }
 .nc { background:rgba(161,161,170,.18); color:var(--muted); }
 
-/* NEWS */
 .news-card { background:var(--surface); border-radius:16px; padding:16px; margin-bottom:12px; border:1px solid var(--border); }
 .news-tag { font-size:10px; font-weight:800; color:var(--primary); background:color-mix(in srgb,var(--primary) 12%,transparent); padding:4px 8px; border-radius:6px; display:inline-block; margin-bottom:10px; }
 .news-title { font-size:16px; font-weight:700; margin-bottom:8px; line-height:1.3; }
 .news-desc { font-size:14px; color:var(--muted); line-height:1.5; }
-.news-date { font-size:11px; color:var(--muted); margin-top:8px; font-weight:600; }
+.news-meta { font-size:11px; color:var(--muted); margin-top:8px; font-weight:600; display:flex; justify-content:space-between; gap:10px; }
 
-/* COMPARE */
+.ev { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:12px; }
+.ev-head { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+.ev-head b { font-size:20px; letter-spacing:-.3px; }
+.ev-head span { font-size:12px; color:var(--primary); font-weight:800; }
+.ev-venue { font-size:12px; color:var(--muted); margin:2px 0 12px; }
+.ev-fight { padding:10px 0; border-top:1px solid var(--border); }
+.ev-names { font-size:15px; font-weight:700; line-height:1.4; }
+.ev-names i { color:var(--muted); font-style:normal; font-weight:600; margin:0 4px; font-size:12px; }
+.ev-tag { font-size:11px; color:var(--muted); font-weight:600; margin-top:2px; }
+.lnk { background:none; border:none; padding:0; cursor:pointer; font-weight:700; font-size:inherit; border-bottom:1px dashed var(--muted); }
+
 .cmp-container { padding:20px; max-width:720px; margin:0 auto; }
-.cmp-container h2 { font-size:24px; margin-bottom:18px; }
+.cmp-container h2 { font-size:24px; margin-bottom:6px; }
+.cmp-sub { font-size:12px; color:var(--muted); margin-bottom:16px; }
 .cmp-selects { display:flex; gap:10px; margin-bottom:14px; align-items:center; }
 .cmp-select { flex:1; min-width:0; background:var(--surface); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:12px; font-size:14px; outline:none; }
-.cmp-vs { font-weight:900; color:var(--muted); }
 .cmp-faces { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
 .cmp-face { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; text-align:center; }
 .cmp-face img { width:100%; aspect-ratio:1/1; object-fit:cover; object-position:top; display:block; }
@@ -144,7 +151,7 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 
 <header>
     <div class="logo">ZM<span>MA</span></div>
-    <div class="ver">v8.0</div>
+    <div class="ver">v9.0</div>
 </header>
 
 <main id="app">
@@ -152,10 +159,13 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
     <section id="page-home" class="page">
         <div class="hero">
             <h1>Dövüşün<br>merkezi.</h1>
-            <p>UFC, ONE ve PFL dünyasından istatistikler, Türkçe haberler ve karşılaştırma araçları.</p>
+            <p>UFC, ONE ve PFL dünyasından istatistikler, Türkçe haberler, maç takvimi ve karşılaştırma araçları.</p>
             <div class="hero-stats" id="heroStats"></div>
+            <div class="updated">Veriler 10 Ekim 2026 itibarıyla güncellendi</div>
         </div>
-        <div class="filters" id="homeFilters" role="tablist" aria-label="Organizasyon filtresi">
+        <div class="section-title">Yaklaşan maçlar <small><a href="#" data-go="events">Takvim</a></small></div>
+        <div style="padding:0 20px" id="homeEvents"></div>
+        <div class="filters" id="homeFilters" aria-label="Organizasyon filtresi">
             <button class="chip active" data-org="all">Tümü</button>
             <button class="chip" data-org="UFC">UFC</button>
             <button class="chip" data-org="ONE">ONE</button>
@@ -164,14 +174,14 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
         </div>
         <div class="section-title">Öne çıkanlar <small id="homeCount"></small></div>
         <div class="grid" id="homeGrid"></div>
-        <div class="section-title" style="margin-top:30px">Gündem <small><a href="#" id="allNews" style="color:var(--primary);text-decoration:none">Tümünü gör</a></small></div>
+        <div class="section-title" style="margin-top:30px">Gündem <small><a href="#" data-go="news">Tümünü gör</a></small></div>
         <div style="padding:0 20px" id="homeNews"></div>
     </section>
 
     <!-- DÖVÜŞÇÜLER -->
     <section id="page-fighters" class="page hidden">
         <div class="toolbar">
-            <input type="search" id="searchInput" class="input" placeholder="Dövüşçü, ülke, sıklet veya organizasyon ara…" aria-label="Dövüşçü ara" autocomplete="off">
+            <input type="search" id="searchInput" class="input" placeholder="Dövüşçü, ülke, sıklet veya stil ara…" aria-label="Dövüşçü ara" autocomplete="off">
             <select id="sortSelect" class="input" aria-label="Sırala">
                 <option value="rank">Sıralama: Şampiyon ve rank</option>
                 <option value="name">İsim (A–Z)</option>
@@ -189,19 +199,34 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
             <button class="chip" data-org="LEGEND">Efsaneler</button>
             <button class="chip" data-org="FAV">★ Favoriler</button>
         </div>
+        <div class="section-title" style="margin-top:0"><span></span><small id="fighterCount"></small></div>
         <div class="grid" id="fightersGrid"></div>
     </section>
 
     <!-- HABERLER -->
     <section id="page-news" class="page hidden">
         <div class="toolbar"><input type="search" id="newsSearch" class="input" placeholder="Haberlerde ara…" aria-label="Haber ara" autocomplete="off"></div>
+        <div class="filters" id="newsFilters">
+            <button class="chip active" data-g="all">Tümü</button>
+            <button class="chip" data-g="Sonuç">Sonuçlar</button>
+            <button class="chip" data-g="Yaklaşan">Yaklaşan</button>
+            <button class="chip" data-g="Sakatlık">Sakatlık</button>
+            <button class="chip" data-g="Diğer">Diğer</button>
+        </div>
         <div style="padding:0 20px" id="newsGrid"></div>
+    </section>
+
+    <!-- TAKVİM -->
+    <section id="page-events" class="page hidden">
+        <div class="section-title" style="margin-top:24px">Takvim</div>
+        <div style="padding:0 20px" id="eventsList"></div>
     </section>
 
     <!-- KARŞILAŞTIR -->
     <section id="page-compare" class="page hidden">
         <div class="cmp-container">
             <h2>Karşılaştırma</h2>
+            <div class="cmp-sub" id="cmpSub"></div>
             <div class="cmp-selects">
                 <select id="cmpA" class="cmp-select" aria-label="Birinci dövüşçü"></select>
                 <button class="round-btn" id="cmpSwap" aria-label="Yer değiştir">⇄</button>
@@ -216,7 +241,7 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
             </div>
             <div id="cmpStats"></div>
             <div class="chart-box"><canvas id="radarChart" aria-label="Radar grafik"></canvas></div>
-            <p class="note">Tahmin; vuruş, isabet, takedown, submission ve galibiyet verilerini ağırlıklandıran basit bir modeldir. Eğlence amaçlıdır, bahis tavsiyesi değildir.</p>
+            <p class="note">Tahmin; vuruş, isabet, takedown, submission ve galibiyet verilerini ağırlıklandıran basit bir modeldir. Eğlence amaçlıdır, bahis tavsiyesi değildir. Yalnızca tam istatistik verisi olan dövüşçüler listelenir.</p>
         </div>
     </section>
 </main>
@@ -225,6 +250,7 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
     <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span><span>Ana Sayfa</span></button>
     <button class="nav-item" data-page="fighters"><span class="nav-icon">♟</span><span>Dövüşçüler</span></button>
     <button class="nav-item" data-page="news"><span class="nav-icon">◉</span><span>Haberler</span></button>
+    <button class="nav-item" data-page="events"><span class="nav-icon">▦</span><span>Takvim</span></button>
     <button class="nav-item" data-page="compare"><span class="nav-icon">⇄</span><span>Karşılaştır</span></button>
 </nav>
 
@@ -241,47 +267,47 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 
 <script>
 /* ============================================================
-   VERİ — görseller artık veride değil; her dövüşçü için görsel
-   JS ile üretilir (bkz. avatar()) ve mümkünse gerçek fotoğrafla
-   değiştirilir (bkz. hydratePhotos()).
+   VERİ
    Sütunlar: id, ad, org, sıklet, rank, şampiyon, G, M, B, ülke,
-             stil, SLpM, isabet%, TD, SUB, son maçlar, [özel foto URL]
+             stil, SLpM, isabet%, TD/15dk, SUB/15dk, son maçlar
+   null = doğrulanmış veri yok (arayüzde "—" görünür).
+   Ek bilgi (NC, not, sıradaki maç) INFO tablosundadır.
    ============================================================ */
 const R = (o, r, m, rd) => ({o, r, m, rd});
 const RAW = [
- [1,"Islam Makhachev","UFC","Welterweight",1,1,29,1,0,"Rusya","Sambo",2.84,59,3.2,1.2,[R("Ian Garry","W","UD",5),R("J. Della Maddalena","W","UD",5)]],
+ [1,"Islam Makhachev","UFC","Welterweight",1,1,29,1,0,"Rusya","Sambo",2.84,59,3.2,1.2,[R("Ian Garry","W","UD",5),R("Jack Della Maddalena","W","UD",5)]],
  [2,"Justin Gaethje","UFC","Lightweight",1,1,28,5,0,"ABD","Boks",6.42,48,0.8,0.1,[R("Ilia Topuria","W","TKO",4)]],
  [3,"Sean Strickland","UFC","Middleweight",1,1,31,7,0,"ABD","Boks",4.67,45,0.6,0.1,[R("Khamzat Chimaev","W","SD",5)]],
- [4,"Ciryl Gane","UFC","Heavyweight",1,1,13,3,0,"Fransa","Kickboks",6.12,52,0.4,0.1,[R("Alex Pereira","W","TKO",2)]],
+ [4,"Ciryl Gane","UFC","Heavyweight",1,1,14,2,0,"Fransa","Kickboks",6.12,52,0.4,0.1,[R("Alex Pereira","W","TKO",2),R("Tom Aspinall","NC","Göz darbesi",1)]],
  [5,"Alexander Volkanovski","UFC","Featherweight",1,1,28,4,0,"Avustralya","Güreş",5.92,53,2.1,0.4,[R("Diego Lopes","W","UD",5)]],
  [6,"Petr Yan","UFC","Bantamweight",1,1,19,5,0,"Rusya","Boks",4.98,49,0.8,0.2,[R("Merab Dvalishvili","W","UD",5)]],
- [7,"Joshua Van","UFC","Flyweight",1,1,16,2,0,"Myanmar","Striking",5.45,51,1.4,0.5,[R("Alexandre Pantoja","W","UD",5)]],
- [8,"Mackenzie Dern","UFC","Strawweight",1,1,16,5,0,"Brezilya","BJJ",2.89,55,5.1,1.8,[R("Gillian Robertson","W","UD",5)]],
- [9,"Natalia Silva","UFC","Flyweight (K)",1,1,20,5,1,"Brezilya","Striking",4.62,52,1.8,0.6,[R("Wang Cong","W","UD",5)]],
+ [7,"Joshua Van","UFC","Flyweight",1,1,18,2,0,"Myanmar","Striking",5.45,51,1.4,0.5,[R("Alexandre Pantoja","W","UD",5)]],
+ [8,"Mackenzie Dern","UFC","Strawweight (K)",1,1,16,5,0,"Brezilya","BJJ",2.89,55,5.1,1.8,[R("Gillian Robertson","W","UD",5)]],
+ [9,"Natalia Silva","UFC","Flyweight (K)",1,1,21,5,1,"Brezilya","Striking",4.62,52,1.8,0.6,[R("Wang Cong","W","UD",5)]],
 
  [10,"Ilia Topuria","UFC","Lightweight",2,0,17,1,0,"İspanya","BJJ",6.87,55,1.4,0.5,[R("Justin Gaethje","L","TKO",4)]],
  [11,"Khamzat Chimaev","UFC","Middleweight",2,0,13,1,0,"BAE","Güreş",5.12,62,4.8,1.8,[R("Sean Strickland","L","SD",5)]],
- [12,"Ian Garry","UFC","Welterweight",2,0,16,2,0,"İrlanda","Boks",5.22,50,1.1,0.2,[R("Islam Makhachev","L","UD",5)]],
+ [12,"Ian Garry","UFC","Welterweight",2,0,17,2,0,"İrlanda","Boks",5.22,50,1.1,0.2,[R("Islam Makhachev","L","UD",5)]],
  [13,"Charles Oliveira","UFC","Lightweight",3,0,37,11,0,"Brezilya","BJJ",3.45,44,2.7,2.8,[R("Max Holloway","W","UD",5)]],
- [14,"Alex Pereira","UFC","Heavyweight",2,0,14,4,0,"Brezilya","Kickboks",5.88,51,0.4,0,[R("Ciryl Gane","L","TKO",2)]],
+ [14,"Alex Pereira","UFC","Heavyweight",2,0,14,4,0,"Brezilya","Kickboks",5.88,51,0.4,0,[R("Ciryl Gane","L","TKO",2),R("Magomed Ankalaev","W","TKO",1)]],
  [15,"Movsar Evloev","UFC","Featherweight",2,0,20,0,0,"Rusya","Güreş",3.12,48,4.5,0.8,[]],
- [16,"Jon Jones","UFC","Heavyweight",3,0,28,1,1,"ABD","Güreş",4.28,53,1.8,0.7,[R("Stipe Miocic","W","TKO",3)]],
- [17,"Tom Aspinall","UFC","Heavyweight",4,0,15,3,0,"İngiltere","Grappling",6.72,59,1.8,1.4,[R("Ciryl Gane","NC","Göz darbesi",2)]],
- [18,"Max Holloway","UFC","Lightweight",4,0,26,8,0,"ABD","Boks",7.89,46,0.2,0.1,[R("Charles Oliveira","L","UD",5)]],
+ [16,"Jon Jones","LEGEND","Heavyweight",0,0,28,1,0,"ABD","Güreş",4.28,53,1.8,0.7,[R("Stipe Miocic","W","TKO",3)]],
+ [17,"Tom Aspinall","UFC","Heavyweight",1,0,15,3,0,"İngiltere","Grappling",6.72,59,1.8,1.4,[R("Ciryl Gane","NC","Göz darbesi",1)]],
+ [18,"Max Holloway","UFC","Lightweight",4,0,28,9,0,"ABD","Boks",7.89,46,0.2,0.1,[R("Conor McGregor","W","TKO (sakatlık)",1),R("Charles Oliveira","L","UD",5)]],
  [19,"Merab Dvalishvili","UFC","Bantamweight",2,0,19,5,0,"Gürcistan","Güreş",3.12,44,5.8,0.4,[R("Petr Yan","L","UD",5)]],
  [20,"Alexandre Pantoja","UFC","Flyweight",2,0,30,7,0,"Brezilya","BJJ",3.89,46,3.1,1.6,[R("Joshua Van","L","UD",5)]],
  [21,"Dricus Du Plessis","UFC","Middleweight",3,0,24,3,0,"G. Afrika","Boks",5.12,49,2.1,0.6,[R("Kamaru Usman","W","UD",5)]],
- [22,"Diego Lopes","UFC","Featherweight",3,0,26,7,0,"Brezilya","BJJ",4.56,48,1.7,1.4,[R("Alexander Volkanovski","L","UD",5)]],
+ [22,"Diego Lopes","UFC","Featherweight",3,0,27,7,0,"Brezilya","BJJ",4.56,48,1.7,1.4,[R("Steve Garcia","W","KO",2),R("Alexander Volkanovski","L","UD",5)]],
  [23,"Jack Della Maddalena","UFC","Welterweight",3,0,18,4,0,"Avustralya","Striking",5.88,51,1.4,0.6,[R("Islam Makhachev","L","UD",5)]],
- [24,"Bo Nickal","UFC","Middleweight",5,0,8,0,0,"ABD","Güreş",2.89,55,6.7,3.2,[]],
+ [24,"Bo Nickal","UFC","Middleweight",5,0,8,0,0,"ABD","Güreş",2.89,55,6.7,3.2,[R("Kyle Daukaus","W","TKO",1)]],
  [25,"Shavkat Rakhmonov","UFC","Welterweight",6,0,20,0,0,"Kazakistan","Sambo",5.23,54,2.1,1.5,[]],
  [26,"Magomed Ankalaev","UFC","Light Heavyweight",2,0,20,2,1,"Rusya","Güreş",3.78,50,3.1,0.5,[R("Alex Pereira","L","TKO",1)]],
- [27,"Jiri Prochazka","UFC","Light Heavyweight",3,0,31,5,1,"Çekya","Muay Thai",6.78,49,0.2,0.4,[]],
- [28,"Carlos Ulberg","UFC","Light Heavyweight",4,0,13,1,0,"Y. Zelanda","Kickboks",6.12,52,0.4,0.3,[]],
+ [27,"Jiri Prochazka","UFC","Light Heavyweight",3,0,32,6,1,"Çekya","Muay Thai",6.78,49,0.2,0.4,[R("Carlos Ulberg","L","KO",1)]],
+ [28,"Carlos Ulberg","UFC","Light Heavyweight",1,1,14,1,0,"Y. Zelanda","Kickboks",6.12,52,0.4,0.3,[R("Jiri Prochazka","W","KO",1)]],
  [29,"Robert Whittaker","UFC","Middleweight",4,0,27,8,0,"Avustralya","Karate",5.45,47,1.1,0.5,[R("Khamzat Chimaev","L","Sub",1)]],
- [30,"Paulo Costa","UFC","Middleweight",5,0,14,3,0,"Brezilya","Boks",6.12,51,0.6,0.2,[]],
+ [30,"Paulo Costa","UFC","Light Heavyweight",4,0,16,4,0,"Brezilya","Boks",6.12,51,0.6,0.2,[R("Azamat Murzakanov","W","—",0)]],
  [31,"Israel Adesanya","UFC","Middleweight",6,0,24,6,0,"Y. Zelanda","Kickboks",4.89,51,0.4,0.3,[]],
- [32,"Arman Tsarukyan","UFC","Lightweight",4,0,22,3,0,"Ermenistan","Güreş",4.87,47,3.8,0.9,[]],
+ [32,"Arman Tsarukyan","UFC","Lightweight",4,0,23,3,0,"Ermenistan","Güreş",4.87,47,3.8,0.9,[R("Mauricio Ruffy","W","KO",1)]],
  [33,"Mateusz Gamrot","UFC","Lightweight",5,0,24,3,0,"Polonya","Güreş",3.89,48,4.2,1.1,[]],
  [34,"Lerone Murphy","UFC","Featherweight",4,0,15,0,0,"İngiltere","Striking",5.23,51,1.1,0.5,[]],
  [35,"Brian Ortega","UFC","Featherweight",5,0,16,4,0,"ABD","BJJ",3.78,45,2.1,2.1,[]],
@@ -289,10 +315,10 @@ const RAW = [
  [37,"Umar Nurmagomedov","UFC","Bantamweight",4,0,18,0,0,"Rusya","Sambo",3.45,51,4.1,1.2,[]],
  [38,"Brandon Royval","UFC","Flyweight",2,0,17,7,0,"ABD","BJJ",4.23,46,1.8,1.4,[]],
  [39,"Tatsuro Taira","UFC","Flyweight",3,0,15,1,0,"Japonya","Judo",3.78,49,3.4,2.1,[]],
- [40,"Tatiana Suarez","UFC","Strawweight",2,0,11,1,0,"ABD","Güreş",2.89,55,5.1,1.8,[]],
+ [40,"Tatiana Suarez","UFC","Strawweight (K)",2,0,11,1,0,"ABD","Güreş",2.89,55,5.1,1.8,[]],
  [41,"Alexa Grasso","UFC","Flyweight (K)",2,0,17,4,1,"Meksika","Boks",4.78,49,1.1,0.4,[]],
- [42,"Valentina Shevchenko","UFC","Flyweight (K)",3,0,24,4,1,"Kırgızistan","Muay Thai",4.62,52,1.8,0.6,[]],
- [43,"Zhang Weili","UFC","Strawweight",3,0,26,3,0,"Çin","Sanda",5.78,49,2.8,0.9,[]],
+ [42,"Valentina Shevchenko","UFC","Flyweight (K)",0,0,24,4,1,"Kırgızistan","Muay Thai",4.62,52,1.8,0.6,[]],
+ [43,"Zhang Weili","UFC","Strawweight (K)",3,0,26,3,0,"Çin","Sanda",5.78,49,2.8,0.9,[]],
 
  [44,"Anatoly Malykhin","ONE","Heavyweight",1,1,15,0,0,"Rusya","Sambo",4.45,54,3.8,1.2,[R("Reinier de Ridder","W","KO",2)]],
  [45,"Christian Lee","ONE","Lightweight",1,1,19,4,0,"Singapur","BJJ",3.78,51,2.7,2.1,[]],
@@ -302,61 +328,158 @@ const RAW = [
  [49,"Francis Ngannou","PFL","Heavyweight",1,1,18,3,0,"Kamerun","Boks",5.12,52,1.2,0.2,[]],
  [50,"Usman Nurmagomedov","PFL","Lightweight",1,1,22,0,0,"Rusya","Sambo",4.12,51,3.4,2.1,[R("Archie Colgan","W","TKO",1)]],
  [51,"Johnny Eblen","PFL","Middleweight",1,1,18,1,0,"ABD","Güreş",4.12,49,3.1,0.5,[R("Fabian Edwards","W","KO",3)]],
- [52,"Kayla Harrison","PFL","Lightweight (K)",1,1,17,1,0,"ABD","Judo",3.12,52,4.4,2.1,[]],
+ [52,"Kayla Harrison","UFC","Bantamweight (K)",1,1,19,1,0,"ABD","Judo",3.12,52,4.4,2.1,[R("Julianna Peña","W","Sub",2)]],
 
  [53,"Khabib Nurmagomedov","LEGEND","Lightweight",0,0,29,0,0,"Rusya","Sambo",4.12,48,5.3,1.2,[]],
  [54,"Georges St-Pierre","LEGEND","Welterweight",0,0,26,2,0,"Kanada","Karate",4.89,52,3.4,0.8,[]],
- [55,"Conor McGregor","LEGEND","Lightweight",0,0,22,6,0,"İrlanda","Boks",5.12,48,1.2,0.5,[]],
+ [55,"Conor McGregor","LEGEND","Lightweight",0,0,22,7,0,"İrlanda","Boks",5.12,48,1.2,0.5,[R("Max Holloway","L","TKO (sakatlık)",1),R("Dustin Poirier","L","TKO",1)]],
  [56,"Anderson Silva","LEGEND","Middleweight",0,0,34,11,0,"Brezilya","Muay Thai",4.45,55,0.8,0.9,[]],
  [57,"Fedor Emelianenko","LEGEND","Heavyweight",0,0,40,7,0,"Rusya","Sambo",3.89,51,3.1,1.8,[]],
- [58,"Ronda Rousey","LEGEND","Bantamweight",0,0,12,2,0,"ABD","Judo",2.89,45,4.5,3.5,[]],
+ [58,"Ronda Rousey","LEGEND","Bantamweight (K)",0,0,12,2,0,"ABD","Judo",2.89,45,4.5,3.5,[]],
  [59,"José Aldo","LEGEND","Featherweight",0,0,31,8,0,"Brezilya","Muay Thai",4.56,51,1.4,0.8,[]],
- [60,"Demetrious Johnson","LEGEND","Flyweight",0,0,30,4,1,"ABD","Güreş",4.23,49,3.8,1.9,[]]
-];
-const DB = RAW.map(a => ({id:a[0], n:a[1], org:a[2], div:a[3], r:a[4], c:!!a[5], w:a[6], l:a[7], d:a[8], co:a[9], st:a[10], sl:a[11], ac:a[12], td:a[13], sb:a[14], h:a[15], img:a[16]||null}));
+ [60,"Demetrious Johnson","LEGEND","Flyweight",0,0,30,4,1,"ABD","Güreş",4.23,49,3.8,1.9,[]],
 
+ /* --- YENİ EKLENENLER (istatistik verisi yoksa null) --- */
+ [61,"Henry Cejudo","LEGEND","Bantamweight",0,0,16,6,0,"ABD","Güreş",3.83,47,null,null,[R("Payton Talbott","L","UD",3)]],
+ [62,"Daniel Cormier","LEGEND","Light Heavyweight",0,0,22,3,0,"ABD","Güreş",null,null,null,null,[]],
+ [63,"Stipe Miocic","LEGEND","Heavyweight",0,0,20,5,0,"ABD","Güreş",null,null,null,null,[R("Jon Jones","L","TKO",3)]],
+ [64,"Chuck Liddell","LEGEND","Light Heavyweight",0,0,21,8,0,"ABD","Kickboks",null,null,null,null,[]],
+ [65,"Randy Couture","LEGEND","Heavyweight",0,0,19,11,0,"ABD","Güreş",null,null,null,null,[]],
+ [66,"Cain Velasquez","LEGEND","Heavyweight",0,0,14,3,0,"ABD","Güreş",null,null,null,null,[]],
+ [67,"Dustin Poirier","LEGEND","Lightweight",0,0,30,9,0,"ABD","Boks",null,null,null,null,[]],
+ [68,"Paddy Pimblett","UFC","Lightweight",7,0,24,4,0,"İngiltere","BJJ",null,null,null,null,[R("Benoit Saint Denis","W","Sub",1)]],
+ [69,"Sean O'Malley","UFC","Bantamweight",5,0,20,3,0,"ABD","Boks",null,null,null,null,[R("Aiemann Zahabi","W","TKO",2)]],
+ [70,"Josh Hokit","UFC","Heavyweight",6,0,10,0,0,"ABD",null,null,null,null,null,[R("Derrick Lewis","W","TKO",2)]],
+ [71,"Sergei Pavlovich","UFC","Heavyweight",0,0,21,3,0,"Rusya","Striking",null,null,null,null,[R("Tallison Teixeira","W","KO",1),R("Tom Aspinall","L","KO",1)]],
+ [72,"Wang Cong","UFC","Flyweight (K)",8,0,10,2,0,"Çin","Kickboks",null,null,null,null,[R("Natalia Silva","L","UD",5)]],
+ [73,"Amanda Nunes","UFC","Bantamweight (K)",0,0,23,5,0,"Brezilya","BJJ",null,null,null,null,[R("Irene Aldana","W","UD",3)]],
+ [74,"Derrick Lewis","UFC","Heavyweight",0,0,29,14,0,"ABD","Boks",null,null,null,null,[R("Josh Hokit","L","TKO",2)]]
+];
+
+/* NC sayısı, durum notu ve sıradaki maç */
+const INFO = {
+ 1:{note:"UFC 330'da Garry'yi yenerek 17. üst üste UFC galibiyetini aldı ve UFC rekorunu kırdı. Her iki sıklette de unvan savunan 5. şampiyon."},
+ 2:{note:"UFC Freedom 250'de Topuria'yı 4. raund sonunda köşe müdahalesiyle yenip ilk tam UFC unvanını kazandı."},
+ 4:{nc:1,note:"Aspinall unvanı bırakınca tartışmasız şampiyon ilan edildi. Freedom 250'de Pereira'yı 2. raund 1:27'de TKO etmişti.",next:"UFC 334 · 14 Kas 2026 · Madison Square Garden — Josh Hokit (unvan savunması)"},
+ 7:{note:"Pantoja ile ilk maç, rakibin dirsek sakatlığıyla 26. saniyede bitmişti; rövanşı oybirliğiyle kazandı."},
+ 8:{note:"UFC 330'da Gillian Robertson'a karşı ilk unvan savunmasını yaptı."},
+ 9:{note:"UFC'de 9-0. Shevchenko'nun sakatlık nedeniyle boşalttığı kemeri UFC 332'de aldı; 15 maçlık galibiyet serisi var."},
+ 10:{note:"Gaethje'ye yenilene kadar yenilgisizdi (6-1 favoriydi)."},
+ 13:{nc:1,note:"UFC 326'da Holloway'i oybirliğiyle yenerek BMF kemerinin sahibi oldu.",next:"UFC 335 · 12 Ara 2026 · Las Vegas — Diego Lopes (BMF unvanı)"},
+ 14:{note:"Freedom 250'de Gane'e karşı interim ağır sıklet unvan maçında durduruldu.",next:"UFC 335 · 12 Ara 2026 · Las Vegas — Sergei Pavlovich (5 raunt, ağır sıklet)"},
+ 16:{nc:1,note:"Haziran 2025'te emekli oldu, daha sonra geri dönüş sinyali verdi; Nisan 2026'da Beyaz Saray kartında yer bulamayınca yeniden emekliliğini açıkladı."},
+ 17:{nc:1,note:"UFC 321'deki göz darbesinden kalan komplikasyonlar nedeniyle Eylül 2026'da ağır sıklet unvanını bıraktı. Göz sakatlığı tamamen iyileşmedi."},
+ 18:{note:"UFC 329'da McGregor'ı yenerek UFC'de 3 farklı sıklette galibiyet alan 20. dövüşçü oldu."},
+ 22:{note:"Freedom 250'de Steve Garcia'yı 2. raundda KO etti.",next:"UFC 335 · 12 Ara 2026 · Las Vegas — Charles Oliveira (BMF unvanı)"},
+ 24:{note:"Freedom 250'de Kyle Daukaus'u 1. raund 4:34'te TKO etti (UFC'deki 5. bitirişi).",next:"UFC 335 · 12 Ara 2026 · Las Vegas — Joe Pyfer"},
+ 27:{note:"UFC 327'de Ulberg'e KO oldu; rövanş istiyor."},
+ 28:{note:"UFC 327'de unvanı, maçın başında ACL'sini koparmasına rağmen Prochazka'yı KO ederek kazandı. Ameliyat oldu, 2027 başında dönmeyi hedefliyor."},
+ 30:{note:"Hafif ağır sıkleta geçti; UFC 327'de Murzakanov'u yendi."},
+ 32:{note:"UFC 331'de Mauricio Ruffy'yi 1. raund 4:56'da dirsekle KO etti."},
+ 42:{note:"Eylül 2026'da açıklanmayan bir sakatlık nedeniyle kemeri boşalttı."},
+ 52:{note:"Haziran 2025'te Julianna Peña'yı yenip UFC bantamweight şampiyonu oldu. Boyun ameliyatı sonrası geri dönüyor.",next:"UFC 334 · 14 Kas 2026 · Madison Square Garden — Amanda Nunes (unvan savunması)"},
+ 55:{note:"UFC 329'da (11 Tem 2026) beş yıl sonra döndü; ilk tekmesinde sağ dizini sakatlayıp 1:09'da TKO (sakatlık) ile Holloway'e yenildi. Teşhis ACL ve menisküs; ameliyat oldu. 2027 yazında dönmeyi ve Holloway ile üçüncü maçı yapmayı hedefliyor. Sözleşmesinde bir maç kaldı. Yedi yenilgisinin yedisi de bitirişle."},
+ 61:{note:"2008 Pekin Olimpiyatları serbest güreş altın madalyası. UFC sinek ve horoz sıklette şampiyon oldu. UFC 323'te (Aralık 2025) Talbott'a yenilip emekli oldu."},
+ 62:{nc:1,note:"UFC'de aynı anda iki sıklette şampiyon olan ikinci dövüşçü (McGregor'dan sonra)."},
+ 63:{note:"Ağır sıklette toplam 1.372 günlük unvan süresiyle çoklu hükümdarlık rekorunun sahibi."},
+ 67:{nc:1,note:"Temmuz 2025'te UFC 318'de Max Holloway'e yenilip kariyerini bitirdi."},
+ 68:{note:"UFC 329'da Benoit Saint Denis'i 1. raundda gilotinle teslim aldı."},
+ 69:{note:"Freedom 250'de Aiemann Zahabi'yi 2. raundda TKO etti; unvan sıralamasına geri döndü."},
+ 70:{note:"Freedom 250'de Derrick Lewis'i TKO etti; UFC'de 4-0.",next:"UFC 334 · 14 Kas 2026 · Madison Square Garden — Ciryl Gane (ağır sıklet unvanı)"},
+ 71:{note:"Mayıs 2026'da Tallison Teixeira'yı 39 saniyede KO etti; 3 maçlık galibiyet serisinde.",next:"UFC 335 · 12 Ara 2026 · Las Vegas — Alex Pereira (5 raunt)"},
+ 72:{note:"UFC 332'de Natalia Silva'ya oybirliğiyle yenildi (48-47, 48-47, 49-46)."},
+ 73:{note:"Haziran 2023'ten beri dövüşmedi. Üç ayrı unvan hükümdarlığı ve iki sıklette şampiyonluk var.",next:"UFC 334 · 14 Kas 2026 · Madison Square Garden — Kayla Harrison (bantamweight unvanı)"},
+ 74:{note:"Freedom 250'de Josh Hokit'e TKO ile yenildi."}
+};
+
+const DB = RAW.map(a => {
+    const info = INFO[a[0]] || {};
+    return {id:a[0], n:a[1], org:a[2], div:a[3], r:a[4], c:!!a[5], w:a[6], l:a[7], d:a[8], co:a[9], st:a[10], sl:a[11], ac:a[12], td:a[13], sb:a[14], h:a[15], nc:info.nc||0, note:info.note||'', next:info.next||''};
+});
+
+/* ============================================================
+   TAKVİM
+   ============================================================ */
+const EVENTS = [
+ {name:"UFC 334", date:"14 Kasım 2026", venue:"Madison Square Garden, New York", fights:[
+   {a:"Ciryl Gane", b:"Josh Hokit", t:"Ağır sıklet · Unvan (Gane savunuyor)"},
+   {a:"Kayla Harrison", b:"Amanda Nunes", t:"Bantamweight (K) · Unvan (Harrison savunuyor)"}]},
+ {name:"UFC 335", date:"12 Aralık 2026", venue:"T-Mobile Arena, Las Vegas", fights:[
+   {a:"Charles Oliveira", b:"Diego Lopes", t:"BMF unvanı (Oliveira savunuyor)"},
+   {a:"Alex Pereira", b:"Sergei Pavlovich", t:"Ağır sıklet · 5 raunt"},
+   {a:"Joe Pyfer", b:"Bo Nickal", t:"Orta sıklet"},
+   {a:"Brandon Moreno", b:"Charles Johnson", t:"Sinek sıklet"}]}
+];
+
+/* ============================================================
+   HABERLER — [etiket, başlık, açıklama, tarih, ISO, kaynak]
+   ============================================================ */
 const NEWS = [
- ["ŞAMPİYON","UFC 332: Natalia Silva kemeri kaptı","Salt Lake City'de tarihi gece. Natalia Silva, Wang Cong'u oybirliğiyle yenerek boştaki Kadınlar Sinek Sıklet kemerinin yeni sahibi oldu.","3 Eki 2026"],
- ["GENİŞLEME","PFL 2027 Türkiye'ye geliyor","PFL yönetimi, 2027 sezonu için Türkiye, Japonya ve Suudi Arabistan'ı kapsayan bir dünya turu açıkladı.","1 Eki 2026"],
- ["SONUÇ","Joshua Van, Pantoja'yı geçti","Joshua Van, UFC 331'de Alexandre Pantoja'yı 5 raunt sonunda yenerek Flyweight kemerini korudu.","19 Eyl 2026"],
- ["GÜNDEM","Gane tartışmasız ağır sıklet şampiyonu","Tom Aspinall'ın sakatlık nedeniyle kemeri bırakmasının ardından Ciryl Gane tartışmasız şampiyon ilan edildi.","Eyl 2026"],
- ["SAKATLIK","Tom Aspinall göz sakatlığı","Aspinall, Gane maçındaki göz darbesinin etkilerinin geçmemesi nedeniyle kemeri bırakmak zorunda kaldı.","Eyl 2026"],
- ["DEDİKODU","Jon Jones'tan gizemli paylaşım","Aspinall'ın kemeri bırakmasının ardından Jon Jones sosyal medyada geri dönüş sinyali verdi.","Eyl 2026"],
- ["SONUÇ","Makhachev serisini 17'ye çıkardı","Islam Makhachev, Philadelphia'da Ian Garry'yi geçerek Welterweight kemerini korudu ve serisini 17'ye çıkardı.","15 Ağu 2026"],
- ["SONUÇ","Mackenzie Dern kemerini korudu","Mackenzie Dern, UFC 330'da Gillian Robertson'ı geçerek Strawweight kemerini savundu.","15 Ağu 2026"],
- ["RÖPORTAJ","Ian Garry: \"Geri döneceğim\"","Ian Garry, Makhachev karşısındaki yenilginin ardından hayranlarına seslendi.","Ağu 2026"],
- ["SERİ","Usman Nurmagomedov 22-0","Usman Nurmagomedov, PFL'de Archie Colgan'ı ilk rauntta bitirerek yenilgisizliğini sürdürdü.","Tem 2026"],
- ["SONUÇ","Du Plessis, Usman'ı yendi","Dricus Du Plessis, Kamaru Usman'ı kararla geçerek sıralamadaki yerini sağlamlaştırdı.","Tem 2026"],
- ["ŞOK","Gaethje, Beyaz Saray'da Topuria'yı durdurdu","Justin Gaethje, UFC Freedom 250'de Ilia Topuria'yı 4. rauntta TKO ile yenerek Lightweight şampiyonu oldu.","14 Haz 2026"],
- ["EMEKLİLİK","Malykhin emekli oldu","ONE'ın üç sıklet şampiyonu Anatoly Malykhin, unvanını koruduktan sonra emekliliğini açıkladı.","May 2026"],
- ["SÜRPRİZ","Strickland, Chimaev'i yıktı","Sean Strickland, UFC 328'de Khamzat Chimaev'i split decision ile geçerek kemeri geri aldı. Chimaev'in ilk yenilgisi.","9 May 2026"],
- ["SONUÇ","Oliveira, Holloway'i geçti","Charles Oliveira, Max Holloway ile yaptığı mücadeleyi oybirliğiyle kazandı.","Mar 2026"],
- ["TRANSFER","Alex Pereira ağır sıklete geçti","Pereira, Light Heavyweight kemerini bırakıp Ağır Sıklete yükseldi ancak Gane karşısında nakavt oldu.","Şub 2026"],
- ["ŞAMPİYON","Volkanovski, Lopes'i yine yendi","Alexander Volkanovski, rövanşı kazanarak Featherweight kemerini korudu. Sırada Evloev var.","31 Oca 2026"],
- ["GERİ DÖNÜŞ","Petr Yan geri döndü","Petr Yan, Merab Dvalishvili'yi yenerek Bantamweight kemerini geri aldı.","Ara 2025"],
- ["DUYURU","Rodtang vs Superbon süper maçı","ONE, 2027'de iki Tayland efsanesini süper maçta karşılaştıracağını duyurdu.","2026"],
- ["ETKİNLİK","UFC Suudi Arabistan kartı açıklandı","Riyad'daki özel etkinlikte üç unvan maçı yapılacak. Makhachev – Rakhmonov ihtimali konuşuluyor.","2026"],
- ["TRANSFER","Kayla Harrison UFC yolunda","İki kez olimpiyat şampiyonu Kayla Harrison'ın PFL'den ayrılıp UFC ile anlaştığı iddia ediliyor.","2026"],
- ["SAKATLIK","Shavkat Rakhmonov ara veriyor","Rakhmonov, diz sakatlığı nedeniyle 2026'nın geri kalanında dövüşmeyecek.","2026"],
- ["YÜKSELEN","Bo Nickal 8-0","Bo Nickal, UFC'deki 8. maçını da bitirerek orta sıkletin yeni adaylarından biri oldu.","2026"],
- ["YÜKSELEN","Movsar Evloev hâlâ yenilgisiz","Evloev, 20-0'lık rekoruyla Volkanovski maçını bekliyor.","2026"],
- ["YÜKSELEN","Carlos Ulberg'den üçüncü KO","Ulberg, üst üste 3. nakavtını alarak LHW sıralamasında yükseldi.","2026"],
- ["YÜKSELEN","Lerone Murphy 15-0","Lerone Murphy, featherweight'te sessizce yükselmeye devam ediyor.","2026"],
- ["DEDİKODU","Zhang Weili sıklet değiştirir mi?","Weili'nin strawweight'ten ayrılıp daha yüksek bir sıkletin kapısını çalabileceği konuşuluyor.","2026"],
- ["DEDİKODU","Sterling tüy sıklete mi çıkıyor?","Aljamain Sterling'in bantamweight'ten featherweight'e çıkabileceği söylentileri arttı.","2026"],
- ["KAMP","Jiri Prochazka kampta","Prochazka, LHW kemeri için yeni kampına başladı: \"Kaos geri dönecek.\"","2026"],
- ["AÇIKLAMA","Whittaker rövanş istiyor","Chimaev'e submission ile kaybeden Whittaker, hemen rövanş istediğini açıkladı.","2026"],
- ["AÇIKLAMA","Tsarukyan title shot bekliyor","Arman Tsarukyan, lightweight kemer maçı için sırasını beklediğini söyledi.","2026"],
- ["RÖPORTAJ","Paulo Costa: \"Emekli değilim\"","Costa, orta sıkletteki geleceği hakkında \"sadece dinleniyorum\" dedi.","2026"],
- ["GÜNDEM","Adesanya'nın geleceği belirsiz","Israel Adesanya'nın kariyerine ara verebileceği belirtiliyor.","2026"],
- ["GERİ DÖNÜŞ","Brian Ortega dönüyor","Sakatlıktan dönen Ortega, 2026 sonuna kadar kafese döneceğini açıkladı.","2026"],
- ["GERİ DÖNÜŞ","Tatiana Suarez geri döndü","Sakatlıklarla boğuşan Suarez, yeniden title shot peşinde.","2026"],
- ["ÇAĞRI","Royval, Pantoja'yı istiyor","Brandon Royval, Pantoja ile üçüncü maç için çağrı yaptı.","2026"],
- ["RÖPORTAJ","Umar Nurmagomedov sessiz","Umar, medya yerine kafeste konuşmayı tercih ettiğini söyledi.","2026"],
- ["ANALİZ","Taira Japonya'da MMA'yı büyütüyor","Tatsuro Taira, Japonya'da MMA'nın popülerleşmesinde büyük rol oynuyor.","2026"],
- ["ÖDÜL","Gamrot Polonya'da yılın sporcusu adayı","Mateusz Gamrot, Polonya'da yılın sporcusu ödülüne aday gösterildi.","2026"],
- ["ETKİNLİK","Alexa Grasso Meksika'da","Grasso, memleketi Meksika'da törenle karşılandı.","2026"]
-].map(a => ({tag:a[0], t:a[1], s:a[2], d:a[3]}));
+ ["SONUÇ","UFC 332: Natalia Silva yeni sinek sıklet şampiyonu","Silva, Salt Lake City'de Wang Cong'u oybirliğiyle (48-47, 48-47, 49-46) yenip boş kemeri aldı. UFC'de 9-0'a yükselen Silva'nın toplam rekoru 21-5-1. Kemer, Shevchenko'nun Eylül'de sakatlık nedeniyle bırakmasıyla boşalmıştı.","3 Eki 2026","2026-10-03","ESPN"],
+ ["REKOR","UFC 332 nakavt rekoru kırdı","Kartta 9 ilk raund nakavt ve toplam 11 bitiriş geldi. Payton Talbott, Deiveson Figueiredo'yu 1. raundda yumruklarla TKO etti.","3 Eki 2026","2026-10-03","ESPN, CBS Sports"],
+ ["DUYURU","UFC 335 açıklandı: Oliveira–Lopes BMF, Pereira–Pavlovich","12 Aralık'ta Las Vegas'taki yılın son numaralı kartında Charles Oliveira, BMF kemerini Diego Lopes'e karşı savunacak. Co-main'de Alex Pereira, ağır sıklette Sergei Pavlovich'le 5 raund dövüşecek. Kartta ayrıca Moreno–Charles Johnson ve Pyfer–Nickal maçları var.","3 Eki 2026","2026-10-03","CBS Sports, SI"],
+ ["DUYURU","Pereira'nın ağır sıklette ikinci sınavı: Pavlovich","Pereira, Freedom 250'de Gane'e yenildikten sonra ağır sıklette ikinci maçına çıkıyor. Pavlovich ise Mayıs'ta Tallison Teixeira'yı 39 saniyede nakavt ederek üç maçlık galibiyet serisine ulaştı.","3 Eki 2026","2026-10-03","Yahoo Sports, SI"],
+ ["PFL","PFL 2027 Türkiye'ye geliyor","PFL yönetimi, 2027 sezonu için Türkiye, Japonya ve Suudi Arabistan'ı kapsayan bir dünya turu açıkladı.","1 Eki 2026","2026-10-01",""],
+ ["DUYURU","UFC 334 New York'ta: Gane–Hokit ve Harrison–Nunes","14 Kasım'da Madison Square Garden'da iki unvan maçı var: Ciryl Gane ağır sıklet kemerini Josh Hokit'e (10-0) karşı, Kayla Harrison (19-1) bantamweight kemerini 3 yıl sonra dönen Amanda Nunes'e karşı savunacak.","19 Eyl 2026","2026-09-19","UFC.com"],
+ ["GÜNDEM","Gane tartışmasız ağır sıklet şampiyonu ilan edildi","Aspinall kemeri bırakınca UFC, iki kez interim şampiyon olan Gane'i tartışmasız şampiyonluğa yükseltti. Dana White bir gün önce buna sıcak bakmadığını söylemişti.","19 Eyl 2026","2026-09-19","Yahoo Sports"],
+ ["SONUÇ","UFC 331: Joshua Van, Pantoja'yı yendi","Van, 5 raundluk mücadelede kararla (49-46, 48-47, 50-45) sinek sıklet kemerini korudu; rekoru 18-2. İlk maçta Pantoja'nın dirseği 26. saniyede sakatlanmıştı.","19 Eyl 2026","2026-09-19","Fightnews"],
+ ["SONUÇ","Tsarukyan, Ruffy'yi ilk raundda dirsekle KO etti","Arman Tsarukyan, UFC 331'de Mauricio Ruffy'yi 1. raund 4:56'da klinçte dirsekle nakavt etti.","19 Eyl 2026","2026-09-19","Bleacher Report"],
+ ["ŞOK","Sharaf, Steveson'ı 12 saniyede nakavt etti","Sean Sharaf, olimpiyat madalyalı Gable Steveson'ı UFC 331'de sol yumrukla 12 saniyede bitirdi.","19 Eyl 2026","2026-09-19","Bleacher Report"],
+ ["SAKATLIK","Aspinall ağır sıklet kemerini bıraktı","Tom Aspinall, UFC 321'deki göz darbesinden kalan komplikasyonlar nedeniyle unvanı boşalttı. Gane rövanşı için hazırlanırken sağ gözünü yeniden sakatladığını ve klerans beklediğini açıkladı.","14 Eyl 2026","2026-09-14","UFC.com, Yahoo Sports"],
+ ["SAKATLIK","Shevchenko kadınlar sinek sıklet kemerini bıraktı","Valentina Shevchenko, açıklanmayan bir sakatlık nedeniyle Eylül'de kemeri boşalttı. Boş unvan UFC 332'de Silva–Wang Cong maçıyla sahiplendi.","Eyl 2026","2026-09-10","ESPN"],
+ ["SONUÇ","UFC 330: Makhachev rekoru 17'ye taşıdı","Islam Makhachev, Philadelphia'da Ian Machado Garry'yi oybirliğiyle (49-46, 49-46, 48-47) yenerek UFC'nin en uzun galibiyet serisi rekorunu 17 maça çıkardı.","15 Ağu 2026","2026-08-15","UFC.com"],
+ ["SONUÇ","Mackenzie Dern ilk savunmasını yaptı","Dern, UFC 330 co-main'de Gillian Robertson'ı oybirliğiyle geçerek Strawweight kemerini korudu.","15 Ağu 2026","2026-08-15","ESPN"],
+ ["SONUÇ","Ribovics, Barboza'yı bitirdi","Esteban Ribovics, UFC 330 ana kartını Edson Barboza'yı 2. raundda TKO ederek açtı.","15 Ağu 2026","2026-08-15","UFC.com"],
+ ["RÖPORTAJ","Ian Garry: “Geri döneceğim”","Garry, Makhachev karşısındaki yenilginin ardından hayranlarına seslendi.","Ağu 2026","2026-08-20",""],
+ ["SAKATLIK","Ulberg: “Erken 2027'de dönerim”","Hafif ağır sıklet şampiyonu Carlos Ulberg, ACL ameliyatının ardından iyileşme sürecinin devam ettiğini ve unvanını erken 2027'de savunmayı hedeflediğini söyledi.","Ağu 2026","2026-08-28","ESPN"],
+ ["SAKATLIK","McGregor diz ameliyatı oldu, hedef 2027 yazı","Conor McGregor, ACL ve menisküs yırtığı için ameliyat olduğunu duyurdu. 38 yaşındaki McGregor, 2027 yazında dönmeyi ve Uluslararası Dövüş Haftası'nda Holloway ile üçüncü maçı yapmayı hedefliyor. Sözleşmesinde bir maç kaldı.","3 Ağu 2026","2026-08-03","Bleacher Report"],
+ ["SAKATLIK","McGregor'ın teşhisi: ACL ve menisküs","McGregor, 2013'teki ilk Holloway maçındaki yaralanmayla aynı olduğunu, bu kez diğer bacağında yaşadığını açıkladı.","20 Tem 2026","2026-07-20","Yahoo Sports"],
+ ["GÜNDEM","McGregor sonucun “no contest” olmasını istedi","McGregor, Holloway'e yenilgisinin NC'ye çevrilmesini talep etti ve maça sakatlıkla girmediğini savundu. Dana White ise tartı töreninde McGregor'ın Holloway'e doğru koştuğu görüntülerde kimsenin bir sakatlık fark etmediğini söyledi.","16 Tem 2026","2026-07-16","Bleacher Report, Sky Sports"],
+ ["ŞOK","UFC 329: McGregor 69 saniyede sakatlanıp yenildi","Beş yıl sonra dönen Conor McGregor, Holloway karşısında ilk tekmesinde sağ dizini sakatladı; hakem maçı 1:09'da durdurdu ve Holloway TKO (sakatlık) ile kazandı. McGregor'ın rekoru 22-7; yedi yenilgisinin hepsi bitirişle geldi, Ocak 2020'den beri galibiyeti yok.","11 Tem 2026","2026-07-11","ESPN, Yahoo Sports"],
+ ["SONUÇ","Holloway üç sıklette galibiyet alan 20. dövüşçü","Holloway, McGregor'ı yenerek rekorunu 28-9'a taşıdı. UFC'de en çok isabetli vuruş sayısında liderliğini sürdürüyor.","12 Tem 2026","2026-07-12","MMA Junkie"],
+ ["SONUÇ","Pimblett, Saint-Denis'yi 52 saniyede teslim aldı","UFC 329 co-main'de Paddy Pimblett, Benoit Saint Denis'yi 1. raundda gilotin kıskaçla bitirdi (24-4).","11 Tem 2026","2026-07-11","Yahoo Sports"],
+ ["SERİ","Usman Nurmagomedov 22-0","Khabib'in kuzeni Usman Nurmagomedov, PFL'de Archie Colgan'ı ilk raundda nakavt ederek yenilgisizliğini sürdürdü.","Tem 2026","2026-07-05",""],
+ ["SONUÇ","Du Plessis, Usman'ı yendi","Dricus Du Plessis, Kamaru Usman'ı kararla geçerek sıralamadaki yerini sağlamlaştırdı.","Tem 2026","2026-07-01",""],
+ ["ŞOK","UFC Freedom 250: Gaethje, Topuria'yı devirdi","Beyaz Saray'ın Güney Çimeni'nde 7 maçın 7'si bitirişle sonuçlandı. Justin Gaethje, 6-1 favori Topuria'yı 4. raund sonunda köşe müdahalesiyle yenip ilk tam UFC unvanını aldı. İkisine de Fight of the Night bonusu verildi.","14 Haz 2026","2026-06-14","CBS Sports, Yahoo Sports"],
+ ["SONUÇ","Gane, Pereira'yı durdurup interim kemeri aldı","Gane, Freedom 250 co-main'de Pereira'yı 2. raund 1:27'de TKO etti. Pereira, üç sıklette şampiyonluk denemesinde kaldı.","14 Haz 2026","2026-06-14","ESPN, Bleacher Report"],
+ ["SONUÇ","Freedom 250'de diğer sonuçlar","O'Malley, Zahabi'yi; Hokit, Derrick Lewis'i; Ruffy, Chandler'ı; Nickal, Daukaus'u; Lopes ise Steve Garcia'yı bitirdi.","14 Haz 2026","2026-06-14","Bleacher Report"],
+ ["DUYURU","Rodtang vs Superbon süper maçı","ONE, 2027'de iki Tayland efsanesini süper maçta karşılaştıracağını duyurdu.","Haz 2026","2026-06-01",""],
+ ["EMEKLİLİK","Malykhin emekli oldu","ONE'ın 3 sıklet şampiyonu Anatoly Malykhin, unvanını koruduktan sonra emekliliğini açıkladı.","May 2026","2026-05-15",""],
+ ["SÜRPRİZ","Strickland, Chimaev'i yıktı","Sean Strickland, UFC 328'de yenilgisiz Khamzat Chimaev'i split decision ile geçerek Middleweight kemerini geri aldı. Chimaev'in ilk yenilgisi.","9 May 2026","2026-05-09",""],
+ ["SONUÇ","UFC 327: Ulberg tek bacakla kemeri aldı","Carlos Ulberg, maçın başında ACL'sini koparmasına rağmen Prochazka'yı 1. raundda sol kroşeyle KO ederek boş hafif ağır sıklet kemerini kazandı. Ameliyat oldu.","11 Nis 2026","2026-04-11","ESPN"],
+ ["SONUÇ","Paulo Costa hafif ağır sıkletinde kazandı","Costa, UFC 327'de Azamat Murzakanov'u yenerek hafif ağır sıklette 4. sıraya yerleşti.","11 Nis 2026","2026-04-11","UFC sıralaması"],
+ ["AÇIKLAMA","Prochazka rövanş istiyor","Ulberg'e KO olan Prochazka, rakibine “merhamet ettiğini” söyledi ve hemen rövanş istedi.","27 Nis 2026","2026-04-27","Yahoo Sports"],
+ ["EMEKLİLİK","Jon Jones yeniden emekli oldu","Jones, Beyaz Saray kartında yer bulamayınca dövüşçülüğü bıraktığını açıkladı. Rekoru 28-1 (1 NC).","10 Nis 2026","2026-04-10","Bloody Elbow"],
+ ["SONUÇ","Oliveira, Holloway'i yenip BMF kemerini aldı","UFC 326'da Charles Oliveira, Max Holloway'i oybirliğiyle yendi.","7 Mar 2026","2026-03-07","ESPN"],
+ ["ETKİNLİK","UFC Suudi Arabistan kartı konuşuluyor","Riyad'da yapılacak özel etkinlikte 3 unvan maçı birden olacağı konuşuluyor. Makhachev vs Rakhmonov ihtimali gündemde.","Mar 2026","2026-03-01",""],
+ ["TRANSFER","Alex Pereira ağır sıklete geçti","Pereira, hafif ağır sıklet kemerini bırakıp interim ağır sıklet unvanı için Gane'le dövüşmeye hazırlandı.","Şub 2026","2026-02-15",""],
+ ["ŞAMPİYON","Volkanovski, Lopes'i yine yendi","Alexander Volkanovski, Diego Lopes ile olan rövanş maçını kazanarak Featherweight kemerini korudu. Sırada Evloev var.","1 Şub 2026","2026-02-01",""],
+ ["ÖZEL","Cejudo emekli oldu","Henry Cejudo, UFC 323'te Payton Talbott'a oybirliğiyle (30-27 x3) yenilip MMA'yi bıraktı (16-6). Sonrasında güreş maçlarına çıktı.","6 Ara 2025","2025-12-06","ESPN"],
+ ["GERİ DÖNÜŞ","Petr Yan geri döndü","Petr Yan, Merab Dvalishvili'yi yenerek Bantamweight kemerini geri aldı ve 4.5 yıllık hasreti bitirdi.","Ara 2025","2025-12-15",""],
+ ["SAKATLIK","Shavkat Rakhmonov ara veriyor","Yenilgisiz Kazak yıldız Rakhmonov, diz sakatlığı nedeniyle 2026'nın geri kalanında kafeste olmayacak.","2026","2026-01-20",""],
+ ["YÜKSELEN","Movsar Evloev hâlâ yenilgisiz","Dağıstanlı güreşçi Movsar Evloev, 20-0'lık rekoruyla Volkanovski maçını bekliyor.","2026","2026-01-18",""],
+ ["YÜKSELEN","Lerone Murphy 15-0","İngiliz Lerone Murphy, featherweight divisionında sessizce yükseliyor.","2026","2026-01-17",""],
+ ["DEDİKODU","Zhang Weili sıklet değiştirir mi?","Çinli şampiyon Zhang Weili'nin strawweight'ten ayrılıp daha yüksek bir sıkleti deneyebileceği konuşuluyor.","2026","2026-01-16",""],
+ ["DEDİKODU","Sterling tüy sıklete mi çıkıyor?","Aljamain Sterling'in bantamweight'ten featherweight'e çıkabileceği söylentileri alevlendi.","2026","2026-01-15",""],
+ ["AÇIKLAMA","Whittaker rövanş istiyor","Chimaev'e submission ile kaybeden Whittaker, hemen rövanş istediğini açıkladı.","2026","2026-01-14",""],
+ ["AÇIKLAMA","Tsarukyan title shot bekliyor","Arman Tsarukyan, lightweight kemer maçı için sırasını beklediğini söyledi.","2026","2026-01-13",""],
+ ["GERİ DÖNÜŞ","Brian Ortega geri dönüyor","Sakatlıktan dönen Ortega, 2026 sonuna kadar kafese döneceğini açıkladı.","2026","2026-01-12",""],
+ ["GERİ DÖNÜŞ","Tatiana Suarez geri döndü","Sakatlıklarla boğuşan Suarez, yeniden title shot peşinde.","2026","2026-01-11",""],
+ ["ÇAĞRI","Royval, Pantoja'yı istiyor","Brandon Royval, Pantoja ile 3. maç için çağrı yaptı.","2026","2026-01-10",""],
+ ["RÖPORTAJ","Umar Nurmagomedov sessiz","Umar Nurmagomedov, medya yerine kafeste konuşmayı tercih ettiğini söyledi.","2026","2026-01-09",""],
+ ["RÖPORTAJ","Paulo Costa: “Emekli olmuyorum”","Costa, geleceği hakkında “sadece dinleniyorum” dedi.","2026","2026-01-08",""],
+ ["ANALİZ","Taira, Japonya'da MMA'yi büyütüyor","Tatsuro Taira, Japonya'da MMA'nın popülerleşmesinde büyük rol oynuyor.","2026","2026-01-07",""],
+ ["ÖDÜL","Gamrot Polonya'da yılın sporcusu adayı","Mateusz Gamrot, Polonya'da yılın sporcusu ödülüne aday gösterildi.","2026","2026-01-06",""],
+ ["ETKİNLİK","Alexa Grasso Meksika'da","Grasso, memleketi Meksika'da törenle karşılandı.","2026","2026-01-05",""]
+].map(a => ({tag:a[0], t:a[1], s:a[2], d:a[3], iso:a[4], src:a[5]}))
+ .sort((x, y) => y.iso.localeCompare(x.iso));
+
+const GROUPS = {
+    'SONUÇ':'Sonuç','ŞAMPİYON':'Sonuç','ŞOK':'Sonuç','SÜRPRİZ':'Sonuç','SERİ':'Sonuç','REKOR':'Sonuç',
+    'DUYURU':'Yaklaşan','ETKİNLİK':'Yaklaşan','ÇAĞRI':'Yaklaşan',
+    'SAKATLIK':'Sakatlık','GERİ DÖNÜŞ':'Sakatlık'
+};
+const groupOf = tag => GROUPS[tag] || 'Diğer';
 
 /* ============================================================
    YARDIMCILAR
@@ -365,9 +488,12 @@ const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const byId = id => DB.find(f => f.id === Number(id));
+const byName = n => DB.find(f => f.n.toLowerCase() === String(n).toLowerCase());
 const ORG_NAME = {UFC:'UFC', ONE:'ONE', PFL:'PFL', LEGEND:'Efsane'};
+const nz = v => v == null ? '—' : v;
+const rec = f => `${f.w}-${f.l}-${f.d}` + (f.nc ? ` (${f.nc} NC)` : '');
+const hasStats = f => [f.sl, f.ac, f.td, f.sb].every(v => v != null);
 
-/* localStorage engellenebilir → her erişim try/catch */
 const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch(e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} }
@@ -376,13 +502,7 @@ let favs = new Set(store.get('zmma:favs', []));
 const saveFavs = () => store.set('zmma:favs', [...favs]);
 
 /* ============================================================
-   GÖRSEL SİSTEMİ
-   Hata analizi özeti: eski kod uydurma Wikimedia/UFC URL'lerine
-   bağlıydı; hepsi 404/403 döndü ve onerror görseli gizleyince
-   sadece baş harfler kalıyordu. Yeni sistem:
-   1) Her zaman çalışan, satır içi SVG avatar (ağ gerektirmez)
-   2) Mümkünse Wikipedia API'den gerçek fotoğraf (progressive)
-   3) Başarısız olursa avatar kalır — asla boş/kırık görsel yok
+   GÖRSEL SİSTEMİ: satır içi SVG avatar + (mümkünse) Wikipedia fotoğrafı
    ============================================================ */
 function hueOf(str) { let h = 0; for (const ch of str) h = (h * 31 + ch.charCodeAt(0)) % 360; return h; }
 function initials(name) { return name.split(/\s+/).filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase(); }
@@ -397,19 +517,15 @@ function avatar(f) {
 <rect width="200" height="250" fill="url(#g)"/>
 <circle cx="100" cy="96" r="38" fill="#fff" fill-opacity=".13"/>
 <path d="M30 250c0-58 32-92 70-92s70 34 70 92z" fill="#fff" fill-opacity=".13"/>
-<text x="100" y="110" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="800" fill="#fff" fill-opacity=".9">${initials(f.n)}</text>
+<text x="100" y="110" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="800" fill="#fff" fill-opacity=".9">${esc(initials(f.n))}</text>
 ${ring}</svg>`;
     return avatarCache[f.id] = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 }
 
-/* Fotoğraf çözücü: önce elle verilen URL, sonra Wikipedia araması.
-   Sandbox/CSP altında (ör. yayınlanmış önizleme) istek engellenir,
-   catch'e düşer ve avatar kalır. Kendi sunucunda gerçek foto gelir. */
 const photoCache = store.get('zmma:photos', {});
 const photoPending = {};
 function resolvePhoto(f) {
     if (photoCache[f.id] !== undefined) return Promise.resolve(photoCache[f.id]);
-    if (f.img) return Promise.resolve(f.img);
     if (photoPending[f.id]) return photoPending[f.id];
     const q = encodeURIComponent(f.n + ' mixed martial artist');
     const url = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrlimit=1&gsrsearch=${q}&prop=pageimages&piprop=thumbnail&pithumbsize=600`;
@@ -422,16 +538,14 @@ function resolvePhoto(f) {
     }).catch(() => '');
     return photoPending[f.id];
 }
-
 function swapPhoto(imgEl, f) {
     resolvePhoto(f).then(src => {
         if (!src || !imgEl.isConnected) return;
         const test = new Image();
         test.onload = () => { imgEl.src = src; };
-        test.src = src; /* yüklenemezse avatar kalır */
+        test.src = src;
     });
 }
-
 const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     entries.forEach(e => {
         if (!e.isIntersecting) return;
@@ -439,7 +553,6 @@ const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries =
         swapPhoto(e.target, byId(e.target.dataset.id));
     });
 }, {rootMargin: '200px'}) : null;
-
 function hydratePhotos(root) {
     root.querySelectorAll('img[data-id]').forEach(img => io ? io.observe(img) : swapPhoto(img, byId(img.dataset.id)));
 }
@@ -457,12 +570,21 @@ function cardHTML(f) {
         <div class="card-info">
             <div class="card-org">${ORG_NAME[f.org]} · ${esc(f.div)}</div>
             <div class="card-name">${esc(f.n)}</div>
-            <span class="card-rec">${f.w}-${f.l}-${f.d}</span>
+            <span class="card-rec">${rec(f)}</span>
         </div>
     </button>`;
 }
 function newsHTML(n) {
-    return `<article class="news-card"><span class="news-tag">${esc(n.tag)}</span><div class="news-title">${esc(n.t)}</div><div class="news-desc">${esc(n.s)}</div><div class="news-date">${esc(n.d)}</div></article>`;
+    return `<article class="news-card"><span class="news-tag">${esc(n.tag)}</span><div class="news-title">${esc(n.t)}</div><div class="news-desc">${esc(n.s)}</div>
+    <div class="news-meta"><span>${esc(n.d)}</span><span>${esc(n.src)}</span></div></article>`;
+}
+function nameLink(name) {
+    const f = byName(name);
+    return f ? `<button class="lnk" data-open="${f.id}">${esc(name)}</button>` : esc(name);
+}
+function eventHTML(ev) {
+    return `<article class="ev"><div class="ev-head"><b>${esc(ev.name)}</b><span>${esc(ev.date)}</span></div><div class="ev-venue">${esc(ev.venue)}</div>
+    ${ev.fights.map(f => `<div class="ev-fight"><div class="ev-names">${nameLink(f.a)}<i>vs</i>${nameLink(f.b)}</div><div class="ev-tag">${esc(f.t)}</div></div>`).join('')}</article>`;
 }
 function fillGrid(el, list) {
     el.innerHTML = list.length ? list.map(cardHTML).join('') : '<div class="empty">Sonuç bulunamadı. Aramayı veya filtreyi değiştir.</div>';
@@ -476,6 +598,7 @@ function renderHome() {
     fillGrid($('#homeGrid'), feat);
     $('#homeCount').textContent = pool.length + ' dövüşçü';
     $('#homeNews').innerHTML = NEWS.slice(0, 4).map(newsHTML).join('');
+    $('#homeEvents').innerHTML = eventHTML(EVENTS[0]);
     $('#heroStats').innerHTML = `<div><b>${DB.length}</b><span>Dövüşçü</span></div><div><b>${DB.filter(f => f.c).length}</b><span>Şampiyon</span></div><div><b>${NEWS.length}</b><span>Haber</span></div>`;
 }
 
@@ -483,29 +606,32 @@ let fOrg = 'all';
 function renderFighters() {
     const q = $('#searchInput').value.trim().toLocaleLowerCase('tr');
     const sort = $('#sortSelect').value;
-    let list = DB.filter(f => {
+    const list = DB.filter(f => {
         if (fOrg === 'CHAMP' && !f.c) return false;
         if (fOrg === 'FAV' && !favs.has(f.id)) return false;
         if (!['all', 'CHAMP', 'FAV'].includes(fOrg) && f.org !== fOrg) return false;
         if (!q) return true;
-        return [f.n, f.co, f.div, f.org, f.st].some(v => v.toLocaleLowerCase('tr').includes(q));
+        return [f.n, f.co, f.div, f.org, f.st || ''].some(v => v.toLocaleLowerCase('tr').includes(q));
     });
     const cmp = {
         rank: (a, b) => (b.c - a.c) || ((a.r || 99) - (b.r || 99)) || a.n.localeCompare(b.n),
         name: (a, b) => a.n.localeCompare(b.n),
         wins: (a, b) => b.w - a.w,
-        sl: (a, b) => b.sl - a.sl,
-        td: (a, b) => b.td - a.td
+        sl: (a, b) => (b.sl == null ? -1 : b.sl) - (a.sl == null ? -1 : a.sl),
+        td: (a, b) => (b.td == null ? -1 : b.td) - (a.td == null ? -1 : a.td)
     }[sort];
     list.sort(cmp);
+    $('#fighterCount').textContent = list.length + ' dövüşçü';
     fillGrid($('#fightersGrid'), list);
 }
 
+let newsGroup = 'all';
 function renderNews() {
     const q = $('#newsSearch').value.trim().toLocaleLowerCase('tr');
-    const list = NEWS.filter(n => !q || (n.t + n.s + n.tag).toLocaleLowerCase('tr').includes(q));
-    $('#newsGrid').innerHTML = list.length ? list.map(newsHTML).join('') : '<div class="empty">Haber bulunamadı.</div>';
+    const list = NEWS.filter(n => (newsGroup === 'all' || groupOf(n.tag) === newsGroup) && (!q || (n.t + ' ' + n.s + ' ' + n.tag).toLocaleLowerCase('tr').includes(q)));
+    $('#newsGrid').innerHTML = list.length ? list.map(newsHTML).join('') : '<div class="empty" style="padding:40px 0">Haber bulunamadı.</div>';
 }
+function renderEvents() { $('#eventsList').innerHTML = EVENTS.map(eventHTML).join(''); }
 
 /* ============================================================
    PROFİL
@@ -514,21 +640,25 @@ let openId = null;
 function openProfile(id) {
     const f = byId(id); if (!f) return;
     openId = f.id;
+    const stats = hasStats(f);
     $('#profileContent').innerHTML = `
         <div class="prof-hero"><img data-id="${f.id}" src="${avatar(f)}" alt="${esc(f.n)}"><div class="prof-overlay"></div></div>
         <div class="prof-info">
             <div class="prof-meta">${f.c ? '👑 Şampiyon · ' : ''}${ORG_NAME[f.org]} · ${esc(f.div)} · ${esc(f.co)}</div>
             <div class="prof-name">${esc(f.n)}</div>
             <div style="height:16px"></div>
+            ${f.note ? `<div class="info-box"><small>Durum</small>${esc(f.note)}</div>` : ''}
+            ${f.next ? `<div class="info-box next"><small>Sıradaki maç</small>${esc(f.next)}</div>` : ''}
+            <div style="height:6px"></div>
             <div class="stats-row">
-                <div class="stat-box"><div class="stat-val">${f.w}-${f.l}-${f.d}</div><div class="stat-lbl">Rekor</div></div>
-                <div class="stat-box"><div class="stat-val">${f.sl}</div><div class="stat-lbl">Vuruş / dk</div></div>
-                <div class="stat-box"><div class="stat-val">%${f.ac}</div><div class="stat-lbl">İsabet</div></div>
+                <div class="stat-box"><div class="stat-val" style="font-size:${f.nc ? 15 : 18}px">${rec(f)}</div><div class="stat-lbl">Rekor</div></div>
+                <div class="stat-box"><div class="stat-val">${nz(f.sl)}</div><div class="stat-lbl">Vuruş / dk</div></div>
+                <div class="stat-box"><div class="stat-val">${f.ac == null ? '—' : '%' + f.ac}</div><div class="stat-lbl">İsabet</div></div>
             </div>
             <div class="stats-row" style="margin-bottom:24px">
-                <div class="stat-box"><div class="stat-val">${f.td}</div><div class="stat-lbl">Takedown / 15 dk</div></div>
-                <div class="stat-box"><div class="stat-val">${f.sb}</div><div class="stat-lbl">Submission / 15 dk</div></div>
-                <div class="stat-box"><div class="stat-val" style="font-size:15px">${esc(f.st)}</div><div class="stat-lbl">Ana stil</div></div>
+                <div class="stat-box"><div class="stat-val">${nz(f.td)}</div><div class="stat-lbl">Takedown / 15 dk</div></div>
+                <div class="stat-box"><div class="stat-val">${nz(f.sb)}</div><div class="stat-lbl">Submission / 15 dk</div></div>
+                <div class="stat-box"><div class="stat-val" style="font-size:15px">${esc(nz(f.st))}</div><div class="stat-lbl">Ana stil</div></div>
             </div>
             <div class="section-title" style="margin:0 0 12px">Son maçlar</div>
             ${f.h.length ? f.h.map(h => `
@@ -537,13 +667,16 @@ function openProfile(id) {
                         <div class="hist-res ${h.r === 'W' ? 'win' : h.r === 'L' ? 'loss' : 'nc'}">${h.r}</div>
                         <span style="font-weight:700;font-size:14px">${esc(h.o)}</span>
                     </div>
-                    <span style="color:var(--muted);font-size:12px;font-weight:600">${esc(h.m)} · R${h.rd}</span>
+                    <span style="color:var(--muted);font-size:12px;font-weight:600;text-align:right">${esc(h.m)}${h.rd ? ' · R' + h.rd : ''}</span>
                 </div>`).join('') : '<div style="color:var(--muted);font-size:13px;padding:6px 0">Bu dövüşçü için maç verisi henüz eklenmedi.</div>'}
-            <button class="chip active" id="cmpFromProfile" style="margin-top:18px;font-size:14px;padding:12px 20px">Karşılaştırmaya ekle</button>
+            ${stats
+                ? '<button class="chip active" id="cmpFromProfile" style="margin-top:18px;font-size:14px;padding:12px 20px">Karşılaştırmaya ekle</button>'
+                : '<div style="color:var(--muted);font-size:12px;margin-top:18px">İstatistik verisi henüz eklenmediği için karşılaştırmada yer almıyor.</div>'}
         </div>`;
     swapPhoto($('#profileContent img'), f);
     updateFavBtn();
-    $('#cmpFromProfile').onclick = () => { closeProfile(); goCompare(f.id); };
+    const cb = $('#cmpFromProfile');
+    if (cb) cb.onclick = () => { closeProfile(); goCompare(f.id); };
     $('#profileModal').classList.add('open');
     $('#profileModal').scrollTop = 0;
     document.body.style.overflow = 'hidden';
@@ -578,15 +711,22 @@ const norm = (f, m) => Math.min(100, (f[m.k] / m.max) * 100);
 function initCompare() {
     if (cmpReady) return;
     cmpReady = true;
-    const opts = [...DB].sort((a, b) => a.n.localeCompare(b.n)).map(f => `<option value="${f.id}">${esc(f.n)} (${esc(f.div)})</option>`).join('');
+    const pool = DB.filter(hasStats).sort((a, b) => a.n.localeCompare(b.n));
+    const opts = pool.map(f => `<option value="${f.id}">${esc(f.n)} (${esc(f.div)})</option>`).join('');
     $('#cmpA').innerHTML = opts; $('#cmpB').innerHTML = opts;
     $('#cmpA').value = 1; $('#cmpB').value = 3;
+    $('#cmpSub').textContent = pool.length + ' dövüşçü karşılaştırılabilir';
     $('#cmpA').onchange = $('#cmpB').onchange = updateCompare;
     $('#cmpSwap').onclick = () => { const a = $('#cmpA').value; $('#cmpA').value = $('#cmpB').value; $('#cmpB').value = a; updateCompare(); };
 }
 function goCompare(id) {
     nav('compare');
-    if (id) { $('#cmpA').value = id; if ($('#cmpB').value == id) $('#cmpB').value = id == 1 ? 3 : 1; updateCompare(); }
+    const f = byId(id);
+    if (f && hasStats(f)) {
+        $('#cmpA').value = id;
+        if ($('#cmpB').value == id) $('#cmpB').value = id == 1 ? 3 : 1;
+        updateCompare();
+    }
 }
 function updateCompare() {
     const f1 = byId($('#cmpA').value), f2 = byId($('#cmpB').value);
@@ -621,28 +761,32 @@ function updateCompare() {
     if (chartInstance) chartInstance.destroy();
     const css = getComputedStyle(document.documentElement);
     const txt = css.getPropertyValue('--text').trim() || '#fff';
-    const mu = css.getPropertyValue('--muted').trim() || '#aaa';
     chartInstance = new Chart($('#radarChart').getContext('2d'), {         type: 'radar',         data: {             labels: ['Vuruş', 'İsabet', 'Takedown', 'Submission', 'Tecrübe'],             datasets: [f1, f2].map((f, i) => ({                 label: f.n, data: METRICS.map(m => Math.round(norm(f, m))),                 borderColor: i ? '#ef4444' : '#ccff00', backgroundColor: i ? 'rgba(239,68,68,.18)' : 'rgba(204,255,0,.16)',                 pointBackgroundColor: i ? '#ef4444' : '#ccff00', borderWidth: 2             }))         },         options: {             responsive: true, maintainAspectRatio: false,             scales: { r: { min: 0, max: 100, angleLines: {color: 'rgba(128,128,128,.25)'}, grid: {color: 'rgba(128,128,128,.2)'}, pointLabels: {color: txt, font: {size: 11, weight: 'bold'}}, ticks: {display: false} } },             plugins: { legend: { labels: {color: txt, font: {size: 12, weight: 'bold'}} } }         }     }); }  /* ============================================================    NAVİGASYON & OLAYLAR    ============================================================ */ function nav(page) {     $$('.page').forEach(p => p.classList.add('hidden'));
     $('#page-' + page).classList.remove('hidden');     $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
     if (page === 'home') renderHome();
     if (page === 'fighters') renderFighters();
     if (page === 'news') renderNews();
+    if (page === 'events') renderEvents();
     if (page === 'compare') { initCompare(); updateCompare(); }
     window.scrollTo(0, 0);
 }
 
 document.addEventListener('click', e => {
-    const card = e.target.closest('[data-open]');
-    if (card) return openProfile(card.dataset.open);
+    const open = e.target.closest('[data-open]');
+    if (open) return openProfile(open.dataset.open);
     const navBtn = e.target.closest('.nav-item');
     if (navBtn) return nav(navBtn.dataset.page);
+    const go = e.target.closest('[data-go]');
+    if (go) { e.preventDefault(); nav(go.dataset.go); }
 });
-$('#allNews').onclick = e => { e.preventDefault(); nav('news'); };
 $('#homeFilters').addEventListener('click', e => {     const c = e.target.closest('.chip'); if (!c) return;     $$('#homeFilters .chip').forEach(x => x.classList.toggle('active', x === c));
     homeOrg = c.dataset.org; renderHome();
 });
 $('#fighterFilters').addEventListener('click', e => {     const c = e.target.closest('.chip'); if (!c) return;     $$('#fighterFilters .chip').forEach(x => x.classList.toggle('active', x === c));
     fOrg = c.dataset.org; renderFighters();
+});
+$('#newsFilters').addEventListener('click', e => {     const c = e.target.closest('.chip'); if (!c) return;     $$('#newsFilters .chip').forEach(x => x.classList.toggle('active', x === c));
+    newsGroup = c.dataset.g; renderNews();
 });
 $('#searchInput').addEventListener('input', renderFighters);
 $('#sortSelect').addEventListener('change', renderFighters);
