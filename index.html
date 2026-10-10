@@ -144,6 +144,32 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 .chart-box { height:320px; margin-top:24px; background:var(--surface); border-radius:16px; padding:10px; border:1px solid var(--border); position:relative; }
 .note { font-size:11px; color:var(--muted); margin-top:12px; line-height:1.5; }
 
+.spot { display:block; width:calc(100% - 40px); margin:16px 20px 0; text-align:left; background:var(--surface); border:1px solid color-mix(in srgb,var(--gold) 45%,var(--border)); border-radius:20px; overflow:hidden; cursor:pointer; padding:0; }
+.spot-img { aspect-ratio:16/10; background:#000; position:relative; }
+.spot-img img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.spot-badge { position:absolute; top:12px; left:12px; background:var(--gold); color:#000; font-size:11px; font-weight:800; padding:5px 10px; border-radius:6px; }
+.spot-body { padding:16px; }
+.spot-body h2 { font-size:21px; line-height:1.2; letter-spacing:-.3px; margin-bottom:8px; }
+.spot-body p { font-size:12px; color:var(--muted); font-weight:600; }
+.past-wrap { padding:0 20px; margin-top:12px; }
+.past-wrap .news-meta a { color:var(--primary); font-weight:800; text-decoration:none; }
+.story-hero { aspect-ratio:16/10; background:#000; position:relative; max-height:360px; width:100%; }
+.story-hero img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.story-wrap { max-width:720px; margin:0 auto; padding:18px 20px 40px; }
+.story-wrap h1 { font-size:26px; line-height:1.2; letter-spacing:-.4px; margin-bottom:6px; }
+.story-by { font-size:12px; color:var(--muted); font-weight:600; margin-bottom:16px; }
+.story-tabs { display:flex; gap:8px; overflow-x:auto; padding-bottom:12px; scrollbar-width:none; }
+.story-tabs::-webkit-scrollbar { display:none; }
+.story-body p { font-size:16px; line-height:1.65; margin-bottom:14px; max-width:68ch; }
+.story-body .todo { color:var(--muted); font-style:italic; }
+.story-body h3 { font-size:19px; line-height:1.3; letter-spacing:-.2px; margin:26px 0 10px; }
+.story-body h3:first-child, .karne-list + h3 { margin-top:8px; }
+.story-sign { margin-top:28px; padding-top:14px; border-top:1px solid var(--border); font-size:13px; color:var(--muted); font-weight:700; }
+.karne { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+.karne .stat-box { text-align:left; padding:12px 14px; }
+.karne-list { list-style:none; margin-bottom:16px; }
+.karne-list li { padding:10px 0; border-top:1px solid var(--border); font-size:14px; line-height:1.5; }
+.karne-list b { color:var(--primary); }
 @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
 </head>
@@ -151,12 +177,27 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 
 <header>
     <div class="logo">ZM<span>MA</span></div>
-    <div class="ver">v9.0</div>
+    <div class="ver">v11.0</div>
 </header>
 
 <main id="app">
     <!-- ANA SAYFA -->
     <section id="page-home" class="page">
+        <button class="spot" id="spot" aria-label="Geliştiricinin seçimi: Dustin Poirier Efsanesi, yazıyı aç">
+            <div class="spot-img"><div class="spot-badge">Geliştiricinin seçimi</div><img id="spotImg" data-id="67" alt="Dustin Poirier"></div>
+            <div class="spot-body">
+                <h2>Dünya Spor Tarihinin En Büyük Şahsiyeti: Dustin Poirier Efsanesi</h2>
+                <p>Dokun: karnesi · hayat hikayesi · savaşçı ruhu · GOAT'lığı</p>
+            </div>
+        </button>
+        <div class="past-wrap">
+            <article class="news-card" style="margin:0">
+                <span class="news-tag">5 YIL ÖNCE</span>
+                <div class="news-title">Poirier, McGregor'ı UFC 257'de yumruk yağmuruyla nakavt etti</div>
+                <div class="news-desc">Abu Dhabi'de 2014'teki yenilgisinin rövanşını alan Dustin Poirier, 2. raund 2:32'de McGregor'ı sağ yumrukla yere serip yumruklarla durdurdu (TKO). Poirier, vuruş sayısında 48-29 öndeydi ve bunların 18'i bacak vuruşuydu. McGregor için bu, MMA kariyerindeki ilk KO/TKO yenilgisiydi.</div>
+                <div class="news-meta"><span>23 Oca 2021 · UFC 257</span><a href="https://www.espn.com/mma/story/_/id/30767983/dustin-poirier-stuns-conor-mcgregor-2nd-round-tko-ufc-257" target="_blank" rel="noopener noreferrer">ESPN'de oku</a></div>
+            </article>
+        </div>
         <div class="hero">
             <h1>Dövüşün<br>merkezi.</h1>
             <p>UFC, ONE ve PFL dünyasından istatistikler, Türkçe haberler, maç takvimi ve karşılaştırma araçları.</p>
@@ -253,6 +294,27 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
     <button class="nav-item" data-page="events"><span class="nav-icon">▦</span><span>Takvim</span></button>
     <button class="nav-item" data-page="compare"><span class="nav-icon">⇄</span><span>Karşılaştır</span></button>
 </nav>
+
+<div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-label="Geliştiricinin seçimi">
+    <div class="modal-head">
+        <span style="font-weight:700;font-size:15px">Geliştiricinin seçimi</span>
+        <div class="head-actions"><button class="round-btn" id="storyClose" aria-label="Kapat">✕</button></div>
+    </div>
+    <div class="story-hero"><img id="storyImg" data-id="67" alt="Dustin Poirier"></div>
+    <div class="story-wrap">
+        <h1 id="storyTitle"></h1>
+        <div class="story-by">Geliştiricinin kişisel görüşüdür</div>
+        <div class="story-tabs" id="storyTabs">
+            <button class="chip active" data-tab="karne">Karnesi</button>
+            <button class="chip" data-tab="hayat">Hayat hikayesi</button>
+            <button class="chip" data-tab="savasci">Savaşçı ruhu</button>
+            <button class="chip" data-tab="goat">GOAT'lığı</button>
+            <button class="chip" data-tab="tam">Tam yazı</button>
+        </div>
+        <div class="story-body" id="storyBody"></div>
+        <div class="story-sign" id="storySign"></div>
+    </div>
+</div>
 
 <div class="modal" id="profileModal" role="dialog" aria-modal="true" aria-label="Dövüşçü profili">
     <div class="modal-head">
@@ -482,6 +544,68 @@ const GROUPS = {
 const groupOf = tag => GROUPS[tag] || 'Diğer';
 
 /* ============================================================
+   GELİŞTİRİCİNİN SEÇİMİ
+   sections: yazının bölümleri, özgün sırasıyla. tabs: bölümün hangi sekmede görüneceği.
+   "Tam yazı" sekmesi hepsini sırayla gösterir. Paragraflar boş satırla ayrılır.
+   img: kendi fotoğraf adresin (boşsa Wikipedia'dan aranır, olmazsa avatar).
+   ============================================================ */
+const EDITORIAL = {
+    id: 67,
+    title: "Dünya Spor Tarihinin En Büyük Şahsiyeti: Dustin Poirier Efsanesi",
+    img: "",
+    sign: "ZMMA — Geliştiricinin Seçimi.",
+    sections: [
+        {h:"", tabs:["hayat"], text:`Bazı dövüşçüler kemer kazanır. Bazıları tarihe geçer. Çok azı ise kemerin ötesinde bir miras bırakır. Dustin Glenn Poirier, işte o isimlerden biridir.
+
+19 Ocak 1989'da Lafayette, Louisiana'da dünyaya gelen Dustin Poirier'nin hikâyesi, milyonların tanıdığı bir UFC yıldızının hikâyesinden çok daha fazlasıdır. Onun yolculuğu; sert sokaklardan dünyanın en büyük dövüş organizasyonunun kafesine, oradan da ailesine ve ihtiyaç sahiplerine uzanan bir mücadelenin hikâyesidir.`},
+
+        {h:"Kafesten Önce Başlayan Mücadele", tabs:["hayat"], text:`Poirier'nin gençliği, Louisiana'nın Lafayette şehrinde geçti. Çocukluk ve gençlik yılları, bugünkü disiplinli profesyonel dövüşçü kimliğinden oldukça uzaktı. Gençliğinde yaşadığı sorunlar ve karıştığı kavgalar, hayatının dönüm noktalarından biri olacak karma dövüş sanatlarıyla tanışmasına giden yolun parçalarıydı.
+
+Bir zamanlar enerjisini yanlış yerlere harcayan genç, zamanla o enerjiyi bir amaca yöneltmeyi öğrendi. Kafes onun için yalnızca rakibini yenebileceği bir alan değil, kendisini geliştirebileceği bir disiplin alanıydı. Sokakta kazanılan bir kavganın aksine profesyonel MMA; sabır, teknik, kondisyon ve kontrol gerektiriyordu.
+
+Poirier'nin asıl dönüşümü de burada başladı: Öfkesini bir kimliğe dönüştürmek yerine, mücadele azmini bir mesleğe dönüştürdü.`},
+
+        {h:"Demir Yumruklar, Çelik İrade", tabs:["savasci"], text:`2009 yılında profesyonel MMA kariyerine başlayan Poirier, yıllar içerisinde hafif sıkletin en tehlikeli isimlerinden biri hâline geldi. UFC kariyeri boyunca güçlü boksu, keskin kombinasyonları, vücut darbeleri ve baskı altında savaşmaya devam edebilmesiyle tanındı.
+
+2011'de UFC'ye adım attığında önünde uzun bir yol vardı. Rakipleri değişti, sıkletler değişti, hedefleri büyüdü. Ancak Poirier, yalnızca nakavtlarıyla değil, en zorlu mücadelelerde bile geri dönme becerisiyle de kendisini kanıtladı.
+
+2019'da Max Holloway'i mağlup ederek geçici UFC hafif sıklet şampiyonu oldu. Aynı yıl Khabib Nurmagomedov karşısında tartışmasız şampiyonluk için kafese çıktı. Maçın üçüncü raundunda Khabib'e karşı bir giyotin boğma girişiminde bulundu. Bu hamle, karşılaşmanın sonucunu değiştirmeye yetmedi; Khabib mücadeleyi kazandı. Fakat Poirier'nin pes etmeyen yaklaşımı, o gecenin hafızalara kazınan ayrıntılarından biri oldu.
+
+Çünkü gerçek savaşçı ruhu, her hamlenin başarıya ulaşmasında değil, en zor anlarda bile çözüm aramaya devam edebilmekte saklıdır.`},
+
+        {h:"McGregor Rövanşı: Bir Gecede Değişen Tarih", tabs:["karne"], text:`23 Ocak 2021. UFC 257.
+
+Dustin Poirier, yıllar önce kendisini mağlup eden Conor McGregor ile yeniden karşı karşıya geldi. Bu kez hikâyenin sonu farklıydı. İkinci raundun ortalarında Poirier'nin yumrukları maçı bitirdi ve hakem karşılaşmayı teknik nakavtla durdurdu.
+
+Bu zafer yalnızca büyük bir rakibe karşı alınmış galibiyet değildi. Poirier'nin yıllar içinde nasıl geliştiğini, ilk karşılaşmasından ne kadar farklı bir dövüşçüye dönüştüğünü gösteren önemli bir andı.
+
+Rövanşın ardından ikili arasındaki rekabet sona ermedi. Üçüncü karşılaşmada McGregor'un sakatlanmasıyla mücadele erken bitti ve Poirier serideki üstünlüğünü korudu. Böylece McGregor rekabeti, kariyerinin en çok konuşulan bölümlerinden biri olarak tarihe geçti.
+
+Poirier'nin hikâyesini özel kılan yalnızca bu zaferler değildi. Justin Gaethje, Max Holloway ve diğer elit rakiplerle yaptığı mücadeleler, onun hafif sıklet tarihindeki yerini sağlamlaştırdı. Tartışmasız UFC şampiyonluğu kazanamamış olsa da geçici şampiyonluğu, üst düzey galibiyetleri ve yıllara yayılan rekabetçiliği, onu dönemin en önemli dövüşçülerinden biri hâline getirdi.`},
+
+        {h:"Kafesin Dışındaki Dustin Poirier", tabs:["hayat"], text:`Poirier'yi yalnızca yumruklarıyla değerlendirmek, hikâyenin önemli bir bölümünü kaçırmak olur.
+
+Eşi Jolie Poirier ile kurduğu aile hayatı, onun kamuoyuna yansıyan kimliğinin önemli bir parçasıdır. Yoğun antrenmanlar, seyahatler ve büyük karşılaşmaların arasında ailesine verdiği değer, kariyerinin insani yönünü ortaya koyar. Şampiyonluk mücadelesinin ötesinde, eve döndüğünde de sorumlulukları olan bir eş ve babadır.
+
+Poirier ve eşi, toplumsal yardım çalışmalarını büyüterek The Good Fight Foundation adlı vakfı kurdu. Vakıf; çocuklara, ihtiyaç sahibi ailelere ve farklı toplumsal projelere destek sağlamayı amaçladı. Poirier'nin kariyerinden elde ettiği bazı özel eşyaların açık artırmaya çıkarılmasıyla yardım çalışmalarına kaynak oluşturulması da bu yaklaşımın dikkat çeken örneklerinden biri oldu.
+
+Bir dövüşçünün başarısı çoğu zaman kazandığı maçlarla ölçülür. Fakat kazandıklarını başkalarının hayatını iyileştirmek için kullanması, kariyerine başka bir anlam kazandırır.
+
+Kafeste rakiplerini durdurmaya çalışan adam, kafesin dışında insanların hayatına dokunmaya çalışıyordu.`},
+
+        {h:"Bir Efsanenin Ölçüsü", tabs:["goat"], text:`Dustin Poirier kusursuz bir dövüşçü değildi. Büyük maçlar kaybetti, tartışmasız şampiyonluk fırsatlarını değerlendiremedi ve kariyerinde aşamadığı rakipler oldu. Onu efsane yapan şey, bu gerçeklerin yokluğu değil; bunlara rağmen yıllarca dünyanın en iyileri arasında kalabilmesiydi.
+
+Onun hikâyesinde sokak kavgalarından profesyonel disipline uzanan bir dönüşüm, Khabib karşısında sonuna kadar aranan bir çıkış yolu, McGregor karşısında alınan unutulmaz bir rövanş zaferi ve sporun dışında da devam eden bir yardım mücadelesi var.
+
+Poirier'nin mirası tek bir kemere, tek bir nakavta veya tek bir geceye sığdırılamaz.
+
+Peki, dünya spor tarihinin en büyük şahsiyeti mi? Bu, elbette kişisel bir değerlendirme ve tartışmaya açık bir unvan. Ancak Dustin Poirier'nin neden milyonlarca taraftar için özel bir yere sahip olduğunu anlamak için tartışmasız şampiyon olmasına gerek yok.
+
+Bazıları zirveye ulaşmak için savaşır. Bazıları ise zirveye giden yolun nasıl yürüneceğini gösterir. Dustin Poirier'nin hikâyesi, tam da bu yüzden anlatılmaya değer.`}
+    ]
+};
+
+/* ============================================================
    YARDIMCILAR
    ============================================================ */
 const $ = s => document.querySelector(s);
@@ -599,6 +723,7 @@ function renderHome() {
     $('#homeCount').textContent = pool.length + ' dövüşçü';
     $('#homeNews').innerHTML = NEWS.slice(0, 4).map(newsHTML).join('');
     $('#homeEvents').innerHTML = eventHTML(EVENTS[0]);
+    renderSpot();
     $('#heroStats').innerHTML = `<div><b>${DB.length}</b><span>Dövüşçü</span></div><div><b>${DB.filter(f => f.c).length}</b><span>Şampiyon</span></div><div><b>${NEWS.length}</b><span>Haber</span></div>`;
 }
 
@@ -738,14 +863,14 @@ function updateCompare() {
     if (f1.id === f2.id) {
         $('#aiWinner').textContent = 'Aynı dövüşçü';
         $('#aiConf').textContent = 'Karşılaştırmak için farklı iki dövüşçü seç.';
-        $('#pbA').style.width = '50\%'; $('#pbB').style.width = '50%';
+        $('#pbA').style.width = '50%'; $('#pbB').style.width = '50%';
     } else {
         const sc = f => METRICS.reduce((t, m) => t + norm(f, m) * m.wt, 0) * (f.l + f.d === 0 ? 1.04 : 1);
         const s1 = sc(f1), s2 = sc(f2);
         const p1 = Math.round(Math.min(80, Math.max(20, 50 + (s1 - s2) * 1.1)));
         $('#aiWinner').textContent = p1 >= 50 ? f1.n : f2.n;
         $('#aiConf').textContent = `${f1.n} %${p1} · ${f2.n} %${100 - p1}`;
-        $('#pbA').style.width = p1 + '\%'; $('#pbB').style.width = (100 - p1) + '%';
+        $('#pbA').style.width = p1 + '%'; $('#pbB').style.width = (100 - p1) + '%';
     }
 
     $('#cmpStats').innerHTML = METRICS.map(m => {
@@ -761,8 +886,87 @@ function updateCompare() {
     if (chartInstance) chartInstance.destroy();
     const css = getComputedStyle(document.documentElement);
     const txt = css.getPropertyValue('--text').trim() || '#fff';
-    chartInstance = new Chart($('#radarChart').getContext('2d'), {         type: 'radar',         data: {             labels: ['Vuruş', 'İsabet', 'Takedown', 'Submission', 'Tecrübe'],             datasets: [f1, f2].map((f, i) => ({                 label: f.n, data: METRICS.map(m => Math.round(norm(f, m))),                 borderColor: i ? '#ef4444' : '#ccff00', backgroundColor: i ? 'rgba(239,68,68,.18)' : 'rgba(204,255,0,.16)',                 pointBackgroundColor: i ? '#ef4444' : '#ccff00', borderWidth: 2             }))         },         options: {             responsive: true, maintainAspectRatio: false,             scales: { r: { min: 0, max: 100, angleLines: {color: 'rgba(128,128,128,.25)'}, grid: {color: 'rgba(128,128,128,.2)'}, pointLabels: {color: txt, font: {size: 11, weight: 'bold'}}, ticks: {display: false} } },             plugins: { legend: { labels: {color: txt, font: {size: 12, weight: 'bold'}} } }         }     }); }  /* ============================================================    NAVİGASYON & OLAYLAR    ============================================================ */ function nav(page) {     $$('.page').forEach(p => p.classList.add('hidden'));
-    $('#page-' + page).classList.remove('hidden');     $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
+    chartInstance = new Chart($('#radarChart').getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['Vuruş', 'İsabet', 'Takedown', 'Submission', 'Tecrübe'],
+            datasets: [f1, f2].map((f, i) => ({
+                label: f.n, data: METRICS.map(m => Math.round(norm(f, m))),
+                borderColor: i ? '#ef4444' : '#ccff00', backgroundColor: i ? 'rgba(239,68,68,.18)' : 'rgba(204,255,0,.16)',
+                pointBackgroundColor: i ? '#ef4444' : '#ccff00', borderWidth: 2
+            }))
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: { r: { min: 0, max: 100, angleLines: {color: 'rgba(128,128,128,.25)'}, grid: {color: 'rgba(128,128,128,.2)'}, pointLabels: {color: txt, font: {size: 11, weight: 'bold'}}, ticks: {display: false} } },
+            plugins: { legend: { labels: {color: txt, font: {size: 12, weight: 'bold'}} } }
+        }
+    });
+}
+
+/* ============================================================
+   GELİŞTİRİCİNİN SEÇİMİ — render
+   ============================================================ */
+function paras(text) {
+    return text.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean).map(t => `<p>${esc(t)}</p>`).join('');
+}
+function setEditorialImg(imgEl) {
+    const f = byId(EDITORIAL.id);
+    imgEl.src = EDITORIAL.img || avatar(f);
+    if (!EDITORIAL.img) swapPhoto(imgEl, f);
+}
+function renderSpot() { setEditorialImg($('#spotImg')); }
+
+let storyTab = 'karne';
+function sectionHTML(sec) {
+    return (sec.h ? `<h3>${esc(sec.h)}</h3>` : '') + paras(sec.text);
+}
+function renderStory() {
+    const f = byId(EDITORIAL.id);
+    $$('#storyTabs .chip').forEach(c => c.classList.toggle('active', c.dataset.tab === storyTab));
+    const secs = EDITORIAL.sections.filter(sec => storyTab === 'tam' || sec.tabs.includes(storyTab));
+    let html = '';
+    if (storyTab === 'karne') {
+        html += `<div class="karne">
+            <div class="stat-box"><div class="stat-val">${rec(f)}</div><div class="stat-lbl">Rekor</div></div>
+            <div class="stat-box"><div class="stat-val">${esc(f.co)}</div><div class="stat-lbl">Ülke</div></div>
+        </div>
+        <ul class="karne-list">
+            <li><b>2009:</b> Profesyonel MMA kariyerine başladı.</li>
+            <li><b>1 Ocak 2011:</b> UFC'deki ilk maçına çıktı.</li>
+            <li><b>Nisan 2019 · UFC 236:</b> Max Holloway'i oybirliğiyle yenip geçici hafif sıklet şampiyonu oldu.</li>
+            <li><b>7 Eylül 2019 · UFC 242:</b> Khabib Nurmagomedov'a 3. raundda submission ile yenildi.</li>
+            <li><b>23 Ocak 2021 · UFC 257:</b> McGregor'ı 2. raund 2:32'de TKO ile durdurdu.</li>
+            <li><b>Temmuz 2021 · UFC 264:</b> McGregor'ın 1. raund sonunda bacağını kırmasıyla biten üçüncü maçı kazandı.</li>
+            <li><b>Temmuz 2025 · UFC 318:</b> Max Holloway'e yenilip kariyerini bitirdi.</li>
+        </ul>`;
+    }
+    html += secs.length ? secs.map(sectionHTML).join('') : '<p class="todo">Bu bölüm henüz yazılmadı.</p>';
+    $('#storyBody').innerHTML = html;
+    $('#storySign').textContent = EDITORIAL.sign;
+}
+function openStory(tab) {
+    storyTab = tab || 'karne';
+    $('#storyTitle').textContent = EDITORIAL.title;
+    setEditorialImg($('#storyImg'));
+    renderStory();
+    $('#storyModal').classList.add('open');
+    $('#storyModal').scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    $('#storyClose').focus();
+}
+function closeStory() {
+    $('#storyModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+/* ============================================================
+   NAVİGASYON & OLAYLAR
+   ============================================================ */
+function nav(page) {
+    $$('.page').forEach(p => p.classList.add('hidden'));
+    $('#page-' + page).classList.remove('hidden');
+    $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
     if (page === 'home') renderHome();
     if (page === 'fighters') renderFighters();
     if (page === 'news') renderNews();
@@ -779,13 +983,19 @@ document.addEventListener('click', e => {
     const go = e.target.closest('[data-go]');
     if (go) { e.preventDefault(); nav(go.dataset.go); }
 });
-$('#homeFilters').addEventListener('click', e => {     const c = e.target.closest('.chip'); if (!c) return;     $$('#homeFilters .chip').forEach(x => x.classList.toggle('active', x === c));
+$('#homeFilters').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    $$('#homeFilters .chip').forEach(x => x.classList.toggle('active', x === c));
     homeOrg = c.dataset.org; renderHome();
 });
-$('#fighterFilters').addEventListener('click', e => {     const c = e.target.closest('.chip'); if (!c) return;     $$('#fighterFilters .chip').forEach(x => x.classList.toggle('active', x === c));
+$('#fighterFilters').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    $$('#fighterFilters .chip').forEach(x => x.classList.toggle('active', x === c));
     fOrg = c.dataset.org; renderFighters();
 });
-$('#newsFilters').addEventListener('click', e => {     const c = e.target.closest('.chip'); if (!c) return;     $$('#newsFilters .chip').forEach(x => x.classList.toggle('active', x === c));
+$('#newsFilters').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    $$('#newsFilters .chip').forEach(x => x.classList.toggle('active', x === c));
     newsGroup = c.dataset.g; renderNews();
 });
 $('#searchInput').addEventListener('input', renderFighters);
@@ -799,7 +1009,18 @@ $('#favBtn').onclick = () => {
     if (!$('#page-fighters').classList.contains('hidden')) renderFighters();
     if (!$('#page-home').classList.contains('hidden')) renderHome();
 };
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && openId != null) closeProfile(); });
+document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if ($('#storyModal').classList.contains('open')) closeStory();
+    else if (openId != null) closeProfile();
+});
+
+$('#spot').onclick = () => openStory('karne');
+$('#storyClose').onclick = closeStory;
+$('#storyTabs').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    storyTab = c.dataset.tab; renderStory();
+});
 
 renderHome();
 </script>
