@@ -24,18 +24,19 @@
 }
 html { scroll-padding-top:env(safe-area-inset-top,0px); }
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; overflow-x:hidden; padding-bottom:92px; min-height:100%; }
+body { background-color:var(--bg); background-image:radial-gradient(60% 40% at 85% -5%,color-mix(in srgb,var(--primary) 7%,transparent),transparent 70%),radial-gradient(50% 35% at 0% 100%,color-mix(in srgb,var(--primary) 5%,transparent),transparent 70%); background-attachment:fixed; color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; overflow-x:hidden; padding-bottom:92px; min-height:100%; }
 .hidden { display:none !important; }
 button { font:inherit; color:inherit; }
 :focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
 
-header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; background:color-mix(in srgb,var(--bg) 90%,transparent); backdrop-filter:blur(10px); padding:14px 20px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; background:color-mix(in srgb,var(--bg) 78%,transparent); backdrop-filter:blur(16px) saturate(1.4); -webkit-backdrop-filter:blur(16px) saturate(1.4); padding:14px 20px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
 .logo { font-size:22px; font-weight:900; letter-spacing:-.5px; }
 .logo span { color:var(--primary); }
 .ver { font-size:11px; color:var(--muted); font-weight:700; }
+#langBtn { width:auto; padding:0 12px; border-radius:18px; font-size:12px; font-weight:800; height:32px; letter-spacing:.5px; }
 
 .hero { padding:30px 20px 24px; background:radial-gradient(circle at top right,color-mix(in srgb,var(--primary) 10%,transparent),transparent 70%); }
-.hero h1 { font-size:34px; line-height:1.05; margin-bottom:10px; font-weight:800; letter-spacing:-1px; }
+.hero h1 { font-size:34px; line-height:1.05; margin-bottom:10px; font-weight:800; letter-spacing:-1px; background:linear-gradient(115deg,var(--text) 35%,var(--primary)); -webkit-background-clip:text; background-clip:text; color:transparent; }
 .hero p { color:var(--muted); font-size:14px; line-height:1.5; max-width:46ch; }
 .hero-stats { display:flex; gap:22px; margin-top:20px; }
 .hero-stats b { display:block; font-size:22px; }
@@ -44,7 +45,7 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 
 .filters { display:flex; gap:8px; overflow-x:auto; padding:0 20px 16px; scrollbar-width:none; }
 .filters::-webkit-scrollbar { display:none; }
-.chip { background:var(--surface); border:1px solid var(--border); padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600; color:var(--muted); white-space:nowrap; cursor:pointer; transition:background .2s,color .2s; }
+.chip { background:color-mix(in srgb,var(--surface) 75%,transparent); border:1px solid var(--border); padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600; color:var(--muted); white-space:nowrap; cursor:pointer; transition:background .2s,color .2s; }
 .chip.active { background:var(--primary); color:var(--on-primary); border-color:var(--primary); }
 
 .section-title { font-size:18px; font-weight:700; margin:20px 20px 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
@@ -54,7 +55,8 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:0 20px; }
 @media(min-width:768px){ .grid{ grid-template-columns:repeat(3,1fr);} }
 @media(min-width:1024px){ .grid{ grid-template-columns:repeat(4,1fr);} }
-.card { background:var(--surface); border-radius:16px; overflow:hidden; border:1px solid var(--border); position:relative; cursor:pointer; display:flex; flex-direction:column; text-align:left; width:100%; }
+.card { background:color-mix(in srgb,var(--surface) 82%,transparent); border-radius:16px; overflow:hidden; border:1px solid var(--border); position:relative; cursor:pointer; display:flex; flex-direction:column; text-align:left; width:100%; box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
+@media(min-width:768px){ .card{ backdrop-filter:blur(12px) saturate(1.35); -webkit-backdrop-filter:blur(12px) saturate(1.35); } }
 .card:active { transform:scale(.98); }
 .card-img-wrap { aspect-ratio:4/5; width:100%; background:#000; position:relative; overflow:hidden; }
 .card-img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
@@ -68,17 +70,17 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 .empty { grid-column:1/-1; color:var(--muted); text-align:center; padding:40px 20px; font-size:14px; }
 
 .toolbar { padding:18px 20px 12px; display:flex; flex-direction:column; gap:10px; }
-.input { width:100%; background:var(--surface); border:1px solid var(--border); padding:13px 14px; border-radius:12px; color:var(--text); font-size:15px; outline:none; }
+.input { width:100%; background:color-mix(in srgb,var(--surface) 82%,transparent); border:1px solid var(--border); padding:13px 14px; border-radius:12px; color:var(--text); font-size:15px; outline:none; box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
 .input:focus { border-color:var(--primary); }
 
-.bottom-nav { position:fixed; bottom:0; left:0; right:0; background:color-mix(in srgb,var(--bg) 94%,transparent); backdrop-filter:blur(15px); border-top:1px solid var(--border); display:flex; justify-content:space-around; align-items:center; z-index:100; padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px)); }
-.nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted); font-size:10.5px; font-weight:600; cursor:pointer; width:64px; background:none; border:none; }
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; background:color-mix(in srgb,var(--bg) 88%,transparent); backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px); border-top:1px solid var(--border); display:flex; justify-content:space-around; align-items:center; z-index:100; padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px)); }
+.nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted); font-size:10px; font-weight:600; cursor:pointer; width:56px; background:none; border:none; }
 .nav-item.active { color:var(--primary); }
-.nav-icon { font-size:20px; line-height:1; }
+.nav-icon { font-size:19px; line-height:1; }
 
 .modal { position:fixed; inset:0; background:var(--bg); z-index:200; transform:translateY(100%); visibility:hidden; transition:transform .3s cubic-bezier(.16,1,.3,1),visibility .3s; overflow-y:auto; }
 .modal.open { transform:translateY(0); visibility:visible; }
-.modal-head { position:sticky; top:0; z-index:10; padding:calc(14px + env(safe-area-inset-top,0px)) 20px 14px; background:color-mix(in srgb,var(--bg) 90%,transparent); backdrop-filter:blur(10px); display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
+.modal-head { position:sticky; top:0; z-index:10; padding:calc(14px + env(safe-area-inset-top,0px)) 20px 14px; background:color-mix(in srgb,var(--bg) 90%,transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
 .head-actions { display:flex; gap:8px; }
 .round-btn { background:var(--surface); border:1px solid var(--border); width:36px; height:36px; border-radius:50%; font-size:16px; cursor:pointer; display:grid; place-items:center; }
 .round-btn.on { color:var(--gold); border-color:var(--gold); }
@@ -90,7 +92,7 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 .prof-name { font-size:32px; font-weight:800; margin-bottom:4px; letter-spacing:-.5px; }
 .prof-meta { color:var(--primary); font-size:13px; font-weight:700; margin-bottom:6px; }
 .stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px; }
-.stat-box { background:var(--surface); padding:14px 8px; border-radius:12px; text-align:center; border:1px solid var(--border); }
+.stat-box { background:color-mix(in srgb,var(--surface) 82%,transparent); padding:14px 8px; border-radius:12px; text-align:center; border:1px solid var(--border); box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
 .stat-val { font-size:18px; font-weight:800; margin-bottom:2px; }
 .stat-lbl { font-size:10px; color:var(--muted); font-weight:700; }
 .info-box { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--primary); border-radius:12px; padding:12px 14px; margin-bottom:10px; font-size:14px; line-height:1.5; }
@@ -102,13 +104,15 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 .loss { background:rgba(239,68,68,.15); color:var(--danger); }
 .nc { background:rgba(161,161,170,.18); color:var(--muted); }
 
-.news-card { background:var(--surface); border-radius:16px; padding:16px; margin-bottom:12px; border:1px solid var(--border); }
+.news-card { background:color-mix(in srgb,var(--surface) 82%,transparent); border-radius:16px; padding:16px; margin-bottom:12px; border:1px solid var(--border); box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
+@media(min-width:768px){ .news-card{ backdrop-filter:blur(12px) saturate(1.35); -webkit-backdrop-filter:blur(12px) saturate(1.35); } }
 .news-tag { font-size:10px; font-weight:800; color:var(--primary); background:color-mix(in srgb,var(--primary) 12%,transparent); padding:4px 8px; border-radius:6px; display:inline-block; margin-bottom:10px; }
 .news-title { font-size:16px; font-weight:700; margin-bottom:8px; line-height:1.3; }
 .news-desc { font-size:14px; color:var(--muted); line-height:1.5; }
 .news-meta { font-size:11px; color:var(--muted); margin-top:8px; font-weight:600; display:flex; justify-content:space-between; gap:10px; }
 
-.ev { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:12px; }
+.ev { background:color-mix(in srgb,var(--surface) 82%,transparent); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:12px; box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
+@media(min-width:768px){ .ev{ backdrop-filter:blur(12px) saturate(1.35); -webkit-backdrop-filter:blur(12px) saturate(1.35); } }
 .ev-head { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
 .ev-head b { font-size:20px; letter-spacing:-.3px; }
 .ev-head span { font-size:12px; color:var(--primary); font-weight:800; }
@@ -170,14 +174,78 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
 .karne-list { list-style:none; margin-bottom:16px; }
 .karne-list li { padding:10px 0; border-top:1px solid var(--border); font-size:14px; line-height:1.5; }
 .karne-list b { color:var(--primary); }
+
+/* Zolomon's Corner */
+.zc-card { display:block; width:100%; text-align:left; background:color-mix(in srgb,var(--surface) 82%,transparent); border:1px solid var(--border); border-radius:20px; overflow:hidden; cursor:pointer; padding:0; margin-bottom:14px; box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
+@media(min-width:768px){ .zc-card{ backdrop-filter:blur(12px) saturate(1.35); -webkit-backdrop-filter:blur(12px) saturate(1.35); } }
+.zc-card:active { transform:scale(.99); }
+.zc-cover { aspect-ratio:16/9; background:#000; position:relative; }
+.zc-cover img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.zc-cat { position:absolute; top:10px; left:10px; background:var(--primary); color:var(--on-primary); font-size:10px; font-weight:800; padding:4px 9px; border-radius:6px; z-index:2; }
+.zc-status { position:absolute; top:10px; right:10px; background:rgba(0,0,0,.72); backdrop-filter:blur(4px); color:var(--gold); font-size:10px; font-weight:800; padding:4px 9px; border-radius:6px; z-index:2; }
+.zc-body { padding:14px 16px; }
+.zc-body h3 { font-size:17px; line-height:1.3; letter-spacing:-.2px; margin-bottom:6px; }
+.zc-body p { font-size:13px; color:var(--muted); line-height:1.55; }
+.zc-disclaimer { font-size:12px; color:var(--gold); font-style:italic; }
 @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+
+/* ============ v1.4.1 — Liquid Glass & Smoothness ============ */
+html { scroll-behavior:smooth; }
+::-webkit-scrollbar { width:10px; height:10px; }
+::-webkit-scrollbar-thumb { background:color-mix(in srgb,var(--muted) 35%,transparent); border-radius:8px; border:2px solid var(--bg); }
+::-webkit-scrollbar-track { background:transparent; }
+
+.card, .zc-card, .news-card, .ev, .stat-box { transition:transform .28s cubic-bezier(.16,1,.3,1), box-shadow .28s cubic-bezier(.16,1,.3,1), border-color .28s; }
+@media (hover:hover) and (min-width:768px) {
+    .card:hover, .zc-card:hover, .news-card:hover { transform:translateY(-4px); box-shadow:0 14px 34px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08); border-color:color-mix(in srgb,var(--primary) 25%,var(--border)); }
+    .card:hover .card-img { transform:scale(1.045); }
+}
+.card-img { transition:transform .55s cubic-bezier(.16,1,.3,1); }
+.card:active, .zc-card:active, .news-card:active { transform:scale(.98); }
+.chip { transition:all .22s cubic-bezier(.16,1,.3,1); }
+.chip:hover { border-color:color-mix(in srgb,var(--primary) 45%,var(--border)); color:var(--text); }
+.chip.active:hover { background:color-mix(in srgb,var(--primary) 88%,#fff); }
+.nav-item { transition:color .22s, transform .22s cubic-bezier(.16,1,.3,1); }
+.nav-item:active { transform:scale(.9); }
+.modal { transition:transform .38s cubic-bezier(.32,.72,0,1), visibility .38s; }
+.round-btn, .input, .cmp-select { transition:border-color .2s, box-shadow .2s, transform .2s; }
+.round-btn:hover { border-color:color-mix(in srgb,var(--primary) 45%,var(--border)); }
+.round-btn:active { transform:scale(.92); }
+.bottom-nav { transition:background .3s; }
+@media(min-width:768px){
+    .card, .zc-card, .news-card, .ev, .stat-box, .chart-box, .ai-pred { backdrop-filter:blur(16px) saturate(1.6); -webkit-backdrop-filter:blur(16px) saturate(1.6); }
+    .info-box, .input, .cmp-select { backdrop-filter:blur(10px) saturate(1.4); -webkit-backdrop-filter:blur(10px) saturate(1.4); }
+    .info-box { background:color-mix(in srgb,var(--surface) 82%,transparent); }
+    .chart-box { background:color-mix(in srgb,var(--surface) 82%,transparent); box-shadow:inset 0 1px 0 rgba(255,255,255,.06); }
+}
+.ai-pred { box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 10px 30px rgba(0,0,0,.25); }
+.stat-box { border-color:color-mix(in srgb,var(--text) 7%,transparent); }
+.lnk { transition:color .2s, border-color .2s; }
+.lnk:hover { color:var(--primary); border-color:var(--primary); }
+.hist-item { transition:border-color .2s, transform .2s; }
+.hist-item:hover { border-color:color-mix(in srgb,var(--primary) 30%,var(--border)); }
+
+/* Haber akordeonu — tıkla, özet açılsın */
+.news-card { cursor:pointer; user-select:none; -webkit-user-select:none; }
+.news-card.open { border-color:color-mix(in srgb,var(--primary) 35%,var(--border)); }
+.news-title-row { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+.news-title { margin-bottom:0; }
+.news-chev { flex:none; width:26px; height:26px; border-radius:50%; display:grid; place-items:center; font-size:14px; color:var(--muted); background:var(--surface-2); transition:transform .32s cubic-bezier(.16,1,.3,1), color .2s, background .2s; margin-top:-2px; }
+.news-card.open .news-chev { transform:rotate(180deg); color:var(--on-primary); background:var(--primary); }
+.news-desc-wrap { display:grid; grid-template-rows:0fr; transition:grid-template-rows .38s cubic-bezier(.16,1,.3,1); }
+.news-desc-wrap > div { overflow:hidden; min-height:0; }
+.news-card.open .news-desc-wrap { grid-template-rows:1fr; }
+.news-desc-wrap .news-desc { margin-top:8px; }
 </style>
 </head>
 <body>
 
 <header>
     <div class="logo">ZM<span>MA</span></div>
-    <div class="ver">v11.0</div>
+    <div style="display:flex;align-items:center;gap:10px">
+        <button class="round-btn" id="langBtn" aria-label="Dil değiştir">TR</button>
+        <div class="ver">v1.4.1</div>
+    </div>
 </header>
 
 <main id="app">
@@ -199,23 +267,23 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
             </article>
         </div>
         <div class="hero">
-            <h1>Dövüşün<br>merkezi.</h1>
-            <p>UFC, ONE ve PFL dünyasından istatistikler, Türkçe haberler, maç takvimi ve karşılaştırma araçları.</p>
+            <h1 id="heroTitle">Dövüşün<br>merkezi.</h1>
+            <p id="heroP"></p>
             <div class="hero-stats" id="heroStats"></div>
-            <div class="updated">Veriler 10 Ekim 2026 itibarıyla güncellendi</div>
+            <div class="updated" id="updatedLine"></div>
         </div>
-        <div class="section-title">Yaklaşan maçlar <small><a href="#" data-go="events">Takvim</a></small></div>
+        <div class="section-title"><span data-i18n="sec.upcoming">Yaklaşan maçlar</span><small><a href="#" data-go="events" data-i18n="calendar">Takvim</a></small></div>
         <div style="padding:0 20px" id="homeEvents"></div>
         <div class="filters" id="homeFilters" aria-label="Organizasyon filtresi">
-            <button class="chip active" data-org="all">Tümü</button>
+            <button class="chip active" data-org="all" data-i18n="f.all">Tümü</button>
             <button class="chip" data-org="UFC">UFC</button>
             <button class="chip" data-org="ONE">ONE</button>
             <button class="chip" data-org="PFL">PFL</button>
-            <button class="chip" data-org="LEGEND">Efsaneler</button>
+            <button class="chip" data-org="LEGEND" data-i18n="f.legend">Efsaneler</button>
         </div>
-        <div class="section-title">Öne çıkanlar <small id="homeCount"></small></div>
+        <div class="section-title"><span data-i18n="sec.featured">Öne çıkanlar</span><small id="homeCount"></small></div>
         <div class="grid" id="homeGrid"></div>
-        <div class="section-title" style="margin-top:30px">Gündem <small><a href="#" data-go="news">Tümünü gör</a></small></div>
+        <div class="section-title" style="margin-top:30px"><span data-i18n="sec.agenda">Gündem</span><small><a href="#" data-go="news" data-i18n="seeAll">Tümünü gör</a></small></div>
         <div style="padding:0 20px" id="homeNews"></div>
     </section>
 
@@ -223,22 +291,16 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
     <section id="page-fighters" class="page hidden">
         <div class="toolbar">
             <input type="search" id="searchInput" class="input" placeholder="Dövüşçü, ülke, sıklet veya stil ara…" aria-label="Dövüşçü ara" autocomplete="off">
-            <select id="sortSelect" class="input" aria-label="Sırala">
-                <option value="rank">Sıralama: Şampiyon ve rank</option>
-                <option value="name">İsim (A–Z)</option>
-                <option value="wins">Galibiyet sayısı</option>
-                <option value="sl">Vuruş (SLpM)</option>
-                <option value="td">Takedown</option>
-            </select>
+            <select id="sortSelect" class="input" aria-label="Sırala"></select>
         </div>
         <div class="filters" id="fighterFilters">
-            <button class="chip active" data-org="all">Tümü</button>
-            <button class="chip" data-org="CHAMP">Şampiyonlar</button>
+            <button class="chip active" data-org="all" data-i18n="f.all">Tümü</button>
+            <button class="chip" data-org="CHAMP" data-i18n="f.champs">Şampiyonlar</button>
             <button class="chip" data-org="UFC">UFC</button>
             <button class="chip" data-org="ONE">ONE</button>
             <button class="chip" data-org="PFL">PFL</button>
-            <button class="chip" data-org="LEGEND">Efsaneler</button>
-            <button class="chip" data-org="FAV">★ Favoriler</button>
+            <button class="chip" data-org="LEGEND" data-i18n="f.legend">Efsaneler</button>
+            <button class="chip" data-org="FAV" data-i18n="f.fav">★ Favoriler</button>
         </div>
         <div class="section-title" style="margin-top:0"><span></span><small id="fighterCount"></small></div>
         <div class="grid" id="fightersGrid"></div>
@@ -248,25 +310,25 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
     <section id="page-news" class="page hidden">
         <div class="toolbar"><input type="search" id="newsSearch" class="input" placeholder="Haberlerde ara…" aria-label="Haber ara" autocomplete="off"></div>
         <div class="filters" id="newsFilters">
-            <button class="chip active" data-g="all">Tümü</button>
-            <button class="chip" data-g="Sonuç">Sonuçlar</button>
-            <button class="chip" data-g="Yaklaşan">Yaklaşan</button>
-            <button class="chip" data-g="Sakatlık">Sakatlık</button>
-            <button class="chip" data-g="Diğer">Diğer</button>
+            <button class="chip active" data-g="all" data-i18n="g.all">Tümü</button>
+            <button class="chip" data-g="Sonuç" data-i18n="g.result">Sonuçlar</button>
+            <button class="chip" data-g="Yaklaşan" data-i18n="g.upcoming">Yaklaşan</button>
+            <button class="chip" data-g="Sakatlık" data-i18n="g.injury">Sakatlık</button>
+            <button class="chip" data-g="Diğer" data-i18n="g.other">Diğer</button>
         </div>
         <div style="padding:0 20px" id="newsGrid"></div>
     </section>
 
     <!-- TAKVİM -->
     <section id="page-events" class="page hidden">
-        <div class="section-title" style="margin-top:24px">Takvim</div>
+        <div class="section-title" style="margin-top:24px"><span data-i18n="calendar">Takvim</span></div>
         <div style="padding:0 20px" id="eventsList"></div>
     </section>
 
     <!-- KARŞILAŞTIR -->
     <section id="page-compare" class="page hidden">
         <div class="cmp-container">
-            <h2>Karşılaştırma</h2>
+            <h2 id="cmpTitle">Karşılaştırma</h2>
             <div class="cmp-sub" id="cmpSub"></div>
             <div class="cmp-selects">
                 <select id="cmpA" class="cmp-select" aria-label="Birinci dövüşçü"></select>
@@ -275,50 +337,82 @@ header { position:sticky; top:env(safe-area-inset-top,0px); z-index:90; backgrou
             </div>
             <div class="cmp-faces" id="cmpFaces"></div>
             <div class="ai-pred">
-                <h3>İstatistik tahmini</h3>
+                <h3 id="aiPredTitle">İstatistik tahmini</h3>
                 <div class="winner" id="aiWinner">-</div>
                 <div class="pbar"><i id="pbA" style="background:var(--primary)"></i><i id="pbB" style="background:var(--danger)"></i></div>
                 <div class="conf" id="aiConf"></div>
             </div>
             <div id="cmpStats"></div>
             <div class="chart-box"><canvas id="radarChart" aria-label="Radar grafik"></canvas></div>
-            <p class="note">Tahmin; vuruş, isabet, takedown, submission ve galibiyet verilerini ağırlıklandıran basit bir modeldir. Eğlence amaçlıdır, bahis tavsiyesi değildir. Yalnızca tam istatistik verisi olan dövüşçüler listelenir.</p>
+            <p class="note" id="cmpNote"></p>
         </div>
+    </section>
+
+    <!-- ZOLOMON'S CORNER -->
+    <section id="page-corner" class="page hidden">
+        <div class="hero" style="padding-bottom:14px">
+            <h1>Zolomon's Corner 🐐</h1>
+            <p id="cornerSub"></p>
+        </div>
+        <div class="filters" id="zcFilters">
+            <button class="chip active" data-cat="all" data-i18n="zc.all">Tümü</button>
+            <button class="chip" data-cat="pred" data-i18n="zc.pred">Maç Tahminleri</button>
+            <button class="chip" data-cat="analiz" data-i18n="zc.analiz">MMA Analizleri</button>
+            <button class="chip" data-cat="rumor" data-i18n="zc.rumor">Haberler &amp; Söylentiler</button>
+            <button class="chip" data-cat="spotlight" data-i18n="zc.spotlight">Dövüşçü Özel Dosyaları</button>
+        </div>
+        <div style="padding:0 20px 8px" id="zcList"></div>
     </section>
 </main>
 
 <nav class="bottom-nav" aria-label="Ana menü">
-    <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span><span>Ana Sayfa</span></button>
-    <button class="nav-item" data-page="fighters"><span class="nav-icon">♟</span><span>Dövüşçüler</span></button>
-    <button class="nav-item" data-page="news"><span class="nav-icon">◉</span><span>Haberler</span></button>
-    <button class="nav-item" data-page="events"><span class="nav-icon">▦</span><span>Takvim</span></button>
-    <button class="nav-item" data-page="compare"><span class="nav-icon">⇄</span><span>Karşılaştır</span></button>
+    <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span><span data-i18n="nav.home">Ana Sayfa</span></button>
+    <button class="nav-item" data-page="fighters"><span class="nav-icon">♟</span><span data-i18n="nav.fighters">Dövüşçüler</span></button>
+    <button class="nav-item" data-page="news"><span class="nav-icon">◉</span><span data-i18n="nav.news">Haberler</span></button>
+    <button class="nav-item" data-page="events"><span class="nav-icon">▦</span><span data-i18n="nav.events">Takvim</span></button>
+    <button class="nav-item" data-page="compare"><span class="nav-icon">⇄</span><span data-i18n="nav.compare">Karşılaştır</span></button>
+    <button class="nav-item" data-page="corner"><span class="nav-icon">🐐</span><span>Zolomon</span></button>
 </nav>
 
 <div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-label="Geliştiricinin seçimi">
     <div class="modal-head">
-        <span style="font-weight:700;font-size:15px">Geliştiricinin seçimi</span>
+        <span style="font-weight:700;font-size:15px" data-i18n="spot.badge">Geliştiricinin seçimi</span>
         <div class="head-actions"><button class="round-btn" id="storyClose" aria-label="Kapat">✕</button></div>
     </div>
     <div class="story-hero"><img id="storyImg" data-id="67" alt="Dustin Poirier"></div>
     <div class="story-wrap">
         <h1 id="storyTitle"></h1>
-        <div class="story-by">Geliştiricinin kişisel görüşüdür</div>
+        <div class="story-by" data-i18n="story.disclaimer">Geliştiricinin kişisel görüşüdür</div>
         <div class="story-tabs" id="storyTabs">
-            <button class="chip active" data-tab="karne">Karnesi</button>
-            <button class="chip" data-tab="hayat">Hayat hikayesi</button>
-            <button class="chip" data-tab="savasci">Savaşçı ruhu</button>
-            <button class="chip" data-tab="goat">GOAT'lığı</button>
-            <button class="chip" data-tab="tam">Tam yazı</button>
+            <button class="chip active" data-tab="karne" data-i18n="tab.karne">Karnesi</button>
+            <button class="chip" data-tab="hayat" data-i18n="tab.hayat">Hayat hikayesi</button>
+            <button class="chip" data-tab="savasci" data-i18n="tab.savasci">Savaşçı ruhu</button>
+            <button class="chip" data-tab="goat" data-i18n="tab.goat">GOAT'lığı</button>
+            <button class="chip" data-tab="tam" data-i18n="tab.tam">Tam yazı</button>
         </div>
         <div class="story-body" id="storyBody"></div>
         <div class="story-sign" id="storySign"></div>
     </div>
 </div>
 
+<div class="modal" id="zcModal" role="dialog" aria-modal="true" aria-label="Zolomon's Corner">
+    <div class="modal-head">
+        <span style="font-weight:700;font-size:15px">Zolomon's Corner</span>
+        <div class="head-actions"><button class="round-btn" id="zcClose" aria-label="Kapat">✕</button></div>
+    </div>
+    <div class="story-hero"><img id="zcImg" alt="Zolomon's Corner"></div>
+    <div class="story-wrap">
+        <div id="zcMeta" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px"></div>
+        <h1 id="zcTitle"></h1>
+        <div class="story-by" id="zcBy"></div>
+        <div class="story-body" id="zcBody"></div>
+        <div class="story-sign" id="zcSign"></div>
+    </div>
+</div>
+
 <div class="modal" id="profileModal" role="dialog" aria-modal="true" aria-label="Dövüşçü profili">
     <div class="modal-head">
-        <span style="font-weight:700;font-size:15px">Profil</span>
+        <span style="font-weight:700;font-size:15px" id="profileHead">Profil</span>
         <div class="head-actions">
             <button class="round-btn" id="favBtn" aria-label="Favorilere ekle">☆</button>
             <button class="round-btn" id="closeBtn" aria-label="Kapat">✕</button>
@@ -401,7 +495,6 @@ const RAW = [
  [59,"José Aldo","LEGEND","Featherweight",0,0,31,8,0,"Brezilya","Muay Thai",4.56,51,1.4,0.8,[]],
  [60,"Demetrious Johnson","LEGEND","Flyweight",0,0,30,4,1,"ABD","Güreş",4.23,49,3.8,1.9,[]],
 
- /* --- YENİ EKLENENLER (istatistik verisi yoksa null) --- */
  [61,"Henry Cejudo","LEGEND","Bantamweight",0,0,16,6,0,"ABD","Güreş",3.83,47,null,null,[R("Payton Talbott","L","UD",3)]],
  [62,"Daniel Cormier","LEGEND","Light Heavyweight",0,0,22,3,0,"ABD","Güreş",null,null,null,null,[]],
  [63,"Stipe Miocic","LEGEND","Heavyweight",0,0,20,5,0,"ABD","Güreş",null,null,null,null,[R("Jon Jones","L","TKO",3)]],
@@ -415,7 +508,15 @@ const RAW = [
  [71,"Sergei Pavlovich","UFC","Heavyweight",0,0,21,3,0,"Rusya","Striking",null,null,null,null,[R("Tallison Teixeira","W","KO",1),R("Tom Aspinall","L","KO",1)]],
  [72,"Wang Cong","UFC","Flyweight (K)",8,0,10,2,0,"Çin","Kickboks",null,null,null,null,[R("Natalia Silva","L","UD",5)]],
  [73,"Amanda Nunes","UFC","Bantamweight (K)",0,0,23,5,0,"Brezilya","BJJ",null,null,null,null,[R("Irene Aldana","W","UD",3)]],
- [74,"Derrick Lewis","UFC","Heavyweight",0,0,29,14,0,"ABD","Boks",null,null,null,null,[R("Josh Hokit","L","TKO",2)]]
+ [74,"Derrick Lewis","UFC","Heavyweight",0,0,29,14,0,"ABD","Boks",null,null,null,null,[R("Josh Hokit","L","TKO",2)]],
+
+ /* --- v1.4: 74'ten 80'e --- */
+ [75,"Carlos Prates","UFC","Welterweight",5,0,21,6,0,"Brezilya","Muay Thai",5.34,52,0.3,0.1,[R("Neil Magny","W","KO",2),R("Joaquin Buckley","W","TKO",2)]],
+ [76,"Michael Morales","UFC","Welterweight",9,0,19,0,0,"Ekvador","Kickboks",4.98,54,0.9,0.4,[R("Sean Brady","W","TKO",1),R("Gilbert Burns","W","KO",1)]],
+ [77,"Gable Steveson","UFC","Heavyweight",10,0,6,2,0,"ABD","Güreş",null,null,null,null,[R("Sean Sharaf","L","KO",1)]],
+ [78,"Chris Camozzi","LEGEND","Middleweight",0,0,27,15,0,"ABD","Muay Thai",null,null,null,null,[R("Ronaldo Souza","L","TKO",1),R("Tom Watson","W","UD",3)]],
+ [79,"Jailton Almeida","UFC","Heavyweight",8,0,21,3,0,"Brezilya","BJJ",2.45,48,3.6,1.9,[]],
+ [80,"Tai Tuivasa","UFC","Heavyweight",9,0,15,9,0,"Avustralya","Kickboks",4.12,47,0.1,0,[]]
 ];
 
 /* NC sayısı, durum notu ve sıradaki maç */
@@ -436,7 +537,7 @@ const INFO = {
  24:{note:"Freedom 250'de Kyle Daukaus'u 1. raund 4:34'te TKO etti (UFC'deki 5. bitirişi).",next:"UFC 335 · 12 Ara 2026 · Las Vegas — Joe Pyfer"},
  27:{note:"UFC 327'de Ulberg'e KO oldu; rövanş istiyor."},
  28:{note:"UFC 327'de unvanı, maçın başında ACL'sini koparmasına rağmen Prochazka'yı KO ederek kazandı. Ameliyat oldu, 2027 başında dönmeyi hedefliyor."},
- 30:{note:"Hafif ağır sıkleta geçti; UFC 327'de Murzakanov'u yendi."},
+ 30:{note:"Hafif ağır sıklete geçti; UFC 327'de Murzakanov'u yendi."},
  32:{note:"UFC 331'de Mauricio Ruffy'yi 1. raund 4:56'da dirsekle KO etti."},
  42:{note:"Eylül 2026'da açıklanmayan bir sakatlık nedeniyle kemeri boşalttı."},
  52:{note:"Haziran 2025'te Julianna Peña'yı yenip UFC bantamweight şampiyonu oldu. Boyun ameliyatı sonrası geri dönüyor.",next:"UFC 334 · 14 Kas 2026 · Madison Square Garden — Amanda Nunes (unvan savunması)"},
@@ -451,7 +552,13 @@ const INFO = {
  71:{note:"Mayıs 2026'da Tallison Teixeira'yı 39 saniyede KO etti; 3 maçlık galibiyet serisinde.",next:"UFC 335 · 12 Ara 2026 · Las Vegas — Alex Pereira (5 raunt)"},
  72:{note:"UFC 332'de Natalia Silva'ya oybirliğiyle yenildi (48-47, 48-47, 49-46)."},
  73:{note:"Haziran 2023'ten beri dövüşmedi. Üç ayrı unvan hükümdarlığı ve iki sıklette şampiyonluk var.",next:"UFC 334 · 14 Kas 2026 · Madison Square Garden — Kayla Harrison (bantamweight unvanı)"},
- 74:{note:"Freedom 250'de Josh Hokit'e TKO ile yenildi."}
+ 74:{note:"Freedom 250'de Josh Hokit'e TKO ile yenildi."},
+ 75:{note:"Welterweight'in yükselen yıldızı; Magny ve Buckley'i nakavt etti. UFC 336'da Makhachev ile unvan maçı gündemde (kesinleşmiş değil)."},
+ 76:{note:"19-0. Brady ve Burns'i ilk rauntlarda bitirdi. Ocak 2027 dönüşü için UFC ile anlaşma imzaladığı iddia ediliyor (doğrulanmadı)."},
+ 77:{note:"Olimpiyat altın madalyalı güreşçi. UFC 331'de Sean Sharaf'a 12 saniyede KO oldu; 'Geleceğin Jon Jones'u' hype'ı büyük ölçüde kayboldu."},
+ 78:{note:"The Ultimate Fighter 11 finalisti; UFC'de 16 maça çıktı, sonrasında çeşitli organizasyonlarda dövüştü. Zolomon's Corner'ın resmî GOAT'ı 🐐"},
+ 79:{note:"Sıkletin güreş/BJJ ağırlıklı isimlerinden; son dönem maçları tempo eleştirileri aldı."},
+ 80:{note:"Avustralyalı nakavt avcısı; son dönemde formsuz sonuçlar aldı."}
 };
 
 const DB = RAW.map(a => {
@@ -475,6 +582,7 @@ const EVENTS = [
 
 /* ============================================================
    HABERLER — [etiket, başlık, açıklama, tarih, ISO, kaynak]
+   (v1.4: doğrulanmış yeni haber olmadığı için liste korundu)
    ============================================================ */
 const NEWS = [
  ["SONUÇ","UFC 332: Natalia Silva yeni sinek sıklet şampiyonu","Silva, Salt Lake City'de Wang Cong'u oybirliğiyle (48-47, 48-47, 49-46) yenip boş kemeri aldı. UFC'de 9-0'a yükselen Silva'nın toplam rekoru 21-5-1. Kemer, Shevchenko'nun Eylül'de sakatlık nedeniyle bırakmasıyla boşalmıştı.","3 Eki 2026","2026-10-03","ESPN"],
@@ -544,10 +652,7 @@ const GROUPS = {
 const groupOf = tag => GROUPS[tag] || 'Diğer';
 
 /* ============================================================
-   GELİŞTİRİCİNİN SEÇİMİ
-   sections: yazının bölümleri, özgün sırasıyla. tabs: bölümün hangi sekmede görüneceği.
-   "Tam yazı" sekmesi hepsini sırayla gösterir. Paragraflar boş satırla ayrılır.
-   img: kendi fotoğraf adresin (boşsa Wikipedia'dan aranır, olmazsa avatar).
+   GELİŞTİRİCİNİN SEÇİMİ (Dustin Poirier — korundu)
    ============================================================ */
 const EDITORIAL = {
     id: 67,
@@ -606,6 +711,297 @@ Bazıları zirveye ulaşmak için savaşır. Bazıları ise zirveye giden yolun 
 };
 
 /* ============================================================
+   ZOLOMON'S CORNER — yazıları
+   fighter: kapak görseli bu dövüşçünün Wikipedia fotoğrafından
+   çözümlenir (lisanslı, SVG yedeği hazır). tr/en tam metinler.
+   ============================================================ */
+const ZC_ARTICLES = [
+ {
+  slug:"shavkat-vs-morales", fighter:25, cat:"rumor",
+  status:{tr:"Söylenti · Analiz — resmî duyuru değildir", en:"Rumor · Analysis — not official"},
+  title:{tr:"TikTok'u Sallayan O Paylaşım: “19-0 vs 19-0” 🤫", en:"The Post That Shook TikTok: “19-0 vs 19-0” 🤫"},
+  blurb:{tr:"Shavkat'in TikTok paylaşımı MMA dünyasını salladı: 19-0 vs 19-0. Karşıdaki isim Michael Morales olabilir mi? Kazanan, kemer kapısını çalıyor.",
+         en:"Shavkat's TikTok post set the MMA world on fire: 19-0 vs 19-0. Could the other 19-0 be Michael Morales? The winner knocks on the door of a title shot."},
+  tr:[
+   {h:"", p:`Bildiğiniz gibi Shavkat Rakhmonov, Aralık 2024'teki Ian Garry galibiyetinden beri o lanet olası diz sakatlıklarıyla boğuşuyordu. Ameliyatlar, koruyucu botlar derken adamı kafeste görmeyi özlemiştik. Tam “Shavkat ne zaman dönecek?” diye forumlarda birbirimizi yerken, Kazak canavar TikTok hesabından antrenman videosunu paylaştı.
+
+Videonun altına iliştirdiği o açıklama ise kelimenin tam anlamıyla MMA dünyasına bomba gibi düştü: “19-0 VS 19-0”
+
+Şimdi ufak bir matematik hesabı yapalım. UFC welterweight sıkletinde profesyonel kariyerinde tam olarak 19 galibiyeti olup hiç mağlubiyeti olmayan, Shavkat dışında tek bir adam var: Michael Morales. İşin daha da tatlı tarafı, Morales de geçtiğimiz günlerde UFC ile gizli bir maç kontratı imzaladığını ve ocak ayında döneceğini çıtlatmıştı. Yani anlayacağınız, yapbozun parçaları cuk diye oturuyor!`},
+   {h:"İki Namağlup Canavarın Yükselişi 📈", p:`Bu maçı neden bu kadar çok istiyoruz? Çünkü iki dövüşçü de kelimenin tam anlamıyla rakiplerini yok ederek geliyor.
+
+Shavkat Rakhmonov (19-0): Adam bitirici makine. Aldığı 19 galibiyetin hiçbirini hakem kararına bırakmadı. Nakavtlar, pes ettirmeler... Kafese girdiğinde karşısındakine ruhunu teslim ettiren cinsten bir dominasyon. Sakatlıklar onu biraz yavaşlatmış ve sıralamadan geçici olarak düşürmüş olsa da, tam anlamıyla bu sıkletin gizli patronu.
+
+Michael Morales (19-0): Ekvadorlu genç aslan ise son dönemde tam bir yıkım ekibi gibi çalışıyor. Neil Magny, Gilbert Burns ve son olarak Sean Brady gibi bu sıkletin en sert elit isimlerini üst üste ilk rauntta nakavt ederek (evet, yanlış duymadınız, ilk rauntta!) buraların en büyük tehlikesi olduğunu kanıtladı.`},
+   {h:"Kazanan Kemer Maçına Gider! 👑", p:`Şu an sıklette Carlos Prates, Islam Makhachev ile unvan maçına çıkmak için en güçlü aday gibi duruyor. İşte tam bu noktada, Shavkat vs Morales maçı kelimenin tam anlamıyla bir “kemer eleme maçı” (Title Eliminator) olacak. Bu iki namağlup canavardan hangisi kafesten “20-0” olarak çıkarsa, bir sonraki kemer maçının biletini cebine koyacak.`}
+  ],
+  en:[
+   {h:"", p:`As you know, Shavkat Rakhmonov had been battling those damned knee injuries ever since his win over Ian Garry in December 2024. Surgeries, protective braces — we had missed seeing him in the cage. Just as we were tearing each other apart on forums asking "When is Shavkat coming back?", the Kazakh monster dropped a training video on his TikTok account.
+
+The caption he attached to that video literally landed like a bomb on the MMA world: "19-0 VS 19-0"
+
+Now let's do a little math. In the UFC welterweight division, there is exactly one other man besides Shavkat with a perfect 19-0 professional record: Michael Morales. And the plot gets even sweeter: Morales recently hinted that he had signed a secret fight contract with the UFC and would return in January. So, as you can see, the puzzle pieces fit perfectly!`},
+   {h:"The Rise of Two Undefeated Monsters 📈", p:`Why do we want this fight so badly? Because both fighters have been absolutely destroying their competition.
+
+Shavkat Rakhmonov (19-0): The man is a finishing machine. None of his 19 wins went to the judges. Knockouts, submissions — the kind of domination that makes his opponents surrender their souls when he steps into the cage. Injuries may have slowed him down and temporarily dropped him in the rankings, but he is truly the division's hidden boss.
+
+Michael Morales (19-0): The young Ecuadorian lion, meanwhile, has been working like a demolition crew. By knocking out elite names like Neil Magny, Gilbert Burns and most recently Sean Brady — yes, you heard that right, in the first round! — back to back, he has proven he is the biggest threat in the division.`},
+   {h:"The Winner Goes to a Title Shot! 👑", p:`Right now Carlos Prates looks like the strongest candidate to face Islam Makhachev for the title. And that is exactly where the Shavkat vs Morales fight becomes, literally, a title eliminator. Whichever of these two undefeated monsters leaves the cage "20-0" will pocket the ticket to the next title fight.`}
+  ]
+ },
+ {
+  slug:"prates-vs-islam", fighter:75, cat:"pred",
+  status:{tr:"Tahmin · Analiz — maç kesinleşmedi", en:"Prediction · Analysis — not booked"},
+  title:{tr:"Prates vs. İslam Söylentisi Gerçekleşirse Ne Olur?", en:"If the Prates vs. Islam Rumor Becomes Real, What Happens?"},
+  blurb:{tr:"UFC 336'da Makhachev–Prates konuşuluyor. Bu maç gerçekleşirse kim kazanır, maç eğlenceli olur mu? Zolomon'un tahmini: 50-45 Makhachev.",
+         en:"Makhachev vs Prates is being linked to UFC 336. If it happens, who wins — and will it even be fun? Zolomon's call: 50-45 Makhachev."},
+  tr:[
+   {h:"", p:`UFC 336 ana maçında İslam Makhachev'in kemerini Carlos Prates'e karşı koruyacağı konuşuluyor. Şimdilik ortada kesinleşmiş bir tarih ve resmî eşleşme yok. Ancak söylentiler UFC 336'yı işaret ediyor. Prates de bu karşılaşmanın gerçekleşeceğini düşündüğünü açıkça dile getirmişti. Peki, bu maç gerçekten gerçekleşirse bizi nasıl bir karşılaşma bekliyor?
+
+Öncelikle şunu söyleyeyim: Prates kesinlikle hafife alınabilecek bir dövüşçü değil. Adamın vuruş gücü inanılmaz ve MMA'de tek bir yumruğun bütün maçın gidişatını değiştirebildiğini hepimiz biliyoruz. Prates de tam olarak bu tür bir dövüşçü. Bir an boyunca kontrolü kaybederseniz kendinizi bir anda yerde bulabilirsiniz. Üstelik yalnızca yumruk gücüyle değil, mesafe kontrolü ve ayakta rakibine yarattığı tehditle de oldukça tehlikeli.
+
+Peki, Prates yetenekli mi? Tabii ki inanılmaz yetenekli. Ancak karşımızda İslam Makhachev var. Burada yalnızca iki dövüşçünün tekniklerini değil, oyun planlarını ve birbirlerinin güçlü yönlerini nasıl etkisiz hâle getirebileceklerini de konuşmamız gerekiyor.`},
+   {h:"Prates'in En Büyük Sorunu: Maç Nerede Geçecek?", p:`Jack Della Maddalena maçında bile yere alınabilen bir Prates gördük. Bu, Prates'in güreş savunmasının tamamen kötü olduğu anlamına gelmiyor. Ancak İslam gibi elit seviyede bir güreşçiye karşı bu konu çok daha kritik hâle geliyor.
+
+Prates, BJJ siyah kuşağı olması nedeniyle yer oyunundan korkmadığını söylese de BJJ siyah kuşağı olmakla İslam'ın güreş baskısına karşı koyabilmek aynı şey değil. Biri yerdeki teknik becerilerinizi gösterirken diğeri, o yere nasıl götürüldüğünüzü ve orada ne kadar süre tutulduğunuzu da kapsıyor.
+
+Charles Oliveira örneğini hatırlayalım. Charles da yerde son derece tehlikeli, üst düzey bir BJJ ustası. Ancak İslam'ın onun karşısında nasıl bir oyun kurduğunu gördük. Yani yalnızca yerde tehlikeli olmak, İslam'a karşı yeterli olmayabilir. Burada asıl mesele, İslam'ın güreşini savunabilmek ve ayağa kalkmak için gereken fırsatları yaratabilmek.
+
+Prates'in en büyük avantajı ise İslam'ın hata yapmasını cezalandırabilecek güce sahip olması. İslam'ın tek bir yanlış mesafe ayarı, dikkatsiz girişimi veya savunmada vereceği açık, Prates için maçın kaderini değiştirecek bir fırsata dönüşebilir. Bu nedenle İslam'ın ayakta gereksiz riskler alacağını pek düşünmüyorum.`},
+   {h:"Bu Maç Eğlenceli Olacak mı?", p:`Hayır, sevgili okuyucularım. Bence asla olmayacak. 😭
+
+Sizlerde yarattığı hype'ı anlıyorum. Bir tarafta welterweight seviyesinde büyük işler yapabilecek, inanılmaz nakavt gücüne sahip Carlos Prates; diğer tarafta oyunun her alanında ne yaptığını bilen İslam Makhachev. İsimleri yan yana geldiğinde insan doğal olarak büyük bir savaş bekliyor.
+
+Fakat benim tahminim, karşılaşmanın beklenen kadar hareketli geçmeyeceği yönünde.
+
+İslam için bu maçta gereksiz risk almak çok mantıklı değil. Prates'in tek yumrukla maçı bitirebilecek bir gücü varken neden onunla uzun süre ayakta kalmayı tercih etsin? İslam'ın en mantıklı seçeneği, mesafeyi dikkatli yönetmek, doğru anlarda güreşe girmek ve rakibinin ayakta tehlike yaratabileceği süreyi mümkün olduğunca azaltmak olacaktır.
+
+İslam'ın yere giderek 18-20 dakika gibi absürt kontrol sürelerine ulaşması ve maçı domine etmesi bana oldukça mümkün geliyor. Prates'in eklemlerini ve vuruşlarını kullanış biçimi, nakavt gücü elbette inanılmaz bir tehdit. Ancak İslam da bunun farkında. Dolayısıyla daha garanti bir yol tercih etmesi şaşırtıcı olmaz.
+
+Burada önemli olan nokta şu: İslam'ın maçı kontrol etmesi, Prates'in kötü bir dövüşçü olduğu anlamına gelmez. Bazen iki dövüşçü arasındaki fark, birinin diğerinden daha sert vurması değil, dövüşün nerede ve nasıl gerçekleşeceğine kimin karar verdiğidir.`},
+   {h:"İslam Neden Daha Garanti Bir Oyun Tercih Edebilir?", p:`İslam'ın welterweight'e çıktığından beri hem Ian Machado Garry hem de Jack Della Maddalena karşısında daha kontrollü ve garanti bir oyun tercih ettiğini düşünüyorum. Bu yaklaşım, onun gereksiz risklerden kaçınarak maçı kendi güçlü olduğu alanlarda tutmaya çalışmasıyla örtüşüyor.
+
+Prates karşısında da benzer bir senaryo bekliyorum. İslam'ın rakibinin en tehlikeli olduğu alanı mümkün olduğunca sınırlaması, onu kafes kenarına sürmesi, güreş fırsatlarını değerlendirmesi ve üst pozisyonda kontrol sağlaması mantıklı bir strateji olur.
+
+Elbette bunun gerçekleşmesi için İslam'ın güreş girişimlerini doğru zamanlaması ve Prates'in savunmasını aşması gerekiyor. Prates'in güçlü vuruşları, fiziksel özellikleri ve savunması bu planı her zaman kolaylaştırmayabilir. Üstelik MMA'de tek bir pozisyon değişikliği bile bütün tahminleri çöpe atabilir.
+
+Yine de iki dövüşçünün güçlü yönlerini karşılaştırdığımda, İslam'ın maçı kontrol etmeye yönelik bir strateji izlemesini daha olası buluyorum.`},
+   {h:"Peki, Prates'in Hiç mi Şansı Yok?", p:`Elbette var. MMA'de hiçbir maç başlamadan kazanılmış sayılmaz.
+
+Prates'in en büyük şansı, İslam'ın güreş girişimlerini etkisiz hâle getirerek dövüşü ayakta tutması ve fırsat bulduğunda sert vuruşlarını kullanması olacaktır. Özellikle ilk rauntta birkaç önemli vuruş bulabilirse İslam'ı daha dikkatli davranmaya zorlayabilir.
+
+Prates'in yalnızca tek yumrukla değil, rakibini sürekli bir nakavt tehdidi altında tutarak da maçın dinamiğini değiştirebileceğini unutmamak gerekiyor. İslam'ın her girişimde bulunurken bu tehdidi hesaba katması gerekecek.
+
+Ancak Prates'in maçı ayakta tutmasıyla İslam'ın onu yere götürmeyi başarması arasında ciddi bir mücadele yaşanacağını düşünüyorum. Bu karşılaşmanın kilit noktası da tam olarak burada yatıyor.`},
+   {h:"Tahminim: İslam Makhachev, Karar", p:`Kabaca tahminim şu: Prates ilk rauntta birkaç önemli vuruş bulabilir, hatta kısa süreliğine maçı kendi lehine çevirebilecek anlar yakalayabilir. Ancak karşılaşmanın genelinde İslam'ın kontrolü ele geçireceğini ve güreş ağırlıklı oyunuyla maçı domine edeceğini düşünüyorum.
+
+Skor tahminim 50-45 İslam Makhachev. Prates'in ayakta yarattığı tehdide rağmen İslam'ın daha garanti bir stratejiyle puanları toplaması ve maçı kontrol etmesi bana daha olası geliyor.
+
+Tabii ki bu yalnızca benim analizim ve tahminim. MMA'in en güzel taraflarından biri de bütün planların tek bir yumrukla, beklenmedik bir savunmayla veya anlık bir hatayla değişebilmesi. Prates'in nakavt gücü, bu maçı tamamen tahmin edilebilir olmaktan çıkarıyor.
+
+Son söz: Bu eşleşme isimler ve yarattığı hype açısından çok büyük olabilir. Ancak benim gözümde asıl soru, Prates'in İslam'ı nakavt edip edemeyeceğinden önce, İslam'ın Prates'e bunu yapabileceği fırsatları ne kadar vereceği.
+
+Eğer maç gerçekleşirse benim favorim İslam. Büyük ihtimalle beklediğimiz çılgın nakavt savaşını değil, İslam'ın kontrolü ele aldığı taktiksel bir karşılaşmayı izleyeceğiz.
+
+Ama tabii sevgili okuyucularım, burası MMA. Prates'in tek bir yumruğu bütün bu yazıyı çöpe atabilir. İşte bu yüzden tahmin yapıyoruz, kesin konuşmuyoruz. 😎`}
+  ],
+  en:[
+   {h:"", p:`Islam Makhachev defending his belt against Carlos Prates is being talked about as the UFC 336 main event. There is no official date or confirmed matchup yet — but the rumors point at UFC 336, and Prates himself has openly said he believes the fight will happen. So if it really does happen, what kind of fight should we expect?
+
+First things first: Prates is absolutely not a fighter to take lightly. The man's punching power is unreal, and we all know a single punch can change everything in MMA. That is exactly the kind of fighter Prates is. Lose focus for one moment and you may find yourself on the canvas. Beyond raw power, his distance control and the threat he poses on the feet make him genuinely dangerous.
+
+Is Prates talented? Of course he is, incredibly so. But we're talking about Islam Makhachev here. We need to discuss not just the techniques of both fighters, but their game plans and how each can neutralize the other's strengths.`},
+   {h:"Prates' Biggest Problem: Where Will the Fight Take Place?", p:`We saw Prates get taken down even in the Jack Della Maddalena fight. That doesn't mean his takedown defense is outright bad. But against an elite-level grappler like Islam, this issue becomes far more critical.
+
+Prates says he doesn't fear the ground game because he's a BJJ black belt — but being a BJJ black belt and being able to resist Islam's wrestling pressure are not the same thing. One showcases your technical skills on the ground; the other also covers how you get taken down and how long you get held there.
+
+Remember the Charles Oliveira example. Charles is also an extremely dangerous, elite BJJ player on the ground. Yet we saw the game Islam built against him. So being dangerous on the ground alone may not be enough against Islam. The real issue here is defending Islam's wrestling and creating the opportunities needed to get back up.
+
+Prates' biggest advantage is that he has the power to punish any Islam mistake. A single bad distance read, a careless entry, or a defensive opening could turn into a fight-altering opportunity for Prates. That's why I don't think Islam will take unnecessary risks on the feet.`},
+   {h:"Will This Fight Be Fun?", p:`No, dear readers. I don't think it ever will be. 😭
+
+I understand the hype this matchup creates. On one side, Carlos Prates, with unbelievable knockout power who could do big things at welterweight; on the other, Islam Makhachev, who knows exactly what he's doing in every realm of the game. When you put those names side by side, you naturally expect a war.
+
+But my prediction is that the fight won't be as action-packed as expected.
+
+Taking unnecessary risks in this fight doesn't make much sense for Islam. Why would he choose to stay on the feet for long against a man who can end the fight with one punch? Islam's smartest option will be to manage distance carefully, shoot at the right moments, and minimize the time Prates can create danger on the feet.
+
+I find it quite possible for Islam to hit absurd control times of 18-20 minutes on the ground and dominate the fight. The way Prates uses his frame and his strikes, his knockout power is obviously an incredible threat. But Islam is aware of it too. So it wouldn't be surprising to see him take the safer route.
+
+The important point here: Islam controlling the fight doesn't mean Prates is a bad fighter. Sometimes the difference between two fighters is not one hitting harder than the other, but who gets to decide where and how the fight happens.`},
+   {h:"Why Might Islam Choose the Safer Game?", p:`Since moving up to welterweight, I think Islam has preferred a more controlled, safer approach against both Ian Machado Garry and Jack Della Maddalena. This approach is consistent with him avoiding unnecessary risks and keeping the fight in the areas where he's strongest.
+
+I expect a similar scenario against Prates. It would be a sound strategy for Islam to limit his opponent's most dangerous area as much as possible, push him against the cage, capitalize on wrestling openings, and secure top-position control.
+
+Of course, for that to happen, Islam needs to time his takedown attempts correctly and get through Prates' defense. Prates' heavy hands, physical attributes and defense won't always make that plan easy. And in MMA, a single position change can throw every prediction in the trash.
+
+Still, comparing the strengths of both fighters, I find it more likely that Islam follows a fight-controlling strategy.`},
+   {h:"Does Prates Have No Chance at All?", p:`Of course he does. In MMA, no fight is won before it starts.
+
+Prates' biggest chance will be neutralizing Islam's takedown attempts, keeping the fight standing and landing his power shots when he gets the opportunity. If he can land a few significant strikes early, especially in round one, he could force Islam to be even more cautious.
+
+We shouldn't forget that Prates can change the fight's dynamic not just with a single punch, but by keeping his opponent under a constant knockout threat. Islam will have to account for that threat every time he commits to an entry.
+
+However, I think there will be a serious battle between Prates keeping the fight standing and Islam getting him down. That battle is exactly where the key to this matchup lies.`},
+   {h:"My Pick: Islam Makhachev, Decision", p:`My rough prediction: Prates may land some significant shots in round one, maybe even seize moments that briefly swing the fight his way. But overall, I think Islam will take control and dominate with a wrestling-heavy game.
+
+My score prediction is 50-45 Islam Makhachev. Despite the threat Prates poses on the feet, it seems more likely to me that Islam banks rounds with a safer strategy and controls the fight.
+
+Of course, this is only my analysis and prediction. One of the best things about MMA is that all plans can change with one punch, an unexpected defense, or a split-second mistake. Prates' knockout power makes this fight anything but predictable.
+
+Bottom line: This matchup could be huge in terms of names and hype. But in my eyes, the real question is not whether Prates can knock Islam out — it's how many opportunities Islam will give him to do it.
+
+If the fight happens, my favorite is Islam. Most likely we'll watch a tactical fight where Islam takes control, not the wild knockout brawl we're hoping for.
+
+But hey dear readers, this is MMA. One punch from Prates could send this entire article to the trash. That's exactly why we make predictions and never speak in certainties. 😎`}
+  ]
+ },
+ {
+  slug:"heavyweight-crisis", fighter:17, cat:"analiz",
+  status:{tr:"Analiz · İstatistikler doğrulanmalı", en:"Analysis · Verify the stats"},
+  title:{tr:"Editörün Seçimi: UFC Ağır Sıklet Bölümü Öldü mü? Devlerin Çöküşü", en:"Editor's Pick: Is the UFC Heavyweight Division Dead? The Fall of the Giants"},
+  blurb:{tr:"Ağır sıklet kaos içinde: Jones emekli, Aspinall kemeri bıraktı, kadro yaşlanıyor. Devlerin ligi bitkisel hayatta mı?",
+         en:"Heavyweight is in chaos: Jones retired, Aspinall vacated, the roster is aging. Is the giants' division on life support?"},
+  tr:[
+   {h:"", p:`UFC arenasında bir dönem “Ağır Sıklet” denildiğinde akan sular durur, nefesler tutulurdu. Cain Velasquez, Junior dos Santos veya prime dönemindeki Stipe Miocic kafese adım attığında, saniyeler içinde patlayacak bir süpernova izleyeceğimizi bilirdik. Ancak 2026 yılı itibarıyla acı gerçekle yüzleşmek zorundayız: UFC Ağır Sıklet bölümü tam anlamıyla bir bataklığa dönüştü ve can çekişiyor.
+
+Peki, MMA’in bu en prestijli vitrini neden bu kadar kötüye gidiyor? Sıklet gerçekten öldü mü? İşte devler liginin perde arkasındaki büyük kriz.`},
+   {h:"1. Şampiyonluk Kördüğümü ve Kaos Rüzgarları", p:`Bölümün zirvesi uzun süredir tam bir trajediye sahne oluyor. Jon Jones, UFC 309'da Stipe Miocic'i mağlup ettikten sonra emeklilik sinyalleri vererek kenara çekildi. Bölümün gerçek kurtarıcısı olarak görülen Tom Aspinall, unvanı birleştirme şansı bulamadan undisputed (tartışmasız) şampiyonluğa yükseltildi ancak kaderi trajik oldu. Ciryl Gane ile yaptığı unvan koruma maçında gözüne gelen talihsiz bir darbe yüzünden dövüş “No Contest” (Geçersiz) bitti. Yaşadığı ciddi göz komplikasyonları nedeniyle Aspinall Eylül 2026'da kemerini boşa bırakmak zorunda kaldı. Kemer, göz çıkarma olayının faili olan ve hayranların tepkisini çeken Ciryl Gane'e kalırken, zirvedeki bu kaos division'ın tüm prestijini yerle bir etti.`},
+   {h:"2. Korkunç İstatistikler: Yaşlı ve Hareketsiz Bir Kadro", p:`Bölümün neden “öldüğünü” anlamak için Bloody Elbow ve MMA analistlerinin ortaya koyduğu şu çarpıcı 2026 istatistiklerine bakmak yeterli:
+
+- Yaş ortalaması 32: Sıkletteki 37 aktif dövüşçünün yaş ortalaması gridir. Genç ve dinamik jenerasyon bir türlü gelemiyor.
+- Galibiyet serisi kıtlığı: Tüm rosterda aktif olarak 5 maç ve üzeri galibiyet serisine sahip sadece birkaç dövüşçü var. Dövüşçülerin neredeyse yarısı (17'si) son maçını kaybetti.
+- Tecrübe ve derinlik sıfır: Kadrodaki 19 dövüşçünün UFC'de 3'ten az galibiyeti var. İlk 5 sıradan sonrasını kazısanız, yerel MMA salonlarından farkı kalmıyor.`},
+   {h:"3. Sıkıcı Dövüşler ve Erimeyen Kondisyonlar", p:`Eskiden nakavt fırtınası estiren ağır sıkletler, artık izleyiciye saç baş yolduruyor. Son dönemde izlediğimiz Jailton Almeida vs. Rizvan Kuniev veya Tai Tuivasa vs. Tallison Teixeira gibi maçlar, adeta çamura saplanmış iki dev tankın 15 dakika boyunca birbirine bakarak nefes nefese kalmasından ibaretti. Eski nakavt canavarı Sergei Pavlovich bile artık maçlarını hakem kararlarına bırakıyor. Kafesteki tempo o kadar düştü ki, izleyiciler ağır sıklet yerine hafif sıkletlerin teknik resitallerini izlemeyi tercih ediyor.`},
+   {h:"4. Yeni Yıldız Arayışlarının Hüsranla Bitmesi", p:`UFC, bu tıkanıklığı aşmak için umutsuzca yeni yüzler parlatmaya çalışıyor ancak o projeler de ellerinde patlıyor. Örneğin, olimpiyat şampiyonu büyük umut Gable Steveson, arka arkaya aldığı ilk raunt nakavtlarıyla “Geleceğin Jon Jones'u” ilan edilmişti. Ancak daha geçen ay Sean Sharaf karşısında sadece 12 saniyede nakavt olarak tüm büyüsünü ve hype'ını kaybetti. Ağır sıkletin tek heyecan verici yanı, aslında bir Hafif Ağır Sıklet (205 lbs) olan Alex Pereira'nın yukarı çıkma ihtimali; bu durum bile sıkletin kendi içindeki yetersizliğinin en büyük kanıtı.`},
+   {h:"Sonuç: Ağır Sıklet İçin “Reset” Zamanı", p:`Büyük paralar kazanan elit ve devasa atletlerin MMA yerine NFL (Amerikan Futbolu) veya boks ringlerini tercih etmesi, UFC ağır sıkletinin yetenek havuzunu kuruttu. Tom Aspinall'ın sakatlık trajedisi, Jon Jones'un köşe kapmaca oynaması ve arkadan gelen nitelikli sporcu kıtlığı bu sıkleti komaya soktu.
+
+UFC Ağır Sıklet bölümü tamamen ölmemiş olabilir, ancak kesinlikle bitkisel hayatta ve acil bir format değişikliğine, yeni kana ve radikal bir sıfırlamaya (reset) ihtiyacı var.`}
+  ],
+  en:[
+   {h:"", p:`There was a time when the words "Heavyweight" stopped the UFC world in its tracks. When Cain Velasquez, Junior dos Santos or a prime Stipe Miocic stepped into the cage, we knew we were about to watch a supernova go off within seconds. But as of 2026, we must face a painful truth: the UFC heavyweight division has turned into a swamp and is gasping for air.
+
+So why is MMA's most prestigious showcase deteriorating this badly? Is the division really dead? Here's the big crisis behind the giants' league.`},
+   {h:"1. The Title Knot and the Winds of Chaos", p:`The top of the division has been a full-blown tragedy for a while. After beating Stipe Miocic at UFC 309, Jon Jones signaled retirement and stepped aside. Tom Aspinall — seen as the division's true savior — was elevated to undisputed champion without ever getting his unification fight, but his fate was tragic. A stray eye poke in his title defense against Ciryl Gane rendered the fight a No Contest. Due to serious eye complications, Aspinall was forced to vacate the belt in September 2026. The belt passed to Ciryl Gane — the man responsible for the eye-gouging incident and a magnet for fan backlash — and the chaos at the summit destroyed the division's entire prestige.`},
+   {h:"2. Terrifying Numbers: An Old, Static Roster", p:`To understand why the division is "dead," just look at these striking 2026 statistics put forward by Bloody Elbow and MMA analysts:
+
+- Average age 32: The 37 active fighters on the roster average 32 years old. A young, dynamic generation just can't break through.
+- Win-streak drought: Across the whole roster, only a handful of fighters hold an active winning streak of 5+ fights. Nearly half of the fighters (17) are coming off a loss.
+- Zero experience and depth: 19 fighters on the roster have fewer than 3 UFC wins. Scratch below the top 5 and it's no different from a local MMA gym.`},
+   {h:"3. Boring Fights and Melting Cardio", p:`The heavyweights who once produced knockout storms now make viewers tear their hair out. Recent fights like Jailton Almeida vs. Rizvan Kuniev or Tai Tuivasa vs. Tallison Teixeira were basically two giant tanks stuck in mud, gasping for air while staring at each other for 15 minutes. Even former knockout machine Sergei Pavlovich now leaves his fights to the judges. The cage tempo has dropped so low that viewers prefer watching the technical masterclasses of the lightweights over heavyweight.`},
+   {h:"4. Failed Star Projects", p:`Desperate to break the logjam, the UFC keeps trying to build new faces — and those projects keep blowing up in their hands. Olympic champion Gable Steveson, for instance, had been anointed "the next Jon Jones" before back-to-back first-round knockouts. Just last month he was knocked out in a mere 12 seconds by Sean Sharaf, losing all of his mystique and hype. The heavyweight division's only exciting prospect is actually a light heavyweight (205 lbs) — Alex Pereira possibly moving up — which itself is the biggest proof of the division's internal inadequacy.`},
+   {h:"Conclusion: Time for a Heavyweight Reset", p:`Elite, gigantic athletes who could earn big money have chosen the NFL or the boxing ring over MMA, draining the UFC heavyweight talent pool. Tom Aspinall's injury tragedy, Jon Jones playing keep-away, and the shortage of qualified prospects coming up behind them have put this division into a coma.
+
+The UFC heavyweight division may not be completely dead, but it is definitely on life support and in urgent need of a format change, fresh blood and a radical reset.`}
+  ]
+ },
+ {
+  slug:"camozzi-goat", fighter:78, cat:"spotlight",
+  status:{tr:"Spotlight · Zolomon'un resmî kararı 🐐", en:"Spotlight · Zolomon's official ruling 🐐"},
+  title:{tr:"Chris Camozzi: Zolomon's Corner'ın GOAT'ı 🐐", en:"Chris Camozzi: The GOAT of Zolomon's Corner 🐐"},
+  blurb:{tr:"Her GOAT tartışması kemerlerle bitmez. Bazen mesele, dövüşçünün hikâyesi ve sende bıraktığı izdir. Köşemizde keçi belli.",
+         en:"Not every GOAT debate ends with belts. Sometimes it's about the fighter's story and the mark he left on you. In our corner, the goat is settled."},
+  tr:[
+   {h:"", p:`Her MMA hayranının kendine göre bir GOAT'ı vardır. Kimisi şampiyonluklara bakar, kimisi rekorlara, kimisi de kafeste gördüğü en büyük performansları değerlendirir. Ama Zolomon's Corner'da işler biraz farklı.
+
+Karşınızda Chris Camozzi: Zolomon's Corner'ın özel GOAT'ı. 🐐
+
+Camozzi, UFC'de orta sıklette mücadele etmiş, kariyeri boyunca birbirinden farklı rakiplerle karşılaşmış Amerikalı bir MMA dövüşçüsüdür. The Ultimate Fighter sürecinden UFC kafesine uzanan kariyeri, profesyonel MMA'nin ne kadar zorlu ve rekabetçi olabileceğini gösteren hikâyelerden biridir.`},
+   {h:"Nesnel Gerçek Değil, Kişisel Seçim", p:`Camozzi'nin kariyerini yalnızca şampiyonluklar veya istatistikler üzerinden değerlendirmek zorunda değiliz. Bu bölümün amacı, onun tüm zamanların tartışmasız en iyi dövüşçüsü olduğunu nesnel bir gerçek gibi ilan etmek değil; Zolomon's Corner'ın kişisel ve eğlenceli MMA kültürünü yansıtmaktır.
+
+Çünkü MMA yalnızca kemerlerden ibaret değil. Bazen bir dövüşçünün kariyeri, tarzı veya sende bıraktığı iz, onu kişisel favorin yapmaya yeter.
+
+Bu yüzden Zolomon's Corner'ın GOAT koltuğunda Chris Camozzi oturuyor. Başkaları kendi listelerini hazırlayabilir; bizim köşemizde keçi belli. 🐐
+
+Zolomon's Corner kararı: İstatistikler kariyeri anlatır, GOAT tartışması ise kişisel tercihlere de yer bırakır. Camozzi burada bizim özel seçimimiz.
+
+Biyografik not: Camozzi, The Ultimate Fighter 11'de finale kadar yükseldi ve 2010'da UFC'de dövüşmeye başladı. Orta sıklette üst düzey isimlerle karşılaştı; 27 galibiyetlik profesyonel kariyeri, azmi ve ring duruşuyla tanındı. Kayıtlar ve istatistikler resmî kaynaklardan (UFC/Sherdog) teyit edilmelidir.`}
+  ],
+  en:[
+   {h:"", p:`Every MMA fan has their own GOAT. Some look at championships, some at records, some at the greatest performances they've seen inside the cage. But things work a little differently at Zolomon's Corner.
+
+Meet Chris Camozzi: the special GOAT of Zolomon's Corner. 🐐
+
+Camozzi is an American MMA fighter who competed at middleweight in the UFC and faced a wide variety of opponents throughout his career. His journey from The Ultimate Fighter to the UFC cage is one of those stories that shows how brutal and competitive professional MMA can be.`},
+   {h:"Not an Objective Fact — a Personal Pick", p:`We don't have to evaluate Camozzi's career solely through championships or statistics. The purpose of this section is not to declare him the objectively greatest fighter of all time; it's to reflect the personal, fun-loving MMA culture of Zolomon's Corner.
+
+Because MMA is not just about belts. Sometimes a fighter's career, style, or the mark he left on you is enough to make him your personal favorite.
+
+That's why Chris Camozzi sits on the GOAT throne of Zolomon's Corner. Others can make their own lists; in our corner, the goat is settled. 🐐
+
+Ruling of Zolomon's Corner: Statistics tell the story of a career, but the GOAT debate leaves room for personal preference. Camozzi is our special pick here.
+
+Bio note: Camozzi reached the final of The Ultimate Fighter 11 and began fighting in the UFC in 2010. He faced top-level names at middleweight and became known for his 27-win professional career, his grit and his presence. Records and statistics should be verified against official sources (UFC/Sherdog).`}
+  ]
+ }
+];
+
+/* ============================================================
+   DİL SİSTEMİ — merkezi sözlük (Türkçe / English)
+   ============================================================ */
+let lang = (function(){ try { return JSON.parse(localStorage.getItem('zmma:lang')) || 'tr'; } catch(e) { return 'tr'; } })();
+if (!['tr','en'].includes(lang)) lang = 'tr';
+
+const I18N = {
+tr: {
+ 'nav.home':"Ana Sayfa",'nav.fighters':"Dövüşçüler",'nav.news':"Haberler",'nav.events':"Takvim",'nav.compare':"Karşılaştır",'nav.corner':"Zolomon",
+ 'f.all':"Tümü",'f.champs':"Şampiyonlar",'f.legend':"Efsaneler",'f.fav':"★ Favoriler",'org.legend':"Efsane",
+ 'search.fighters':"Dövüşçü, ülke, sıklet veya stil ara…",'search.news':"Haberlerde ara…",
+ 'sort.rank':"Sıralama: Şampiyon ve rank",'sort.name':"İsim (A–Z)",'sort.wins':"Galibiyet sayısı",'sort.sl':"Vuruş (SLpM)",'sort.td':"Takedown",
+ 'fighters':"dövüşçü",'empty.fighters':"Sonuç bulunamadı. Aramayı veya filtreyi değiştir.",'empty.news':"Haber bulunamadı.",
+ 'g.all':"Tümü",'g.result':"Sonuçlar",'g.upcoming':"Yaklaşan",'g.injury':"Sakatlık",'g.other':"Diğer",
+ 'sec.upcoming':"Yaklaşan maçlar",'sec.featured':"Öne çıkanlar",'sec.agenda':"Gündem",'seeAll':"Tümünü gör",'calendar':"Takvim",
+ 'hero.title':"Dövüşün<br>merkezi.",'hero.p':"UFC, ONE ve PFL dünyasından istatistikler, Türkçe haberler, maç takvimi ve karşılaştırma araçları.",
+ 'updated':"Veriler 10 Ekim 2026 itibarıyla güncellendi",'stat.fighters':"Dövüşçü",'stat.champs':"Şampiyon",'stat.news':"Haber",'champ':"👑 Şampiyon",
+ 'prof.head':"Profil",'prof.status':"Durum",'prof.next':"Sıradaki maç",'prof.record':"Rekor",'prof.slpm':"Vuruş / dk",'prof.acc':"İsabet",
+ 'prof.td':"Takedown / 15 dk",'prof.sub':"Submission / 15 dk",'prof.style':"Ana stil",'prof.recent':"Son maçlar",
+ 'prof.noData':"Bu dövüşçü için maç verisi henüz eklenmedi.",'prof.noStats':"İstatistik verisi henüz eklenmediği için karşılaştırmada yer almıyor.",'prof.addCmp':"Karşılaştırmaya ekle",
+ 'fav.add':"Favorilere ekle",'fav.remove':"Favorilerden çıkar",
+ 'cmp.title':"Karşılaştırma",'cmp.pred':"İstatistik tahmini",'cmp.same':"Aynı dövüşçü",'cmp.sameHint':"Karşılaştırmak için farklı iki dövüşçü seç.",
+ 'cmp.pool':"{n} dövüşçü karşılaştırılabilir",
+ 'cmp.note':"Tahmin; vuruş, isabet, takedown, submission ve galibiyet verilerini ağırlıklandıran basit bir modeldir. Eğlence amaçlıdır, bahis tavsiyesi değildir. Yalnızca tam istatistik verisi olan dövüşçüler listelenir.",
+ 'm.strikes':"Vuruş",'m.acc':"İsabet",'m.td':"Takedown",'m.sub':"Submission",'m.exp':"Tecrübe",
+ 'spot.badge':"Geliştiricinin seçimi",'story.disclaimer':"Geliştiricinin kişisel görüşüdür",
+ 'tab.karne':"Karnesi",'tab.hayat':"Hayat hikayesi",'tab.savasci':"Savaşçı ruhu",'tab.goat':"GOAT'lığı",'tab.tam':"Tam yazı",
+ 'corner.sub':"Geliştiricinin özgün analizleri, tahminleri ve kişisel MMA köşesi. Burada yazılanlar analizdir; resmî duyuru değildir.",
+ 'zc.all':"Tümü",'zc.pred':"Maç Tahminleri",'zc.analiz':"MMA Analizleri",'zc.rumor':"Haberler & Söylentiler",'zc.spotlight':"Dövüşçü Özel Dosyaları",
+ 'zc.by':"Zolomon's Corner yazısı — analizdir, resmî duyuru değildir.",
+ 'lang.aria':"Dil değiştir"
+},
+en: {
+ 'nav.home':"Home",'nav.fighters':"Fighters",'nav.news':"News",'nav.events':"Events",'nav.compare':"Compare",'nav.corner':"Zolomon",
+ 'f.all':"All",'f.champs':"Champions",'f.legend':"Legends",'f.fav':"★ Favorites",'org.legend':"Legend",
+ 'search.fighters':"Search fighter, country, division or style…",'search.news':"Search news…",
+ 'sort.rank':"Sort: Champions & rank",'sort.name':"Name (A–Z)",'sort.wins':"Wins",'sort.sl':"Strikes (SLpM)",'sort.td':"Takedowns",
+ 'fighters':"fighters",'empty.fighters':"No results found. Try a different search or filter.",'empty.news':"No news found.",
+ 'g.all':"All",'g.result':"Results",'g.upcoming':"Upcoming",'g.injury':"Injuries",'g.other':"Other",
+ 'sec.upcoming':"Upcoming fights",'sec.featured':"Featured",'sec.agenda':"The Buzz",'seeAll':"See all",'calendar':"Calendar",
+ 'hero.title':"The home of<br>the fight.",'hero.p':"Stats, fight news, event calendar and comparison tools from the world of UFC, ONE and PFL.",
+ 'updated':"Data updated as of October 10, 2026",'stat.fighters':"Fighters",'stat.champs':"Champions",'stat.news':"Stories",'champ':"👑 Champion",
+ 'prof.head':"Profile",'prof.status':"Status",'prof.next':"Next fight",'prof.record':"Record",'prof.slpm':"Strikes / min",'prof.acc':"Accuracy",
+ 'prof.td':"TD / 15 min",'prof.sub':"Sub / 15 min",'prof.style':"Style",'prof.recent':"Recent fights",
+ 'prof.noData':"No bout data added for this fighter yet.",'prof.noStats':"Not available in comparison — stats not added yet.",'prof.addCmp':"Add to comparison",
+ 'fav.add':"Add to favorites",'fav.remove':"Remove from favorites",
+ 'cmp.title':"Comparison",'cmp.pred':"Statistical prediction",'cmp.same':"Same fighter",'cmp.sameHint':"Pick two different fighters to compare.",
+ 'cmp.pool':"{n} fighters available for comparison",
+ 'cmp.note':"The prediction is a simple weighted model of striking, accuracy, takedowns, submissions and wins. For entertainment only — not betting advice. Only fighters with complete stats are listed.",
+ 'm.strikes':"Striking",'m.acc':"Accuracy",'m.td':"Takedown",'m.sub':"Submission",'m.exp':"Experience",
+ 'spot.badge':"Developer's pick",'story.disclaimer':"A personal opinion of the developer",
+ 'tab.karne':"Record",'tab.hayat':"Life story",'tab.savasci':"Fighter spirit",'tab.goat':"GOAT case",'tab.tam':"Full story",
+ 'corner.sub':"The developer's original analysis, predictions and personal MMA corner. Everything here is analysis — not an official announcement.",
+ 'zc.all':"All",'zc.pred':"Fight Predictions",'zc.analiz':"MMA Analysis",'zc.rumor':"News & Rumors",'zc.spotlight':"Fighter Spotlights",
+ 'zc.by':"A Zolomon's Corner piece — analysis, not an official announcement.",
+ 'lang.aria':"Change language"
+}};
+
+const t = k => (I18N[lang] && I18N[lang][k]) || I18N.tr[k] || k;
+
+const TAG_EN = {'SONUÇ':'RESULT','ŞAMPİYON':'CHAMPION','ŞOK':'UPSET','SÜRPRİZ':'UPSET','SERİ':'STREAK','REKOR':'RECORD','DUYURU':'ANNOUNCEMENT','PFL':'PFL','GÜNDEM':'AGENDA','SAKATLIK':'INJURY','RÖPORTAJ':'INTERVIEW','AÇIKLAMA':'STATEMENT','EMEKLİLİK':'RETIREMENT','GERİ DÖNÜŞ':'RETURN','YÜKSELEN':'RISING','DEDİKODU':'RUMOR','ÇAĞRI':'CALL-OUT','ANALİZ':'ANALYSIS','ÖDÜL':'AWARD','ETKİNLİK':'EVENT','ÖZEL':'FEATURE','TRANSFER':'TRANSFER'};
+const tagName = tag => lang === 'en' ? (TAG_EN[tag] || tag) : tag;
+const GROUP_LABEL_EN = {'Sonuç':'Results','Yaklaşan':'Upcoming','Sakatlık':'Injuries','Diğer':'Other'};
+const groupLabel = g => lang === 'en' ? (GROUP_LABEL_EN[g] || g) : g;
+
+/* ============================================================
    YARDIMCILAR
    ============================================================ */
 const $ = s => document.querySelector(s);
@@ -613,7 +1009,7 @@ const $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const byId = id => DB.find(f => f.id === Number(id));
 const byName = n => DB.find(f => f.n.toLowerCase() === String(n).toLowerCase());
-const ORG_NAME = {UFC:'UFC', ONE:'ONE', PFL:'PFL', LEGEND:'Efsane'};
+const orgName = f => f.org === 'LEGEND' ? t('org.legend') : f.org;
 const nz = v => v == null ? '—' : v;
 const rec = f => `${f.w}-${f.l}-${f.d}` + (f.nc ? ` (${f.nc} NC)` : '');
 const hasStats = f => [f.sl, f.ac, f.td, f.sb].every(v => v != null);
@@ -626,7 +1022,8 @@ let favs = new Set(store.get('zmma:favs', []));
 const saveFavs = () => store.set('zmma:favs', [...favs]);
 
 /* ============================================================
-   GÖRSEL SİSTEMİ: satır içi SVG avatar + (mümkünse) Wikipedia fotoğrafı
+   GÖRSEL SİSTEMİ: satır içi SVG avatar + Wikipedia fotoğrafı
+   (Wikimedia kaynaklı; lisanslı küçük resimler, SVG yedeği)
    ============================================================ */
 function hueOf(str) { let h = 0; for (const ch of str) h = (h * 31 + ch.charCodeAt(0)) % 360; return h; }
 function initials(name) { return name.split(/\s+/).filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase(); }
@@ -685,22 +1082,28 @@ function hydratePhotos(root) {
    RENDER
    ============================================================ */
 function cardHTML(f) {
-    return `<button class="card" data-open="${f.id}" aria-label="${esc(f.n)} profilini aç">
+    return `<button class="card" data-open="${f.id}" aria-label="${esc(f.n)}">
         <div class="card-img-wrap">
-            <div class="badge ${f.c ? 'champ' : ''}">${f.c ? '👑 Şampiyon' : (f.r ? '#' + f.r : ORG_NAME[f.org])}</div>
+            <div class="badge ${f.c ? 'champ' : ''}">${f.c ? t('champ') : (f.r ? '#' + f.r : orgName(f))}</div>
             ${favs.has(f.id) ? '<div class="fav-dot">★</div>' : ''}
             <img class="card-img" data-id="${f.id}" src="${avatar(f)}" alt="${esc(f.n)}" loading="lazy" decoding="async">
         </div>
         <div class="card-info">
-            <div class="card-org">${ORG_NAME[f.org]} · ${esc(f.div)}</div>
+            <div class="card-org">${orgName(f)} · ${esc(f.div)}</div>
             <div class="card-name">${esc(f.n)}</div>
             <span class="card-rec">${rec(f)}</span>
         </div>
     </button>`;
 }
 function newsHTML(n) {
-    return `<article class="news-card"><span class="news-tag">${esc(n.tag)}</span><div class="news-title">${esc(n.t)}</div><div class="news-desc">${esc(n.s)}</div>
-    <div class="news-meta"><span>${esc(n.d)}</span><span>${esc(n.src)}</span></div></article>`;
+    return `<article class="news-card" role="button" tabindex="0" aria-expanded="false">
+        <span class="news-tag">${esc(tagName(n.tag))}</span>
+        <div class="news-title-row"><div class="news-title">${esc(n.t)}</div><span class="news-chev" aria-hidden="true">⌄</span></div>
+        <div class="news-desc-wrap"><div>
+            <div class="news-desc">${esc(n.s)}</div>
+            <div class="news-meta"><span>${esc(n.d)}</span><span>${esc(n.src)}</span></div>
+        </div></div>
+    </article>`;
 }
 function nameLink(name) {
     const f = byName(name);
@@ -711,7 +1114,7 @@ function eventHTML(ev) {
     ${ev.fights.map(f => `<div class="ev-fight"><div class="ev-names">${nameLink(f.a)}<i>vs</i>${nameLink(f.b)}</div><div class="ev-tag">${esc(f.t)}</div></div>`).join('')}</article>`;
 }
 function fillGrid(el, list) {
-    el.innerHTML = list.length ? list.map(cardHTML).join('') : '<div class="empty">Sonuç bulunamadı. Aramayı veya filtreyi değiştir.</div>';
+    el.innerHTML = list.length ? list.map(cardHTML).join('') : `<div class="empty">${t('empty.fighters')}</div>`;
     hydratePhotos(el);
 }
 
@@ -720,11 +1123,13 @@ function renderHome() {
     const pool = homeOrg === 'all' ? DB : DB.filter(f => f.org === homeOrg);
     const feat = [...pool].sort((a, b) => (b.c - a.c) || ((a.r || 99) - (b.r || 99))).slice(0, 8);
     fillGrid($('#homeGrid'), feat);
-    $('#homeCount').textContent = pool.length + ' dövüşçü';
+    $('#homeCount').textContent = pool.length + ' ' + t('fighters');
     $('#homeNews').innerHTML = NEWS.slice(0, 4).map(newsHTML).join('');
+    const firstNews = $('#homeNews').querySelector('.news-card');
+    if (firstNews) firstNews.classList.add('open');
     $('#homeEvents').innerHTML = eventHTML(EVENTS[0]);
     renderSpot();
-    $('#heroStats').innerHTML = `<div><b>${DB.length}</b><span>Dövüşçü</span></div><div><b>${DB.filter(f => f.c).length}</b><span>Şampiyon</span></div><div><b>${NEWS.length}</b><span>Haber</span></div>`;
+    $('#heroStats').innerHTML = `<div><b>${DB.length}</b><span>${t('stat.fighters')}</span></div><div><b>${DB.filter(f => f.c).length}</b><span>${t('stat.champs')}</span></div><div><b>${NEWS.length}</b><span>${t('stat.news')}</span></div>`;
 }
 
 let fOrg = 'all';
@@ -746,7 +1151,7 @@ function renderFighters() {
         td: (a, b) => (b.td == null ? -1 : b.td) - (a.td == null ? -1 : a.td)
     }[sort];
     list.sort(cmp);
-    $('#fighterCount').textContent = list.length + ' dövüşçü';
+    $('#fighterCount').textContent = list.length + ' ' + t('fighters');
     fillGrid($('#fightersGrid'), list);
 }
 
@@ -754,9 +1159,60 @@ let newsGroup = 'all';
 function renderNews() {
     const q = $('#newsSearch').value.trim().toLocaleLowerCase('tr');
     const list = NEWS.filter(n => (newsGroup === 'all' || groupOf(n.tag) === newsGroup) && (!q || (n.t + ' ' + n.s + ' ' + n.tag).toLocaleLowerCase('tr').includes(q)));
-    $('#newsGrid').innerHTML = list.length ? list.map(newsHTML).join('') : '<div class="empty" style="padding:40px 0">Haber bulunamadı.</div>';
+    $('#newsGrid').innerHTML = list.length ? list.map(newsHTML).join('') : `<div class="empty" style="padding:40px 0">${t('empty.news')}</div>`;
 }
 function renderEvents() { $('#eventsList').innerHTML = EVENTS.map(eventHTML).join(''); }
+
+/* ============================================================
+   ZOLOMON'S CORNER — render
+   ============================================================ */
+let zcCat = 'all';
+const zcCatName = c => c === 'all' ? t('zc.all') : t('zc.' + c);
+function renderCorner() {
+    $$('#zcFilters .chip').forEach(c => c.classList.toggle('active', c.dataset.cat === zcCat));
+    const list = ZC_ARTICLES.filter(a => zcCat === 'all' || a.cat === zcCat);
+    $('#zcList').innerHTML = list.map(a => {
+        const f = byId(a.fighter);
+        return `<button class="zc-card" data-zc="${a.slug}">
+            <div class="zc-cover">
+                <div class="zc-cat">${zcCatName(a.cat)}</div>
+                <div class="zc-status">${esc(a.status[lang] || a.status.tr)}</div>
+                <img data-id="${f.id}" src="${avatar(f)}" alt="${esc(a.title[lang])}" loading="lazy" decoding="async">
+            </div>
+            <div class="zc-body"><h3>${esc(a.title[lang])}</h3><p>${esc(a.blurb[lang])}</p></div>
+        </button>`;
+    }).join('');
+    hydratePhotos($('#zcList'));
+}
+
+let openZc = null;
+function renderZc(slug) {
+    const a = ZC_ARTICLES.find(x => x.slug === slug); if (!a) return;
+    const f = byId(a.fighter);
+    $('#zcMeta').innerHTML = `<span class="news-tag">${zcCatName(a.cat)}</span><span class="news-tag" style="background:color-mix(in srgb,var(--gold) 16%,transparent);color:var(--gold)">${esc(a.status[lang] || a.status.tr)}</span>`;
+    $('#zcTitle').textContent = a.title[lang];
+    $('#zcBy').textContent = t('zc.by');
+    $('#zcBody').innerHTML = a[lang].map(sec => (sec.h ? `<h3>${esc(sec.h)}</h3>` : '') + paras(sec.p)).join('');
+    const img = $('#zcImg');
+    img.dataset.id = f.id;
+    img.alt = a.title[lang];
+    img.src = avatar(f);
+    swapPhoto(img, f);
+    $('#zcSign').textContent = "— Zolomon's Corner 🐐";
+}
+function openZcArticle(slug) {
+    openZc = slug;
+    renderZc(slug);
+    $('#zcModal').classList.add('open');
+    $('#zcModal').scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    $('#zcClose').focus();
+}
+function closeZc() {
+    $('#zcModal').classList.remove('open');
+    document.body.style.overflow = '';
+    openZc = null;
+}
 
 /* ============================================================
    PROFİL
@@ -769,23 +1225,23 @@ function openProfile(id) {
     $('#profileContent').innerHTML = `
         <div class="prof-hero"><img data-id="${f.id}" src="${avatar(f)}" alt="${esc(f.n)}"><div class="prof-overlay"></div></div>
         <div class="prof-info">
-            <div class="prof-meta">${f.c ? '👑 Şampiyon · ' : ''}${ORG_NAME[f.org]} · ${esc(f.div)} · ${esc(f.co)}</div>
+            <div class="prof-meta">${f.c ? t('champ') + ' · ' : ''}${orgName(f)} · ${esc(f.div)} · ${esc(f.co)}</div>
             <div class="prof-name">${esc(f.n)}</div>
             <div style="height:16px"></div>
-            ${f.note ? `<div class="info-box"><small>Durum</small>${esc(f.note)}</div>` : ''}
-            ${f.next ? `<div class="info-box next"><small>Sıradaki maç</small>${esc(f.next)}</div>` : ''}
+            ${f.note ? `<div class="info-box"><small>${t('prof.status')}</small>${esc(f.note)}</div>` : ''}
+            ${f.next ? `<div class="info-box next"><small>${t('prof.next')}</small>${esc(f.next)}</div>` : ''}
             <div style="height:6px"></div>
             <div class="stats-row">
-                <div class="stat-box"><div class="stat-val" style="font-size:${f.nc ? 15 : 18}px">${rec(f)}</div><div class="stat-lbl">Rekor</div></div>
-                <div class="stat-box"><div class="stat-val">${nz(f.sl)}</div><div class="stat-lbl">Vuruş / dk</div></div>
-                <div class="stat-box"><div class="stat-val">${f.ac == null ? '—' : '%' + f.ac}</div><div class="stat-lbl">İsabet</div></div>
+                <div class="stat-box"><div class="stat-val" style="font-size:${f.nc ? 15 : 18}px">${rec(f)}</div><div class="stat-lbl">${t('prof.record')}</div></div>
+                <div class="stat-box"><div class="stat-val">${nz(f.sl)}</div><div class="stat-lbl">${t('prof.slpm')}</div></div>
+                <div class="stat-box"><div class="stat-val">${f.ac == null ? '—' : '%' + f.ac}</div><div class="stat-lbl">${t('prof.acc')}</div></div>
             </div>
             <div class="stats-row" style="margin-bottom:24px">
-                <div class="stat-box"><div class="stat-val">${nz(f.td)}</div><div class="stat-lbl">Takedown / 15 dk</div></div>
-                <div class="stat-box"><div class="stat-val">${nz(f.sb)}</div><div class="stat-lbl">Submission / 15 dk</div></div>
-                <div class="stat-box"><div class="stat-val" style="font-size:15px">${esc(nz(f.st))}</div><div class="stat-lbl">Ana stil</div></div>
+                <div class="stat-box"><div class="stat-val">${nz(f.td)}</div><div class="stat-lbl">${t('prof.td')}</div></div>
+                <div class="stat-box"><div class="stat-val">${nz(f.sb)}</div><div class="stat-lbl">${t('prof.sub')}</div></div>
+                <div class="stat-box"><div class="stat-val" style="font-size:15px">${esc(nz(f.st))}</div><div class="stat-lbl">${t('prof.style')}</div></div>
             </div>
-            <div class="section-title" style="margin:0 0 12px">Son maçlar</div>
+            <div class="section-title" style="margin:0 0 12px"><span>${t('prof.recent')}</span></div>
             ${f.h.length ? f.h.map(h => `
                 <div class="hist-item">
                     <div style="display:flex;align-items:center;gap:12px">
@@ -793,10 +1249,10 @@ function openProfile(id) {
                         <span style="font-weight:700;font-size:14px">${esc(h.o)}</span>
                     </div>
                     <span style="color:var(--muted);font-size:12px;font-weight:600;text-align:right">${esc(h.m)}${h.rd ? ' · R' + h.rd : ''}</span>
-                </div>`).join('') : '<div style="color:var(--muted);font-size:13px;padding:6px 0">Bu dövüşçü için maç verisi henüz eklenmedi.</div>'}
+                </div>`).join('') : `<div style="color:var(--muted);font-size:13px;padding:6px 0">${t('prof.noData')}</div>`}
             ${stats
-                ? '<button class="chip active" id="cmpFromProfile" style="margin-top:18px;font-size:14px;padding:12px 20px">Karşılaştırmaya ekle</button>'
-                : '<div style="color:var(--muted);font-size:12px;margin-top:18px">İstatistik verisi henüz eklenmediği için karşılaştırmada yer almıyor.</div>'}
+                ? `<button class="chip active" id="cmpFromProfile" style="margin-top:18px;font-size:14px;padding:12px 20px">${t('prof.addCmp')}</button>`
+                : `<div style="color:var(--muted);font-size:12px;margin-top:18px">${t('prof.noStats')}</div>`}
         </div>`;
     swapPhoto($('#profileContent img'), f);
     updateFavBtn();
@@ -817,7 +1273,7 @@ function updateFavBtn() {
     const b = $('#favBtn');
     b.textContent = on ? '★' : '☆';
     b.classList.toggle('on', on);
-    b.setAttribute('aria-label', on ? 'Favorilerden çıkar' : 'Favorilere ekle');
+    b.setAttribute('aria-label', on ? t('fav.remove') : t('fav.add'));
 }
 
 /* ============================================================
@@ -825,11 +1281,11 @@ function updateFavBtn() {
    ============================================================ */
 let chartInstance = null, cmpReady = false;
 const METRICS = [
-    {k:'sl', l:'Vuruş (dk başına)', max:10, wt:.22},
-    {k:'ac', l:'Vuruş isabeti (%)', max:100, wt:.18},
-    {k:'td', l:'Takedown (15 dk)', max:8, wt:.22},
-    {k:'sb', l:'Submission (15 dk)', max:4, wt:.18},
-    {k:'w',  l:'Galibiyet', max:40, wt:.20}
+    {k:'sl', l:'m.strikes', max:10, wt:.22},
+    {k:'ac', l:'m.acc', max:100, wt:.18},
+    {k:'td', l:'m.td', max:8, wt:.22},
+    {k:'sb', l:'m.sub', max:4, wt:.18},
+    {k:'w',  l:'m.exp', max:40, wt:.20}
 ];
 const norm = (f, m) => Math.min(100, (f[m.k] / m.max) * 100);
 
@@ -840,7 +1296,7 @@ function initCompare() {
     const opts = pool.map(f => `<option value="${f.id}">${esc(f.n)} (${esc(f.div)})</option>`).join('');
     $('#cmpA').innerHTML = opts; $('#cmpB').innerHTML = opts;
     $('#cmpA').value = 1; $('#cmpB').value = 3;
-    $('#cmpSub').textContent = pool.length + ' dövüşçü karşılaştırılabilir';
+    $('#cmpSub').textContent = t('cmp.pool').replace('{n}', pool.length);
     $('#cmpA').onchange = $('#cmpB').onchange = updateCompare;
     $('#cmpSwap').onclick = () => { const a = $('#cmpA').value; $('#cmpA').value = $('#cmpB').value; $('#cmpB').value = a; updateCompare(); };
 }
@@ -861,11 +1317,11 @@ function updateCompare() {
     $$('#cmpFaces img').forEach(img => swapPhoto(img, byId(img.dataset.id)));
 
     if (f1.id === f2.id) {
-        $('#aiWinner').textContent = 'Aynı dövüşçü';
-        $('#aiConf').textContent = 'Karşılaştırmak için farklı iki dövüşçü seç.';
+        $('#aiWinner').textContent = t('cmp.same');
+        $('#aiConf').textContent = t('cmp.sameHint');
         $('#pbA').style.width = '50%'; $('#pbB').style.width = '50%';
     } else {
-        const sc = f => METRICS.reduce((t, m) => t + norm(f, m) * m.wt, 0) * (f.l + f.d === 0 ? 1.04 : 1);
+        const sc = f => METRICS.reduce((s, m) => s + norm(f, m) * m.wt, 0) * (f.l + f.d === 0 ? 1.04 : 1);
         const s1 = sc(f1), s2 = sc(f2);
         const p1 = Math.round(Math.min(80, Math.max(20, 50 + (s1 - s2) * 1.1)));
         $('#aiWinner').textContent = p1 >= 50 ? f1.n : f2.n;
@@ -878,7 +1334,7 @@ function updateCompare() {
         const w1 = sum ? a / sum * 100 : 50;
         const c1 = a >= b ? 'var(--primary)' : 'var(--muted)';
         const c2 = b >= a ? 'var(--danger)' : 'var(--muted)';
-        return `<div class="cmp-head"><span class="v" style="color:${c1}">${a}</span><span class="l">${m.l}</span><span class="v" style="color:${c2}">${b}</span></div>
+        return `<div class="cmp-head"><span class="v" style="color:${c1}">${a}</span><span class="l">${t(m.l)}</span><span class="v" style="color:${c2}">${b}</span></div>
         <div class="cmp-bar-bg"><i style="width:${w1}%;background:${c1}"></i><i style="width:${100 - w1}%;background:${c2}"></i></div>`;
     }).join('');
 
@@ -889,7 +1345,7 @@ function updateCompare() {
     chartInstance = new Chart($('#radarChart').getContext('2d'), {
         type: 'radar',
         data: {
-            labels: ['Vuruş', 'İsabet', 'Takedown', 'Submission', 'Tecrübe'],
+            labels: [t('m.strikes'), t('m.acc'), t('m.td'), t('m.sub'), t('m.exp')],
             datasets: [f1, f2].map((f, i) => ({
                 label: f.n, data: METRICS.map(m => Math.round(norm(f, m))),
                 borderColor: i ? '#ef4444' : '#ccff00', backgroundColor: i ? 'rgba(239,68,68,.18)' : 'rgba(204,255,0,.16)',
@@ -905,10 +1361,10 @@ function updateCompare() {
 }
 
 /* ============================================================
-   GELİŞTİRİCİNİN SEÇİMİ — render
+   GELİŞTİRİCİNİN SEÇİMİ — render (korundu)
    ============================================================ */
 function paras(text) {
-    return text.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean).map(t => `<p>${esc(t)}</p>`).join('');
+    return text.split(/\n\s*\n/).map(t2 => t2.trim()).filter(Boolean).map(t2 => `<p>${esc(t2)}</p>`).join('');
 }
 function setEditorialImg(imgEl) {
     const f = byId(EDITORIAL.id);
@@ -928,8 +1384,8 @@ function renderStory() {
     let html = '';
     if (storyTab === 'karne') {
         html += `<div class="karne">
-            <div class="stat-box"><div class="stat-val">${rec(f)}</div><div class="stat-lbl">Rekor</div></div>
-            <div class="stat-box"><div class="stat-val">${esc(f.co)}</div><div class="stat-lbl">Ülke</div></div>
+            <div class="stat-box"><div class="stat-val">${rec(f)}</div><div class="stat-lbl">${t('prof.record')}</div></div>
+            <div class="stat-box"><div class="stat-val">${esc(f.co)}</div><div class="stat-lbl">${t('prof.style') === 'Style' ? 'Country' : 'Ülke'}</div></div>
         </div>
         <ul class="karne-list">
             <li><b>2009:</b> Profesyonel MMA kariyerine başladı.</li>
@@ -941,7 +1397,7 @@ function renderStory() {
             <li><b>Temmuz 2025 · UFC 318:</b> Max Holloway'e yenilip kariyerini bitirdi.</li>
         </ul>`;
     }
-    html += secs.length ? secs.map(sectionHTML).join('') : '<p class="todo">Bu bölüm henüz yazılmadı.</p>';
+    html += secs.length ? secs.map(sectionHTML).join('') : '<p class="todo">—</p>';
     $('#storyBody').innerHTML = html;
     $('#storySign').textContent = EDITORIAL.sign;
 }
@@ -963,7 +1419,9 @@ function closeStory() {
 /* ============================================================
    NAVİGASYON & OLAYLAR
    ============================================================ */
+let curPage = 'home';
 function nav(page) {
+    curPage = page;
     $$('.page').forEach(p => p.classList.add('hidden'));
     $('#page-' + page).classList.remove('hidden');
     $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
@@ -972,10 +1430,20 @@ function nav(page) {
     if (page === 'news') renderNews();
     if (page === 'events') renderEvents();
     if (page === 'compare') { initCompare(); updateCompare(); }
+    if (page === 'corner') renderCorner();
     window.scrollTo(0, 0);
 }
 
 document.addEventListener('click', e => {
+    const newsCard = e.target.closest('.news-card');
+    if (newsCard) {
+        if (e.target.closest('a')) return;
+        newsCard.classList.toggle('open');
+        newsCard.setAttribute('aria-expanded', newsCard.classList.contains('open'));
+        return;
+    }
+    const zc = e.target.closest('[data-zc]');
+    if (zc) return openZcArticle(zc.dataset.zc);
     const open = e.target.closest('[data-open]');
     if (open) return openProfile(open.dataset.open);
     const navBtn = e.target.closest('.nav-item');
@@ -998,20 +1466,33 @@ $('#newsFilters').addEventListener('click', e => {
     $$('#newsFilters .chip').forEach(x => x.classList.toggle('active', x === c));
     newsGroup = c.dataset.g; renderNews();
 });
+$('#zcFilters').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    $$('#zcFilters .chip').forEach(x => x.classList.toggle('active', x === c));
+    zcCat = c.dataset.cat; renderCorner();
+});
 $('#searchInput').addEventListener('input', renderFighters);
 $('#sortSelect').addEventListener('change', renderFighters);
 $('#newsSearch').addEventListener('input', renderNews);
 $('#closeBtn').onclick = closeProfile;
+$('#zcClose').onclick = closeZc;
 $('#favBtn').onclick = () => {
     if (openId == null) return;
     favs.has(openId) ? favs.delete(openId) : favs.add(openId);
     saveFavs(); updateFavBtn();
-    if (!$('#page-fighters').classList.contains('hidden')) renderFighters();
-    if (!$('#page-home').classList.contains('hidden')) renderHome();
+    if (curPage === 'fighters') renderFighters();
+    if (curPage === 'home') renderHome();
 };
 document.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('news-card')) {
+        e.preventDefault();
+        e.target.classList.toggle('open');
+        e.target.setAttribute('aria-expanded', e.target.classList.contains('open'));
+        return;
+    }
     if (e.key !== 'Escape') return;
-    if ($('#storyModal').classList.contains('open')) closeStory();
+    if ($('#zcModal').classList.contains('open')) closeZc();
+    else if ($('#storyModal').classList.contains('open')) closeStory();
     else if (openId != null) closeProfile();
 });
 
@@ -1022,6 +1503,43 @@ $('#storyTabs').addEventListener('click', e => {
     storyTab = c.dataset.tab; renderStory();
 });
 
+/* ============================================================
+   DİL
+   ============================================================ */
+function buildSortOptions() {
+    $('#sortSelect').innerHTML = [['rank','sort.rank'],['name','sort.name'],['wins','sort.wins'],['sl','sort.sl'],['td','sort.td']]
+        .map(([v, k]) => `<option value="${v}">${t(k)}</option>`).join('');
+}
+function applyLang() {
+    document.documentElement.lang = lang;
+    $('#langBtn').textContent = lang.toUpperCase();
+    $('#langBtn').setAttribute('aria-label', t('lang.aria'));
+    $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    $('#heroTitle').innerHTML = t('hero.title');
+    $('#heroP').textContent = t('hero.p');
+    $('#updatedLine').textContent = t('updated');
+    $('#cornerSub').textContent = t('corner.sub');
+    $('#profileHead').textContent = t('prof.head');
+    $('#cmpTitle').textContent = t('cmp.title');
+    $('#aiPredTitle').textContent = t('cmp.pred');
+    $('#cmpNote').textContent = t('cmp.note');
+    $('#cmpSub').textContent = t('cmp.pool').replace('{n}', DB.filter(hasStats).length);
+    $('#searchInput').placeholder = t('search.fighters');
+    $('#newsSearch').placeholder = t('search.news');
+    buildSortOptions();
+    if ($('#storyModal').classList.contains('open')) renderStory();
+    if (openZc) renderZc(openZc);
+    nav(curPage);
+}
+$('#langBtn').onclick = () => {
+    lang = lang === 'tr' ? 'en' : 'tr';
+    store.set('zmma:lang', lang);
+    applyLang();
+};
+
+buildSortOptions();
+if (lang === 'en') applyLang();
+else { $('#langBtn').textContent = 'TR'; $('#heroP').textContent = t('hero.p'); $('#updatedLine').textContent = t('updated'); $('#cornerSub').textContent = t('corner.sub'); }
 renderHome();
 </script>
 </body>
